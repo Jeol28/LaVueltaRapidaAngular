@@ -29,7 +29,7 @@
 
     <!-- NO LOGUEADO -->
     <div *ngIf="!user" class="header-btns">
-        <a routerLink="/login" class="btn btn-outline">INICIAR SESIÓN</a>
+        <a (click)="login()" class="btn btn-outline" style="cursor:pointer">INICIAR SESIÓN</a>
         <a routerLink="/register" class="btn">REGISTRARSE</a>
     </div>
 
@@ -121,7 +121,7 @@
       <div class="mobile-actions">
 
         <div *ngIf="!user" class="mobile-btns">
-          <a routerLink="/login" class="btn btn-outline btn-mobile">INICIAR SESIÓN</a>
+          <a (click)="login()" class="btn btn-outline btn-mobile" style="cursor:pointer">INICIAR SESIÓN</a>
           <a routerLink="/register" class="btn btn-mobile">REGISTRARSE</a>
         </div>
 

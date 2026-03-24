@@ -31,9 +31,14 @@ export class HeaderComponent {
     this.isScrolled = window.scrollY > 10;
   }
 
+  login() {
+    this.user = 'Admin';
+    this.isAdmin = true;
+  }
+
   logout() {
-  this.user = null;
-  this.isAdmin = false;
-}
+    this.user = null;
+    this.isAdmin = false;
+  }
 
 }
