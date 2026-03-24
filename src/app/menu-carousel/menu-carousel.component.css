@@ -55,6 +55,11 @@
 }
 
 :host ::ng-deep .carousel-btn::after {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+}
+
+:host ::ng-deep .carousel-btn svg {
   display: none !important;
 }
 
