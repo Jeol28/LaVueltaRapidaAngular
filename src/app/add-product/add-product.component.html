@@ -1,1 +1,112 @@
-<p>add-product works!</p>
+<section class="add-hero">
+  <h1 *ngIf="!editMode">AGREGAR <span>PRODUCTO</span></h1>
+  <h1 *ngIf="editMode">MODIFICAR <span>PRODUCTO</span></h1>
+  <p>{{ editMode ? 'Edita los datos de tu producto' : 'Suma un nuevo plato a la parrilla de salida' }}</p>
+</section>
+
+<main class="add-container">
+  <div class="form-card">
+
+    <div class="form-header">
+      <div class="form-header-accent"></div>
+      <h2>{{ editMode ? 'EDITAR PRODUCTO' : 'NUEVO PRODUCTO' }}</h2>
+      <p>{{ editMode ? 'Modifica los datos del producto seleccionado' : 'Completa los datos del producto que deseas agregar al menú' }}</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #productForm="ngForm" class="product-form">
+
+      <div class="form-grid">
+
+        <div class="form-group full-width">
+          <label for="name">Nombre del producto</label>
+          <input type="text" id="name" name="name"
+                 [(ngModel)]="comida.name"
+                 placeholder="Ej: Pizza Turbo Trufa" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="description">Descripción</label>
+          <textarea id="description" name="description"
+                    [(ngModel)]="comida.description"
+                    rows="3"
+                    placeholder="Describe los ingredientes y características del producto"
+                    required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Precio</label>
+          <div class="input-with-prefix">
+            <span class="input-prefix">COP</span>
+            <input type="number" id="price" name="price"
+                   [(ngModel)]="comida.price"
+                   min="0" placeholder="0" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="categoryId">Categoría</label>
+          <select id="categoryId" name="categoryId"
+                  [(ngModel)]="comida.categoryId" required>
+            <option [value]="null" disabled>Selecciona una categoría</option>
+            <option *ngFor="let cat of categorias"
+                    [value]="cat.id">{{ cat.name }}</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="image-row">
+
+        <div class="image-left-col">
+          <div class="form-group">
+            <label for="image">URL de la imagen</label>
+            <input type="url" id="image" name="image"
+                   [(ngModel)]="comida.image"
+                   (input)="onImageInput()"
+                   placeholder="https://ejemplo.com/imagen.jpg" required>
+          </div>
+
+          <div class="form-group">
+            <label class="toggle-label">Disponibilidad</label>
+            <div class="toggle-wrapper">
+              <label class="toggle-switch">
+                <input type="checkbox" name="available"
+                       [(ngModel)]="comida.available"
+                       id="availableToggle">
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-text">{{ availableLabel }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-preview-col">
+          <div class="form-preview">
+            <div class="preview-placeholder" *ngIf="!previewUrl">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span>Vista previa</span>
+            </div>
+            <img *ngIf="previewUrl"
+                 [src]="previewUrl"
+                 alt="Vista previa"
+                 class="preview-img">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <a [routerLink]="['/producto/menutabla']" class="btn-cancel">CANCELAR</a>
+        <button type="submit" class="btn-submit">
+          {{ editMode ? 'GUARDAR CAMBIOS' : 'AGREGAR AL MENÚ' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</main>
