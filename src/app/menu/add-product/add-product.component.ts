@@ -56,10 +56,6 @@ export class AddProductComponent implements OnInit {
     this.previewUrl = this.comida.image;
   }
 
-  get availableLabel(): string {
-    return this.comida.available ? 'Disponible en el menú' : 'No disponible';
-  }
-
   onSubmit(): void {
     if (this.editMode && this.editId !== null) {
       this.comidaService.update(this.editId, this.comida);

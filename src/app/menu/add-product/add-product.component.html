@@ -67,18 +67,12 @@
           </div>
 
           <div class="form-group">
-            <label class="toggle-label">Disponibilidad</label>
-            <div class="toggle-wrapper">
-              <label class="toggle-switch">
-                <input type="checkbox" name="available"
-                       [(ngModel)]="comida.available"
-                       id="availableToggle">
-                <span class="slider"></span>
-              </label>
-              <label class="form-check-label" for="availableToggle" id="toggleText">
-                {{ availableLabel }}
-              </label>
-            </div>
+            <label for="availableToggle" id="toggleText">Disponibilidad</label>
+            <select id="availableToggle" name="available"
+                    [(ngModel)]="comida.available">
+              <option [ngValue]="true">Disponible en el menú</option>
+              <option [ngValue]="false">No disponible</option>
+            </select>
           </div>
         </div>
 
