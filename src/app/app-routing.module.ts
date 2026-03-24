@@ -5,13 +5,12 @@ import { MenuAdminComponent } from './menu/menu-admin/menu-admin.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'menu', component: MenuAdminComponent },
   { path: 'producto/menutabla', component: MenuAdminComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

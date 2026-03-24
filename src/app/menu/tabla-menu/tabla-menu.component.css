@@ -38,20 +38,24 @@
 
 .menu-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-bottom: 50px;
-  table-layout: fixed; /* 🔥 Mantiene alineación entre tablas */
+  table-layout: fixed;
 }
 
 .menu-table tbody tr {
-  border-bottom: 1px solid #1f1f1f;
   transition: all 0.25s ease;
   cursor: pointer;
 }
 
+.menu-table tbody td {
+  border-bottom: 1px solid #1f1f1f;
+}
+
 .menu-table tbody tr:hover {
   background-color: #161616;
-  transform: scaleX(1.01);
+  transform: scale(1.01);
 }
 
 /* CELDAS */
