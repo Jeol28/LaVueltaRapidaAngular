@@ -12,7 +12,6 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HeroMenuComponent } from './menu/hero-menu/hero-menu.component';
 import { TablaMenuComponent } from './menu/tabla-menu/tabla-menu.component';
 import { MenuAdminComponent } from './menu/menu-admin/menu-admin.component';
-import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { LandingComponent } from './landing/landing.component';
     FooterComponent,
     HeroMenuComponent,
     TablaMenuComponent,
-    MenuAdminComponent,
-    LandingComponent
+    MenuAdminComponent
   ],
   imports: [
     BrowserModule,
