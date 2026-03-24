@@ -21,43 +21,22 @@
             </div>
 
             <div class="experience-features">
-              <div class="exp-feature-card">
-                <div class="exp-feature-icon">
-                  <img src="assets/Images/Transmision.png" alt="Transmisiones en vivo">
-                </div>
-                <div class="exp-feature-text">
-                  <h3>Transmisiones en vivo</h3>
-                  <p>Disfruta cada carrera en pantallas HD mientras saboreas tu pizza.</p>
-                </div>
+
+            <div class="exp-feature-card" *ngFor="let feature of features">
+          
+              <div class="exp-feature-icon">
+                <img [src]="feature.icon" [alt]="feature.title">
               </div>
-              <div class="exp-feature-card">
-                <div class="exp-feature-icon">
-                  <img src="assets/Images/Ambiente.png" alt="Ambiente de circuito">
-                </div>
-                <div class="exp-feature-text">
-                  <h3>Ambiente de circuito</h3>
-                  <p>Decoración auténtica que te transporta al paddock de F1.</p>
-                </div>
+          
+              <div class="exp-feature-text">
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.desc }}</p>
               </div>
-              <div class="exp-feature-card">
-                <div class="exp-feature-icon">
-                  <img src="assets/Images/Ranking.png" alt="Ranking de pilotos">
-                </div>
-                <div class="exp-feature-text">
-                  <h3>Ranking de pilotos</h3>
-                  <p>Compite con otros clientes por el primer lugar en el leaderboard.</p>
-                </div>
-              </div>
-              <div class="exp-feature-card">
-                <div class="exp-feature-icon">
-                  <img src="assets/Images/atmosfera.png" alt="Atmósfera competitiva">
-                </div>
-                <div class="exp-feature-text">
-                  <h3>Atmósfera competitiva</h3>
-                  <p>Siente la adrenalina de la competencia en cada bocado.</p>
-                </div>
-              </div>
+          
             </div>
+          
+          </div>
+
           </div>
         </div>
 
