@@ -54,6 +54,7 @@
   transform: scale(1.01);
   position: relative;
   z-index: 2;
+  border-bottom-color: transparent;
 }
 
 /* CELDAS */
