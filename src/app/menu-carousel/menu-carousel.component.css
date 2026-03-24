@@ -1,3 +1,4 @@
+/* ── Carousel ── */
 .menu-swiper {
   padding-bottom: 48px !important;
 }
@@ -45,25 +46,25 @@
   padding-top: 8px;
 }
 
-.carousel-btn {
+:host ::ng-deep .carousel-btn {
   color: #fff !important;
-  background: rgba(225,6,0,0.8) !important;
+  background: rgba(225, 6, 0, 0.8) !important;
   border-radius: 50% !important;
   width: 40px !important;
   height: 40px !important;
 }
 
-.carousel-btn::after {
+:host ::ng-deep .carousel-btn::after {
   font-size: 14px !important;
   font-weight: 900 !important;
 }
 
-.carousel-pagination .swiper-pagination-bullet {
+:host ::ng-deep .carousel-pagination .swiper-pagination-bullet {
   background: #e10600;
   opacity: 0.4;
 }
 
-.carousel-pagination .swiper-pagination-bullet-active {
+:host ::ng-deep .carousel-pagination .swiper-pagination-bullet-active {
   opacity: 1;
 }
 
@@ -140,7 +141,7 @@
 
 .pizza-card-img-wrapper {
   width: 100%;
-  aspect-ratio: 4 / 3;  
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 14px;
 }
@@ -148,7 +149,7 @@
 .pizza-card-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;     
+  object-fit: cover;
   object-position: center;
   transition: transform 0.4s ease;
 }
@@ -170,6 +171,7 @@
   height: 3px;
   background-color: var(--red);
 }
+
 /* ================= TITULO ================= */
 
 .pizza-card-body h4 {
