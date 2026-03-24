@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroComponent } from './landing/hero/hero.component';
 import { SizeStamentComponent } from './landing/size-stament/size-stament.component';
-import { MenuCarouselComponent } from './menu-carousel/menu-carousel.component';
+import { MenuCarouselComponent } from './landing/menu-carousel/menu-carousel.component';
 import { ExperienceComponent } from './landing/experience/experience.component';
 import { FooterComponent } from './footer/footer.component';
 
