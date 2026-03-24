@@ -1,0 +1,84 @@
+<section class="hero-section">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+    <div class="row g-0 align-items-start">
+
+      <!-- TEXTO -->
+      <div class="col-lg-6">
+        <div class="hero-content">
+
+          <div class="hero-title-block">
+            <h1 class="hero-title">
+              PIZZAS<br>
+              ARTESANALES<br>
+              <span class="hero-title-accent">A MÁXIMA</span><br>
+              VELOCIDAD
+            </h1>
+
+            <p class="hero-subtitle">
+              Ingredientes frescos, masa propia y sabor de podio.<br>
+              Donde cada bocado es una vuelta hacia la perfección.
+            </p>
+          </div>
+
+          <!-- BOTONES -->
+          <div class="hero-buttons">
+
+            <!-- Angular routing -->
+            <a routerLink="/menu" class="btn-hero-primary">
+              <img class="Iniciar-Pedido-icon"
+                   width="14"
+                   height="29"
+                   src="assets/Images/Iniciar-Pedido.png"
+                   alt="pedido">
+              VER EL MENÚ
+            </a>
+
+            <a href="#experiencia" class="btn-hero-secondary">
+              CONOCE EL RESTAURANTE
+            </a>
+
+          </div>
+
+          <!-- STATS -->
+          <div class="hero-stats">
+
+            <div class="stat-item">
+              <div class="stat-value">
+                {{ clientesHoy }}
+              </div>
+              <div class="stat-label">CLIENTES HOY</div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-value">
+                {{ entregaMin }}min
+              </div>
+              <div class="stat-label">ENTREGA RÉCORD</div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-value">
+                {{ rating }}★
+              </div>
+              <div class="stat-label">CALIFICACIÓN</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- IMAGEN -->
+      <div class="col-lg-6">
+        <div class="hero-image-wrapper">
+          <img src="assets/Images/HeroLogo.png"
+               alt="Logo"
+               class="hero-image">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

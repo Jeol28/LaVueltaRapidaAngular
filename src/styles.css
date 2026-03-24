@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --red: #e10600;
+  --dark: #0f0f0f;
+  --gold: #ffd700;
+  --white: #ffffff;
+  --gray-light: #e5e7eb;
+  --gray: #9ca3af;
+  --gray-dark: #1f2937;
+  --red-dark: #c10500;
+  --gray-soft: #d1d5db;
+  --dark-alt: #111827;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  background-color: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.text-red {
+  color: var(--red);
+}
+

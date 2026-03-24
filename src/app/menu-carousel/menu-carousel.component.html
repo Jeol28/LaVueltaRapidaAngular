@@ -1,0 +1,56 @@
+<section class="top-pizzas-section" id="menu-carousel">
+  <div class="top-pizzas-inner">
+
+    <!-- HEADER -->
+    <header class="top-pizzas-header">
+      <h2 class="top-pizzas-title">
+        NUESTRO <span class="text-red">MENÚ</span>
+      </h2>
+      <div class="top-pizzas-divider"></div>
+      <p class="top-pizzas-subtitle">
+        Pizzas artesanales con nombres de circuitos legendarios
+      </p>
+    </header>
+
+    <!-- SWIPER -->
+    <div class="swiper menu-swiper">
+      <div class="swiper-wrapper">
+
+        <!-- ANGULAR LOOP -->
+        <div class="swiper-slide" *ngFor="let comida of comidas">
+
+          <a [routerLink]="['/producto', comida.id]" class="pizza-card">
+
+            <div class="pizza-card-img-wrapper">
+              <img [src]="comida.image"
+                   [alt]="comida.name"
+                   class="pizza-card-img">
+            </div>
+
+            <div class="pizza-card-body">
+              <div class="pizza-card-accent"></div>
+
+              <h4>{{ comida.name }}</h4>
+
+              <p>{{ comida.description }}</p>
+
+              <span class="pizza-card-price">
+                {{ comida.price | currency:'COP':'symbol':'1.0-0' }}
+              </span>
+
+            </div>
+
+          </a>
+
+        </div>
+
+      </div>
+
+      <!-- CONTROLES -->
+      <div class="swiper-button-prev carousel-btn carousel-btn--prev"></div>
+      <div class="swiper-button-next carousel-btn carousel-btn--next"></div>
+      <div class="swiper-pagination carousel-pagination"></div>
+    </div>
+
+  </div>
+</section>
