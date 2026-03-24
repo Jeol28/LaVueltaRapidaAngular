@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,38 +8,34 @@ import { Component, HostListener } from '@angular/core';
 })
 export class HeaderComponent {
 
-  
-  user: string | null = "Jorge"; // prueba
-  isAdmin: boolean = false;
-
-  ngOnInit() {
-    this.isAdmin = this.user === 'Admin';
-  }
-  
-  cartCount: number = 3; // cantidad de productos
-
+  cartCount: number = 3;
   isMenuOpen = false;
   isScrolled = false;
 
-  // Toggle menú móvil
+  constructor(public auth: AuthService) {}
+
+  get user(): string | null {
+    return this.auth.username;
+  }
+
+  get isAdmin(): boolean {
+    return this.auth.isAdmin;
+  }
+
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  // Detectar scroll (equivalente al window.addEventListener)
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 10;
   }
 
   login() {
-    this.user = 'Admin';
-    this.isAdmin = true;
+    this.auth.loginDemo();
   }
 
   logout() {
-    this.user = null;
-    this.isAdmin = false;
+    this.auth.logout();
   }
-
 }
