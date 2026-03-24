@@ -176,6 +176,14 @@
   background-color: var(--red);
 }
 
+.pizza-card-category {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--red);
+}
+
 /* ================= TITULO ================= */
 
 .pizza-card-body h4 {

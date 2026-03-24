@@ -1,6 +1,8 @@
 import { Component, AfterViewInit } from '@angular/core';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
+import { Comida } from '../../models/comida.model';
+import { COMIDAS } from '../../data/mock-data';
 
 @Component({
   selector: 'app-menu-carousel',
@@ -9,45 +11,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 })
 export class MenuCarouselComponent implements AfterViewInit {
 
-  comidas = [
-    {
-      id: 1,
-      name: 'Monza',
-      description: 'Pizza clásica italiana',
-      price: 25000,
-      image: 'assets/Images/pizza-diavola.png'
-    },
-    {
-      id: 2,
-      name: 'Silverstone',
-      description: 'Con pepperoni y queso',
-      price: 28000,
-      image: 'assets/Images/pizza-margherita.png'
-    },
-
-    {
-      id: 3,
-      name: 'Spa',
-      description: 'Pizza con jamón y champiñones',
-      price: 30000,
-      image: 'assets/Images/pizza-pepperoni.png'
-    },
-    {
-      id: 4,
-      name: 'Suzuka',
-      description: 'Pizza vegetariana con verduras frescas',
-      price: 27000,
-      image: 'assets/Images/pizza-prosciutto.png'
-    },
-    {
-      id: 5,
-      name: 'Interlagos',
-      description: 'Pizza con pollo, maíz y salsa BBQ',
-      price: 32000,
-      image: 'assets/Images/pizza-quattro-formaggi.png'
-    }
-
-  ];
+  comidas: Comida[] = COMIDAS;
 
   ngAfterViewInit(): void {
     new Swiper('.menu-swiper', {
