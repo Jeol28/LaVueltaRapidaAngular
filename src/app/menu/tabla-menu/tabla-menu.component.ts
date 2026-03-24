@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Categoria } from '../models/categoria.model';
-import { Comida } from '../models/comida.model';
-import { CATEGORIAS, COMIDAS } from '../data/mock-data';
+import { Categoria } from '../../models/categoria.model';
+import { Comida } from '../../models/comida.model';
+import { CATEGORIAS, COMIDAS } from '../../data/mock-data';
 
 @Component({
   selector: 'app-tabla-menu',

@@ -9,8 +9,9 @@ import { SizeStamentComponent } from './landing/size-stament/size-stament.compon
 import { MenuCarouselComponent } from './landing/menu-carousel/menu-carousel.component';
 import { ExperienceComponent } from './landing/experience/experience.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { HeroMenuComponent } from './hero-menu/hero-menu.component';
-import { TablaMenuComponent } from './tabla-menu/tabla-menu.component';
+import { HeroMenuComponent } from './menu/hero-menu/hero-menu.component';
+import { TablaMenuComponent } from './menu/tabla-menu/tabla-menu.component';
+import { MenuAdminComponent } from './menu/menu-admin/menu-admin.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TablaMenuComponent } from './tabla-menu/tabla-menu.component';
     ExperienceComponent,
     FooterComponent,
     HeroMenuComponent,
-    TablaMenuComponent
+    TablaMenuComponent,
+    MenuAdminComponent
   ],
   imports: [
     BrowserModule,
