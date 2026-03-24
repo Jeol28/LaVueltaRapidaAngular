@@ -51,6 +51,9 @@
 
 .menu-table tbody tr:hover {
   background-color: #161616;
+  transform: scale(1.01);
+  position: relative;
+  z-index: 2;
 }
 
 /* CELDAS */
