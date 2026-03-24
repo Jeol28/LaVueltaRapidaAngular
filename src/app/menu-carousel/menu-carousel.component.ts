@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 
 @Component({
   selector: 'app-menu-carousel',
@@ -50,6 +51,7 @@ export class MenuCarouselComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     new Swiper('.menu-swiper', {
+      modules: [Navigation, Pagination],
       slidesPerView: 1,
       spaceBetween: 20,
       loop: true,
