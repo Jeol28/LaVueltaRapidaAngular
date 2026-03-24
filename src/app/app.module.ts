@@ -4,10 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { HeroComponent } from './hero/hero.component';
-import { SizeStamentComponent } from './size-stament/size-stament.component';
+import { HeroComponent } from './landing/hero/hero.component';
+import { SizeStamentComponent } from './landing/size-stament/size-stament.component';
 import { MenuCarouselComponent } from './menu-carousel/menu-carousel.component';
-import { ExperienceComponent } from './experience/experience.component';
+import { ExperienceComponent } from './landing/experience/experience.component';
 import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
