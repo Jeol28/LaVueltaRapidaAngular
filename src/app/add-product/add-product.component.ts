@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from '../models/categoria.model';
-import { CATEGORIAS, COMIDAS } from '../data/mock-data';
+import { CATEGORIAS } from '../data/mock-data';
+import { ComidaService } from '../services/comida.service';
 
 @Component({
   selector: 'app-add-product',
@@ -11,10 +12,10 @@ import { CATEGORIAS, COMIDAS } from '../data/mock-data';
 export class AddProductComponent implements OnInit {
 
   editMode: boolean = false;
+  editId: number | null = null;
   categorias: Categoria[] = CATEGORIAS;
 
   comida = {
-    id: null as number | null,
     name: '',
     description: '',
     price: null as number | null,
@@ -25,16 +26,20 @@ export class AddProductComponent implements OnInit {
 
   previewUrl: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private comidaService: ComidaService
+  ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.editMode = true;
-      const found = COMIDAS.find(c => c.id === +id);
+      this.editId = +id;
+      const found = this.comidaService.getById(+id);
       if (found) {
         this.comida = {
-          id: found.id,
           name: found.name,
           description: found.description,
           price: found.price,
@@ -56,7 +61,12 @@ export class AddProductComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const successType = this.editMode ? 'updated' : 'added';
-    this.router.navigate(['/producto/menutabla'], { queryParams: { success: successType } });
+    if (this.editMode && this.editId !== null) {
+      this.comidaService.update(this.editId, this.comida);
+      this.router.navigate(['/producto/menutabla'], { queryParams: { success: 'updated' } });
+    } else {
+      this.comidaService.add(this.comida);
+      this.router.navigate(['/producto/menutabla'], { queryParams: { success: 'added' } });
+    }
   }
 }

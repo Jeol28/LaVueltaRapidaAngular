@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from '../../models/categoria.model';
 import { Comida } from '../../models/comida.model';
-import { CATEGORIAS, COMIDAS } from '../../data/mock-data';
+import { CATEGORIAS } from '../../data/mock-data';
+import { ComidaService } from '../../services/comida.service';
 
 @Component({
   selector: 'app-tabla-menu',
@@ -12,7 +13,7 @@ import { CATEGORIAS, COMIDAS } from '../../data/mock-data';
 export class TablaMenuComponent implements OnInit {
 
   categorias: Categoria[] = CATEGORIAS;
-  comidas: Comida[] = COMIDAS;
+  comidas: Comida[] = [];
 
   successMsg: string = '';
   showSuccess: boolean = false;
@@ -21,9 +22,15 @@ export class TablaMenuComponent implements OnInit {
   showError: boolean = false;
   hideError: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private comidaService: ComidaService
+  ) {}
 
   ngOnInit(): void {
+    this.comidas = this.comidaService.getAll();
+
     this.route.queryParams.subscribe(params => {
       const success = params['success'];
       const error   = params['error'];
@@ -60,7 +67,10 @@ export class TablaMenuComponent implements OnInit {
   eliminarProducto(event: Event, id: number): void {
     event.stopPropagation();
     if (confirm('¿Seguro que quieres eliminar este producto?')) {
-      this.router.navigate(['/producto/delete', id]);
+      this.comidaService.delete(id);
+      this.comidas = this.comidaService.getAll();
+      this.successMsg = '¡Producto eliminado correctamente!';
+      this.triggerSuccess();
     }
   }
 }
