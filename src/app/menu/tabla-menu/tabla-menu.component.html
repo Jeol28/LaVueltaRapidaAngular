@@ -18,35 +18,45 @@
                 class="clickable-row">
 
               <td>
-                <img [src]="comida.image"
-                     [alt]="comida.name"
-                     class="table-img">
+                <div class="row-inner">
+                  <img [src]="comida.image"
+                       [alt]="comida.name"
+                       class="table-img">
+                </div>
               </td>
 
               <td>
-                <strong>{{ comida.name }}</strong><br>
-                <span class="desc">{{ comida.description }}</span>
+                <div class="row-inner">
+                  <strong>{{ comida.name }}</strong><br>
+                  <span class="desc">{{ comida.description }}</span>
+                </div>
               </td>
 
               <td class="price-cell">
-                {{ comida.price | currency:'$ ':'symbol':'1.0-0' }} COP
+                <div class="row-inner">
+                  {{ comida.price | currency:'$ ':'symbol':'1.0-0' }} COP
+                </div>
               </td>
 
               <td class="status-cell"
                   [ngClass]="comida.available ? 'status-available' : 'status-unavailable'">
-                {{ comida.available ? 'Disponible' : 'No disponible' }}
+                <div class="row-inner">
+                  {{ comida.available ? 'Disponible' : 'No disponible' }}
+                </div>
               </td>
 
               <td class="actions-cell" (click)="$event.stopPropagation()">
-                <div class="actions-wrapper">
-                  <a [routerLink]="['/producto/update', comida.id]"
-                     class="btn-edit">
-                    Modificar
-                  </a>
-                  <a (click)="eliminarProducto($event, comida.id)"
-                     class="btn-delete">
-                    Eliminar
-                  </a>
+                <div class="row-inner">
+                  <div class="actions-wrapper">
+                    <a [routerLink]="['/producto/update', comida.id]"
+                       class="btn-edit">
+                      Modificar
+                    </a>
+                    <a (click)="eliminarProducto($event, comida.id)"
+                       class="btn-delete">
+                      Eliminar
+                    </a>
+                  </div>
                 </div>
               </td>
 

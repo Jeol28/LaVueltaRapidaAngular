@@ -45,7 +45,6 @@
 }
 
 .menu-table tbody tr {
-  transition: all 0.25s ease;
   cursor: pointer;
 }
 
@@ -55,6 +54,13 @@
 
 .menu-table tbody tr:hover {
   background-color: #161616;
+}
+
+.row-inner {
+  transition: transform 0.25s ease;
+}
+
+.menu-table tbody tr:hover .row-inner {
   transform: scale(1.01);
 }
 
