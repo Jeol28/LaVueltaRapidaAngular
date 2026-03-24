@@ -1,8 +1,8 @@
 import { Component, AfterViewInit } from '@angular/core';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
-import { Comida } from '../../models/comida.model';
-import { COMIDAS } from '../../data/mock-data';
+import { Comida } from '../../../models/comida.model';
+import { COMIDAS } from '../../../data/mock-data';
 
 @Component({
   selector: 'app-menu-carousel',
