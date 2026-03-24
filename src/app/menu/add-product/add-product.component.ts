@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Categoria } from '../models/categoria.model';
-import { CATEGORIAS } from '../data/mock-data';
-import { ComidaService } from '../services/comida.service';
+import { Categoria } from '../../models/categoria.model';
+import { CATEGORIAS } from '../../data/mock-data';
+import { ComidaService } from '../../services/comida.service';
 
 @Component({
   selector: 'app-add-product',

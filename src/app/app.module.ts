@@ -14,7 +14,7 @@ import { HeroMenuComponent } from './menu/hero-menu/hero-menu.component';
 import { TablaMenuComponent } from './menu/tabla-menu/tabla-menu.component';
 import { MenuAdminComponent } from './menu/menu-admin/menu-admin.component';
 import { LandingComponent } from './landing-page/landing/landing.component';
-import { AddProductComponent } from './add-product/add-product.component';
+import { AddProductComponent } from './menu/add-product/add-product.component';
 
 @NgModule({
   declarations: [
