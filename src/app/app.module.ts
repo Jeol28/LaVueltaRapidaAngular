@@ -9,6 +9,7 @@ import { SizeStamentComponent } from './landing/size-stament/size-stament.compon
 import { MenuCarouselComponent } from './landing/menu-carousel/menu-carousel.component';
 import { ExperienceComponent } from './landing/experience/experience.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { HeroMenuComponent } from './hero-menu/hero-menu.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FooterComponent } from './layout/footer/footer.component';
     SizeStamentComponent,
     MenuCarouselComponent,
     ExperienceComponent,
-    FooterComponent
+    FooterComponent,
+    HeroMenuComponent
   ],
   imports: [
     BrowserModule,
