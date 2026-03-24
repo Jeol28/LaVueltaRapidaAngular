@@ -1,0 +1,62 @@
+<section class="menu-list-section">
+  <div class="container">
+
+    <div *ngFor="let categoria of categorias">
+
+      <h2 class="list-category"
+          [ngClass]="(categoria.name === 'Especiales' || categoria.name === 'Bebidas') ? 'yellow' : 'red'">
+        {{ categoria.name }}
+      </h2>
+
+      <div class="table-responsive">
+        <table class="menu-table">
+          <tbody>
+
+            <tr *ngFor="let comida of getComidasByCategoria(categoria)"
+                (click)="irAProducto(comida.id)"
+                [class.row-unavailable]="!comida.available"
+                class="clickable-row">
+
+              <td>
+                <img [src]="comida.image"
+                     [alt]="comida.name"
+                     class="table-img">
+              </td>
+
+              <td>
+                <strong>{{ comida.name }}</strong><br>
+                <span class="desc">{{ comida.description }}</span>
+              </td>
+
+              <td class="price-cell">
+                {{ comida.price | currency:'$ ':'symbol':'1.0-0' }} COP
+              </td>
+
+              <td class="status-cell"
+                  [ngClass]="comida.available ? 'status-available' : 'status-unavailable'">
+                {{ comida.available ? 'Disponible' : 'No disponible' }}
+              </td>
+
+              <td class="actions-cell" (click)="$event.stopPropagation()">
+                <div class="actions-wrapper">
+                  <a [routerLink]="['/producto/update', comida.id]"
+                     class="btn-edit">
+                    Modificar
+                  </a>
+                  <a (click)="eliminarProducto($event, comida.id)"
+                     class="btn-delete">
+                    Eliminar
+                  </a>
+                </div>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</section>

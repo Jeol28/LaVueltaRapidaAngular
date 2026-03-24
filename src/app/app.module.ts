@@ -10,6 +10,7 @@ import { MenuCarouselComponent } from './landing/menu-carousel/menu-carousel.com
 import { ExperienceComponent } from './landing/experience/experience.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeroMenuComponent } from './hero-menu/hero-menu.component';
+import { TablaMenuComponent } from './tabla-menu/tabla-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HeroMenuComponent } from './hero-menu/hero-menu.component';
     MenuCarouselComponent,
     ExperienceComponent,
     FooterComponent,
-    HeroMenuComponent
+    HeroMenuComponent,
+    TablaMenuComponent
   ],
   imports: [
     BrowserModule,
