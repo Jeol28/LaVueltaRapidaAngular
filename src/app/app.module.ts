@@ -15,6 +15,8 @@ import { TablaMenuComponent } from './menu/tabla-menu/tabla-menu.component';
 import { MenuAdminComponent } from './menu/menu-admin/menu-admin.component';
 import { LandingComponent } from './landing-page/landing/landing.component';
 import { AddProductComponent } from './menu/add-product/add-product.component';
+import { CardsComponent } from './cards/cards.component';
+import { FeaturesComponents } from './landing-page/features/features.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,10 @@ import { AddProductComponent } from './menu/add-product/add-product.component';
     TablaMenuComponent,
     MenuAdminComponent,
     LandingComponent,
-    AddProductComponent
+    AddProductComponent,
+    CardsComponent,
+    FeaturesComponents
+
   ],
   imports: [
     BrowserModule,

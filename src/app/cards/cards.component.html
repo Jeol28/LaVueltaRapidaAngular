@@ -1,0 +1,26 @@
+<div class="swiper-slide">
+
+    <a [routerLink]="['/producto', comida.id]" class="pizza-card">
+
+    <div class="pizza-card-img-wrapper">
+        <img [src]="comida.image"
+            [alt]="comida.name"
+            class="pizza-card-img">
+    </div>
+
+    <div class="pizza-card-body">
+        <div class="pizza-card-accent"></div>
+
+        <h4>{{ comida.name }}</h4>
+
+        <p>{{ comida.description }}</p>
+
+        <span class="pizza-card-price">
+        {{ comida.price | currency:'$ ':'symbol':'1.0-0' }}
+        </span>
+
+    </div>
+
+    </a>
+
+</div>

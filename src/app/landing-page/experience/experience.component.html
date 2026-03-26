@@ -21,18 +21,9 @@
             </div>
 
             <div class="experience-features">
+            <div *ngFor="let feature of features">
+              <app-features  [image] = "feature.icon" [title] = "feature.title" [description] = "feature.desc"></app-features>
 
-            <div class="exp-feature-card" *ngFor="let feature of features">
-          
-              <div class="exp-feature-icon">
-                <img [src]="feature.icon" [alt]="feature.title">
-              </div>
-          
-              <div class="exp-feature-text">
-                <h3>{{ feature.title }}</h3>
-                <p>{{ feature.desc }}</p>
-              </div>
-          
             </div>
           
           </div>
