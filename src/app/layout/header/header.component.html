@@ -22,8 +22,13 @@
         <a routerLink="/admin/adicionales"  class="nav-link">ADICIONALES</a>
       </ng-container>
 
+      <!-- NAV OPERADOR -->
+      <ng-container *ngIf="isOperador">
+        <a routerLink="/producto/menutabla" class="nav-link">COMIDAS</a>
+      </ng-container>
+
       <!-- NAV CLIENTE -->
-      <ng-container *ngIf="!isAdmin">
+      <ng-container *ngIf="!isAdmin && !isOperador">
         <a routerLink="/menu"        class="nav-link">MENÚ</a>
         <a href="#experiencia"       class="nav-link">EXPERIENCIA</a>
         <a routerLink="/f1-standings" class="nav-link">CAMPEONATO</a>
@@ -51,7 +56,7 @@
         <span>{{ user | uppercase }}</span>
         </a>
 
-        <a *ngIf="!isAdmin"
+        <a *ngIf="!isAdmin && !isOperador"
         routerLink="/carrito"
         class="cart-btn"
         title="Ver carrito">
@@ -125,8 +130,13 @@
         <a routerLink="/admin/adicionales"   class="mobile-nav-link">ADICIONALES</a>
       </ng-container>
 
+      <!-- NAV OPERADOR -->
+      <ng-container *ngIf="isOperador">
+        <a routerLink="/producto/menutabla" class="mobile-nav-link">COMIDAS</a>
+      </ng-container>
+
       <!-- NAV CLIENTE -->
-      <ng-container *ngIf="!isAdmin">
+      <ng-container *ngIf="!isAdmin && !isOperador">
         <a routerLink="/menu"         class="mobile-nav-link">MENÚ</a>
         <a href="#experiencia"        class="mobile-nav-link">EXPERIENCIA</a>
         <a routerLink="/f1-standings" class="mobile-nav-link">CAMPEONATO</a>
@@ -145,7 +155,7 @@
         <div *ngIf="user" class="mobile-user">
           <span>{{ user | uppercase }}</span>
 
-          <a *ngIf="!isAdmin" routerLink="/carrito">Carrito ({{ cartCount }})</a>
+          <a *ngIf="!isAdmin && !isOperador" routerLink="/carrito">Carrito ({{ cartCount }})</a>
 
           <a (click)="logout()" class="btn btn-mobile">CERRAR SESIÓN</a>
         </div>

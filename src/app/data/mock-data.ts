@@ -153,8 +153,8 @@ export const ADMINISTRADORES: Administrador[] = [
 // ─── OPERADORES ───────────────────────────────────────────────────────────────
 
 export const OPERADORES: Operador[] = [
-  { id: 1, nombre: 'Valentina Ruiz',  usuario: 'vale_op',   contrasena: '****' },
-  { id: 2, nombre: 'Santiago Mora',   usuario: 'santi_op',  contrasena: '****' },
+  { id: 1, nombre: 'Valentina Ruiz',  usuario: 'vale_op',   contrasena: 'vale123'  },
+  { id: 2, nombre: 'Santiago Mora',   usuario: 'santi_op',  contrasena: 'santi123' },
 ];
 
 // ─── LÍNEAS DE PEDIDO (ADICIONALES POR LÍNEA) ─────────────────────────────────

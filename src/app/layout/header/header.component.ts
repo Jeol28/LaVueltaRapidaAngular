@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   user: string | null = null;
   isAdmin: boolean = false;
+  isOperador: boolean = false;
   cartCount: number = 3;
   isMenuOpen = false;
   isScrolled = false;
@@ -22,8 +23,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private loadUser(): void {
     const saved = localStorage.getItem('user');
+    const role = localStorage.getItem('role');
     this.user = saved ?? null;
-    this.isAdmin = localStorage.getItem('role') === 'admin';
+    this.isAdmin = role === 'admin';
+    this.isOperador = role === 'operador';
   }
 
   ngOnInit(): void {
@@ -46,6 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     localStorage.removeItem('role');
     this.user = null;
     this.isAdmin = false;
+    this.isOperador = false;
     this.router.navigate(['/']);
   }
 

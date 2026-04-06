@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ADMINISTRADORES } from '../../data/mock-data';
-import { CLIENTES } from '../../data/mock-data';
+import { ADMINISTRADORES, CLIENTES, OPERADORES } from '../../data/mock-data';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +22,18 @@ export class LoginComponent {
     if (admin) {
       localStorage.setItem('user', admin.usuario);
       localStorage.setItem('role', 'admin');
+      this.loginError = false;
+      this.router.navigate(['/producto/menutabla']);
+      return;
+    }
+
+    const operador = OPERADORES.find(
+      o => o.usuario === this.usuario && o.contrasena === this.contrasena
+    );
+
+    if (operador) {
+      localStorage.setItem('user', operador.usuario);
+      localStorage.setItem('role', 'operador');
       this.loginError = false;
       this.router.navigate(['/producto/menutabla']);
       return;
