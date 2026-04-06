@@ -92,7 +92,7 @@
 .menu-table td:nth-child(3) { width: 20%; }
 
 .menu-table th:nth-child(4),
-.menu-table td:nth-child(4) { width: 20%; }
+.menu-table td:nth-child(4) { width: 20%; text-align: center; }
 
 /* ================================================= */
 /* ================ CELDAS DATO =================== */
