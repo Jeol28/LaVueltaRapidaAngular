@@ -1,36 +1,27 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { AuthService, AuthUser } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
-  user: AuthUser | null = null;
+  user: string | null = null;
+  isAdmin: boolean = false;
   cartCount: number = 3;
   isMenuOpen = false;
   isScrolled = false;
 
-  private authSub!: Subscription;
-
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.authSub = this.authService.user$.subscribe(u => {
-      this.user = u;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.authSub.unsubscribe();
-  }
-
-  get isAdmin(): boolean {
-    return this.user?.isAdmin ?? false;
+    const saved = localStorage.getItem('user');
+    if (saved) {
+      this.user = saved;
+      this.isAdmin = saved === 'admin';
+    }
   }
 
   login(): void {
@@ -38,7 +29,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authService.logout();
+    localStorage.removeItem('user');
+    this.user = null;
+    this.isAdmin = false;
     this.router.navigate(['/']);
   }
 
