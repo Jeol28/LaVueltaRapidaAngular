@@ -14,14 +14,21 @@
 
     <nav class="header-nav">
 
-      <a [routerLink]="isAdmin ? '/producto/menutabla' : '/menu'"
-        class="nav-link">
-        MENÚ
-      </a>
+      <!-- NAV ADMIN -->
+      <ng-container *ngIf="isAdmin">
+        <a routerLink="/producto/menutabla" class="nav-link">COMIDAS</a>
+        <a routerLink="/admin/operarios"    class="nav-link">OPERARIOS</a>
+        <a routerLink="/admin/domiciliarios" class="nav-link">DOMICILIARIOS</a>
+        <a routerLink="/admin/adicionales"  class="nav-link">ADICIONALES</a>
+      </ng-container>
 
-      <a href="#experiencia" class="nav-link">EXPERIENCIA</a>
-      <a routerLink="/f1-standings" class="nav-link">CAMPEONATO</a>
-      <a href="#eventos" class="nav-link">EVENTOS F1</a>
+      <!-- NAV CLIENTE -->
+      <ng-container *ngIf="!isAdmin">
+        <a routerLink="/menu"        class="nav-link">MENÚ</a>
+        <a href="#experiencia"       class="nav-link">EXPERIENCIA</a>
+        <a routerLink="/f1-standings" class="nav-link">CAMPEONATO</a>
+        <a href="#eventos"           class="nav-link">EVENTOS F1</a>
+      </ng-container>
 
     </nav>
 
@@ -109,13 +116,23 @@
   <!-- MOBILE PANEL (sin lógica aún) -->
   <div class="mobile-panel" [class.open]="isMenuOpen">
     <nav class="mobile-nav">
-      <a [routerLink]="isAdmin ? '/producto/menutabla' : '/menu'"
-        class="mobile-nav-link">
-        MENÚ
-      </a>
-      <a href="#experiencia" class="mobile-nav-link">EXPERIENCIA</a>
-      <a routerLink="/f1-standings" class="mobile-nav-link">CAMPEONATO</a>
-      <a href="#eventos" class="mobile-nav-link">EVENTOS F1</a>
+
+      <!-- NAV ADMIN -->
+      <ng-container *ngIf="isAdmin">
+        <a routerLink="/producto/menutabla"  class="mobile-nav-link">COMIDAS</a>
+        <a routerLink="/admin/operarios"     class="mobile-nav-link">OPERARIOS</a>
+        <a routerLink="/admin/domiciliarios" class="mobile-nav-link">DOMICILIARIOS</a>
+        <a routerLink="/admin/adicionales"   class="mobile-nav-link">ADICIONALES</a>
+      </ng-container>
+
+      <!-- NAV CLIENTE -->
+      <ng-container *ngIf="!isAdmin">
+        <a routerLink="/menu"         class="mobile-nav-link">MENÚ</a>
+        <a href="#experiencia"        class="mobile-nav-link">EXPERIENCIA</a>
+        <a routerLink="/f1-standings" class="mobile-nav-link">CAMPEONATO</a>
+        <a href="#eventos"            class="mobile-nav-link">EVENTOS F1</a>
+      </ng-container>
+
     </nav>
 
       <div class="mobile-actions">
