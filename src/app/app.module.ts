@@ -10,18 +10,18 @@ import { SizeStamentComponent } from './landing-page/size-stament/size-stament.c
 import { MenuCarouselComponent } from './landing-page/menu-carousel/menu-carousel.component';
 import { ExperienceComponent } from './landing-page/experience/experience.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { HeroMenuComponent } from './menu/hero-menu/hero-menu.component';
-import { TablaMenuComponent } from './menu/tabla-menu/tabla-menu.component';
-import { MenuAdminComponent } from './menu/menu-admin/menu-admin.component';
+import { HeroMenuComponent } from './admin/productos/hero-productos/hero-menu.component';
+import { TablaMenuComponent } from './admin/productos/tabla-productos/tabla-menu.component';
+import { MenuAdminComponent } from './admin/productos/productos-admin/menu-admin.component';
 import { LandingComponent } from './landing-page/landing/landing.component';
-import { AddProductComponent } from './menu/add-product/add-product.component';
+import { AddProductComponent } from './admin/productos/add-product/add-product.component';
 import { CardsComponent } from './cards/cards.component';
 import { FeaturesComponents } from './landing-page/features/features.component';
 
-import { OperariosAdminComponent } from './operarios/operarios-admin/operarios-admin.component';
-import { HeroOperariosComponent } from './operarios/hero-operarios/hero-operarios.component';
-import { TablaOperariosComponent } from './operarios/tabla-operarios/tabla-operarios.component';
-import { AddOperarioComponent } from './operarios/add-operario/add-operario.component';
+import { OperariosAdminComponent } from './admin/operarios/operarios-admin/operarios-admin.component';
+import { HeroOperariosComponent } from './admin/operarios/hero-operarios/hero-operarios.component';
+import { TablaOperariosComponent } from './admin/operarios/tabla-operarios/tabla-operarios.component';
+import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 
 @NgModule({
   declarations: [

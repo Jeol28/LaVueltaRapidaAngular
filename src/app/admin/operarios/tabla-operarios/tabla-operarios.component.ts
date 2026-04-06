@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Operador } from '../../models/operador.model';
-import { OperadorService } from '../../services/operador.service';
+import { Operador } from '../../../models/operador.model';
+import { OperadorService } from '../../../services/operador.service';
 
 @Component({
   selector: 'app-tabla-operarios',

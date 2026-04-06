@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OperadorService } from '../../services/operador.service';
+import { OperadorService } from '../../../services/operador.service';
 
 @Component({
   selector: 'app-add-operario',

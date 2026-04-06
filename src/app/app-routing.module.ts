@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing-page/landing/landing.component';
-import { MenuAdminComponent } from './menu/menu-admin/menu-admin.component';
-import { AddProductComponent } from './menu/add-product/add-product.component';
-import { OperariosAdminComponent } from './operarios/operarios-admin/operarios-admin.component';
-import { AddOperarioComponent } from './operarios/add-operario/add-operario.component';
+import { MenuAdminComponent } from './admin/productos/productos-admin/menu-admin.component';
+import { AddProductComponent } from './admin/productos/add-product/add-product.component';
+import { OperariosAdminComponent } from './admin/operarios/operarios-admin/operarios-admin.component';
+import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
