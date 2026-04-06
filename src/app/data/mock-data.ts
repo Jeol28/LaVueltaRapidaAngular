@@ -109,7 +109,7 @@ export const CLIENTES: Cliente[] = [
     apellido: 'Martínez',
     email: 'jorge.martinez@email.com',
     username: 'jorge',
-    password: '****',
+    password: 'jorge123',
     direccion: 'Calle 100 # 15-20, Bogotá',
     telefono: '3001234567',
   },
@@ -119,7 +119,7 @@ export const CLIENTES: Cliente[] = [
     apellido: 'Gómez',
     email: 'laura.gomez@email.com',
     username: 'laurag',
-    password: '****',
+    password: 'laura123',
     direccion: 'Carrera 7 # 45-10, Bogotá',
     telefono: '3109876543',
   },
@@ -129,7 +129,7 @@ export const CLIENTES: Cliente[] = [
     apellido: 'Rodríguez',
     email: 'carlos.rodriguez@email.com',
     username: 'carlosr',
-    password: '****',
+    password: 'carlos123',
     direccion: 'Av. El Dorado # 68-50, Bogotá',
     telefono: '3205554321',
   },
@@ -146,8 +146,8 @@ export const DOMICILIARIOS: Domiciliario[] = [
 // ─── ADMINISTRADORES ──────────────────────────────────────────────────────────
 
 export const ADMINISTRADORES: Administrador[] = [
-  { id: 1, usuario: 'admin',     contrasena: '****' },
-  { id: 2, usuario: 'superadmin', contrasena: '****' },
+  { id: 1, usuario: 'admin',      contrasena: 'admin123'  },
+  { id: 2, usuario: 'superadmin', contrasena: 'super123'  },
 ];
 
 // ─── OPERADORES ───────────────────────────────────────────────────────────────

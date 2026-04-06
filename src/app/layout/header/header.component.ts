@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private loadUser(): void {
     const saved = localStorage.getItem('user');
     this.user = saved ?? null;
-    this.isAdmin = saved === 'admin';
+    this.isAdmin = localStorage.getItem('role') === 'admin';
   }
 
   ngOnInit(): void {
@@ -43,6 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout(): void {
     localStorage.removeItem('user');
+    localStorage.removeItem('role');
     this.user = null;
     this.isAdmin = false;
     this.router.navigate(['/']);
