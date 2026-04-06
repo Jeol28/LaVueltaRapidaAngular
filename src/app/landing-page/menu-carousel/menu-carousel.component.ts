@@ -1,17 +1,23 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Comida } from '../../models/comida.model';
-import { COMIDAS } from '../../data/mock-data';
+import { ComidaService } from '../../services/comida.service';
 
 @Component({
   selector: 'app-menu-carousel',
   templateUrl: './menu-carousel.component.html',
   styleUrls: ['./menu-carousel.component.css']
 })
-export class MenuCarouselComponent implements AfterViewInit {
+export class MenuCarouselComponent implements OnInit, AfterViewInit {
 
-  comidas: Comida[] = COMIDAS;
+  comidas: Comida[] = [];
+
+  constructor(private comidaService: ComidaService) {}
+
+  ngOnInit(): void {
+    this.comidas = this.comidaService.getAll();
+  }
 
   ngAfterViewInit(): void {
     new Swiper('.menu-swiper', {
