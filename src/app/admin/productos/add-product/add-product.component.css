@@ -1,107 +1,4 @@
-:root {
-  --red: #e10600;
-  --red-dark: #c10500;
-  --gold: #ffd700;
-  --gray: #aaa;
-  --dark: #0f0f0f;
-  --dark-alt: #111827;
-}
-
-.add-hero {
-  padding: 100px 20px 50px 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #0f0f0f, #3a0000);
-  border-bottom: 2px solid var(--red);
-}
-
-.add-hero h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 44px;
-  letter-spacing: 2px;
-  font-weight: 100;
-  color: white;
-}
-
-.add-hero span {
-  color: var(--red);
-  font-weight: 100;
-}
-
-.add-hero p {
-  margin-top: 15px;
-  color: var(--gray);
-  font-size: 15px;
-}
-
-.add-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 20px 120px;
-}
-
-.form-card {
-  background: #141414;
-  border-radius: 16px;
-  border: 1px solid #1f1f1f;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-.form-header {
-  padding: 40px 40px 30px;
-  border-bottom: 1px solid #1f1f1f;
-}
-
-.form-header-accent {
-  width: 48px;
-  height: 4px;
-  background-color: var(--red);
-  margin-bottom: 20px;
-}
-
-.form-header h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 24px;
-  letter-spacing: 2px;
-  color: white;
-  margin-bottom: 8px;
-}
-
-.form-header p {
-  color: var(--gray);
-  font-size: 14px;
-}
-
-.product-form {
-  padding: 40px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group.full-width {
-  grid-column: 1 / -1;
-}
-
-.form-group label {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  color: var(--gray);
-  text-transform: uppercase;
-}
-
-.form-group input:not(.form-check-input),
+/* Textarea y select (exclusivos de productos) */
 .form-group textarea,
 .form-group select {
   background: #1b1b22;
@@ -116,12 +13,8 @@
   width: 100%;
 }
 
-.form-group input:not(.form-check-input)::placeholder,
-.form-group textarea::placeholder {
-  color: #444;
-}
+.form-group textarea::placeholder { color: #444; }
 
-.form-group input:not(.form-check-input):focus,
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--red);
@@ -133,6 +26,7 @@
   min-height: 90px;
 }
 
+/* Select personalizado */
 .form-group select {
   cursor: pointer;
   -webkit-appearance: none;
@@ -149,6 +43,16 @@
   color: white;
 }
 
+/* Override para excluir checkbox del estilo base */
+.form-group input.form-check-input {
+  background: unset;
+  border: unset;
+  padding: unset;
+  width: unset;
+  outline: unset;
+}
+
+/* Prefijo COP */
 .input-with-prefix {
   display: flex;
   align-items: stretch;
@@ -187,6 +91,7 @@
   border-color: transparent;
 }
 
+/* Toggle disponibilidad */
 .toggle-label {
   font-family: 'Orbitron', sans-serif;
   font-size: 11px;
@@ -231,6 +136,7 @@
   cursor: pointer;
 }
 
+/* Fila imagen */
 .image-row {
   display: flex;
   gap: 24px;
@@ -276,89 +182,8 @@
   object-fit: cover;
 }
 
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-  padding-top: 16px;
-  border-top: 1px solid #1f1f1f;
-}
-
-.btn-cancel {
-  padding: 14px 32px;
-  background: transparent;
-  border: 1px solid #2a2a2a;
-  color: var(--gray);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 13px;
-  letter-spacing: 1px;
-  border-radius: 8px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  transition: 0.3s ease;
-}
-
-.btn-cancel:hover {
-  border-color: #555;
-  color: white;
-}
-
-.btn-submit {
-  padding: 14px 40px;
-  background: linear-gradient(135deg, #e10600, #7a0000);
-  border: 1px solid var(--red);
-  color: white;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 13px;
-  letter-spacing: 1px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s ease;
-  box-shadow: 0 8px 25px rgba(225, 6, 0, 0.3);
-}
-
-.btn-submit:hover {
-  background: linear-gradient(135deg, #ff1a0e, #a00000);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(225, 6, 0, 0.4);
-}
-
+/* Responsive exclusivo de productos */
 @media (max-width: 768px) {
-  .add-hero h1 {
-    font-size: 30px;
-  }
-
-  .image-row {
-    flex-direction: column;
-  }
-
-  .form-preview {
-    width: 100%;
-    height: 200px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .product-form {
-    padding: 24px;
-  }
-
-  .form-header {
-    padding: 24px 24px 20px;
-  }
-
-  .form-actions {
-    flex-direction: column;
-  }
-
-  .btn-cancel,
-  .btn-submit {
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-  }
+  .image-row    { flex-direction: column; }
+  .form-preview { width: 100%; height: 200px; }
 }
