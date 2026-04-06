@@ -1,44 +1,53 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService, AuthUser } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
 
-  
-  user: string | null = "Jorge"; // prueba
-  isAdmin: boolean = false;
-
-  ngOnInit() {
-    this.isAdmin = this.user === 'Admin';
-  }
-  
-  cartCount: number = 3; // cantidad de productos
-
+  user: AuthUser | null = null;
+  cartCount: number = 3;
   isMenuOpen = false;
   isScrolled = false;
 
-  // Toggle menú móvil
-  toggleMenu() {
+  private authSub!: Subscription;
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.authSub = this.authService.user$.subscribe(u => {
+      this.user = u;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.authSub.unsubscribe();
+  }
+
+  get isAdmin(): boolean {
+    return this.user?.isAdmin ?? false;
+  }
+
+  login(): void {
+    this.router.navigate(['/login']);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+  toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  // Detectar scroll (equivalente al window.addEventListener)
   @HostListener('window:scroll', [])
-  onWindowScroll() {
+  onWindowScroll(): void {
     this.isScrolled = window.scrollY > 10;
   }
-
-  login() {
-    this.user = 'Admin';
-    this.isAdmin = true;
-  }
-
-  logout() {
-    this.user = null;
-    this.isAdmin = false;
-  }
-
 }

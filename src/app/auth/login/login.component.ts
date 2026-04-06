@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +12,11 @@ export class LoginComponent {
   contrasena: string = '';
   loginError: boolean = false;
 
-  private readonly MOCK_CREDENTIALS = { usuario: 'jorge', contrasena: 'admin123' };
-
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(): void {
-    if (
-      this.usuario === this.MOCK_CREDENTIALS.usuario &&
-      this.contrasena === this.MOCK_CREDENTIALS.contrasena
-    ) {
+    const ok = this.authService.login(this.usuario, this.contrasena);
+    if (ok) {
       this.loginError = false;
       this.router.navigate(['/producto/menutabla']);
     } else {

@@ -48,7 +48,7 @@
 
         <!-- Nombre -->
         <a routerLink="/perfil" class="user-name-link">
-        <span>{{ user }}</span>
+        <span>{{ user!.username | uppercase }}</span>
         </a>
 
         <a *ngIf="!isAdmin"
@@ -143,7 +143,7 @@
         </div>
 
         <div *ngIf="user" class="mobile-user">
-          <span>{{ user }}</span>
+          <span>{{ user!.username | uppercase }}</span>
 
           <a *ngIf="!isAdmin" routerLink="/carrito">Carrito ({{ cartCount }})</a>
 
