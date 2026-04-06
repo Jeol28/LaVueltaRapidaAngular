@@ -230,6 +230,47 @@ a {
 }
 
 /* ================================================= */
+/* ============ LANDING — FEATURES CARDS =========== */
+/* ================================================= */
+
+.experience-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.exp-feature-card {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background-color: rgba(31, 41, 55, 0.5);
+  border-radius: 8px;
+}
+
+.exp-feature-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  margin-top: 2px;
+}
+
+.exp-feature-text h3 {
+  font-weight: 700;
+  color: var(--white);
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  line-height: 28px;
+}
+
+.exp-feature-text p {
+  font-weight: 400;
+  color: var(--gray);
+  font-size: 16px;
+  letter-spacing: -0.5px;
+  line-height: 24px;
+}
+
+/* ================================================= */
 /* ============== ADMIN — FORMULARIOS ============== */
 /* ================================================= */
 
