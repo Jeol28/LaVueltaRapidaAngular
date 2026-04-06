@@ -1,12 +1,14 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   user: string | null = null;
   isAdmin: boolean = false;
@@ -14,14 +16,25 @@ export class HeaderComponent implements OnInit {
   isMenuOpen = false;
   isScrolled = false;
 
+  private routerSub!: Subscription;
+
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
+  private loadUser(): void {
     const saved = localStorage.getItem('user');
-    if (saved) {
-      this.user = saved;
-      this.isAdmin = saved === 'admin';
-    }
+    this.user = saved ?? null;
+    this.isAdmin = saved === 'admin';
+  }
+
+  ngOnInit(): void {
+    this.loadUser();
+    this.routerSub = this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => this.loadUser());
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
   }
 
   login(): void {
