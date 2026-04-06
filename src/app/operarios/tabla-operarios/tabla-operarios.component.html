@@ -15,9 +15,7 @@
         </thead>
         <tbody>
 
-          <tr *ngFor="let op of operadores"
-              [routerLink]="['/admin/operarios/editar', op.id]"
-              class="clickable-row">
+          <tr *ngFor="let op of operadores">
 
             <td>
               <div class="row-inner">
@@ -40,10 +38,6 @@
             <td class="actions-cell" (click)="$event.stopPropagation()">
               <div class="row-inner">
                 <div class="actions-wrapper">
-                  <a [routerLink]="['/admin/operarios/editar', op.id]"
-                     class="btn-edit">
-                    Modificar
-                  </a>
                   <a (click)="eliminarOperario($event, op.id)"
                      class="btn-delete">
                     Eliminar

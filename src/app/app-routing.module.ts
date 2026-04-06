@@ -15,9 +15,8 @@ const routes: Routes = [
   { path: 'producto/update/:id',    component: AddProductComponent },
 
   // ── Operarios ──
-  { path: 'admin/operarios',             component: OperariosAdminComponent },
-  { path: 'admin/operarios/agregar',     component: AddOperarioComponent },
-  { path: 'admin/operarios/editar/:id',  component: AddOperarioComponent },
+  { path: 'admin/operarios',         component: OperariosAdminComponent },
+  { path: 'admin/operarios/agregar', component: AddOperarioComponent },
 
   { path: '**', redirectTo: '' },
 ];

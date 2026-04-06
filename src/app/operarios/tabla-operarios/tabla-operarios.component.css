@@ -54,7 +54,7 @@
 }
 
 .menu-table tbody tr {
-  cursor: pointer;
+  cursor: default;
 }
 
 .menu-table tbody td {
