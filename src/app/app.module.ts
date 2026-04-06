@@ -18,6 +18,11 @@ import { AddProductComponent } from './menu/add-product/add-product.component';
 import { CardsComponent } from './cards/cards.component';
 import { FeaturesComponents } from './landing-page/features/features.component';
 
+import { OperariosAdminComponent } from './operarios/operarios-admin/operarios-admin.component';
+import { HeroOperariosComponent } from './operarios/hero-operarios/hero-operarios.component';
+import { TablaOperariosComponent } from './operarios/tabla-operarios/tabla-operarios.component';
+import { AddOperarioComponent } from './operarios/add-operario/add-operario.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +38,12 @@ import { FeaturesComponents } from './landing-page/features/features.component';
     LandingComponent,
     AddProductComponent,
     CardsComponent,
-    FeaturesComponents
+    FeaturesComponents,
 
+    OperariosAdminComponent,
+    HeroOperariosComponent,
+    TablaOperariosComponent,
+    AddOperarioComponent,
   ],
   imports: [
     BrowserModule,

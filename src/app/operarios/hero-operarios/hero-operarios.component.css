@@ -1,0 +1,51 @@
+.menu-hero {
+  padding: 100px 20px 50px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #0f0f0f, #3a0000);
+  border-bottom: 2px solid var(--red);
+}
+
+.menu-hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 44px;
+  letter-spacing: 2px;
+  font-weight: 100;
+  color: white;
+}
+
+.menu-hero span {
+  color: var(--red);
+  font-weight: 100;
+}
+
+.menu-hero p {
+  margin-top: 15px;
+  color: var(--gray);
+  font-size: 15px;
+}
+
+.hero-action {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-add-hero {
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #e10600, #7a0000);
+  padding: 11px 26px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid #e10600;
+  transition: 0.3s;
+}
+
+.btn-add-hero:hover {
+  background: black;
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-3px);
+}

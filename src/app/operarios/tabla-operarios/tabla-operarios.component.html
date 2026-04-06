@@ -1,0 +1,78 @@
+<section class="menu-list-section">
+  <div class="container">
+
+    <h2 class="list-category red">Operarios</h2>
+
+    <div class="table-responsive">
+      <table class="menu-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Contraseña</th>
+            <th class="actions-cell">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let op of operadores"
+              [routerLink]="['/admin/operarios/editar', op.id]"
+              class="clickable-row">
+
+            <td>
+              <div class="row-inner">
+                <strong>{{ op.nombre }}</strong>
+              </div>
+            </td>
+
+            <td>
+              <div class="row-inner">
+                <span class="username-cell">{{ op.usuario }}</span>
+              </div>
+            </td>
+
+            <td>
+              <div class="row-inner">
+                <span class="pass-cell">••••••••</span>
+              </div>
+            </td>
+
+            <td class="actions-cell" (click)="$event.stopPropagation()">
+              <div class="row-inner">
+                <div class="actions-wrapper">
+                  <a [routerLink]="['/admin/operarios/editar', op.id]"
+                     class="btn-edit">
+                    Modificar
+                  </a>
+                  <a (click)="eliminarOperario($event, op.id)"
+                     class="btn-delete">
+                    Eliminar
+                  </a>
+                </div>
+              </div>
+            </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- Toast éxito -->
+<div class="admin-toast"
+     [class.visible]="showSuccess"
+     [class.hide]="hideSuccess">
+  <span class="admin-toast-icon">✔</span>
+  <span class="admin-toast-msg">{{ successMsg }}</span>
+</div>
+
+<!-- Toast error -->
+<div class="admin-toast admin-toast-error"
+     [class.visible]="showError"
+     [class.hide]="hideError">
+  <span class="admin-toast-icon">✕</span>
+  <span class="admin-toast-msg">No se pudo eliminar el operario.</span>
+</div>
