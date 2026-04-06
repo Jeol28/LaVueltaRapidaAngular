@@ -10,9 +10,9 @@ import { SizeStamentComponent } from './landing-page/size-stament/size-stament.c
 import { MenuCarouselComponent } from './landing-page/menu-carousel/menu-carousel.component';
 import { ExperienceComponent } from './landing-page/experience/experience.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { HeroMenuComponent } from './admin/productos/hero-productos/hero-menu.component';
-import { TablaMenuComponent } from './admin/productos/tabla-productos/tabla-menu.component';
-import { MenuAdminComponent } from './admin/productos/productos-admin/menu-admin.component';
+import { HeroProductosComponent } from './admin/productos/hero-productos/hero-productos.component';
+import { TablaProductosComponent } from './admin/productos/tabla-productos/tabla-productos.component';
+import { ProductosAdminComponent } from './admin/productos/productos-admin/productos-admin.component';
 import { LandingComponent } from './landing-page/landing/landing.component';
 import { AddProductComponent } from './admin/productos/add-product/add-product.component';
 import { CardsComponent } from './cards/cards.component';
@@ -32,9 +32,9 @@ import { AddOperarioComponent } from './admin/operarios/add-operario/add-operari
     MenuCarouselComponent,
     ExperienceComponent,
     FooterComponent,
-    HeroMenuComponent,
-    TablaMenuComponent,
-    MenuAdminComponent,
+    HeroProductosComponent,
+    TablaProductosComponent,
+    ProductosAdminComponent,
     LandingComponent,
     AddProductComponent,
     CardsComponent,

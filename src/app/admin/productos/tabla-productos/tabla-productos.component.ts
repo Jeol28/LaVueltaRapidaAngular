@@ -6,11 +6,11 @@ import { CATEGORIAS } from '../../../data/mock-data';
 import { ComidaService } from '../../../services/comida.service';
 
 @Component({
-  selector: 'app-tabla-menu',
-  templateUrl: './tabla-menu.component.html',
-  styleUrls: ['./tabla-menu.component.css']
+  selector: 'app-tabla-productos',
+  templateUrl: './tabla-productos.component.html',
+  styleUrls: ['./tabla-productos.component.css']
 })
-export class TablaMenuComponent implements OnInit {
+export class TablaProductosComponent implements OnInit {
 
   categorias: Categoria[] = CATEGORIAS;
   comidas: Comida[] = [];
