@@ -1,0 +1,115 @@
+.login-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 60px 20px 120px;
+}
+
+.login-card {
+  background: #141414;
+  border-radius: 16px;
+  border: 1px solid #1f1f1f;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Cabecera centrada ── */
+.login-header {
+  padding: 40px 40px 30px;
+  border-bottom: 1px solid #1f1f1f;
+  text-align: center;
+}
+
+.login-icon {
+  margin-bottom: 20px;
+}
+
+.login-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  color: var(--gray);
+  font-size: 14px;
+}
+
+/* ── Mensaje de error ── */
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 40px 0;
+  padding: 14px 18px;
+  background: rgba(225, 6, 0, 0.1);
+  border: 1px solid rgba(225, 6, 0, 0.3);
+  border-radius: 8px;
+  color: #ff4d4d;
+  font-size: 14px;
+}
+
+/* ── Formulario ── */
+.login-form {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Botón principal ── */
+.btn-login {
+  padding: 16px;
+  background: linear-gradient(135deg, #e10600, #7a0000);
+  border: 1px solid var(--red);
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 25px rgba(225, 6, 0, 0.3);
+  margin-top: 8px;
+}
+
+.btn-login:hover {
+  background: linear-gradient(135deg, #ff1a0e, #a00000);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(225, 6, 0, 0.4);
+}
+
+/* ── Footer de links ── */
+.login-footer {
+  text-align: center;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-footer p {
+  color: var(--gray);
+  font-size: 14px;
+}
+
+.login-footer a {
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.login-footer a:hover {
+  color: #ff4d4d;
+  text-decoration: underline;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .login-container  { padding: 40px 16px 80px; }
+  .login-form       { padding: 24px; }
+  .login-header     { padding: 24px 24px 20px; }
+  .login-error      { margin: 16px 24px 0; }
+}

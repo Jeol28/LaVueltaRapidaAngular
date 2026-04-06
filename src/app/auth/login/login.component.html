@@ -1,0 +1,66 @@
+<section class="add-hero">
+  <h1>ACCESO <span>ADMIN</span></h1>
+  <p>Panel de administración La Vuelta Rápida</p>
+</section>
+
+<main class="login-container">
+  <div class="login-card">
+
+    <div class="login-header">
+      <div class="form-header-accent" style="margin: 0 auto 24px;"></div>
+      <div class="login-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24"
+             fill="none" stroke="#e10600" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <h2>BIENVENIDO</h2>
+      <p>Ingresa tus credenciales para continuar</p>
+    </div>
+
+    <div *ngIf="loginError" class="login-error">
+      <svg width="20" height="20" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="15" y1="9" x2="9" y2="15"/>
+        <line x1="9" y1="9" x2="15" y2="15"/>
+      </svg>
+      <span>Usuario o contraseña incorrectos</span>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="login-form">
+
+      <app-input-icon-field
+        iconType="user"
+        label="Usuario"
+        id="usuario"
+        name="usuario"
+        placeholder="Ingresa tu usuario"
+        [required]="true"
+        [autofocus]="true"
+        [(value)]="usuario">
+      </app-input-icon-field>
+
+      <app-input-icon-field
+        iconType="lock"
+        label="Contraseña"
+        id="contrasena"
+        name="contrasena"
+        type="password"
+        placeholder="Ingresa tu contraseña"
+        [required]="true"
+        [(value)]="contrasena">
+      </app-input-icon-field>
+
+      <button type="submit" class="btn-login">INICIAR SESIÓN</button>
+
+      <div class="login-footer">
+        <p>¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+        <p>¿Olvidaste tu contraseña? <a routerLink="/recuperar">Recupérala aquí</a></p>
+      </div>
+
+    </form>
+
+  </div>
+</main>

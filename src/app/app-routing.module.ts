@@ -5,9 +5,11 @@ import { ProductosAdminComponent } from './admin/productos/productos-admin/produ
 import { AddProductComponent } from './admin/productos/add-product/add-product.component';
 import { OperariosAdminComponent } from './admin/operarios/operarios-admin/operarios-admin.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
+  { path: 'login', component: LoginComponent },
 
   // ── Productos ──
   { path: 'producto/menutabla',     component: ProductosAdminComponent },

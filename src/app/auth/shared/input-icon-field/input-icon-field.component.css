@@ -1,0 +1,38 @@
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: stroke 0.3s ease;
+}
+
+.input-icon-wrapper input {
+  background: #1b1b22;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 14px 16px 14px 46px;
+  color: white;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  width: 100%;
+}
+
+.input-icon-wrapper input::placeholder {
+  color: #444;
+}
+
+.input-icon-wrapper input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.15);
+}
+
+.input-icon-wrapper:focus-within .input-icon {
+  stroke: var(--red);
+}

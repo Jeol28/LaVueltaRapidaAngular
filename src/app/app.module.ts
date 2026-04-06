@@ -24,6 +24,9 @@ import { OperariosAdminComponent } from './admin/operarios/operarios-admin/opera
 import { TablaOperariosComponent } from './admin/operarios/tabla-operarios/tabla-operarios.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 
+import { LoginComponent } from './auth/login/login.component';
+import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-icon-field.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +49,9 @@ import { AddOperarioComponent } from './admin/operarios/add-operario/add-operari
     OperariosAdminComponent,
     TablaOperariosComponent,
     AddOperarioComponent,
+
+    LoginComponent,
+    InputIconFieldComponent,
   ],
   imports: [
     BrowserModule,
