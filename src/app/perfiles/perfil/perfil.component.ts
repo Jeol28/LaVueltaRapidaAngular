@@ -65,6 +65,10 @@ export class PerfilComponent implements OnInit {
     const index = CLIENTES.findIndex(c => c.id === this.cliente!.id);
     if (index === -1) return;
 
+    if (!this.editForm.password) {
+      this.editForm.password = this.cliente.password;
+    }
+
     CLIENTES[index] = { ...CLIENTES[index], ...this.editForm } as Cliente;
     this.cliente = CLIENTES[index];
 
