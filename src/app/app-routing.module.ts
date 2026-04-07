@@ -5,6 +5,7 @@ import { ProductosAdminComponent } from './admin/productos/productos-admin/produ
 import { AddProductComponent } from './admin/productos/add-product/add-product.component';
 import { OperariosAdminComponent } from './admin/operarios/operarios-admin/operarios-admin.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
+import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
@@ -14,6 +15,7 @@ import { OperadorInicioComponent } from './operador/operador-inicio/operador-ini
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
+  { path: 'menu', component: MenuComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'perfil', component: PerfilComponent },

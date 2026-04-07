@@ -1,0 +1,27 @@
+<app-admin-hero
+  titlePrefix="NUESTRO"
+  titleHighlight="MENÚ"
+  subtitle="Descubre nuestras especialidades">
+</app-admin-hero>
+
+<main class="menu-container">
+
+  <section
+    *ngFor="let categoria of categorias"
+    class="menu-category"
+    [id]="categoria.name | lowercase">
+
+    <h2 class="category-title" [ngClass]="getCategoryClass(categoria.name)">
+      {{ categoria.name | uppercase }}
+    </h2>
+
+    <div class="menu-grid">
+      <app-cards
+        *ngFor="let comida of getComidaByCategoria(categoria.id)"
+        [comida]="comida">
+      </app-cards>
+    </div>
+
+  </section>
+
+</main>

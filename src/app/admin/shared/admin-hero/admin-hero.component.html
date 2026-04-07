@@ -3,7 +3,7 @@
     <h1>{{ titlePrefix }} <span>{{ titleHighlight }}</span></h1>
     <p>{{ subtitle }}</p>
   </div>
-  <div class="hero-action">
+  <div *ngIf="btnLabel" class="hero-action">
     <a [routerLink]="[btnRoute]" class="btn-add-hero">{{ btnLabel }}</a>
   </div>
 </section>

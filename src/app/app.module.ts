@@ -24,6 +24,7 @@ import { OperariosAdminComponent } from './admin/operarios/operarios-admin/opera
 import { TablaOperariosComponent } from './admin/operarios/tabla-operarios/tabla-operarios.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 
+import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-icon-field.component';
@@ -57,6 +58,7 @@ import { OperadorInicioComponent } from './operador/operador-inicio/operador-ini
     TablaOperariosComponent,
     AddOperarioComponent,
 
+    MenuComponent,
     LoginComponent,
     RegisterComponent,
     InputIconFieldComponent,
