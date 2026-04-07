@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cliente } from '../../models/cliente.model';
-import { CLIENTES, OPERADORES, ADMINISTRADORES } from '../../data/mock-data';
+import { ClienteService } from '../../services/cliente.service';
 
 @Component({
   selector: 'app-perfil',
@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private clienteService: ClienteService) {}
 
   ngOnInit(): void {
     const username = localStorage.getItem('user');
@@ -28,7 +28,7 @@ export class PerfilComponent implements OnInit {
       return;
     }
 
-    this.cliente = CLIENTES.find(c => c.username === username) ?? null;
+    this.cliente = this.clienteService.findByUsername(username) ?? null;
 
     if (!this.cliente) {
       this.router.navigate(['/']);
@@ -62,26 +62,15 @@ export class PerfilComponent implements OnInit {
       return;
     }
 
-    const nuevoUsuario = this.editForm.username;
-    const usuarioTomado =
-      CLIENTES.some(c => c.username === nuevoUsuario && c.id !== this.cliente!.id) ||
-      OPERADORES.some(o => o.usuario === nuevoUsuario) ||
-      ADMINISTRADORES.some(a => a.usuario === nuevoUsuario);
-    if (usuarioTomado) {
+    if (this.clienteService.isUsernameTaken(this.editForm.username!, this.cliente.id)) {
       this.errorMsg = 'Ese nombre de usuario ya está en uso.';
       return;
     }
 
-    const index = CLIENTES.findIndex(c => c.id === this.cliente!.id);
-    if (index === -1) return;
+    const updated = this.clienteService.update(this.cliente.id, this.editForm);
+    if (!updated) return;
 
-    if (!this.editForm.password) {
-      this.editForm.password = this.cliente.password;
-    }
-
-    CLIENTES[index] = { ...CLIENTES[index], ...this.editForm } as Cliente;
-    this.cliente = CLIENTES[index];
-
+    this.cliente = updated;
     localStorage.setItem('user', this.cliente.username);
     window.dispatchEvent(new CustomEvent('userChanged'));
 
@@ -99,11 +88,7 @@ export class PerfilComponent implements OnInit {
     );
     if (!confirmed) return;
 
-    const index = CLIENTES.findIndex(c => c.id === this.cliente!.id);
-    if (index !== -1) {
-      CLIENTES.splice(index, 1);
-    }
-
+    this.clienteService.delete(this.cliente!.id);
     localStorage.removeItem('user');
     localStorage.removeItem('role');
     this.router.navigate(['/']);
