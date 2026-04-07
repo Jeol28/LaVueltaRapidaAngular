@@ -35,7 +35,7 @@ export class LoginComponent {
       localStorage.setItem('user', operador.usuario);
       localStorage.setItem('role', 'operador');
       this.loginError = false;
-      this.router.navigate(['/producto/menutabla']);
+      this.router.navigate(['/operador/inicio']);
       return;
     }
 

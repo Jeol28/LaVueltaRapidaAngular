@@ -31,6 +31,7 @@ import { PerfilComponent } from './perfiles/perfil/perfil.component';
 import { PerfilInfoRowComponent } from './perfiles/shared/perfil-info-row/perfil-info-row.component';
 import { PerfilOperadorComponent } from './perfiles/perfil-operador/perfil-operador.component';
 import { PerfilAdminComponent } from './perfiles/perfil-admin/perfil-admin.component';
+import { OperadorInicioComponent } from './operador/operador-inicio/operador-inicio.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { PerfilAdminComponent } from './perfiles/perfil-admin/perfil-admin.compo
     PerfilInfoRowComponent,
     PerfilOperadorComponent,
     PerfilAdminComponent,
+    OperadorInicioComponent,
   ],
   imports: [
     BrowserModule,
