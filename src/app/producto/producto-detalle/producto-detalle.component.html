@@ -90,18 +90,7 @@
       <div class="pd-recs-line"></div>
     </div>
     <div class="pd-recs-grid">
-      <a class="pd-rec-card"
-         *ngFor="let rec of recomendaciones"
-         [routerLink]="['/producto', rec.id]">
-        <div class="pd-rec-img-wrap">
-          <img [src]="rec.image" [alt]="rec.name" class="pd-rec-img">
-          <div class="pd-rec-overlay"><span>Ver producto</span></div>
-        </div>
-        <div class="pd-rec-body">
-          <p class="pd-rec-name">{{ rec.name }}</p>
-          <span class="pd-rec-price">$ {{ formatCOP(rec.price) }} COP</span>
-        </div>
-      </a>
+      <app-cards *ngFor="let rec of recomendaciones" [comida]="rec"></app-cards>
     </div>
   </section>
 
