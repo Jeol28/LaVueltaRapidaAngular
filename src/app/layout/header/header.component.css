@@ -557,7 +557,7 @@
 /* ══════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════ */
-@media (max-width: 1000px) {
+@media (max-width: 1500px) {
   .header-inner { padding: 0 48px; }
 }
 
