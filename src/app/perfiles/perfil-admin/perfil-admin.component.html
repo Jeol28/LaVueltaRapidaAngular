@@ -111,10 +111,19 @@
           </div>
 
           <div class="pf-field pf-field-full">
-            <label>Contraseña</label>
+            <label>Nueva contraseña</label>
             <input type="password" [(ngModel)]="editForm.contrasena" name="contrasena" required placeholder="Nueva contraseña">
           </div>
 
+        </div>
+
+        <div class="pf-confirm-password">
+          <label>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Contraseña actual <span class="pf-required">*</span>
+          </label>
+          <input type="password" [(ngModel)]="currentPassword" name="currentPassword" required placeholder="Ingresa tu contraseña actual para confirmar">
+          <p class="pf-confirm-hint">Requerida para guardar cualquier cambio</p>
         </div>
 
         <div class="pf-actions">

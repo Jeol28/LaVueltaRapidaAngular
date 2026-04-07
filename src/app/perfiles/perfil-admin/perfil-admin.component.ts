@@ -13,6 +13,7 @@ export class PerfilAdminComponent implements OnInit {
   admin: Administrador | null = null;
   editMode: boolean = false;
   editForm: Partial<Administrador> = {};
+  currentPassword: string = '';
   successMsg: boolean = false;
   errorMsg: string = '';
 
@@ -41,6 +42,7 @@ export class PerfilAdminComponent implements OnInit {
   enterEditMode(): void {
     if (!this.admin) return;
     this.editForm = { ...this.admin };
+    this.currentPassword = '';
     this.editMode = true;
     this.successMsg = false;
     this.errorMsg = '';
@@ -48,11 +50,17 @@ export class PerfilAdminComponent implements OnInit {
 
   cancelEdit(): void {
     this.editMode = false;
+    this.currentPassword = '';
     this.errorMsg = '';
   }
 
   saveChanges(): void {
     if (!this.admin) return;
+
+    if (this.currentPassword !== this.admin.contrasena) {
+      this.errorMsg = 'La contraseña actual es incorrecta.';
+      return;
+    }
 
     const index = ADMINISTRADORES.findIndex(a => a.id === this.admin!.id);
     if (index === -1) return;
@@ -63,6 +71,7 @@ export class PerfilAdminComponent implements OnInit {
     localStorage.setItem('user', this.admin.usuario);
 
     this.editMode = false;
+    this.currentPassword = '';
     this.successMsg = true;
     this.errorMsg = '';
 

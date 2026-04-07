@@ -397,6 +397,59 @@
   color: #444;
 }
 
+/* ── Confirm password block ── */
+.pf-confirm-password {
+  margin: 20px 0 4px;
+  padding: 18px 20px;
+  background: rgba(225, 6, 0, 0.06);
+  border: 1px solid rgba(225, 6, 0, 0.25);
+  border-radius: 10px;
+}
+
+.pf-confirm-password label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e10600;
+  margin-bottom: 10px;
+}
+
+.pf-confirm-password input {
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.pf-confirm-password input:focus {
+  border-color: #e10600;
+}
+
+.pf-confirm-password input::placeholder {
+  color: #555;
+}
+
+.pf-confirm-hint {
+  font-size: 11px;
+  color: #666;
+  margin: 8px 0 0;
+}
+
+.pf-required {
+  color: #e10600;
+  font-size: 13px;
+}
+
 /* ── Edit mode actions: side by side ── */
 .pf-edit-card .pf-actions {
   flex-direction: row;

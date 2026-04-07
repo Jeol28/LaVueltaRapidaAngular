@@ -13,6 +13,7 @@ export class PerfilOperadorComponent implements OnInit {
   operador: Operador | null = null;
   editMode: boolean = false;
   editForm: Partial<Operador> = {};
+  currentPassword: string = '';
   successMsg: boolean = false;
   errorMsg: string = '';
 
@@ -41,6 +42,7 @@ export class PerfilOperadorComponent implements OnInit {
   enterEditMode(): void {
     if (!this.operador) return;
     this.editForm = { ...this.operador };
+    this.currentPassword = '';
     this.editMode = true;
     this.successMsg = false;
     this.errorMsg = '';
@@ -48,11 +50,17 @@ export class PerfilOperadorComponent implements OnInit {
 
   cancelEdit(): void {
     this.editMode = false;
+    this.currentPassword = '';
     this.errorMsg = '';
   }
 
   saveChanges(): void {
     if (!this.operador) return;
+
+    if (this.currentPassword !== this.operador.contrasena) {
+      this.errorMsg = 'La contraseña actual es incorrecta.';
+      return;
+    }
 
     const index = OPERADORES.findIndex(o => o.id === this.operador!.id);
     if (index === -1) return;
@@ -63,6 +71,7 @@ export class PerfilOperadorComponent implements OnInit {
     localStorage.setItem('user', this.operador.usuario);
 
     this.editMode = false;
+    this.currentPassword = '';
     this.successMsg = true;
     this.errorMsg = '';
 

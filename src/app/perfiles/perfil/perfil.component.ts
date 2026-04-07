@@ -13,6 +13,7 @@ export class PerfilComponent implements OnInit {
   cliente: Cliente | null = null;
   editMode: boolean = false;
   editForm: Partial<Cliente> = {};
+  currentPassword: string = '';
   successMsg: boolean = false;
   errorMsg: string = '';
 
@@ -41,6 +42,7 @@ export class PerfilComponent implements OnInit {
   enterEditMode(): void {
     if (!this.cliente) return;
     this.editForm = { ...this.cliente };
+    this.currentPassword = '';
     this.editMode = true;
     this.successMsg = false;
     this.errorMsg = '';
@@ -48,11 +50,17 @@ export class PerfilComponent implements OnInit {
 
   cancelEdit(): void {
     this.editMode = false;
+    this.currentPassword = '';
     this.errorMsg = '';
   }
 
   saveChanges(): void {
     if (!this.cliente) return;
+
+    if (this.currentPassword !== this.cliente.password) {
+      this.errorMsg = 'La contraseña actual es incorrecta.';
+      return;
+    }
 
     const index = CLIENTES.findIndex(c => c.id === this.cliente!.id);
     if (index === -1) return;
@@ -63,6 +71,7 @@ export class PerfilComponent implements OnInit {
     localStorage.setItem('user', this.cliente.username);
 
     this.editMode = false;
+    this.currentPassword = '';
     this.successMsg = true;
     this.errorMsg = '';
 
