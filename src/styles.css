@@ -9,6 +9,18 @@
   --red-dark: #c10500;
   --gray-soft: #d1d5db;
   --dark-alt: #111827;
+
+  /* ── Perfil page variables ── */
+  --pf-red:      #e10600;
+  --pf-red-dim:  rgba(225, 6, 0, 0.15);
+  --pf-red-glow: rgba(225, 6, 0, 0.25);
+  --pf-dark:     #0a0a0a;
+  --pf-card:     #111111;
+  --pf-card-2:   #161616;
+  --pf-border:   rgba(255,255,255,0.07);
+  --pf-text:     #ffffff;
+  --pf-muted:    #888;
+  --pf-radius:   16px;
 }
 
 *,
