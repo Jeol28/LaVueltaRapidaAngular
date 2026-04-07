@@ -11,9 +11,11 @@ export class InputIconFieldComponent {
   @Input() name: string = '';
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
-  @Input() iconType: 'user' | 'lock' = 'user';
+  @Input() iconType: 'user' | 'lock' | 'email' | 'phone' | 'location' | 'none' = 'user';
   @Input() required: boolean = false;
   @Input() autofocus: boolean = false;
+  @Input() fullWidth: boolean = false;
+  @Input() errorMsg: string = '';
   @Input() value: string = '';
   @Output() valueChange = new EventEmitter<string>();
 

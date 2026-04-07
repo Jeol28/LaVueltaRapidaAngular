@@ -27,6 +27,13 @@ export class ClienteService {
     return CLIENTES[index];
   }
 
+  add(data: Omit<Cliente, 'id'>): Cliente {
+    const newId = CLIENTES.length > 0 ? Math.max(...CLIENTES.map(c => c.id)) + 1 : 1;
+    const nuevo: Cliente = { id: newId, ...data };
+    CLIENTES.push(nuevo);
+    return nuevo;
+  }
+
   delete(id: number): void {
     const index = CLIENTES.findIndex(c => c.id === id);
     if (index !== -1) CLIENTES.splice(index, 1);

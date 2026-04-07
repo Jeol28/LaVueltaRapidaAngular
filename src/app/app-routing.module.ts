@@ -6,6 +6,7 @@ import { AddProductComponent } from './admin/productos/add-product/add-product.c
 import { OperariosAdminComponent } from './admin/operarios/operarios-admin/operarios-admin.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
 import { PerfilOperadorComponent } from './perfiles/perfil-operador/perfil-operador.component';
 import { PerfilAdminComponent } from './perfiles/perfil-admin/perfil-admin.component';
@@ -14,6 +15,7 @@ import { OperadorInicioComponent } from './operador/operador-inicio/operador-ini
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'perfil-operador', component: PerfilOperadorComponent },
   { path: 'perfil-admin', component: PerfilAdminComponent },

@@ -1,0 +1,137 @@
+<section class="register-hero">
+  <h1>CREAR <span>CUENTA</span></h1>
+  <p>Únete al equipo y vive la experiencia</p>
+</section>
+
+<main class="register-container">
+  <div class="register-card">
+
+    <div class="register-header">
+      <div class="register-header-accent"></div>
+      <div class="register-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e10600" stroke-width="1.5">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <line x1="19" y1="8" x2="19" y2="14"/>
+          <line x1="22" y1="11" x2="16" y2="11"/>
+        </svg>
+      </div>
+      <h2>NUEVO PILOTO</h2>
+      <p>Completa tus datos para unirte al equipo</p>
+    </div>
+
+    <div *ngIf="errorMsg" class="register-error-banner">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      {{ errorMsg }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="register-form">
+      <div class="form-grid">
+
+        <app-input-icon-field
+          iconType="none"
+          label="Nombre"
+          id="name"
+          name="name"
+          placeholder="Ej: Carlos"
+          [required]="true"
+          [(value)]="form.name">
+        </app-input-icon-field>
+
+        <app-input-icon-field
+          iconType="none"
+          label="Apellido"
+          id="apellido"
+          name="apellido"
+          placeholder="Ej: Sainz"
+          [required]="true"
+          [(value)]="form.apellido">
+        </app-input-icon-field>
+
+        <app-input-icon-field
+          iconType="email"
+          label="Correo electrónico"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="correo@ejemplo.com"
+          [required]="true"
+          [fullWidth]="true"
+          [(value)]="form.email">
+        </app-input-icon-field>
+
+        <app-input-icon-field
+          iconType="user"
+          label="Usuario"
+          id="username"
+          name="username"
+          placeholder="Ej: carlos_f1"
+          [required]="true"
+          [(value)]="form.username">
+        </app-input-icon-field>
+
+        <app-input-icon-field
+          iconType="lock"
+          label="Contraseña"
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Mínimo 6 caracteres"
+          [required]="true"
+          [(value)]="form.password"
+          (valueChange)="checkPasswords()">
+        </app-input-icon-field>
+
+        <app-input-icon-field
+          iconType="lock"
+          label="Repetir contraseña"
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          placeholder="Repite tu contraseña"
+          [required]="true"
+          [errorMsg]="passwordErrorMsg"
+          [(value)]="form.confirmPassword"
+          (valueChange)="checkPasswords()">
+        </app-input-icon-field>
+
+        <app-input-icon-field
+          iconType="phone"
+          label="Teléfono"
+          id="telefono"
+          name="telefono"
+          type="tel"
+          placeholder="Ej: 3001234567"
+          [required]="true"
+          [(value)]="form.telefono">
+        </app-input-icon-field>
+
+        <app-input-icon-field
+          iconType="location"
+          label="Dirección"
+          id="direccion"
+          name="direccion"
+          placeholder="Ej: Cra 7 #40-62, Bogotá"
+          [required]="true"
+          [fullWidth]="true"
+          [(value)]="form.direccion">
+        </app-input-icon-field>
+
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/login" class="btn-cancel">CANCELAR</a>
+        <button type="submit" class="btn-submit">CREAR CUENTA</button>
+      </div>
+    </form>
+
+    <div class="register-footer">
+      <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+    </div>
+
+  </div>
+</main>
