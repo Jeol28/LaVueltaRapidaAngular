@@ -1,0 +1,139 @@
+<!-- ══════════ HERO ══════════ -->
+<section class="pf-page-hero">
+  <div class="pf-hero-inner">
+    <p class="pf-hero-label">ÁREA DEL OPERADOR</p>
+    <h1 class="pf-hero-title">MI <span>PERFIL</span></h1>
+    <p class="pf-hero-sub">Gestiona tu información y preferencias</p>
+  </div>
+</section>
+
+<section class="pf-section" *ngIf="operador">
+
+  <!-- MENSAJE ÉXITO -->
+  <div *ngIf="successMsg" class="pf-success-banner">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+    Datos actualizados correctamente
+  </div>
+
+  <!-- MENSAJE ERROR -->
+  <div *ngIf="errorMsg" class="pf-error-banner">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    {{ errorMsg }}
+  </div>
+
+  <!-- ══════ MODO VISUALIZACIÓN ══════ -->
+  <div *ngIf="!editMode" class="pf-wrapper">
+    <div class="pf-driver-card">
+      <div class="pf-card-stripe"></div>
+
+      <!-- RUEDA F1 CON INICIAL -->
+      <div class="pf-wheel-wrap">
+        <svg class="pf-wheel-svg" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="48" cy="48" r="47" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+          <circle cx="48" cy="48" r="43" fill="none" stroke="#222" stroke-width="6" stroke-dasharray="7 4"/>
+          <circle cx="48" cy="48" r="35" fill="#1c1c1c" stroke="#383838" stroke-width="2"/>
+          <line x1="48" y1="48" x2="48" y2="13" stroke="#c50500" stroke-width="5" stroke-linecap="round"/>
+          <line x1="48" y1="48" x2="81" y2="37" stroke="#c50500" stroke-width="5" stroke-linecap="round"/>
+          <line x1="48" y1="48" x2="69" y2="76" stroke="#c50500" stroke-width="5" stroke-linecap="round"/>
+          <line x1="48" y1="48" x2="27" y2="76" stroke="#c50500" stroke-width="5" stroke-linecap="round"/>
+          <line x1="48" y1="48" x2="15" y2="37" stroke="#c50500" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="48" cy="48" r="20" fill="#e10600"/>
+          <circle cx="48" cy="48" r="5" fill="#c50500"/>
+        </svg>
+        <div class="pf-avatar pf-avatar-on-wheel">
+          <span>{{ initial }}</span>
+        </div>
+      </div>
+
+      <!-- NOMBRE Y BADGE -->
+      <h2 class="pf-full-name">{{ operador.nombre }}</h2>
+      <div class="pf-username-tag">
+        <span class="pf-at">@</span><span>{{ operador.usuario }}</span>
+      </div>
+      <div class="pf-pilot-badge">
+        OPERADOR &nbsp;<span>#{{ operador.id }}</span>
+      </div>
+
+      <hr class="pf-card-divider">
+
+      <!-- INFO ROWS -->
+      <ul class="pf-info-list">
+
+        <app-perfil-info-row label="Nombre completo" [value]="operador.nombre">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </app-perfil-info-row>
+
+        <app-perfil-info-row label="Usuario" [value]="'@' + operador.usuario">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </app-perfil-info-row>
+
+        <app-perfil-info-row label="Contraseña" value="••••••••">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </app-perfil-info-row>
+
+      </ul>
+
+      <!-- ACCIONES -->
+      <div class="pf-actions">
+        <button (click)="enterEditMode()" class="pf-btn pf-btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Editar perfil
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════ MODO EDICIÓN ══════ -->
+  <div *ngIf="editMode" class="pf-wrapper">
+    <div class="pf-driver-card pf-edit-card">
+      <div class="pf-card-stripe"></div>
+
+      <div class="pf-edit-header">
+        <div class="pf-avatar pf-avatar-sm">
+          <span>{{ initial }}</span>
+        </div>
+        <div>
+          <h2 class="pf-edit-title">Editar perfil</h2>
+          <p class="pf-edit-sub">Modifica tus datos y guarda los cambios</p>
+        </div>
+      </div>
+
+      <hr class="pf-card-divider">
+
+      <form (ngSubmit)="saveChanges()" #editFormRef="ngForm" class="pf-form">
+
+        <div class="pf-form-grid">
+
+          <div class="pf-field pf-field-full">
+            <label>Nombre completo</label>
+            <input type="text" [(ngModel)]="editForm.nombre" name="nombre" required placeholder="Tu nombre completo">
+          </div>
+
+          <div class="pf-field">
+            <label>Usuario</label>
+            <input type="text" [(ngModel)]="editForm.usuario" name="usuario" required placeholder="Ej: operador_01">
+          </div>
+
+          <div class="pf-field">
+            <label>Contraseña</label>
+            <input type="password" [(ngModel)]="editForm.contrasena" name="contrasena" required placeholder="Nueva contraseña">
+          </div>
+
+        </div>
+
+        <div class="pf-actions">
+          <button type="button" (click)="cancelEdit()" class="pf-btn pf-btn-ghost">
+            Cancelar
+          </button>
+          <button type="submit" [disabled]="editFormRef.invalid" class="pf-btn pf-btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Confirmar cambios
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</section>
