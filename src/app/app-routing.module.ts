@@ -8,12 +8,14 @@ import { AddOperarioComponent } from './admin/operarios/add-operario/add-operari
 import { LoginComponent } from './auth/login/login.component';
 import { PerfilComponent } from './cliente/perfil/perfil.component';
 import { PerfilOperadorComponent } from './operador/perfil-operador/perfil-operador.component';
+import { PerfilAdminComponent } from './admin/perfil-admin/perfil-admin.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'perfil-operador', component: PerfilOperadorComponent },
+  { path: 'perfil-admin', component: PerfilAdminComponent },
 
   // ── Productos ──
   { path: 'producto/menutabla',     component: ProductosAdminComponent },

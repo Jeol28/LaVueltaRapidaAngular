@@ -30,6 +30,7 @@ import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-ic
 import { PerfilComponent } from './cliente/perfil/perfil.component';
 import { PerfilInfoRowComponent } from './cliente/shared/perfil-info-row/perfil-info-row.component';
 import { PerfilOperadorComponent } from './operador/perfil-operador/perfil-operador.component';
+import { PerfilAdminComponent } from './admin/perfil-admin/perfil-admin.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { PerfilOperadorComponent } from './operador/perfil-operador/perfil-opera
     PerfilComponent,
     PerfilInfoRowComponent,
     PerfilOperadorComponent,
+    PerfilAdminComponent,
   ],
   imports: [
     BrowserModule,

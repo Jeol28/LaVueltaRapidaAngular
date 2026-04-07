@@ -52,7 +52,7 @@
     <div *ngIf="user" class="header-user">
 
         <!-- Nombre -->
-        <a [routerLink]="isOperador ? '/perfil-operador' : '/perfil'" class="user-name-link">
+        <a [routerLink]="isAdmin ? '/perfil-admin' : isOperador ? '/perfil-operador' : '/perfil'" class="user-name-link">
           <span>{{ user | uppercase }}</span>
         </a>
 
@@ -153,7 +153,7 @@
         </div>
 
         <div *ngIf="user" class="mobile-user">
-          <a [routerLink]="isOperador ? '/perfil-operador' : '/perfil'" style="color:inherit">{{ user | uppercase }}</a>
+          <a [routerLink]="isAdmin ? '/perfil-admin' : isOperador ? '/perfil-operador' : '/perfil'" style="color:inherit">{{ user | uppercase }}</a>
 
           <a *ngIf="!isAdmin && !isOperador" routerLink="/carrito">Carrito ({{ cartCount }})</a>
 
