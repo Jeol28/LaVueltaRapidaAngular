@@ -65,6 +65,10 @@ export class PerfilAdminComponent implements OnInit {
     const index = ADMINISTRADORES.findIndex(a => a.id === this.admin!.id);
     if (index === -1) return;
 
+    if (!this.editForm.contrasena) {
+      this.editForm.contrasena = this.admin.contrasena;
+    }
+
     ADMINISTRADORES[index] = { ...ADMINISTRADORES[index], ...this.editForm } as Administrador;
     this.admin = ADMINISTRADORES[index];
 

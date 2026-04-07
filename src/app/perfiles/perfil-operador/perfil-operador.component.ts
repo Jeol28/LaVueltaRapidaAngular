@@ -65,6 +65,10 @@ export class PerfilOperadorComponent implements OnInit {
     const index = OPERADORES.findIndex(o => o.id === this.operador!.id);
     if (index === -1) return;
 
+    if (!this.editForm.contrasena) {
+      this.editForm.contrasena = this.operador.contrasena;
+    }
+
     OPERADORES[index] = { ...OPERADORES[index], ...this.editForm } as Operador;
     this.operador = OPERADORES[index];
 
