@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Operador } from '../../models/operador.model';
 import { OPERADORES } from '../../data/mock-data';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-perfil-operador',
@@ -17,7 +18,7 @@ export class PerfilOperadorComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     const username = localStorage.getItem('user');
@@ -72,7 +73,7 @@ export class PerfilOperadorComponent implements OnInit {
     OPERADORES[index] = { ...OPERADORES[index], ...this.editForm } as Operador;
     this.operador = OPERADORES[index];
 
-    localStorage.setItem('user', this.operador.usuario);
+    this.authService.updateUsername(this.operador.usuario);
 
     this.editMode = false;
     this.currentPassword = '';

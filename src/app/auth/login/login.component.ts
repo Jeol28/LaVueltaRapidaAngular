@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ADMINISTRADORES, CLIENTES, OPERADORES } from '../../data/mock-data';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent {
   contrasena: string = '';
   loginError: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit(): void {
     const admin = ADMINISTRADORES.find(
@@ -20,8 +21,7 @@ export class LoginComponent {
     );
 
     if (admin) {
-      localStorage.setItem('user', admin.usuario);
-      localStorage.setItem('role', 'admin');
+      this.authService.setUser(admin.usuario, 'admin');
       this.loginError = false;
       this.router.navigate(['/producto/menutabla']);
       return;
@@ -32,8 +32,7 @@ export class LoginComponent {
     );
 
     if (operador) {
-      localStorage.setItem('user', operador.usuario);
-      localStorage.setItem('role', 'operador');
+      this.authService.setUser(operador.usuario, 'operador');
       this.loginError = false;
       this.router.navigate(['/operador/inicio']);
       return;
@@ -44,8 +43,7 @@ export class LoginComponent {
     );
 
     if (cliente) {
-      localStorage.setItem('user', cliente.username);
-      localStorage.setItem('role', 'cliente');
+      this.authService.setUser(cliente.username, 'cliente');
       this.loginError = false;
       this.router.navigate(['/menu']);
       return;
