@@ -38,11 +38,9 @@
       <nav class="footer-col">
         <h3 class="footer-col-title">MENÚ</h3>
         <ul class="footer-links">
-          <li><a routerLink="/menu" fragment="clasicas">Clásicas</a></li>
-          <li><a routerLink="/menu" fragment="especiales">Especiales</a></li>
-          <li><a routerLink="/menu" fragment="picantes">Picantes</a></li>
-          <li><a routerLink="/menu" fragment="bebidas">Bebidas</a></li>
-          <li><a routerLink="/menu" fragment="postres">Postres</a></li>
+          <li *ngFor="let cat of categorias">
+            <a routerLink="/menu" [fragment]="cat.name | lowercase">{{ cat.name }}</a>
+          </li>
         </ul>
       </nav>
 
