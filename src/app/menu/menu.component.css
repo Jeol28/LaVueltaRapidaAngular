@@ -1,8 +1,8 @@
 .menu-container {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 0 100px;
+  padding: 60px 5% 100px;
 }
 
 .menu-category {
@@ -31,14 +31,13 @@
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 300px);
-  justify-content: start;
+  justify-content: center;
   gap: 35px;
 }
 
 @media (max-width: 768px) {
   .menu-container {
-    width: 95%;
-    padding: 40px 0 80px;
+    padding: 40px 4% 80px;
   }
 
   .category-title {
