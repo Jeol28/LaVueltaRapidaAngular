@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { CarritoService } from '../../services/carrito.service';
+import { ItemCarrito } from '../../models/item-carrito.model';
 
 @Component({
   selector: 'app-header',
@@ -15,13 +16,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAdmin: boolean = false;
   isOperador: boolean = false;
   cartCount: number = 0;
+  cartItems: ItemCarrito[] = [];
   isMenuOpen = false;
   isScrolled = false;
 
   private routerSub!: Subscription;
   private cartSub!: Subscription;
 
-  constructor(private router: Router, private carritoService: CarritoService) {}
+  constructor(private router: Router, public carritoService: CarritoService) {}
 
   private loadUser(): void {
     this.user = localStorage.getItem('user');
@@ -40,14 +42,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.routerSub = this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe(() => this.loadUser());
-    this.cartSub = this.carritoService.count$.subscribe(c => {
-      this.cartCount = c;
+    this.cartSub = this.carritoService.items$.subscribe(items => {
+      this.cartItems = items;
+      this.cartCount = items.reduce((s, i) => s + i.cantidad, 0);
     });
   }
 
   ngOnDestroy(): void {
     this.routerSub?.unsubscribe();
     this.cartSub?.unsubscribe();
+  }
+
+  cambiarCantidad(index: number, delta: number): void {
+    this.carritoService.cambiarCantidad(index, delta);
+  }
+
+  vaciarCarrito(): void {
+    this.carritoService.vaciar();
+  }
+
+  precioUnitario(item: ItemCarrito): number {
+    return item.comida.price + item.adicionales.reduce((s, a) => s + a.price, 0);
+  }
+
+  formatCOP(amount: number): string {
+    return new Intl.NumberFormat('es-CO').format(amount);
   }
 
   login(): void {
