@@ -48,7 +48,9 @@
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  flex: 1;
+  justify-content: space-evenly;
+  padding: 0 40px;
 }
 
 .nav-link {
