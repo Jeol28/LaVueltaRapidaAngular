@@ -74,7 +74,7 @@ a {
 }
 
 .menu-list-section .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 5%;
 }
@@ -313,9 +313,9 @@ a {
 }
 
 .add-container {
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 60px 5% 120px;
+  padding: 60px 20px 120px;
 }
 
 .form-card {
