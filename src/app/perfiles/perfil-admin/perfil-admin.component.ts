@@ -6,7 +6,7 @@ import { ADMINISTRADORES } from '../../data/mock-data';
 @Component({
   selector: 'app-perfil-admin',
   templateUrl: './perfil-admin.component.html',
-  styleUrls: ['../../cliente/perfil/perfil.component.css']
+  styleUrls: ['../perfil/perfil.component.css']
 })
 export class PerfilAdminComponent implements OnInit {
 

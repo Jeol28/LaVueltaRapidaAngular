@@ -6,7 +6,7 @@ import { OPERADORES } from '../../data/mock-data';
 @Component({
   selector: 'app-perfil-operador',
   templateUrl: './perfil-operador.component.html',
-  styleUrls: ['../../cliente/perfil/perfil.component.css']
+  styleUrls: ['../perfil/perfil.component.css']
 })
 export class PerfilOperadorComponent implements OnInit {
 

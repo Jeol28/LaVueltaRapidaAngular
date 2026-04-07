@@ -26,11 +26,10 @@ src/app/
     shared/          - Admin hero component
     productos/       - Product management (list, add, edit)
     operarios/       - Operator management (list, add, edit)
-    perfil-admin/    - Admin profile page (view, edit credentials; reuses perfil CSS & PerfilInfoRowComponent)
-  operador/
-    perfil-operador/ - Operator profile page (view, edit; reuses perfil CSS & PerfilInfoRowComponent)
-  cliente/
+  perfiles/
     perfil/          - Client profile page (view, edit, delete account)
+    perfil-operador/ - Operator profile page (view, edit)
+    perfil-admin/    - Admin profile page (view, edit credentials)
     shared/
       perfil-info-row/ - Reusable info row component (icon + label + value)
   data/

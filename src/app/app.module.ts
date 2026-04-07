@@ -27,10 +27,10 @@ import { AddOperarioComponent } from './admin/operarios/add-operario/add-operari
 import { LoginComponent } from './auth/login/login.component';
 import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-icon-field.component';
 
-import { PerfilComponent } from './cliente/perfil/perfil.component';
-import { PerfilInfoRowComponent } from './cliente/shared/perfil-info-row/perfil-info-row.component';
-import { PerfilOperadorComponent } from './operador/perfil-operador/perfil-operador.component';
-import { PerfilAdminComponent } from './admin/perfil-admin/perfil-admin.component';
+import { PerfilComponent } from './perfiles/perfil/perfil.component';
+import { PerfilInfoRowComponent } from './perfiles/shared/perfil-info-row/perfil-info-row.component';
+import { PerfilOperadorComponent } from './perfiles/perfil-operador/perfil-operador.component';
+import { PerfilAdminComponent } from './perfiles/perfil-admin/perfil-admin.component';
 
 @NgModule({
   declarations: [
