@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { CarritoService } from '../../services/carrito.service';
 
 @Component({
   selector: 'app-header',
@@ -13,13 +14,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: string | null = null;
   isAdmin: boolean = false;
   isOperador: boolean = false;
-  cartCount: number = 3;
+  cartCount: number = 0;
   isMenuOpen = false;
   isScrolled = false;
 
   private routerSub!: Subscription;
+  private cartSub!: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private carritoService: CarritoService) {}
 
   private loadUser(): void {
     this.user = localStorage.getItem('user');
@@ -38,10 +40,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.routerSub = this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe(() => this.loadUser());
+    this.cartSub = this.carritoService.count$.subscribe(c => {
+      this.cartCount = c;
+    });
   }
 
   ngOnDestroy(): void {
     this.routerSub?.unsubscribe();
+    this.cartSub?.unsubscribe();
   }
 
   login(): void {
@@ -51,6 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout(): void {
     localStorage.removeItem('user');
     localStorage.removeItem('role');
+    this.carritoService.vaciar();
     this.user = null;
     this.isAdmin = false;
     this.isOperador = false;

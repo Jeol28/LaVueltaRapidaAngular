@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Comida } from '../../models/comida.model';
+import { Adicional } from '../../models/adicional.model';
 import { ComidaService } from '../../services/comida.service';
+import { CarritoService } from '../../services/carrito.service';
 
 @Component({
   selector: 'app-producto-detalle',
@@ -18,7 +20,8 @@ export class ProductoDetalleComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private comidaService: ComidaService
+    private comidaService: ComidaService,
+    private carritoService: CarritoService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +67,13 @@ export class ProductoDetalleComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
+    if (!this.comida) return;
+
+    const adicionales: Adicional[] = this.comida.category.adicionales
+      .filter(a => a.available && this.selectedAdicionales.has(a.id));
+
+    this.carritoService.agregar(this.comida, adicionales);
+
     this.showToast = true;
     setTimeout(() => { this.showToast = false; }, 2000);
   }

@@ -1,0 +1,357 @@
+html{
+  height:100%;
+  width:100%;
+  margin:0;
+  padding:0;
+  scroll-padding-top:var(--header-height);
+}
+
+/* HEADER */
+header{
+  color:white;
+  background:#F77f09;
+  padding:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+}
+
+/* NOVA SHOP */
+header h1{
+  font-size:50px;
+  margin:0 20px;
+  font-family:'Bebas Neue', cursive;
+}
+
+/* LOGO */
+.nova-shop{
+  display:flex;
+  align-items:center;
+  margin-left:15px;
+}
+
+/* BODY */
+body{
+  background:#f5f5f5;
+  margin:0;
+}
+
+/* INDICE */
+ul{
+  display:flex;
+  gap:80px;
+  margin:0 15px 0 0;
+  padding:0;
+  list-style:none;
+  font-family:'Bebas Neue', cursive;
+  font-size:30px;
+  align-items:center;
+}
+
+/* LINKS */
+a{
+  color:white;
+  text-decoration:none;
+}
+
+/* HOVER LINKS */
+a:hover{
+  color:#f5f5f5;
+  text-decoration:underline;
+}
+
+/* INDICE MARGIN */
+.indice{
+  margin-top:15px;
+}
+
+/* HOVER CARRITO */
+.carrito img:hover{
+  border-bottom:2px solid white;
+  padding-bottom:4px;
+}
+
+/* NOSOTROS */
+#nosotros{
+  display:flex;
+  background:#f5f5f5;
+  padding:20px;
+  margin:20px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+  font-family:'Bebas Neue', cursive;
+  font-size:20px;
+  text-align:justify;
+}
+
+/* TITULO NOSOTROS */
+#nosotros h2{
+  margin:0;
+  font-size:35px;
+}
+
+/* TIENDA */
+#tienda{
+  margin:0;
+  font-family:'Bebas Neue', cursive;
+  font-size:20px;
+}
+
+/* TITULO TIENDA */
+#tienda h2{
+  margin:0;
+  font-size:35px;
+  text-align:center;
+}
+
+/* ARTICULOS */
+.articulos{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+/* ARTICULO */
+.articulo{
+  display:flex;
+  align-items:center;
+  border:1px solid black;
+  background:#f5f5f5;
+  padding:20px;
+  margin:20px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+  font-family:'Bebas Neue', cursive;
+  font-size:20px;
+  flex-basis:calc(50% - 40px);
+  box-sizing:border-box;
+}
+
+/* IMAGEN ARTICULO */
+.articulo img{
+  margin-right:20px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+  width:200px;
+  height:200px;
+}
+
+/* CARD INFO */
+.card-info{
+  flex:1;
+  padding:20px;
+  background:#e5e5e5;
+  width:400px;
+}
+
+/* TITULO CARD INFO */
+.card-info h3{
+  margin:0 0 10px 0;
+  font-size:22px;
+}
+
+/* LISTA CARD INFO */
+.card-info ul{
+  list-style:none;
+  padding:0;
+  margin:0 0 15px 0;
+  font-size:14px;
+}
+
+/* LISTA CARD INFO */
+.card-info ul li{
+  margin-bottom:4px;
+}
+
+/* PRECIO CARD INFO */
+.precio{
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+/* BOTON CARD INFO */
+.card-info button{
+  width:100%;
+  padding:10px;
+  background:#F77f09;
+  color:white;
+  border:none;
+  cursor:pointer;
+  font-family:'Bebas Neue', cursive;
+  font-size:18px;
+}
+
+/* HOVER BOTON CARD INFO */
+.card-info button:hover{
+  background:#e56f00;
+}
+
+/* SCROLL OFFSET */
+section h2,
+main{
+  scroll-margin-top:8rem;
+}
+
+/* CARRITO */
+.carrito{
+  position:relative;
+  cursor:pointer;
+}
+
+/* IMAGEN CARRITO */
+.carrito img{
+  margin-top:10px;
+}
+
+/* PANEL CARRITO */
+.panel-carrito{
+  display:none;
+  position:fixed;
+  right:0;
+  width:360px;
+  background:#e0e0e0;
+  padding:15px;
+  border:1px solid #bbb;
+  z-index:1000;
+  opacity:0;
+  transform:translateY(-10px);
+  pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+}
+
+/* HOVER PANEL CARRITO */
+.carrito:hover .panel-carrito{
+  display:block;
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+/* TABLA CARRITO */
+.panel-carrito table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+  font-family:'Bebas Neue', cursive;
+  color:black;
+}
+
+/* TABLA CARRITO */
+.panel-carrito th{
+  border-bottom:1px solid #999;
+  text-align:center;
+}
+
+/* TABLA CARRITO */
+.panel-carrito td{
+  padding:6px 0;
+  text-align:center;
+  white-space:nowrap;
+}
+
+/* IMAGEN PANEL CARRITO */
+.panel-carrito img{
+  width:35px;
+  height:35px;
+  border-radius:5px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+/* BOTONES + - */
+.panel-carrito td button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  margin:0 5px;
+  border:none;
+  border-radius:4px;
+  background:#eee;
+  font-size:14px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:transform .1s, background .2s;
+}
+
+/* HOVER BOTONES + - */
+.panel-carrito td button:hover{
+  background:#ddd;
+}
+
+/* ACTIVE BOTONES + - */
+.panel-carrito td button:active{
+  transform:scale(0.9);
+}
+
+/* BOTON VACIAR */
+.panel-carrito > button{
+  width:100%;
+  margin-top:12px;
+  padding:8px;
+  background:#F77f09;
+  color:white;
+  border:none;
+  cursor:pointer;
+  font-family:'Bebas Neue', cursive;
+}
+
+/* HOVER BOTON VACIAR */
+.panel-carrito > button:hover{
+  background:#e56f00;
+}
+
+/* FORMULARIO */
+#agregar-articulo > h2{
+  text-align:center;
+  font-family:'Bebas Neue', cursive;
+  font-size:35px;
+}
+
+/* FORMULARIO */
+#form-articulo{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  margin-top:20px;
+  font-family:'Bebas Neue', cursive;
+  font-size:20px;
+}
+
+/* INPUT FORMULARIO */
+#form-articulo input{
+  padding:10px;
+  border-radius:5px;
+  border:1px solid #ccc;
+  width:300px;
+}
+
+/* BOTON FORMULARIO */
+#form-articulo button{
+  padding:10px 20px;
+  background:#F77f09;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  font-family:'Bebas Neue', cursive;
+  font-size:20px;
+  margin:10px 0 20px;
+}
+
+/* HOVER BOTON FORMULARIO */
+#form-articulo button:hover{
+  background:#e56f00;
+}
+
+/* FOOTER */
+footer{
+  background:#F77f09;
+  color:white;
+  text-align:center;
+  padding:10px;
+  font-family:'Bebas Neue', cursive;
+  font-size:20px;
+}

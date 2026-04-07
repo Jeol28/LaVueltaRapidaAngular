@@ -26,6 +26,7 @@ import { AddOperarioComponent } from './admin/operarios/add-operario/add-operari
 
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
+import { CarritoComponent } from './carrito/carrito.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-icon-field.component';
@@ -61,6 +62,7 @@ import { OperadorInicioComponent } from './operador/operador-inicio/operador-ini
 
     MenuComponent,
     ProductoDetalleComponent,
+    CarritoComponent,
     LoginComponent,
     RegisterComponent,
     InputIconFieldComponent,

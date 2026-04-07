@@ -7,6 +7,7 @@ import { OperariosAdminComponent } from './admin/operarios/operarios-admin/opera
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
+import { CarritoComponent } from './carrito/carrito.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
@@ -17,6 +18,7 @@ import { OperadorInicioComponent } from './operador/operador-inicio/operador-ini
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'menu', component: MenuComponent },
+  { path: 'carrito', component: CarritoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'perfil', component: PerfilComponent },
