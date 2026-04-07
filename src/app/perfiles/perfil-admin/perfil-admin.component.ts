@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Administrador } from '../../models/administrador.model';
-import { ADMINISTRADORES } from '../../data/mock-data';
+import { CLIENTES, OPERADORES, ADMINISTRADORES } from '../../data/mock-data';
 
 @Component({
   selector: 'app-perfil-admin',
@@ -62,9 +62,11 @@ export class PerfilAdminComponent implements OnInit {
       return;
     }
 
-    const usuarioTomado = ADMINISTRADORES.some(
-      a => a.usuario === this.editForm.usuario && a.id !== this.admin!.id
-    );
+    const nuevoUsuario = this.editForm.usuario;
+    const usuarioTomado =
+      ADMINISTRADORES.some(a => a.usuario === nuevoUsuario && a.id !== this.admin!.id) ||
+      CLIENTES.some(c => c.username === nuevoUsuario) ||
+      OPERADORES.some(o => o.usuario === nuevoUsuario);
     if (usuarioTomado) {
       this.errorMsg = 'Ese nombre de usuario ya está en uso.';
       return;
