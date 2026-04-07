@@ -1,51 +1,51 @@
 import { Injectable } from '@angular/core';
 import { Comida } from '../models/comida.model';
-import { Categoria } from '../models/categoria.model';
-import { COMIDAS, CATEGORIAS } from '../data/mock-data';
+import { CATEGORIAS, COMIDAS } from '../data/mock-data';
 
 @Injectable({ providedIn: 'root' })
 export class ComidaService {
 
-  private comidas: Comida[] = COMIDAS.map(c => ({ ...c }));
-  private nextId: number = Math.max(...COMIDAS.map(c => c.id)) + 1;
-
   getAll(): Comida[] {
-    return this.comidas;
+    return COMIDAS;
   }
 
   getById(id: number): Comida | undefined {
-    return this.comidas.find(c => c.id === id);
+    return COMIDAS.find(c => c.id === id);
   }
 
   add(data: { name: string; description: string; price: number | null; categoryId: number | null; image: string; available: boolean }): void {
-    const cat = CATEGORIAS.find(c => c.id === Number(data.categoryId))!;
-    this.comidas.push({
-      id: this.nextId++,
+    const category = CATEGORIAS.find(c => c.id === data.categoryId);
+    if (!category) return;
+    const newId = COMIDAS.length > 0 ? Math.max(...COMIDAS.map(c => c.id)) + 1 : 1;
+    COMIDAS.push({
+      id: newId,
       name: data.name,
       description: data.description,
-      price: Number(data.price),
+      price: data.price ?? 0,
       image: data.image,
       available: data.available,
-      category: cat
+      category
     });
   }
 
   update(id: number, data: { name: string; description: string; price: number | null; categoryId: number | null; image: string; available: boolean }): void {
-    const idx = this.comidas.findIndex(c => c.id === id);
-    if (idx === -1) return;
-    const cat = CATEGORIAS.find(c => c.id === Number(data.categoryId))!;
-    this.comidas[idx] = {
-      ...this.comidas[idx],
+    const index = COMIDAS.findIndex(c => c.id === id);
+    if (index === -1) return;
+    const category = CATEGORIAS.find(c => c.id === data.categoryId);
+    if (!category) return;
+    COMIDAS[index] = {
+      ...COMIDAS[index],
       name: data.name,
       description: data.description,
-      price: Number(data.price),
+      price: data.price ?? 0,
       image: data.image,
       available: data.available,
-      category: cat
+      category
     };
   }
 
   delete(id: number): void {
-    this.comidas = this.comidas.filter(c => c.id !== id);
+    const index = COMIDAS.findIndex(c => c.id === id);
+    if (index !== -1) COMIDAS.splice(index, 1);
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Administrador } from '../../models/administrador.model';
 import { ADMINISTRADORES } from '../../data/mock-data';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-perfil-admin',
@@ -18,7 +17,7 @@ export class PerfilAdminComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     const username = localStorage.getItem('user');
@@ -73,7 +72,8 @@ export class PerfilAdminComponent implements OnInit {
     ADMINISTRADORES[index] = { ...ADMINISTRADORES[index], ...this.editForm } as Administrador;
     this.admin = ADMINISTRADORES[index];
 
-    this.authService.updateUsername(this.admin.usuario);
+    localStorage.setItem('user', this.admin.usuario);
+    window.dispatchEvent(new CustomEvent('userChanged'));
 
     this.editMode = false;
     this.currentPassword = '';

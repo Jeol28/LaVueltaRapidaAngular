@@ -5,33 +5,26 @@ import { OPERADORES } from '../data/mock-data';
 @Injectable({ providedIn: 'root' })
 export class OperadorService {
 
-  private operadores: Operador[] = OPERADORES.map(o => ({ ...o }));
-  private nextId: number = Math.max(...OPERADORES.map(o => o.id)) + 1;
-
   getAll(): Operador[] {
-    return this.operadores;
+    return OPERADORES;
   }
 
   getById(id: number): Operador | undefined {
-    return this.operadores.find(o => o.id === id);
+    return OPERADORES.find(o => o.id === id);
   }
 
   add(data: { nombre: string; usuario: string; contrasena: string }): void {
-    this.operadores.push({
-      id: this.nextId++,
-      nombre: data.nombre,
-      usuario: data.usuario,
-      contrasena: data.contrasena
-    });
+    const newId = OPERADORES.length > 0 ? Math.max(...OPERADORES.map(o => o.id)) + 1 : 1;
+    OPERADORES.push({ id: newId, ...data });
   }
 
   update(id: number, data: { nombre: string; usuario: string; contrasena: string }): void {
-    const idx = this.operadores.findIndex(o => o.id === id);
-    if (idx === -1) return;
-    this.operadores[idx] = { ...this.operadores[idx], ...data };
+    const index = OPERADORES.findIndex(o => o.id === id);
+    if (index !== -1) OPERADORES[index] = { ...OPERADORES[index], ...data };
   }
 
   delete(id: number): void {
-    this.operadores = this.operadores.filter(o => o.id !== id);
+    const index = OPERADORES.findIndex(o => o.id === id);
+    if (index !== -1) OPERADORES.splice(index, 1);
   }
 }

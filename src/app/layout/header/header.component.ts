@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -19,29 +18,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isScrolled = false;
 
   private routerSub!: Subscription;
-  private userSub!: Subscription;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router) {}
 
-  private loadRole(): void {
+  private loadUser(): void {
+    this.user = localStorage.getItem('user');
     const role = localStorage.getItem('role');
     this.isAdmin = role === 'admin';
     this.isOperador = role === 'operador';
   }
 
+  @HostListener('window:userChanged')
+  onUserChanged(): void {
+    this.loadUser();
+  }
+
   ngOnInit(): void {
-    this.loadRole();
-    this.userSub = this.authService.user$.subscribe(u => {
-      this.user = u;
-    });
+    this.loadUser();
     this.routerSub = this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => this.loadRole());
+      .subscribe(() => this.loadUser());
   }
 
   ngOnDestroy(): void {
     this.routerSub?.unsubscribe();
-    this.userSub?.unsubscribe();
   }
 
   login(): void {
@@ -49,7 +49,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authService.logout();
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    this.user = null;
     this.isAdmin = false;
     this.isOperador = false;
     this.router.navigate(['/']);
