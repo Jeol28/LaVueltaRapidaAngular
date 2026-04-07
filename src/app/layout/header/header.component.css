@@ -569,7 +569,7 @@
 
 @media (max-width: 950px) {
   .header-inner {
-    padding: 0 12px;
+    padding: 0 20px;
     height: 62px;
     justify-content: space-between;
   }
