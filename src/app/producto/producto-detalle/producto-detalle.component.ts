@@ -60,6 +60,10 @@ export class ProductoDetalleComponent implements OnInit {
   }
 
   addToCart(): void {
+    if (!localStorage.getItem('user')) {
+      this.router.navigate(['/login']);
+      return;
+    }
     this.showToast = true;
     setTimeout(() => { this.showToast = false; }, 2000);
   }
