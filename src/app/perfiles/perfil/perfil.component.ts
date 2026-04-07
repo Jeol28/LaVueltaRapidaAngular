@@ -62,6 +62,14 @@ export class PerfilComponent implements OnInit {
       return;
     }
 
+    const usuarioTomado = CLIENTES.some(
+      c => c.username === this.editForm.username && c.id !== this.cliente!.id
+    );
+    if (usuarioTomado) {
+      this.errorMsg = 'Ese nombre de usuario ya está en uso.';
+      return;
+    }
+
     const index = CLIENTES.findIndex(c => c.id === this.cliente!.id);
     if (index === -1) return;
 

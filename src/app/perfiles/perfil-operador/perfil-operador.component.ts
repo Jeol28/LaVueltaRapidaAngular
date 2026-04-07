@@ -62,6 +62,14 @@ export class PerfilOperadorComponent implements OnInit {
       return;
     }
 
+    const usuarioTomado = OPERADORES.some(
+      o => o.usuario === this.editForm.usuario && o.id !== this.operador!.id
+    );
+    if (usuarioTomado) {
+      this.errorMsg = 'Ese nombre de usuario ya está en uso.';
+      return;
+    }
+
     const index = OPERADORES.findIndex(o => o.id === this.operador!.id);
     if (index === -1) return;
 

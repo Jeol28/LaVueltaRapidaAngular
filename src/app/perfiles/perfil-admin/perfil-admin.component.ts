@@ -62,6 +62,14 @@ export class PerfilAdminComponent implements OnInit {
       return;
     }
 
+    const usuarioTomado = ADMINISTRADORES.some(
+      a => a.usuario === this.editForm.usuario && a.id !== this.admin!.id
+    );
+    if (usuarioTomado) {
+      this.errorMsg = 'Ese nombre de usuario ya está en uso.';
+      return;
+    }
+
     const index = ADMINISTRADORES.findIndex(a => a.id === this.admin!.id);
     if (index === -1) return;
 
