@@ -559,14 +559,12 @@
 ══════════════════════════════════════ */
 @media (max-width: 1500px) {
   .header-inner { padding: 0 16px; }
-  .site-header  { background: rgba(30, 60, 120, 0.95) !important; } /* AZUL — tablet grande */
 }
 
 @media (max-width: 1000px) {
   .header-inner { padding: 0 4px; }
   .header-nav { gap: 18px; }
   .nav-link   { font-size: 13px; }
-  .site-header  { background: rgba(20, 100, 40, 0.95) !important; } /* VERDE — tablet pequeña */
 }
 
 @media (max-width: 950px) {
@@ -574,7 +572,6 @@
     padding: 0;
     height: 62px;
   }
-  .site-header  { background: rgba(150, 60, 0, 0.95) !important; } /* NARANJA — móvil */
 
   .header-nav,
   .header-actions { display: none; }
