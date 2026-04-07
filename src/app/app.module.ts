@@ -27,6 +27,9 @@ import { AddOperarioComponent } from './admin/operarios/add-operario/add-operari
 import { LoginComponent } from './auth/login/login.component';
 import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-icon-field.component';
 
+import { PerfilComponent } from './cliente/perfil/perfil.component';
+import { PerfilInfoRowComponent } from './cliente/shared/perfil-info-row/perfil-info-row.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +55,9 @@ import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-ic
 
     LoginComponent,
     InputIconFieldComponent,
+
+    PerfilComponent,
+    PerfilInfoRowComponent,
   ],
   imports: [
     BrowserModule,

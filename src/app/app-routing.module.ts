@@ -6,10 +6,12 @@ import { AddProductComponent } from './admin/productos/add-product/add-product.c
 import { OperariosAdminComponent } from './admin/operarios/operarios-admin/operarios-admin.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 import { LoginComponent } from './auth/login/login.component';
+import { PerfilComponent } from './cliente/perfil/perfil.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'perfil', component: PerfilComponent },
 
   // ── Productos ──
   { path: 'producto/menutabla',     component: ProductosAdminComponent },
