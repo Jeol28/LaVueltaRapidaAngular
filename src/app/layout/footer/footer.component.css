@@ -9,22 +9,26 @@
 
 /* Contenedor interno */
 .footer-inner {
-  padding: 0 60px;
+  padding: 0;
 }
 
 /* ================= TOP SECTION ================= */
 
 .footer-top {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 60px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
   margin-bottom: 60px;
 }
 
 /* ================= BRAND ================= */
 
 .footer-brand {
-  max-width: 320px;
+  max-width: 300px;
+}
+
+.footer-col {
+  min-width: 160px;
 }
 
 .footer-logo {
