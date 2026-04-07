@@ -558,11 +558,11 @@
    RESPONSIVE
 ══════════════════════════════════════ */
 @media (max-width: 1500px) {
-  .header-inner { padding: 0 48px; }
+  .header-inner { padding: 0 24px; }
 }
 
 @media (max-width: 900px) {
-  .header-inner { padding: 0 24px; }
+  .header-inner { padding: 0 16px; }
   .header-nav { gap: 18px; }
   .nav-link   { font-size: 13px; }
 }
