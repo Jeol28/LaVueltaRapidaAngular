@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Administrador } from '../../models/administrador.model';
-import { CLIENTES, OPERADORES, ADMINISTRADORES } from '../../data/mock-data';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-perfil-admin',
@@ -17,7 +17,7 @@ export class PerfilAdminComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private adminService: AdminService) {}
 
   ngOnInit(): void {
     const username = localStorage.getItem('user');
@@ -28,7 +28,7 @@ export class PerfilAdminComponent implements OnInit {
       return;
     }
 
-    this.admin = ADMINISTRADORES.find(a => a.usuario === username) ?? null;
+    this.admin = this.adminService.findByUsuario(username) ?? null;
 
     if (!this.admin) {
       this.router.navigate(['/']);
@@ -62,26 +62,15 @@ export class PerfilAdminComponent implements OnInit {
       return;
     }
 
-    const nuevoUsuario = this.editForm.usuario;
-    const usuarioTomado =
-      ADMINISTRADORES.some(a => a.usuario === nuevoUsuario && a.id !== this.admin!.id) ||
-      CLIENTES.some(c => c.username === nuevoUsuario) ||
-      OPERADORES.some(o => o.usuario === nuevoUsuario);
-    if (usuarioTomado) {
+    if (this.adminService.isUsernameTaken(this.editForm.usuario!, this.admin.id)) {
       this.errorMsg = 'Ese nombre de usuario ya está en uso.';
       return;
     }
 
-    const index = ADMINISTRADORES.findIndex(a => a.id === this.admin!.id);
-    if (index === -1) return;
+    const updated = this.adminService.update(this.admin.id, this.editForm);
+    if (!updated) return;
 
-    if (!this.editForm.contrasena) {
-      this.editForm.contrasena = this.admin.contrasena;
-    }
-
-    ADMINISTRADORES[index] = { ...ADMINISTRADORES[index], ...this.editForm } as Administrador;
-    this.admin = ADMINISTRADORES[index];
-
+    this.admin = updated;
     localStorage.setItem('user', this.admin.usuario);
     window.dispatchEvent(new CustomEvent('userChanged'));
 
