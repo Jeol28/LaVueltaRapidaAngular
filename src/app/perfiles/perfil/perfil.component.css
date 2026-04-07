@@ -450,13 +450,6 @@
   font-size: 13px;
 }
 
-.pf-field-optional {
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  color: #555;
-  font-size: 11px;
-}
 
 /* ── Edit mode actions: side by side ── */
 .pf-edit-card .pf-actions {
