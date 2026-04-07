@@ -6,6 +6,7 @@ import { AddProductComponent } from './admin/productos/add-product/add-product.c
 import { OperariosAdminComponent } from './admin/operarios/operarios-admin/operarios-admin.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 import { MenuComponent } from './menu/menu.component';
+import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'producto/menutabla',     component: ProductosAdminComponent },
   { path: 'producto/add',           component: AddProductComponent },
   { path: 'producto/update/:id',    component: AddProductComponent },
+  { path: 'producto/:id',           component: ProductoDetalleComponent },
 
   // ── Operarios ──
   { path: 'admin/operarios',         component: OperariosAdminComponent },

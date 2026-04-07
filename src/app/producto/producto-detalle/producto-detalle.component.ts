@@ -1,0 +1,66 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Comida } from '../../models/comida.model';
+import { ComidaService } from '../../services/comida.service';
+
+@Component({
+  selector: 'app-producto-detalle',
+  templateUrl: './producto-detalle.component.html',
+  styleUrls: ['./producto-detalle.component.css']
+})
+export class ProductoDetalleComponent implements OnInit {
+
+  comida: Comida | null = null;
+  recomendaciones: Comida[] = [];
+  selectedAdicionales: Set<number> = new Set();
+  showToast: boolean = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private comidaService: ComidaService
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+      this.comida = this.comidaService.getById(id) ?? null;
+      if (!this.comida) {
+        this.router.navigate(['/menu']);
+        return;
+      }
+      this.recomendaciones = this.comidaService.getRecomendaciones(this.comida);
+      this.selectedAdicionales = new Set();
+    });
+  }
+
+  toggleAdicional(id: number): void {
+    if (this.selectedAdicionales.has(id)) {
+      this.selectedAdicionales.delete(id);
+    } else {
+      this.selectedAdicionales.add(id);
+    }
+  }
+
+  isSelected(id: number): boolean {
+    return this.selectedAdicionales.has(id);
+  }
+
+  get total(): number {
+    if (!this.comida) return 0;
+    let sum = this.comida.price;
+    this.comida.category.adicionales
+      .filter(a => a.available && this.selectedAdicionales.has(a.id))
+      .forEach(a => sum += a.price);
+    return sum;
+  }
+
+  formatCOP(amount: number): string {
+    return new Intl.NumberFormat('es-CO').format(amount);
+  }
+
+  addToCart(): void {
+    this.showToast = true;
+    setTimeout(() => { this.showToast = false; }, 2000);
+  }
+}

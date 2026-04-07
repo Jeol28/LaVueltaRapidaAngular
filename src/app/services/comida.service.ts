@@ -13,6 +13,10 @@ export class ComidaService {
     return COMIDAS.find(c => c.id === id);
   }
 
+  getRecomendaciones(comida: Comida): Comida[] {
+    return COMIDAS.filter(c => c.available && c.id !== comida.id && c.category.id === comida.category.id);
+  }
+
   add(data: { name: string; description: string; price: number | null; categoryId: number | null; image: string; available: boolean }): void {
     const category = CATEGORIAS.find(c => c.id === data.categoryId);
     if (!category) return;
