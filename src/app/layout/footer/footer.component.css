@@ -19,6 +19,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 60px;
   margin-bottom: 60px;
+  align-items: start;
 }
 
 /* ================= BRAND ================= */
