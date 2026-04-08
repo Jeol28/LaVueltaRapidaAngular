@@ -72,6 +72,7 @@
   display: flex;
   flex-direction: column;
   /* min-width: 160px; */
+  padding-left: 30px;
 }
 
 .footer-col-title {
@@ -178,6 +179,10 @@
 @media (max-width: 768px) {
   .footer-top {
     grid-template-columns: 1fr; /* 1 columna en móvil */
+  }
+
+  .footer-col {
+    padding-left: 0;
   }
 
   .footer-bottom {
