@@ -163,32 +163,22 @@
 
 @media (max-width: 992px) {
   .footer-top {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 40px;
   }
 
   .footer-brand {
+    grid-column: 1 / -1;
     order: 1;
   }
 
-  /* EXPERIENCIA al mismo nivel que el logo */
-  .footer-top .footer-col:nth-child(3) {
-    order: 2;
-    transform: translateX(0);
-  }
-
-  /* MENÚ a la fila 2 */
-  .footer-top .footer-col:nth-child(2) {
-    order: 3;
-  }
-
-  /* MARCA en fila 2 */
-  .footer-top .footer-col:nth-child(4) {
-    order: 4;
-  }
-
   .footer-col {
-    padding-left: 30px;
+    padding-left: 0;
+    order: 2;
+  }
+
+  .footer-top .footer-col:nth-child(3) {
+    transform: translateX(0);
   }
 }
 
