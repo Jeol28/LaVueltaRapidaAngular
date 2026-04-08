@@ -169,7 +169,7 @@
 
   .footer-brand {
     order: 1;
-    padding-left: 100px;
+    margin-left: 100px;
   }
 
   /* EXPERIENCIA al mismo nivel que el logo */
