@@ -25,7 +25,7 @@
 
 .category-title.yellow {
   border-color: var(--gold);
-  color: var(--gold);
+  color: white;
 }
 
 .menu-grid {
