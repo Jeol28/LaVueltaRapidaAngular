@@ -163,18 +163,12 @@
 
 @media (max-width: 992px) {
   .footer-top {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
-  }
-
-  .footer-brand {
-    grid-column: 1 / -1;
-    order: 1;
   }
 
   .footer-col {
     padding-left: 0;
-    order: 2;
   }
 
   .footer-top .footer-col:nth-child(3) {
