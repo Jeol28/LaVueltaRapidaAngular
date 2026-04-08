@@ -9,7 +9,7 @@
 
 /* Contenedor interno */
 .footer-inner {
-  padding: 0 60px;
+  padding: 0 150px;
 }
 
 /* ================= TOP SECTION ================= */
@@ -148,6 +148,18 @@
 }
 
 /* ================= RESPONSIVE ================= */
+
+@media (max-width: 1500px) {
+  .footer-inner { padding: 0 16px; }
+}
+
+@media (max-width: 1000px) {
+  .footer-inner { padding: 0 4px; }
+}
+
+@media (max-width: 950px) {
+  .footer-inner { padding: 0 20px; }
+}
 
 @media (max-width: 992px) {
   .footer-top {
