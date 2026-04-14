@@ -16,10 +16,18 @@
     </h2>
 
     <div class="menu-grid">
-      <app-cards
+
+      <div
         *ngFor="let comida of getComidaByCategoria(categoria.id)"
-        [comida]="comida">
-      </app-cards>
+        [routerLink]="['/producto', comida.id]"
+        class="menu-item-clickable">
+
+        <app-cards
+          [comida]="comida">
+        </app-cards>
+
+      </div>
+
     </div>
 
   </section>

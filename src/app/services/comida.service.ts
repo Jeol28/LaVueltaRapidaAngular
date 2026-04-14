@@ -10,9 +10,9 @@ export class ComidaService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Comida[]> {
-    return this.http.get<Comida[]>(`${API_URL}/comidas`);
-  }
+  getAll() {
+  return this.http.get<Comida[]>('http://localhost:8080/api/menu');
+}
 
   getById(id: number): Observable<Comida> {
     return this.http.get<Comida>(`${API_URL}/comidas/${id}`);

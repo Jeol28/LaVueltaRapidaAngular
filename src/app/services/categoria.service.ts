@@ -10,9 +10,9 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(`${API_URL}/categorias`);
-  }
+  getAll() {
+  return this.http.get<Categoria[]>('http://localhost:8080/api/menu/categorias');
+}
 
   getById(id: number): Observable<Categoria> {
     return this.http.get<Categoria>(`${API_URL}/categorias/${id}`);

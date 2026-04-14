@@ -25,8 +25,9 @@ export class MenuComponent implements OnInit {
     });
 
     this.comidaService.getAll().subscribe(comidas => {
-      this.comidas = comidas.filter(c => c.available);
-    });
+  console.log("COMIDAS:", comidas); // 👈 ADD THIS
+  this.comidas = comidas.filter(c => c.available);
+});
   }
 
   getComidaByCategoria(categoriaId: number): Comida[] {
