@@ -27,13 +27,20 @@ export class ProductoDetalleComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
-      this.comida = this.comidaService.getById(id) ?? null;
-      if (!this.comida) {
-        this.router.navigate(['/menu']);
-        return;
-      }
-      this.recomendaciones = this.comidaService.getRecomendaciones(this.comida);
-      this.selectedAdicionales = new Set();
+
+      this.comidaService.getById(id).subscribe({
+        next: comida => {
+          this.comida = comida;
+          this.selectedAdicionales = new Set();
+
+          this.comidaService.getAll().subscribe(comidas => {
+            this.recomendaciones = this.comidaService.getRecomendaciones(comida, comidas);
+          });
+        },
+        error: () => {
+          this.router.navigate(['/menu']);
+        }
+      });
     });
   }
 

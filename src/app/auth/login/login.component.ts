@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ADMINISTRADORES, CLIENTES, OPERADORES } from '../../data/mock-data';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,45 +12,27 @@ export class LoginComponent {
   contrasena: string = '';
   loginError: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit(): void {
-    const admin = ADMINISTRADORES.find(
-      a => a.usuario === this.usuario && a.contrasena === this.contrasena
-    );
+    this.loginError = false;
 
-    if (admin) {
-      localStorage.setItem('user', admin.usuario);
-      localStorage.setItem('role', 'admin');
-      this.loginError = false;
-      this.router.navigate(['/producto/menutabla']);
-      return;
-    }
+    this.authService.login(this.usuario, this.contrasena).subscribe({
+      next: ({ username, role }) => {
+        localStorage.setItem('user', username);
+        localStorage.setItem('role', role);
 
-    const operador = OPERADORES.find(
-      o => o.usuario === this.usuario && o.contrasena === this.contrasena
-    );
-
-    if (operador) {
-      localStorage.setItem('user', operador.usuario);
-      localStorage.setItem('role', 'operador');
-      this.loginError = false;
-      this.router.navigate(['/operador/inicio']);
-      return;
-    }
-
-    const cliente = CLIENTES.find(
-      c => c.username === this.usuario && c.password === this.contrasena
-    );
-
-    if (cliente) {
-      localStorage.setItem('user', cliente.username);
-      localStorage.setItem('role', 'cliente');
-      this.loginError = false;
-      this.router.navigate(['/menu']);
-      return;
-    }
-
-    this.loginError = true;
+        if (role === 'admin') {
+          this.router.navigate(['/producto/menutabla']);
+        } else if (role === 'operador') {
+          this.router.navigate(['/operador/inicio']);
+        } else {
+          this.router.navigate(['/menu']);
+        }
+      },
+      error: () => {
+        this.loginError = true;
+      }
+    });
   }
 }

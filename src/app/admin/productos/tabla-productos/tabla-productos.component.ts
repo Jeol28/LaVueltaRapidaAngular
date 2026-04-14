@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from '../../../models/categoria.model';
 import { Comida } from '../../../models/comida.model';
-import { CATEGORIAS } from '../../../data/mock-data';
+import { CategoriaService } from '../../../services/categoria.service';
 import { ComidaService } from '../../../services/comida.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { ComidaService } from '../../../services/comida.service';
 })
 export class TablaProductosComponent implements OnInit {
 
-  categorias: Categoria[] = CATEGORIAS;
+  categorias: Categoria[] = [];
   comidas: Comida[] = [];
 
   successMsg: string = '';
@@ -25,11 +25,13 @@ export class TablaProductosComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private comidaService: ComidaService
+    private comidaService: ComidaService,
+    private categoriaService: CategoriaService
   ) {}
 
   ngOnInit(): void {
-    this.comidas = this.comidaService.getAll();
+    this.loadCategorias();
+    this.loadComidas();
 
     this.route.queryParams.subscribe(params => {
       const success = params['success'];
@@ -56,6 +58,12 @@ export class TablaProductosComponent implements OnInit {
     setTimeout(() => { this.showError = false; }, 4200);
   }
 
+  private loadCategorias(): void {
+    this.categoriaService.getAll().subscribe(categorias => {
+      this.categorias = categorias;
+    });
+  }
+
   getComidasByCategoria(categoria: Categoria): Comida[] {
     return this.comidas.filter(c => c.category.id === categoria.id);
   }
@@ -67,10 +75,17 @@ export class TablaProductosComponent implements OnInit {
   eliminarProducto(event: Event, id: number): void {
     event.stopPropagation();
     if (confirm('¿Seguro que quieres eliminar este producto?')) {
-      this.comidaService.delete(id);
-      this.comidas = this.comidaService.getAll();
-      this.successMsg = '¡Producto eliminado correctamente!';
-      this.triggerSuccess();
+      this.comidaService.delete(id).subscribe(() => {
+        this.loadComidas();
+        this.successMsg = '¡Producto eliminado correctamente!';
+        this.triggerSuccess();
+      });
     }
+  }
+
+  private loadComidas(): void {
+    this.comidaService.getAll().subscribe(comidas => {
+      this.comidas = comidas;
+    });
   }
 }

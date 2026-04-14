@@ -16,10 +16,17 @@ export class MenuCarouselComponent implements OnInit, AfterViewInit {
   constructor(private comidaService: ComidaService) {}
 
   ngOnInit(): void {
-    this.comidas = this.comidaService.getAll();
+    this.comidaService.getAll().subscribe(comidas => {
+      this.comidas = comidas;
+      this.initializeSwiper();
+    });
   }
 
   ngAfterViewInit(): void {
+    // Keep empty; Swiper initialization happens after data is loaded.
+  }
+
+  private initializeSwiper(): void {
     new Swiper('.menu-swiper', {
       modules: [Navigation, Pagination],
       slidesPerView: 1,

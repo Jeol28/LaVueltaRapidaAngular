@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComidaService } from '../services/comida.service';
-import { CATEGORIAS } from '../data/mock-data';
+import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../models/categoria.model';
 import { Comida } from '../models/comida.model';
 
@@ -14,11 +14,19 @@ export class MenuComponent implements OnInit {
   categorias: Categoria[] = [];
   comidas: Comida[] = [];
 
-  constructor(private comidaService: ComidaService) {}
+  constructor(
+    private comidaService: ComidaService,
+    private categoriaService: CategoriaService
+  ) {}
 
   ngOnInit(): void {
-    this.categorias = CATEGORIAS;
-    this.comidas = this.comidaService.getAll().filter(c => c.available);
+    this.categoriaService.getAll().subscribe(categorias => {
+      this.categorias = categorias;
+    });
+
+    this.comidaService.getAll().subscribe(comidas => {
+      this.comidas = comidas.filter(c => c.available);
+    });
   }
 
   getComidaByCategoria(categoriaId: number): Comida[] {

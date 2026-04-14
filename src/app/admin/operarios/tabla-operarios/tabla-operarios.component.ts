@@ -26,7 +26,7 @@ export class TablaOperariosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.operadores = this.operadorService.getAll();
+    this.loadOperadores();
 
     this.route.queryParams.subscribe(params => {
       const success = params['success'];
@@ -36,6 +36,12 @@ export class TablaOperariosComponent implements OnInit {
       if (success === 'updated') { this.successMsg = '¡Operario modificado exitosamente!'; this.triggerSuccess(); }
       if (success === 'deleted') { this.successMsg = '¡Operario eliminado correctamente!'; this.triggerSuccess(); }
       if (error != null)         { this.triggerError(); }
+    });
+  }
+
+  private loadOperadores(): void {
+    this.operadorService.getAll().subscribe(operadores => {
+      this.operadores = operadores;
     });
   }
 
@@ -56,10 +62,11 @@ export class TablaOperariosComponent implements OnInit {
   eliminarOperario(event: Event, id: number): void {
     event.stopPropagation();
     if (confirm('¿Seguro que quieres eliminar este operario?')) {
-      this.operadorService.delete(id);
-      this.operadores = this.operadorService.getAll();
-      this.successMsg = '¡Operario eliminado correctamente!';
-      this.triggerSuccess();
+      this.operadorService.delete(id).subscribe(() => {
+        this.loadOperadores();
+        this.successMsg = '¡Operario eliminado correctamente!';
+        this.triggerSuccess();
+      });
     }
   }
 }
