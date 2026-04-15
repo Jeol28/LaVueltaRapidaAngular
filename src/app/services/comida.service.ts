@@ -1,55 +1,36 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Comida } from '../models/comida.model';
-import { CATEGORIAS, COMIDAS } from '../data/mock-data';
+
+const API_URL = 'http://localhost:8090';
 
 @Injectable({ providedIn: 'root' })
 export class ComidaService {
 
-  getAll(): Comida[] {
-    return COMIDAS;
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<Comida[]> {
+    return this.http.get<Comida[]>(`${API_URL}/comidas`);
   }
 
-  getById(id: number): Comida | undefined {
-    return COMIDAS.find(c => c.id === id);
+  getById(id: number): Observable<Comida> {
+    return this.http.get<Comida>(`${API_URL}/comidas/${id}`);
   }
 
-  getRecomendaciones(comida: Comida): Comida[] {
-    return COMIDAS.filter(c => c.available && c.id !== comida.id && c.category.id === comida.category.id);
+  getRecomendaciones(comida: Comida, comidas: Comida[]): Comida[] {
+    return comidas.filter(c => c.available && c.id !== comida.id && c.category.id === comida.category.id);
   }
 
-  add(data: { name: string; description: string; price: number | null; categoryId: number | null; image: string; available: boolean }): void {
-    const category = CATEGORIAS.find(c => c.id === data.categoryId);
-    if (!category) return;
-    const newId = COMIDAS.length > 0 ? Math.max(...COMIDAS.map(c => c.id)) + 1 : 1;
-    COMIDAS.push({
-      id: newId,
-      name: data.name,
-      description: data.description,
-      price: data.price ?? 0,
-      image: data.image,
-      available: data.available,
-      category
-    });
+  add(data: { name: string; description: string; price: number | null; categoryId: number | null; image: string; available: boolean }): Observable<Comida> {
+    return this.http.post<Comida>(`${API_URL}/comidas`, data);
   }
 
-  update(id: number, data: { name: string; description: string; price: number | null; categoryId: number | null; image: string; available: boolean }): void {
-    const index = COMIDAS.findIndex(c => c.id === id);
-    if (index === -1) return;
-    const category = CATEGORIAS.find(c => c.id === data.categoryId);
-    if (!category) return;
-    COMIDAS[index] = {
-      ...COMIDAS[index],
-      name: data.name,
-      description: data.description,
-      price: data.price ?? 0,
-      image: data.image,
-      available: data.available,
-      category
-    };
+  update(id: number, data: { name: string; description: string; price: number | null; categoryId: number | null; image: string; available: boolean }): Observable<Comida> {
+    return this.http.put<Comida>(`${API_URL}/comidas/${id}`, data);
   }
 
-  delete(id: number): void {
-    const index = COMIDAS.findIndex(c => c.id === id);
-    if (index !== -1) COMIDAS.splice(index, 1);
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${API_URL}/comidas/${id}`);
   }
 }

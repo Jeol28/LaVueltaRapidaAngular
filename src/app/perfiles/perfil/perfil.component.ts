@@ -28,11 +28,17 @@ export class PerfilComponent implements OnInit {
       return;
     }
 
-    this.cliente = this.clienteService.findByUsername(username) ?? null;
-
-    if (!this.cliente) {
-      this.router.navigate(['/']);
-    }
+    this.clienteService.findByUsername(username).subscribe({
+      next: cliente => {
+        this.cliente = cliente ?? null;
+        if (!this.cliente) {
+          this.router.navigate(['/']);
+        }
+      },
+      error: () => {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   get initial(): string {
@@ -62,35 +68,57 @@ export class PerfilComponent implements OnInit {
       return;
     }
 
-    if (this.clienteService.isUsernameTaken(this.editForm.username!, this.cliente.id)) {
-      this.errorMsg = 'Ese nombre de usuario ya está en uso.';
-      return;
-    }
+    this.clienteService.isUsernameTaken(this.editForm.username!, this.cliente.id).subscribe({
+      next: taken => {
+        if (taken) {
+          this.errorMsg = 'Ese nombre de usuario ya está en uso.';
+          return;
+        }
 
-    const updated = this.clienteService.update(this.cliente.id, this.editForm);
-    if (!updated) return;
+        const payload: Partial<Cliente> = { ...this.editForm };
+        if (!payload.password) {
+          payload.password = this.cliente!.password;
+        }
 
-    this.cliente = updated;
-    localStorage.setItem('user', this.cliente.username);
-    window.dispatchEvent(new CustomEvent('userChanged'));
+        this.clienteService.update(this.cliente!.id, payload).subscribe({
+          next: updated => {
+            this.cliente = updated;
+            localStorage.setItem('user', this.cliente.username);
+            window.dispatchEvent(new CustomEvent('userChanged'));
 
-    this.editMode = false;
-    this.currentPassword = '';
-    this.successMsg = true;
-    this.errorMsg = '';
+            this.editMode = false;
+            this.currentPassword = '';
+            this.successMsg = true;
+            this.errorMsg = '';
 
-    setTimeout(() => { this.successMsg = false; }, 4000);
+            setTimeout(() => { this.successMsg = false; }, 4000);
+          },
+          error: () => {
+            this.errorMsg = 'No se pudieron guardar los cambios. Intenta de nuevo.';
+          }
+        });
+      },
+      error: () => {
+        this.errorMsg = 'No se pudo verificar el nombre de usuario.';
+      }
+    });
   }
 
   deleteAccount(): void {
     const confirmed = window.confirm(
       '¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.'
     );
-    if (!confirmed) return;
+    if (!confirmed || !this.cliente) return;
 
-    this.clienteService.delete(this.cliente!.id);
-    localStorage.removeItem('user');
-    localStorage.removeItem('role');
-    this.router.navigate(['/']);
+    this.clienteService.delete(this.cliente.id).subscribe({
+      next: () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('role');
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.errorMsg = 'No se pudo eliminar la cuenta. Intenta de nuevo.';
+      }
+    });
   }
 }

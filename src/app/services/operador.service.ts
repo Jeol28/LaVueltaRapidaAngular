@@ -1,30 +1,32 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Operador } from '../models/operador.model';
-import { OPERADORES } from '../data/mock-data';
+
+const API_URL = 'http://localhost:8090';
 
 @Injectable({ providedIn: 'root' })
 export class OperadorService {
 
-  getAll(): Operador[] {
-    return OPERADORES;
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<Operador[]> {
+    return this.http.get<Operador[]>(`${API_URL}/operadores`);
   }
 
-  getById(id: number): Operador | undefined {
-    return OPERADORES.find(o => o.id === id);
+  getById(id: number): Observable<Operador> {
+    return this.http.get<Operador>(`${API_URL}/operadores/${id}`);
   }
 
-  add(data: { nombre: string; usuario: string; contrasena: string }): void {
-    const newId = OPERADORES.length > 0 ? Math.max(...OPERADORES.map(o => o.id)) + 1 : 1;
-    OPERADORES.push({ id: newId, ...data });
+  add(data: { nombre: string; usuario: string; contrasena: string }): Observable<Operador> {
+    return this.http.post<Operador>(`${API_URL}/operadores`, data);
   }
 
-  update(id: number, data: { nombre: string; usuario: string; contrasena: string }): void {
-    const index = OPERADORES.findIndex(o => o.id === id);
-    if (index !== -1) OPERADORES[index] = { ...OPERADORES[index], ...data };
+  update(id: number, data: Partial<Operador>): Observable<Operador> {
+    return this.http.put<Operador>(`${API_URL}/operadores/${id}`, data);
   }
 
-  delete(id: number): void {
-    const index = OPERADORES.findIndex(o => o.id === id);
-    if (index !== -1) OPERADORES.splice(index, 1);
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${API_URL}/operadores/${id}`);
   }
 }

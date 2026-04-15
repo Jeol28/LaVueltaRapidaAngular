@@ -41,23 +41,29 @@ export class RegisterComponent {
       return;
     }
 
-    if (this.clienteService.isUsernameTaken(this.form.username, -1)) {
-      this.errorMsg = 'Ese nombre de usuario ya está en uso. Por favor elige otro.';
-      return;
-    }
+    this.clienteService.isUsernameTaken(this.form.username, -1).subscribe(taken => {
+      if (taken) {
+        this.errorMsg = 'Ese nombre de usuario ya está en uso. Por favor elige otro.';
+        return;
+      }
 
-    const nuevo = this.clienteService.add({
-      name: this.form.name,
-      apellido: this.form.apellido,
-      email: this.form.email,
-      username: this.form.username,
-      password: this.form.password,
-      telefono: this.form.telefono,
-      direccion: this.form.direccion
+      this.clienteService.add({
+        name: this.form.name,
+        apellido: this.form.apellido,
+        email: this.form.email,
+        username: this.form.username,
+        password: this.form.password,
+        telefono: this.form.telefono,
+        direccion: this.form.direccion
+      }).subscribe(nuevo => {
+        localStorage.setItem('user', nuevo.username);
+        localStorage.setItem('role', 'cliente');
+        this.router.navigate(['/perfil']);
+      }, () => {
+        this.errorMsg = 'No se pudo registrar. Intenta de nuevo.';
+      });
+    }, () => {
+      this.errorMsg = 'No se pudo verificar el nombre de usuario. Intenta de nuevo.';
     });
-
-    localStorage.setItem('user', nuevo.username);
-    localStorage.setItem('role', 'cliente');
-    this.router.navigate(['/perfil']);
   }
 }

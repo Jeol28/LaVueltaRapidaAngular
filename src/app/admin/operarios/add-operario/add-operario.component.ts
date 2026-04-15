@@ -30,14 +30,18 @@ export class AddOperarioComponent implements OnInit {
     if (id) {
       this.editMode = true;
       this.editId = +id;
-      const found = this.operadorService.getById(+id);
-      if (found) {
-        this.operario = {
-          nombre: found.nombre,
-          usuario: found.usuario,
-          contrasena: found.contrasena
-        };
-      }
+      this.operadorService.getById(+id).subscribe({
+        next: found => {
+          this.operario = {
+            nombre: found.nombre,
+            usuario: found.usuario,
+            contrasena: found.contrasena
+          };
+        },
+        error: () => {
+          this.router.navigate(['/admin/operarios'], { queryParams: { error: 'notfound' } });
+        }
+      });
     }
   }
 
@@ -47,11 +51,13 @@ export class AddOperarioComponent implements OnInit {
 
   onSubmit(): void {
     if (this.editMode && this.editId !== null) {
-      this.operadorService.update(this.editId, this.operario);
-      this.router.navigate(['/admin/operarios'], { queryParams: { success: 'updated' } });
+      this.operadorService.update(this.editId, this.operario).subscribe(() => {
+        this.router.navigate(['/admin/operarios'], { queryParams: { success: 'updated' } });
+      });
     } else {
-      this.operadorService.add(this.operario);
-      this.router.navigate(['/admin/operarios'], { queryParams: { success: 'added' } });
+      this.operadorService.add(this.operario).subscribe(() => {
+        this.router.navigate(['/admin/operarios'], { queryParams: { success: 'added' } });
+      });
     }
   }
 }
