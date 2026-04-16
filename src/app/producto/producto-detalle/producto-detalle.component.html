@@ -45,14 +45,14 @@
       <!-- OPTIONS + BUTTON -->
       <div class="pd-options-panel">
 
-        <div class="pd-options" *ngIf="comida.category.adicionales.length > 0">
+        <div class="pd-options" *ngIf="adicionales.length > 0">
           <h4 class="pd-options-title">
             <span class="pd-options-icon">⚙</span>
             Personaliza tu pedido
           </h4>
           <div class="pd-options-grid">
             <div class="pd-option-item"
-                 *ngFor="let adicional of comida.category.adicionales"
+                 *ngFor="let adicional of adicionales"
                  [class.pd-option--selected]="isSelected(adicional.id)"
                  (click)="toggleAdicional(adicional.id)">
               <span class="pd-checkbox" [class.pd-checkbox--checked]="isSelected(adicional.id)">

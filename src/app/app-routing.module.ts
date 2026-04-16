@@ -39,9 +39,9 @@ const routes: Routes = [
   { path: 'admin/operarios/agregar', component: AddOperarioComponent },
 
   // ── Adicionales ──
-  { path: 'adicionales/tabla',       component: AdicionalesAdminComponent },
-  { path: 'adicionales/add',         component: AddAdicionalComponent },
-  { path: 'adicionales/update/:id',  component: AddAdicionalComponent },
+  { path: 'admin/adicionales',       component: AdicionalesAdminComponent },
+  { path: 'admin/adicionales/add',   component: AddAdicionalComponent },
+  { path: 'admin/adicionales/update/:id', component: AddAdicionalComponent },
 
   { path: '**', redirectTo: '' },
 ];

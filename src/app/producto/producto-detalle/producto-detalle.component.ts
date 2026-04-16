@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Comida } from '../../models/comida.model';
 import { Adicional } from '../../models/adicional.model';
 import { ComidaService } from '../../services/comida.service';
+import { AdicionalService } from '../../services/adicional.service';
 import { CarritoService } from '../../services/carrito.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class ProductoDetalleComponent implements OnInit {
 
   comida: Comida | null = null;
   recomendaciones: Comida[] = [];
+  adicionales: Adicional[] = [];
   selectedAdicionales: Set<number> = new Set();
   showToast: boolean = false;
 
@@ -21,6 +23,7 @@ export class ProductoDetalleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private comidaService: ComidaService,
+    private adicionalService: AdicionalService,
     private carritoService: CarritoService
   ) {}
 
@@ -33,6 +36,12 @@ export class ProductoDetalleComponent implements OnInit {
           this.comida = comida;
           this.selectedAdicionales = new Set();
 
+          // Cargar adicionales disponibles de la categoría
+          this.adicionalService.getByCategoriaId(comida.category.id).subscribe(adicionales => {
+            this.adicionales = adicionales;
+          });
+
+          // Cargar recomendaciones
           this.comidaService.getAll().subscribe(comidas => {
             this.recomendaciones = this.comidaService.getRecomendaciones(comida, comidas);
           });
@@ -59,8 +68,8 @@ export class ProductoDetalleComponent implements OnInit {
   get total(): number {
     if (!this.comida) return 0;
     let sum = this.comida.price;
-    this.comida.category.adicionales
-      .filter(a => a.available && this.selectedAdicionales.has(a.id))
+    this.adicionales
+      .filter(a => this.selectedAdicionales.has(a.id))
       .forEach(a => sum += a.price);
     return sum;
   }
@@ -76,8 +85,8 @@ export class ProductoDetalleComponent implements OnInit {
     }
     if (!this.comida) return;
 
-    const adicionales: Adicional[] = this.comida.category.adicionales
-      .filter(a => a.available && this.selectedAdicionales.has(a.id));
+    const adicionales: Adicional[] = this.adicionales
+      .filter(a => this.selectedAdicionales.has(a.id));
 
     this.carritoService.agregar(this.comida, adicionales);
 
