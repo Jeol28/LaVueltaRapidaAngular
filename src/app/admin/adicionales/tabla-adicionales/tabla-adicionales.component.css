@@ -1,0 +1,37 @@
+.menu-table td:nth-child(1) { width: 45%; }
+.menu-table td:nth-child(2) { width: 160px; text-align: right; }
+.menu-table td:nth-child(3) { width: 160px; text-align: center; }
+.menu-table td:nth-child(4) { width: 220px; }
+
+.menu-table strong {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.price-cell {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--gold);
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 30px;
+}
+
+.status-cell {
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-available   { color: #22c55e; }
+.status-unavailable { color: var(--red); }
+.row-unavailable    { opacity: 0.6; }
+
+.actions-wrapper { justify-content: flex-end; }
+
+@media (max-width: 768px) {
+  .menu-table td { padding: 15px 8px; }
+  .price-cell    { font-size: 14px; }
+}

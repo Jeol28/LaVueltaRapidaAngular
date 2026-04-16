@@ -25,6 +25,10 @@ import { OperariosAdminComponent } from './admin/operarios/operarios-admin/opera
 import { TablaOperariosComponent } from './admin/operarios/tabla-operarios/tabla-operarios.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 
+import { AdicionalesAdminComponent } from './admin/adicionales/adicionales-admin/adicionales-admin.component';
+import { TablaAdicionalesComponent } from './admin/adicionales/tabla-adicionales/tabla-adicionales.component';
+import { AddAdicionalComponent } from './admin/adicionales/add-adicional/add-adicional.component';
+
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
@@ -60,6 +64,10 @@ import { OperadorInicioComponent } from './operador/operador-inicio/operador-ini
     OperariosAdminComponent,
     TablaOperariosComponent,
     AddOperarioComponent,
+
+    AdicionalesAdminComponent,
+    TablaAdicionalesComponent,
+    AddAdicionalComponent,
 
     MenuComponent,
     ProductoDetalleComponent,

@@ -5,6 +5,8 @@ import { ProductosAdminComponent } from './admin/productos/productos-admin/produ
 import { AddProductComponent } from './admin/productos/add-product/add-product.component';
 import { OperariosAdminComponent } from './admin/operarios/operarios-admin/operarios-admin.component';
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
+import { AdicionalesAdminComponent } from './admin/adicionales/adicionales-admin/adicionales-admin.component';
+import { AddAdicionalComponent } from './admin/adicionales/add-adicional/add-adicional.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
@@ -35,6 +37,11 @@ const routes: Routes = [
   // ── Operarios ──
   { path: 'admin/operarios',         component: OperariosAdminComponent },
   { path: 'admin/operarios/agregar', component: AddOperarioComponent },
+
+  // ── Adicionales ──
+  { path: 'adicionales/tabla',       component: AdicionalesAdminComponent },
+  { path: 'adicionales/add',         component: AddAdicionalComponent },
+  { path: 'adicionales/update/:id',  component: AddAdicionalComponent },
 
   { path: '**', redirectTo: '' },
 ];

@@ -1,0 +1,66 @@
+<section class="menu-list-section">
+  <div class="container">
+
+    <div class="table-responsive">
+      <table class="menu-table">
+        <tbody>
+
+          <tr *ngFor="let adicional of adicionales"
+              [class.row-unavailable]="!adicional.available">
+
+            <td>
+              <div class="row-inner">
+                <strong>{{ adicional.name }}</strong>
+              </div>
+            </td>
+
+            <td class="price-cell">
+              <div class="row-inner">
+                {{ adicional.price | currency:'$ ':'symbol':'1.0-0' }} COP
+              </div>
+            </td>
+
+            <td class="status-cell"
+                [ngClass]="adicional.available ? 'status-available' : 'status-unavailable'">
+              <div class="row-inner">
+                {{ adicional.available ? 'Disponible' : 'No disponible' }}
+              </div>
+            </td>
+
+            <td class="actions-cell" (click)="$event.stopPropagation()">
+              <div class="row-inner">
+                <div class="actions-wrapper">
+                  <a [routerLink]="['/adicionales/update', adicional.id]"
+                     class="btn-edit">
+                    Modificar
+                  </a>
+                  <a (click)="eliminarAdicional($event, adicional.id)"
+                     class="btn-delete">
+                    Eliminar
+                  </a>
+                </div>
+              </div>
+            </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<div class="admin-toast"
+     [class.visible]="showSuccess"
+     [class.hide]="hideSuccess">
+  <span class="admin-toast-icon">✔</span>
+  <span class="admin-toast-msg">{{ successMsg }}</span>
+</div>
+
+<div class="admin-toast admin-toast-error"
+     [class.visible]="showError"
+     [class.hide]="hideError">
+  <span class="admin-toast-icon">✕</span>
+  <span class="admin-toast-msg">No se pudo completar la operación.</span>
+</div>
