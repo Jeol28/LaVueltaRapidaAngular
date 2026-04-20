@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteService } from '../../services/cliente.service';
+import { AuthService } from '../../services/auth.service';
+import { CarritoService } from '../../services/carrito.service';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +25,12 @@ export class RegisterComponent {
   errorMsg: string = '';
   passwordErrorMsg: string = '';
 
-  constructor(private router: Router, private clienteService: ClienteService) {}
+  constructor(
+    private router: Router,
+    private clienteService: ClienteService,
+    private authService: AuthService,
+    private carritoService: CarritoService
+  ) {}
 
   checkPasswords(): void {
     if (this.form.confirmPassword && this.form.password !== this.form.confirmPassword) {
@@ -58,7 +65,15 @@ export class RegisterComponent {
       }).subscribe(nuevo => {
         localStorage.setItem('user', nuevo.username);
         localStorage.setItem('role', 'cliente');
-        this.router.navigate(['/perfil']);
+        localStorage.setItem('clienteId', String(nuevo.id));
+
+        this.authService.fetchCarritoId(nuevo.id).subscribe(carritoId => {
+          if (carritoId != null) {
+            localStorage.setItem('carritoId', String(carritoId));
+            this.carritoService.cargarDesdeBackend();
+          }
+          this.router.navigate(['/perfil']);
+        });
       }, () => {
         this.errorMsg = 'No se pudo registrar. Intenta de nuevo.';
       });

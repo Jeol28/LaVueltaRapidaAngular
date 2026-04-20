@@ -114,6 +114,8 @@ export class PerfilComponent implements OnInit {
       next: () => {
         localStorage.removeItem('user');
         localStorage.removeItem('role');
+        localStorage.removeItem('clienteId');
+        localStorage.removeItem('carritoId');
         this.router.navigate(['/']);
       },
       error: () => {

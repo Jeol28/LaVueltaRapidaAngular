@@ -76,6 +76,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout(): void {
     localStorage.removeItem('user');
     localStorage.removeItem('role');
+    localStorage.removeItem('clienteId');
+    localStorage.removeItem('carritoId');
     this.carritoService.vaciar();
     this.user = null;
     this.isAdmin = false;
