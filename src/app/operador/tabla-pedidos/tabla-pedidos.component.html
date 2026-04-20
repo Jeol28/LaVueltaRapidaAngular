@@ -58,7 +58,8 @@
 
             <td class="accion-cell" (click)="$event.stopPropagation()">
               <select class="estado-select"
-                      [value]="pedido.estado"
+                      [ngModel]="pedido.estado"
+                      [disabled]="pedido.estado === 'ENTREGADO'"
                       (change)="cambiarEstado(pedido, $any($event.target).value)">
                 <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
               </select>
@@ -164,7 +165,8 @@
     <div class="dp-estado-action">
       <label class="dp-estado-label">Cambiar estado</label>
       <select class="estado-select dp-estado-select"
-              [value]="pedidoSeleccionado.estado"
+              [ngModel]="pedidoSeleccionado.estado"
+              [disabled]="pedidoSeleccionado.estado === 'ENTREGADO'"
               (change)="cambiarEstado(pedidoSeleccionado, $any($event.target).value)">
         <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
       </select>

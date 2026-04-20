@@ -147,6 +147,12 @@
   color: #ccc;
 }
 
+.estado-select:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: #2a2a2a;
+}
+
 /* ══════════════════════════════════════════
    OVERLAY + PANEL DE DETALLE
 ══════════════════════════════════════════ */
