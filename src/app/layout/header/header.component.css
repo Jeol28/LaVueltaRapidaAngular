@@ -318,7 +318,9 @@
 }
 
 .cp-item:last-child { border-bottom: none; }
-.cp-item:hover { background: rgba(255, 255, 255, 0.02); }
+.cp-item { cursor: pointer; }
+.cp-item:hover { background: rgba(255, 255, 255, 0.05); }
+.cp-item:hover .cp-name { color: #fff; }
 
 .cp-img {
   width: 48px;

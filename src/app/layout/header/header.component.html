@@ -101,7 +101,8 @@
 
             <!-- LISTA DE ITEMS -->
             <div class="cp-list" *ngIf="cartItems.length > 0">
-              <div class="cp-item" *ngFor="let item of cartItems; let i = index">
+              <div class="cp-item" *ngFor="let item of cartItems; let i = index"
+                   [routerLink]="['/producto', item.comida.id]">
                 <img [src]="item.comida.image" [alt]="item.comida.name" class="cp-img">
                 <div class="cp-info">
                   <p class="cp-name">{{ item.comida.name }}</p>
@@ -110,7 +111,7 @@
                     <span *ngFor="let a of item.adicionales" class="cp-adic-tag">{{ a.name }}</span>
                   </div>
                 </div>
-                <div class="cp-qty">
+                <div class="cp-qty" (click)="$event.stopPropagation()">
                   <button class="cp-qty-btn" (click)="cambiarCantidad(i, -1)">−</button>
                   <span class="cp-qty-val">{{ item.cantidad }}</span>
                   <button class="cp-qty-btn" (click)="cambiarCantidad(i, 1)">+</button>
