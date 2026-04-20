@@ -1,0 +1,40 @@
+.op-hero {
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a0000 100%);
+  border-bottom: 2px solid var(--red);
+  padding: 70px 20px 60px;
+  text-align: center;
+}
+
+.op-hero-badge {
+  display: inline-block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 20px;
+  padding: 5px 18px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.op-hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(28px, 5vw, 48px);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+
+.op-hero h1 span {
+  color: var(--red);
+}
+
+.op-hero p {
+  font-size: 15px;
+  color: #aaa;
+  max-width: 500px;
+  margin: 0 auto;
+}

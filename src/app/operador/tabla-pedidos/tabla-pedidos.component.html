@@ -1,0 +1,85 @@
+<section class="pedidos-section">
+  <div class="container">
+
+    <div *ngIf="pedidos.length === 0" class="empty-state">
+      <p>No hay pedidos registrados en este momento.</p>
+    </div>
+
+    <div *ngIf="pedidos.length > 0" class="table-responsive">
+      <table class="pedidos-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Items</th>
+            <th>Estado</th>
+            <th>Domiciliario</th>
+            <th>Cambiar estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pedido of pedidos">
+
+            <td class="id-cell">
+              <span class="pedido-id">#{{ pedido.id }}</span>
+            </td>
+
+            <td class="fecha-cell">
+              {{ pedido.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+
+            <td class="cliente-cell">
+              <strong>{{ pedido.cliente.name }} {{ pedido.cliente.apellido }}</strong>
+              <span class="cliente-sub">{{ pedido.cliente.email }}</span>
+            </td>
+
+            <td class="items-cell">
+              {{ pedido.lineasPedido.length }}
+              {{ pedido.lineasPedido.length === 1 ? 'ítem' : 'ítems' }}
+            </td>
+
+            <td class="estado-cell">
+              <span class="estado-badge" [ngClass]="getEstadoClass(pedido.estado)">
+                {{ pedido.estado }}
+              </span>
+            </td>
+
+            <td class="domiciliario-cell">
+              <span *ngIf="pedido.domiciliario; else sinAsignar">
+                {{ pedido.domiciliario.nombre }}
+              </span>
+              <ng-template #sinAsignar>
+                <span class="sin-asignar">Sin asignar</span>
+              </ng-template>
+            </td>
+
+            <td class="accion-cell">
+              <select class="estado-select"
+                      [value]="pedido.estado"
+                      (change)="cambiarEstado(pedido, $any($event.target).value)">
+                <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
+              </select>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<div class="op-toast"
+     [class.visible]="showSuccess"
+     [class.hide]="hideSuccess">
+  <span class="op-toast-icon">✔</span>
+  <span class="op-toast-msg">{{ successMsg }}</span>
+</div>
+
+<div class="op-toast op-toast-error"
+     [class.visible]="showError"
+     [class.hide]="hideError">
+  <span class="op-toast-icon">✕</span>
+  <span class="op-toast-msg">No se pudo actualizar el estado.</span>
+</div>

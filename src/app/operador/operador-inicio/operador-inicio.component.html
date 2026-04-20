@@ -1,36 +1,7 @@
-<section class="op-page">
+<app-operador-hero
+  titlePrefix="PORTAL DE"
+  titleHighlight="PEDIDOS"
+  subtitle="Gestiona y actualiza el estado de todos los pedidos activos">
+</app-operador-hero>
 
-  <div class="op-badge">ZONA OPERADOR</div>
-
-  <div class="op-icon">
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Neumático exterior -->
-      <circle cx="32" cy="32" r="30" stroke="#e10600" stroke-width="3"/>
-      <!-- Banda de rodadura (arcos) -->
-      <circle cx="32" cy="32" r="30" stroke="#c50500" stroke-width="6" stroke-dasharray="8 6" stroke-linecap="round" opacity="0.4"/>
-      <!-- Pared lateral -->
-      <circle cx="32" cy="32" r="24" stroke="#333" stroke-width="2"/>
-      <!-- Llanta metálica -->
-      <circle cx="32" cy="32" r="22" fill="#1a1a1a" stroke="#444" stroke-width="1.5"/>
-      <!-- Radios -->
-      <line x1="32" y1="10" x2="32" y2="22" stroke="#e10600" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="32" y1="42" x2="32" y2="54" stroke="#e10600" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="10" y1="32" x2="22" y2="32" stroke="#e10600" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="42" y1="32" x2="54" y2="32" stroke="#e10600" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="17.5" y1="17.5" x2="25.5" y2="25.5" stroke="#e10600" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="38.5" y1="38.5" x2="46.5" y2="46.5" stroke="#e10600" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="46.5" y1="17.5" x2="38.5" y2="25.5" stroke="#e10600" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="17.5" y1="46.5" x2="25.5" y2="38.5" stroke="#e10600" stroke-width="2.5" stroke-linecap="round"/>
-      <!-- Centro / buje -->
-      <circle cx="32" cy="32" r="8" fill="#111" stroke="#555" stroke-width="1.5"/>
-      <circle cx="32" cy="32" r="4" fill="#e10600"/>
-      <circle cx="32" cy="32" r="1.5" fill="#111"/>
-    </svg>
-  </div>
-
-  <h1 class="op-title">INTERFAZ EN PROCESO<br><span>DE CONSTRUCCIÓN</span></h1>
-  <p class="op-sub">El panel del operador estará disponible próximamente.<br>Gracias por tu paciencia.</p>
-
-  <div class="op-stripe"></div>
-
-</section>
+<app-tabla-pedidos></app-tabla-pedidos>
