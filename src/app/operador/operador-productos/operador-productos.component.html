@@ -1,0 +1,51 @@
+<app-operador-hero
+  titlePrefix="CATÁLOGO DE"
+  titleHighlight="PRODUCTOS"
+  subtitle="Consulta los detalles de cada producto disponible en el menú">
+</app-operador-hero>
+
+<section class="op-productos-section">
+  <div class="container">
+
+    <div *ngIf="cargando" class="op-loading">
+      <div class="op-spinner"></div>
+      <p>Cargando productos...</p>
+    </div>
+
+    <div *ngIf="errorMsg" class="op-error">{{ errorMsg }}</div>
+
+    <div *ngIf="!cargando && comidas.length === 0 && !errorMsg" class="op-empty">
+      No hay productos registrados.
+    </div>
+
+    <div *ngIf="!cargando && comidas.length > 0" class="op-table-wrap">
+      <table class="op-table">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Disponible</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of comidas" class="op-row" (click)="verDetalle(c.id)">
+            <td class="op-td-img">
+              <img [src]="c.image" [alt]="c.name" class="op-product-img">
+            </td>
+            <td class="op-td-name">{{ c.name }}</td>
+            <td class="op-td-cat">{{ c.category ? c.category.name : '—' }}</td>
+            <td class="op-td-price">$ {{ formatCOP(c.price) }} COP</td>
+            <td class="op-td-status">
+              <span class="op-badge" [class.op-badge-on]="c.available" [class.op-badge-off]="!c.available">
+                {{ c.available ? 'Disponible' : 'No disponible' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>

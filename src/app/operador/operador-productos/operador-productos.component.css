@@ -1,0 +1,139 @@
+.op-productos-section {
+  background: #0d0d0d;
+  padding: 48px 20px 80px;
+  min-height: 400px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Loading */
+.op-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 0;
+  color: #666;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.op-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(225,6,0,0.2);
+  border-top-color: #e10600;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.op-error,
+.op-empty {
+  text-align: center;
+  padding: 80px 0;
+  color: #666;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.op-error { color: #e10600; }
+
+/* Table */
+.op-table-wrap {
+  overflow-x: auto;
+}
+
+.op-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.op-table thead tr {
+  border-bottom: 2px solid var(--red, #e10600);
+}
+
+.op-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: #e10600;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.op-row {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.op-row:hover {
+  background: rgba(225,6,0,0.07);
+}
+
+.op-row td {
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+/* Columns */
+.op-td-img { width: 72px; }
+
+.op-product-img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.op-td-name {
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+}
+
+.op-td-cat { color: #888; font-size: 13px; }
+
+.op-td-price {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  color: #ffd700;
+  white-space: nowrap;
+}
+
+.op-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.op-badge-on {
+  background: rgba(34,197,94,0.15);
+  color: #22c55e;
+  border: 1px solid #22c55e;
+}
+
+.op-badge-off {
+  background: rgba(239,68,68,0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239,68,68,0.4);
+}
+
+@media (max-width: 600px) {
+  .op-td-cat { display: none; }
+}

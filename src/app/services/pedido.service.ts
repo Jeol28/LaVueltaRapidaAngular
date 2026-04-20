@@ -22,4 +22,8 @@ export class PedidoService {
   updateEstado(id: number, estado: EstadoPedido): Observable<Pedido> {
     return this.http.put<Pedido>(`${API_URL}/pedidos/${id}/estado`, { estado });
   }
+
+  crearDesdeCarrito(carritoId: number): Observable<Pedido> {
+    return this.http.post<Pedido>(`${API_URL}/pedido/desde-carrito/${carritoId}`, {});
+  }
 }

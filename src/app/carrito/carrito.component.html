@@ -22,16 +22,35 @@
     <div class="cart-header-line"></div>
   </div>
 
-  <!-- CARRITO VACÍO -->
-  <div class="cart-empty" *ngIf="items.length === 0">
+  <!-- ── PANTALLA DE CONFIRMACIÓN ─────────────────────────────────────────── -->
+  <div class="order-success" *ngIf="pedidoCreado">
+    <div class="order-success-inner">
+      <div class="order-checkmark">
+        <svg viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="25" stroke="#e10600" stroke-width="2"/>
+          <path d="M14 26l9 9 15-15" stroke="#e10600" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="order-title">¡PEDIDO CONFIRMADO!</h2>
+      <p class="order-subtitle">Tu pedido <span class="order-num">#{{ pedidoId }}</span> fue recibido y ya está en preparación.</p>
+      <p class="order-hint">Puedes ver el estado de tu pedido desde tu perfil.</p>
+      <div class="order-actions">
+        <button class="cart-btn-pedir" (click)="volverAlMenu()">SEGUIR PIDIENDO</button>
+        <button class="cart-btn-menu" (click)="verMisPedidos()">VER MIS PEDIDOS</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CARRITO VACÍO ─────────────────────────────────────────────────────── -->
+  <div class="cart-empty" *ngIf="!pedidoCreado && items.length === 0">
     <div class="cart-empty-icon">🏎️</div>
     <p class="cart-empty-title">Tu carrito está vacío</p>
     <p class="cart-empty-sub">¡Agrega pizzas desde el menú para comenzar tu pedido!</p>
     <button class="cart-btn-menu" (click)="volverAlMenu()">VER EL MENÚ</button>
   </div>
 
-  <!-- TABLA DE ITEMS -->
-  <div class="cart-content" *ngIf="items.length > 0">
+  <!-- ── TABLA DE ITEMS ────────────────────────────────────────────────────── -->
+  <div class="cart-content" *ngIf="!pedidoCreado && items.length > 0">
     <div class="cart-table-wrap">
       <table class="cart-table">
         <thead>
@@ -71,15 +90,21 @@
       </table>
     </div>
 
+    <!-- Mensaje de error -->
+    <p class="cart-error-msg" *ngIf="errorMsg">{{ errorMsg }}</p>
+
     <div class="cart-footer">
       <div class="cart-total-block">
         <span class="cart-total-label">TOTAL</span>
         <span class="cart-total-value">$ {{ formatCOP(carritoService.total) }} COP</span>
       </div>
       <div class="cart-footer-actions">
-        <button class="cart-btn-vaciar" (click)="vaciar()">VACIAR CARRITO</button>
-        <button class="cart-btn-menu" (click)="volverAlMenu()">SEGUIR COMPRANDO</button>
-        <button class="cart-btn-pedir">REALIZAR PEDIDO</button>
+        <button class="cart-btn-vaciar" (click)="vaciar()" [disabled]="cargando">VACIAR CARRITO</button>
+        <button class="cart-btn-menu" (click)="volverAlMenu()" [disabled]="cargando">SEGUIR COMPRANDO</button>
+        <button class="cart-btn-pedir" (click)="realizarPedido()" [disabled]="cargando">
+          <span *ngIf="!cargando">REALIZAR PEDIDO</span>
+          <span *ngIf="cargando" class="btn-spinner"></span>
+        </button>
       </div>
     </div>
   </div>
