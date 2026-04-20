@@ -8,7 +8,8 @@ import { Comida } from '../models/comida.model';
 import { ItemCarrito } from '../models/item-carrito.model';
 import { LineaPedido } from '../models/linea-pedido.model';
 
-const API_URL = 'http://localhost:8090';
+const API_URL       = 'http://localhost:8090';
+const STORAGE_KEY   = 'cv-carrito-items';
 
 @Injectable({ providedIn: 'root' })
 export class CarritoService {
@@ -38,15 +39,26 @@ export class CarritoService {
     return id ? +id : null;
   }
 
+  // ── Carga inicial ──────────────────────────────────────────────────────────
+
   cargarDesdeBackend(): void {
     const carritoId = this.carritoId;
-    if (!carritoId) return;
+    if (!carritoId) {
+      this.restaurarDesdeStorage();
+      return;
+    }
 
     this.http.get<Carrito>(`${API_URL}/carrito/${carritoId}`).subscribe({
-      next: (carrito) => this.sincronizarDesde(carrito),
-      error: () => {}
+      next: (carrito) => {
+        const items = carrito.lineasPedido.map(lp => this.lineaToItem(lp));
+        this.emitir(items);
+        this.guardarEnStorage(items);
+      },
+      error: () => this.restaurarDesdeStorage()
     });
   }
+
+  // ── Agregar ────────────────────────────────────────────────────────────────
 
   agregar(comida: Comida, adicionales: Adicional[]): void {
     const carritoId = this.carritoId;
@@ -60,10 +72,16 @@ export class CarritoService {
       cantidad: 1,
       adicionalesIds: adicionales.map(a => a.id)
     }).subscribe({
-      next: (carrito) => this.sincronizarDesde(carrito),
+      next: (carrito) => {
+        const items = carrito.lineasPedido.map(lp => this.lineaToItem(lp));
+        this.emitir(items);
+        this.guardarEnStorage(items);
+      },
       error: () => this.agregarLocal(comida, adicionales)
     });
   }
+
+  // ── Cambiar cantidad ───────────────────────────────────────────────────────
 
   cambiarCantidad(index: number, delta: number): void {
     const item = this.items[index];
@@ -71,9 +89,7 @@ export class CarritoService {
 
     const carritoId = this.carritoId;
     if (!carritoId || !item.lineaId) {
-      item.cantidad += delta;
-      if (item.cantidad <= 0) this.items.splice(index, 1);
-      this.items$$.next([...this.items]);
+      this.cambiarCantidadLocal(index, delta);
       return;
     }
 
@@ -81,14 +97,16 @@ export class CarritoService {
     this.http.patch<Carrito>(
       `${API_URL}/carrito/${carritoId}/productos/${item.lineaId}/${endpoint}`, {}
     ).subscribe({
-      next: (carrito) => this.sincronizarDesde(carrito),
-      error: () => {
-        item.cantidad += delta;
-        if (item.cantidad <= 0) this.items.splice(index, 1);
-        this.items$$.next([...this.items]);
-      }
+      next: (carrito) => {
+        const items = carrito.lineasPedido.map(lp => this.lineaToItem(lp));
+        this.emitir(items);
+        this.guardarEnStorage(items);
+      },
+      error: () => this.cambiarCantidadLocal(index, delta)
     });
   }
+
+  // ── Vaciar ────────────────────────────────────────────────────────────────
 
   vaciar(): void {
     const carritoId = this.carritoId;
@@ -103,15 +121,14 @@ export class CarritoService {
     });
   }
 
+  // ── Utils públicos ─────────────────────────────────────────────────────────
+
   subtotalItem(item: ItemCarrito): number {
     const extras = item.adicionales.reduce((s, a) => s + a.price, 0);
     return (item.comida.price + extras) * item.cantidad;
   }
 
-  private sincronizarDesde(carrito: Carrito): void {
-    this.items = carrito.lineasPedido.map(lp => this.lineaToItem(lp));
-    this.items$$.next([...this.items]);
-  }
+  // ── Helpers privados ───────────────────────────────────────────────────────
 
   private lineaToItem(lp: LineaPedido): ItemCarrito {
     return {
@@ -130,12 +147,41 @@ export class CarritoService {
     } else {
       this.items.push({ comida, adicionales: [...adicionales], cantidad: 1 });
     }
-    this.items$$.next([...this.items]);
+    this.emitir([...this.items]);
+    this.guardarEnStorage(this.items);
+  }
+
+  private cambiarCantidadLocal(index: number, delta: number): void {
+    this.items[index].cantidad += delta;
+    if (this.items[index].cantidad <= 0) this.items.splice(index, 1);
+    this.emitir([...this.items]);
+    this.guardarEnStorage(this.items);
   }
 
   private limpiarLocal(): void {
-    this.items = [];
-    this.items$$.next([]);
+    this.emitir([]);
+    localStorage.removeItem(STORAGE_KEY);
+  }
+
+  private emitir(items: ItemCarrito[]): void {
+    this.items = items;
+    this.items$$.next(items);
+  }
+
+  private guardarEnStorage(items: ItemCarrito[]): void {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch { }
+  }
+
+  private restaurarDesdeStorage(): void {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const items: ItemCarrito[] = JSON.parse(raw);
+        this.emitir(items);
+      }
+    } catch { }
   }
 
   private buildKey(comidaId: number, adicionales: Adicional[]): string {
