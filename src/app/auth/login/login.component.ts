@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CarritoService } from '../../services/carrito.service';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +13,24 @@ export class LoginComponent {
   contrasena: string = '';
   loginError: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private carritoService: CarritoService
+  ) {}
 
   onSubmit(): void {
     this.loginError = false;
 
     this.authService.login(this.usuario, this.contrasena).subscribe({
-      next: ({ username, role }) => {
+      next: ({ username, role, clienteId }) => {
         localStorage.setItem('user', username);
         localStorage.setItem('role', role);
+
+        if (role === 'cliente' && clienteId !== undefined) {
+          localStorage.setItem('clienteId', String(clienteId));
+          this.carritoService.iniciarSesion(clienteId);
+        }
 
         if (role === 'admin') {
           this.router.navigate(['/producto/menutabla']);
