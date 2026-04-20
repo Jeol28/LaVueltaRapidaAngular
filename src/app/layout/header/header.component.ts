@@ -61,6 +61,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.carritoService.vaciar();
   }
 
+  irAProducto(item: ItemCarrito): void {
+    const adicionalesIds = item.adicionales.map(a => a.id).join(',');
+    this.router.navigate(['/producto', item.comida.id], {
+      queryParams: adicionalesIds ? { adicionales: adicionalesIds } : {}
+    });
+  }
+
   precioUnitario(item: ItemCarrito): number {
     return item.comida.price + item.adicionales.reduce((s, a) => s + a.price, 0);
   }

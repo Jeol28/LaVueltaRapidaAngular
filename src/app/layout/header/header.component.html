@@ -102,7 +102,7 @@
             <!-- LISTA DE ITEMS -->
             <div class="cp-list" *ngIf="cartItems.length > 0">
               <div class="cp-item" *ngFor="let item of cartItems; let i = index"
-                   [routerLink]="['/producto', item.comida.id]">
+                   (click)="irAProducto(item)">
                 <img [src]="item.comida.image" [alt]="item.comida.name" class="cp-img">
                 <div class="cp-info">
                   <p class="cp-name">{{ item.comida.name }}</p>
