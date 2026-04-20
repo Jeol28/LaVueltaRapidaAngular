@@ -45,9 +45,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of items; let i = index">
-            <td class="cart-td-product cart-td-clickeable"
-                [routerLink]="['/producto', item.comida.id]"
-                [queryParams]="getQueryParams(item)">
+            <td class="cart-td-product">
               <img [src]="item.comida.image" [alt]="item.comida.name" class="cart-img">
               <span class="cart-product-name">{{ item.comida.name }}</span>
             </td>

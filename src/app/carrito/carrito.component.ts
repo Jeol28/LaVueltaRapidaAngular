@@ -52,9 +52,4 @@ export class CarritoComponent implements OnInit, OnDestroy {
   volverAlMenu(): void {
     this.router.navigate(['/menu']);
   }
-
-  getQueryParams(item: ItemCarrito): Record<string, string> | null {
-    if (!item.adicionales.length) return null;
-    return { adicionales: item.adicionales.map(a => a.id).join(',') };
-  }
 }

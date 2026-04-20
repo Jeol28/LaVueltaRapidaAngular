@@ -25,21 +25,13 @@ export class ProductoDetalleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const adicionalesParam = this.route.snapshot.queryParamMap.get('adicionales');
-
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
 
       this.comidaService.getById(id).subscribe({
         next: comida => {
           this.comida = comida;
-
-          if (adicionalesParam) {
-            const ids = adicionalesParam.split(',').map(Number).filter(n => !isNaN(n) && n > 0);
-            this.selectedAdicionales = new Set(ids);
-          } else {
-            this.selectedAdicionales = new Set();
-          }
+          this.selectedAdicionales = new Set();
 
           this.comidaService.getAll().subscribe(comidas => {
             this.recomendaciones = this.comidaService.getRecomendaciones(comida, comidas);
