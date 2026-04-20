@@ -83,9 +83,9 @@ export class CarritoComponent implements OnInit, OnDestroy {
 
   irAProducto(item: ItemCarrito): void {
     const adicionalesIds = item.adicionales.map(a => a.id).join(',');
-    this.router.navigate(['/producto', item.comida.id], {
-      queryParams: adicionalesIds ? { adicionales: adicionalesIds } : {}
-    });
+    const queryParams: Record<string, string | number> = { _r: Date.now() };
+    if (adicionalesIds) queryParams['adicionales'] = adicionalesIds;
+    this.router.navigate(['/producto', item.comida.id], { queryParams });
   }
 
   volverAlMenu(): void {
