@@ -38,7 +38,7 @@ export class AddAdicionalComponent implements OnInit {
           };
         },
         error: () => {
-          this.router.navigate(['/adicionales/tabla'], { queryParams: { error: 'notfound' } });
+          this.router.navigate(['/admin/adicionales'], { queryParams: { error: 'notfound' } });
         }
       });
     }
@@ -47,13 +47,13 @@ export class AddAdicionalComponent implements OnInit {
   onSubmit(): void {
     if (this.editMode && this.editId !== null) {
       this.adicionalService.update(this.editId, this.adicional).subscribe({
-        next: () => this.router.navigate(['/adicionales/tabla'], { queryParams: { success: 'updated' } }),
-        error: () => this.router.navigate(['/adicionales/tabla'], { queryParams: { error: 'update' } })
+        next: () => this.router.navigate(['/admin/adicionales'], { queryParams: { success: 'updated' } }),
+        error: () => this.router.navigate(['/admin/adicionales'], { queryParams: { error: 'update' } })
       });
     } else {
       this.adicionalService.add(this.adicional).subscribe({
-        next: () => this.router.navigate(['/adicionales/tabla'], { queryParams: { success: 'added' } }),
-        error: () => this.router.navigate(['/adicionales/tabla'], { queryParams: { error: 'add' } })
+        next: () => this.router.navigate(['/admin/adicionales'], { queryParams: { success: 'added' } }),
+        error: () => this.router.navigate(['/admin/adicionales'], { queryParams: { error: 'add' } })
       });
     }
   }
