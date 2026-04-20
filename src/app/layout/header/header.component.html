@@ -86,6 +86,8 @@
 
           <!-- PANEL DESPLEGABLE -->
           <div class="cart-panel">
+            <div class="cart-panel-inner">
+
             <div class="cp-header">
               <span class="cp-title">MI CARRITO</span>
               <span class="cp-count">{{ cartCount }} {{ cartCount === 1 ? 'item' : 'items' }}</span>
@@ -123,6 +125,8 @@
                 <span class="cp-total-value">$ {{ formatCOP(carritoService.total) }} COP</span>
               </div>
               <button class="cp-btn-vaciar" (click)="vaciarCarrito()">VACIAR CARRITO</button>
+            </div>
+
             </div>
           </div>
 

@@ -175,6 +175,9 @@
 /* ── Carrito desplegable ── */
 .cart-wrapper {
   position: relative;
+  height: 68px;
+  display: flex;
+  align-items: center;
 }
 
 .cart-btn {
@@ -232,16 +235,21 @@
   top: 68px;
   right: 0;
   width: 360px;
-  background: #111;
-  border: 1px solid rgba(225, 6, 0, 0.2);
-  border-radius: 0 0 14px 14px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
   z-index: 500;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
   pointer-events: none;
+  /* padding invisible que agranda la zona hover sin afectar visualmente */
+  padding: 0 20px 30px 20px;
+}
+
+.cart-panel-inner {
+  background: #111;
+  border: 1px solid rgba(225, 6, 0, 0.2);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
   overflow: hidden;
 }
 
