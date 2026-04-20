@@ -6,9 +6,9 @@ import { Adicional } from '../models/adicional.model';
 import { Carrito } from '../models/carrito.model';
 import { Comida } from '../models/comida.model';
 import { ItemCarrito } from '../models/item-carrito.model';
+import { LineaPedido } from '../models/linea-pedido.model';
 
 const API_URL = 'http://localhost:8090';
-const ADICIONALES_KEY = 'cv-carrito-adicionales';
 
 @Injectable({ providedIn: 'root' })
 export class CarritoService {
@@ -57,17 +57,10 @@ export class CarritoService {
 
     this.http.post<Carrito>(`${API_URL}/carrito/${carritoId}/productos`, {
       comidaId: comida.id,
-      cantidad: 1
+      cantidad: 1,
+      adicionalesIds: adicionales.map(a => a.id)
     }).subscribe({
-      next: (carrito) => {
-        const linea = carrito.lineasPedido.find(lp => lp.comida.id === comida.id);
-        if (linea && adicionales.length > 0) {
-          const map = this.loadAdicionalesMap();
-          map[linea.id] = adicionales;
-          this.saveAdicionalesMap(map);
-        }
-        this.sincronizarDesde(carrito);
-      },
+      next: (carrito) => this.sincronizarDesde(carrito),
       error: () => this.agregarLocal(comida, adicionales)
     });
   }
@@ -105,10 +98,7 @@ export class CarritoService {
     }
 
     this.http.delete<Carrito>(`${API_URL}/carrito/${carritoId}/vaciar`).subscribe({
-      next: () => {
-        localStorage.removeItem(ADICIONALES_KEY);
-        this.limpiarLocal();
-      },
+      next: () => this.limpiarLocal(),
       error: () => this.limpiarLocal()
     });
   }
@@ -119,14 +109,17 @@ export class CarritoService {
   }
 
   private sincronizarDesde(carrito: Carrito): void {
-    const adicionalesMap = this.loadAdicionalesMap();
-    this.items = carrito.lineasPedido.map(lp => ({
+    this.items = carrito.lineasPedido.map(lp => this.lineaToItem(lp));
+    this.items$$.next([...this.items]);
+  }
+
+  private lineaToItem(lp: LineaPedido): ItemCarrito {
+    return {
       lineaId: lp.id,
       comida: lp.comida,
-      adicionales: adicionalesMap[lp.id] ?? [],
+      adicionales: (lp.adicionales ?? []).map(lpa => lpa.adicional),
       cantidad: lp.cantidad
-    }));
-    this.items$$.next([...this.items]);
+    };
   }
 
   private agregarLocal(comida: Comida, adicionales: Adicional[]): void {
@@ -143,16 +136,6 @@ export class CarritoService {
   private limpiarLocal(): void {
     this.items = [];
     this.items$$.next([]);
-  }
-
-  private loadAdicionalesMap(): { [lineaId: number]: Adicional[] } {
-    try {
-      return JSON.parse(localStorage.getItem(ADICIONALES_KEY) || '{}');
-    } catch { return {}; }
-  }
-
-  private saveAdicionalesMap(map: { [lineaId: number]: Adicional[] }): void {
-    localStorage.setItem(ADICIONALES_KEY, JSON.stringify(map));
   }
 
   private buildKey(comidaId: number, adicionales: Adicional[]): string {
