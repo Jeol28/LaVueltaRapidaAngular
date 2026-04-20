@@ -19,7 +19,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pedido of pedidos">
+          <tr *ngFor="let pedido of pedidos"
+              class="fila-pedido"
+              (click)="verDetalle(pedido)">
 
             <td class="id-cell">
               <span class="pedido-id">#{{ pedido.id }}</span>
@@ -54,7 +56,7 @@
               </ng-template>
             </td>
 
-            <td class="accion-cell">
+            <td class="accion-cell" (click)="$event.stopPropagation()">
               <select class="estado-select"
                       [value]="pedido.estado"
                       (change)="cambiarEstado(pedido, $any($event.target).value)">
@@ -70,6 +72,108 @@
   </div>
 </section>
 
+<!-- ══════════════ OVERLAY + PANEL DE DETALLE ══════════════ -->
+<div class="detalle-overlay" [class.open]="pedidoSeleccionado" (click)="cerrarDetalle()">
+  <div class="detalle-panel" (click)="$event.stopPropagation()" *ngIf="pedidoSeleccionado">
+
+    <!-- HEADER DEL PANEL -->
+    <div class="dp-header">
+      <div class="dp-title-row">
+        <div>
+          <span class="dp-eyebrow">DETALLE DEL PEDIDO</span>
+          <h2 class="dp-title">Pedido <span class="dp-id">#{{ pedidoSeleccionado.id }}</span></h2>
+        </div>
+        <button class="dp-close" (click)="cerrarDetalle()">✕</button>
+      </div>
+
+      <div class="dp-meta">
+        <div class="dp-meta-item">
+          <span class="dp-meta-label">Fecha</span>
+          <span class="dp-meta-value">{{ pedidoSeleccionado.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="dp-meta-item">
+          <span class="dp-meta-label">Estado</span>
+          <span class="estado-badge" [ngClass]="getEstadoClass(pedidoSeleccionado.estado)">
+            {{ pedidoSeleccionado.estado }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENTE -->
+    <div class="dp-section">
+      <h3 class="dp-section-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        CLIENTE
+      </h3>
+      <div class="dp-cliente">
+        <p class="dp-cliente-nombre">{{ pedidoSeleccionado.cliente.name }} {{ pedidoSeleccionado.cliente.apellido }}</p>
+        <p class="dp-cliente-email">{{ pedidoSeleccionado.cliente.email }}</p>
+      </div>
+    </div>
+
+    <!-- LÍNEAS DEL PEDIDO -->
+    <div class="dp-section">
+      <h3 class="dp-section-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+        ÍTEMS DEL PEDIDO
+      </h3>
+      <div class="dp-lineas">
+        <div class="dp-linea" *ngFor="let linea of pedidoSeleccionado.lineasPedido">
+          <div class="dp-linea-top">
+            <div class="dp-linea-info">
+              <span class="dp-linea-nombre">{{ linea.comida.name }}</span>
+              <span class="dp-linea-precio-unit">$ {{ formatCOP(linea.comida.price) }}</span>
+            </div>
+            <div class="dp-linea-right">
+              <span class="dp-linea-cant">× {{ linea.cantidad }}</span>
+              <span class="dp-linea-subtotal">$ {{ formatCOP(calcularSubtotalLinea(linea)) }}</span>
+            </div>
+          </div>
+          <div class="dp-adicionales" *ngIf="linea.adicionales.length > 0">
+            <span class="dp-adic-tag" *ngFor="let lpa of linea.adicionales">
+              + {{ lpa.adicional.name }}
+              <span class="dp-adic-precio">$ {{ formatCOP(lpa.adicional.price) }}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMICILIARIO -->
+    <div class="dp-section">
+      <h3 class="dp-section-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/></svg>
+        DOMICILIARIO
+      </h3>
+      <p class="dp-domiciliario" *ngIf="pedidoSeleccionado.domiciliario; else sinDom">
+        {{ pedidoSeleccionado.domiciliario.nombre }}
+      </p>
+      <ng-template #sinDom>
+        <p class="dp-domiciliario sin-asignar">Sin asignar</p>
+      </ng-template>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="dp-total">
+      <span class="dp-total-label">TOTAL DEL PEDIDO</span>
+      <span class="dp-total-value">$ {{ formatCOP(calcularTotal(pedidoSeleccionado)) }} COP</span>
+    </div>
+
+    <!-- CAMBIAR ESTADO DESDE EL PANEL -->
+    <div class="dp-estado-action">
+      <label class="dp-estado-label">Cambiar estado</label>
+      <select class="estado-select dp-estado-select"
+              [value]="pedidoSeleccionado.estado"
+              (change)="cambiarEstado(pedidoSeleccionado, $any($event.target).value)">
+        <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
+      </select>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOASTS -->
 <div class="op-toast"
      [class.visible]="showSuccess"
      [class.hide]="hideSuccess">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from '../../models/pedido.model';
 import { EstadoPedido } from '../../models/estado-pedido.model';
+import { LineaPedido } from '../../models/linea-pedido.model';
 import { PedidoService } from '../../services/pedido.service';
 
 @Component({
@@ -12,6 +13,8 @@ export class TablaPedidosComponent implements OnInit {
 
   pedidos: Pedido[] = [];
   estados: EstadoPedido[] = ['RECIBIDO', 'COCINANDO', 'ENVIADO', 'ENTREGADO'];
+
+  pedidoSeleccionado: Pedido | null = null;
 
   showSuccess: boolean = false;
   hideSuccess: boolean = false;
@@ -32,10 +35,41 @@ export class TablaPedidosComponent implements OnInit {
     });
   }
 
+  verDetalle(pedido: Pedido): void {
+    this.pedidoSeleccionado = pedido;
+  }
+
+  cerrarDetalle(): void {
+    this.pedidoSeleccionado = null;
+  }
+
+  calcularTotal(pedido: Pedido): number {
+    return pedido.lineasPedido.reduce((total, linea) => {
+      const precioBase = linea.comida.price * linea.cantidad;
+      const precioAdicionales = linea.adicionales.reduce(
+        (s, lpa) => s + lpa.adicional.price, 0
+      ) * linea.cantidad;
+      return total + precioBase + precioAdicionales;
+    }, 0);
+  }
+
+  calcularSubtotalLinea(linea: LineaPedido): number {
+    const base = linea.comida.price;
+    const adics = linea.adicionales.reduce((s, lpa) => s + lpa.adicional.price, 0);
+    return (base + adics) * linea.cantidad;
+  }
+
+  formatCOP(value: number): string {
+    return value.toLocaleString('es-CO');
+  }
+
   cambiarEstado(pedido: Pedido, nuevoEstado: EstadoPedido): void {
     this.pedidoService.updateEstado(pedido.id, nuevoEstado).subscribe({
       next: actualizado => {
         pedido.estado = actualizado.estado;
+        if (this.pedidoSeleccionado?.id === pedido.id) {
+          this.pedidoSeleccionado = { ...this.pedidoSeleccionado, estado: actualizado.estado };
+        }
         this.successMsg = `Pedido #${pedido.id} → ${actualizado.estado}`;
         this.triggerSuccess();
       },
