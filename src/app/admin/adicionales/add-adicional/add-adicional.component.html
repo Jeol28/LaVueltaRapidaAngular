@@ -36,14 +36,13 @@
 
         <div class="form-group">
           <label class="toggle-label">Disponibilidad</label>
-          <div class="form-check form-switch mt-2">
-            <input class="form-check-input" type="checkbox" role="switch"
+          <label class="av-switch">
+            <input type="checkbox"
                    [(ngModel)]="adicional.available" name="available"
                    id="availableToggle">
-            <label class="form-check-label" for="availableToggle">
-              {{ adicional.available ? 'Disponible' : 'No disponible' }}
-            </label>
-          </div>
+            <span class="av-track"><span class="av-thumb"></span></span>
+            <span class="av-text">{{ adicional.available ? 'Disponible' : 'No disponible' }}</span>
+          </label>
         </div>
 
       </div>
