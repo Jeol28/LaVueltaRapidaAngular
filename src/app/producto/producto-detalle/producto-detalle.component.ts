@@ -35,9 +35,8 @@ export class ProductoDetalleComponent implements OnInit {
           this.comida = comida;
 
           if (adicionalesParam) {
-            const ids = adicionalesParam.split(',').map(Number).filter(n => !isNaN(n));
-            const disponibles = new Set(comida.category.adicionales.filter(a => a.available).map(a => a.id));
-            this.selectedAdicionales = new Set(ids.filter(id => disponibles.has(id)));
+            const ids = adicionalesParam.split(',').map(Number).filter(n => !isNaN(n) && n > 0);
+            this.selectedAdicionales = new Set(ids);
           } else {
             this.selectedAdicionales = new Set();
           }
