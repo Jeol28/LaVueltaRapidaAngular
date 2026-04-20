@@ -111,6 +111,19 @@
   min-width: 220px;
 }
 
+.cart-td-clickable {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.cart-td-clickable:hover {
+  opacity: 0.75;
+}
+
+.cart-td-clickable:hover .cart-product-name {
+  color: var(--red);
+}
+
 .cart-img {
   width: 64px;
   height: 64px;

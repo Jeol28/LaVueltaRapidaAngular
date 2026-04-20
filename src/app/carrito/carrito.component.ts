@@ -81,6 +81,13 @@ export class CarritoComponent implements OnInit, OnDestroy {
     return new Intl.NumberFormat('es-CO').format(amount);
   }
 
+  irAProducto(item: ItemCarrito): void {
+    const adicionalesIds = item.adicionales.map(a => a.id).join(',');
+    this.router.navigate(['/producto', item.comida.id], {
+      queryParams: adicionalesIds ? { adicionales: adicionalesIds } : {}
+    });
+  }
+
   volverAlMenu(): void {
     this.router.navigate(['/menu']);
   }

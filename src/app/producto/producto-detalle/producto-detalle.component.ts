@@ -28,10 +28,15 @@ export class ProductoDetalleComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
 
+      const preseleccionados = this.route.snapshot.queryParamMap.get('adicionales');
+      const idsPreseleccionados: Set<number> = preseleccionados
+        ? new Set(preseleccionados.split(',').map(Number).filter(n => !isNaN(n) && n > 0))
+        : new Set();
+
       this.comidaService.getById(id).subscribe({
         next: comida => {
           this.comida = comida;
-          this.selectedAdicionales = new Set();
+          this.selectedAdicionales = idsPreseleccionados;
 
           this.comidaService.getAll().subscribe(comidas => {
             this.recomendaciones = this.comidaService.getRecomendaciones(comida, comidas);
