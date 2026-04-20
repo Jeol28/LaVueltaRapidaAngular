@@ -12,15 +12,15 @@ export class PedidoService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Pedido[]> {
-    return this.http.get<Pedido[]>(`${API_URL}/pedidos`);
+    return this.http.get<Pedido[]>(`${API_URL}/pedido`);
   }
 
   getById(id: number): Observable<Pedido> {
-    return this.http.get<Pedido>(`${API_URL}/pedidos/${id}`);
+    return this.http.get<Pedido>(`${API_URL}/pedido/${id}`);
   }
 
   updateEstado(id: number, estado: EstadoPedido): Observable<Pedido> {
-    return this.http.put<Pedido>(`${API_URL}/pedidos/${id}/estado`, { estado });
+    return this.http.patch<Pedido>(`${API_URL}/pedido/${id}/estado`, { estado });
   }
 
   crearDesdeCarrito(carritoId: number): Observable<Pedido> {
