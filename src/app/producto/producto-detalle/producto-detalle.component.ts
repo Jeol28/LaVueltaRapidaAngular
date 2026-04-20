@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { Comida } from '../../models/comida.model';
 import { Adicional } from '../../models/adicional.model';
 import { ComidaService } from '../../services/comida.service';
@@ -25,13 +26,21 @@ export class ProductoDetalleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(([params, queryParams]) => {
       const id = Number(params.get('id'));
+      const adicionalesParam = queryParams.get('adicionales');
 
       this.comidaService.getById(id).subscribe({
         next: comida => {
           this.comida = comida;
-          this.selectedAdicionales = new Set();
+
+          if (adicionalesParam) {
+            const ids = adicionalesParam.split(',').map(Number).filter(n => !isNaN(n));
+            const disponibles = new Set(comida.category.adicionales.filter(a => a.available).map(a => a.id));
+            this.selectedAdicionales = new Set(ids.filter(id => disponibles.has(id)));
+          } else {
+            this.selectedAdicionales = new Set();
+          }
 
           this.comidaService.getAll().subscribe(comidas => {
             this.recomendaciones = this.comidaService.getRecomendaciones(comida, comidas);
