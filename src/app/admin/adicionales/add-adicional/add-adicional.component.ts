@@ -20,7 +20,7 @@ export class AddAdicionalComponent implements OnInit {
     name: '',
     price: null as number | null,
     available: true,
-    categoryId: null as number | null
+    categoriaIds: [] as number[]
   };
 
   constructor(
@@ -43,14 +43,14 @@ export class AddAdicionalComponent implements OnInit {
       }).subscribe({
         next: ({ adicional, categorias }) => {
           this.categorias = categorias;
-          const categoriaActual = categorias.find(cat =>
-            (cat.adicionales ?? []).some(a => a.id === adicional.id)
-          );
+          const categoriaIds = categorias
+            .filter(cat => (cat.adicionales ?? []).some(a => a.id === adicional.id))
+            .map(cat => cat.id);
           this.adicional = {
             name: adicional.name,
             price: adicional.price,
             available: adicional.available,
-            categoryId: categoriaActual ? categoriaActual.id : null
+            categoriaIds
           };
         },
         error: () => {
@@ -62,6 +62,20 @@ export class AddAdicionalComponent implements OnInit {
         this.categorias = categorias;
       });
     }
+  }
+
+  toggleCategoria(catId: number, checked: boolean): void {
+    if (checked) {
+      if (!this.adicional.categoriaIds.includes(catId)) {
+        this.adicional.categoriaIds = [...this.adicional.categoriaIds, catId];
+      }
+    } else {
+      this.adicional.categoriaIds = this.adicional.categoriaIds.filter(id => id !== catId);
+    }
+  }
+
+  isCategoriaSelected(catId: number): boolean {
+    return this.adicional.categoriaIds.includes(catId);
   }
 
   onSubmit(): void {

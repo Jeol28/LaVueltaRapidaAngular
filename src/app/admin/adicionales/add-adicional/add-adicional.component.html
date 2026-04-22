@@ -34,14 +34,18 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="categoryId">Categoría</label>
-          <select id="categoryId" name="categoryId"
-                  [(ngModel)]="adicional.categoryId" required>
-            <option [ngValue]="null" disabled>Selecciona una categoría</option>
-            <option *ngFor="let cat of categorias"
-                    [ngValue]="cat.id">{{ cat.name }}</option>
-          </select>
+        <div class="form-group full-width">
+          <label>Categorías</label>
+          <div class="categorias-checkboxes">
+            <label *ngFor="let cat of categorias" class="categoria-check">
+              <input type="checkbox"
+                     [name]="'cat-' + cat.id"
+                     [checked]="isCategoriaSelected(cat.id)"
+                     (change)="toggleCategoria(cat.id, $any($event.target).checked)">
+              <span>{{ cat.name }}</span>
+            </label>
+            <p *ngIf="categorias.length === 0" class="cat-empty">No hay categorías disponibles.</p>
+          </div>
         </div>
 
         <div class="form-group">

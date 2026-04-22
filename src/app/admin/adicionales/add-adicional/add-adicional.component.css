@@ -97,3 +97,39 @@
   text-transform: uppercase;
 }
 
+
+.categorias-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  padding: 12px 14px;
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+}
+
+.categoria-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--gray);
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.categoria-check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+.cat-empty {
+  margin: 0;
+  color: var(--gray);
+  font-size: 12px;
+  font-style: italic;
+}
