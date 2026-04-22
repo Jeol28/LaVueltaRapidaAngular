@@ -46,6 +46,7 @@
             </label>
             <p *ngIf="categorias.length === 0" class="cat-empty">No hay categorías disponibles.</p>
           </div>
+          <p *ngIf="categoriaErrorMsg" class="cat-error">{{ categoriaErrorMsg }}</p>
         </div>
 
         <div class="form-group">

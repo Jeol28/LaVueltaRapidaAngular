@@ -23,6 +23,8 @@ export class AddAdicionalComponent implements OnInit {
     categoriaIds: [] as number[]
   };
 
+  categoriaErrorMsg: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -72,6 +74,9 @@ export class AddAdicionalComponent implements OnInit {
     } else {
       this.adicional.categoriaIds = this.adicional.categoriaIds.filter(id => id !== catId);
     }
+    if (this.adicional.categoriaIds.length > 0) {
+      this.categoriaErrorMsg = '';
+    }
   }
 
   isCategoriaSelected(catId: number): boolean {
@@ -79,6 +84,12 @@ export class AddAdicionalComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.adicional.categoriaIds.length === 0) {
+      this.categoriaErrorMsg = 'Debes seleccionar al menos una categoría.';
+      return;
+    }
+    this.categoriaErrorMsg = '';
+
     if (this.editMode && this.editId !== null) {
       this.adicionalService.update(this.editId, this.adicional).subscribe({
         next: () => this.router.navigate(['/admin/adicionales'], { queryParams: { success: 'updated' } }),
