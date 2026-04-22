@@ -35,6 +35,16 @@
         </div>
 
         <div class="form-group">
+          <label for="categoryId">Categoría</label>
+          <select id="categoryId" name="categoryId"
+                  [(ngModel)]="adicional.categoryId" required>
+            <option [ngValue]="null" disabled>Selecciona una categoría</option>
+            <option *ngFor="let cat of categorias"
+                    [ngValue]="cat.id">{{ cat.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label class="toggle-label">Disponibilidad</label>
           <label class="av-switch">
             <input type="checkbox"

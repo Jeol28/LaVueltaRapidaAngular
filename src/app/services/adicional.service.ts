@@ -18,11 +18,11 @@ export class AdicionalService {
     return this.http.get<Adicional>(`${API_URL}/adicionales/${id}`);
   }
 
-  add(data: { name: string; price: number | null; available: boolean }): Observable<Adicional> {
+  add(data: { name: string; price: number | null; available: boolean; categoryId: number | null }): Observable<Adicional> {
     return this.http.post<Adicional>(`${API_URL}/adicionales`, data);
   }
 
-  update(id: number, data: { name: string; price: number | null; available: boolean }): Observable<Adicional> {
+  update(id: number, data: { name: string; price: number | null; available: boolean; categoryId: number | null }): Observable<Adicional> {
     return this.http.put<Adicional>(`${API_URL}/adicionales/${id}`, data);
   }
 
