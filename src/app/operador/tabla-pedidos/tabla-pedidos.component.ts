@@ -30,7 +30,7 @@ export class TablaPedidosComponent implements OnInit {
 
   loadPedidos(): void {
     this.pedidoService.getAll().subscribe({
-      next: pedidos => this.pedidos = pedidos,
+      next: pedidos => this.pedidos = pedidos.filter(p => p.estado !== 'ENTREGADO'),
       error: () => this.triggerError()
     });
   }
@@ -66,9 +66,16 @@ export class TablaPedidosComponent implements OnInit {
   cambiarEstado(pedido: Pedido, nuevoEstado: EstadoPedido): void {
     this.pedidoService.updateEstado(pedido.id, nuevoEstado).subscribe({
       next: actualizado => {
-        pedido.estado = actualizado.estado;
-        if (this.pedidoSeleccionado?.id === pedido.id) {
-          this.pedidoSeleccionado = { ...this.pedidoSeleccionado, estado: actualizado.estado };
+        if (actualizado.estado === 'ENTREGADO') {
+          this.pedidos = this.pedidos.filter(p => p.id !== pedido.id);
+          if (this.pedidoSeleccionado?.id === pedido.id) {
+            this.pedidoSeleccionado = null;
+          }
+        } else {
+          pedido.estado = actualizado.estado;
+          if (this.pedidoSeleccionado?.id === pedido.id) {
+            this.pedidoSeleccionado = { ...this.pedidoSeleccionado, estado: actualizado.estado };
+          }
         }
         this.successMsg = `Pedido #${pedido.id} → ${actualizado.estado}`;
         this.triggerSuccess();
