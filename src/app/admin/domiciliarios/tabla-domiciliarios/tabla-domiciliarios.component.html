@@ -1,0 +1,85 @@
+<section class="menu-list-section">
+  <div class="container">
+
+    <h2 class="list-category red">Domiciliarios</h2>
+
+    <div class="table-responsive">
+      <table class="menu-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Celular</th>
+            <th>Estado</th>
+            <th class="actions-cell">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let dom of domiciliarios"
+              [class.row-unavailable]="!dom.disponible">
+
+            <td>
+              <div class="row-inner">
+                <strong>{{ dom.nombre }}</strong>
+              </div>
+            </td>
+
+            <td>
+              <div class="row-inner">
+                <span class="cedula-cell">{{ dom.cedula }}</span>
+              </div>
+            </td>
+
+            <td>
+              <div class="row-inner">
+                <span class="celular-cell">{{ dom.celular }}</span>
+              </div>
+            </td>
+
+            <td class="status-cell"
+                [ngClass]="dom.disponible ? 'status-available' : 'status-unavailable'">
+              <div class="row-inner">
+                {{ dom.disponible ? 'Disponible' : 'No disponible' }}
+              </div>
+            </td>
+
+            <td class="actions-cell" (click)="$event.stopPropagation()">
+              <div class="row-inner">
+                <div class="actions-wrapper">
+                  <a [routerLink]="['/admin/domiciliarios/update', dom.id]"
+                     class="btn-edit">
+                    Modificar
+                  </a>
+                  <a (click)="eliminarDomiciliario($event, dom.id)"
+                     class="btn-delete">
+                    Eliminar
+                  </a>
+                </div>
+              </div>
+            </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- Toast éxito -->
+<div class="admin-toast"
+     [class.visible]="showSuccess"
+     [class.hide]="hideSuccess">
+  <span class="admin-toast-icon">✔</span>
+  <span class="admin-toast-msg">{{ successMsg }}</span>
+</div>
+
+<!-- Toast error -->
+<div class="admin-toast admin-toast-error"
+     [class.visible]="showError"
+     [class.hide]="hideError">
+  <span class="admin-toast-icon">✕</span>
+  <span class="admin-toast-msg">No se pudo completar la operación.</span>
+</div>

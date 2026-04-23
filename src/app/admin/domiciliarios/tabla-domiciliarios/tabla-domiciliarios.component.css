@@ -1,0 +1,56 @@
+.menu-table thead tr {
+  background-color: #161616;
+}
+
+.menu-table thead th {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray);
+  padding: 14px 15px;
+  border-bottom: 1px solid #2a2a2a;
+  font-weight: 600;
+}
+
+.menu-table th:nth-child(1),
+.menu-table td:nth-child(1) { width: 28%; }
+
+.menu-table th:nth-child(2),
+.menu-table td:nth-child(2) { width: 20%; }
+
+.menu-table th:nth-child(3),
+.menu-table td:nth-child(3) { width: 20%; }
+
+.menu-table th:nth-child(4),
+.menu-table td:nth-child(4) { width: 15%; }
+
+.menu-table th:nth-child(5),
+.menu-table td:nth-child(5) { width: 17%; text-align: center; }
+
+.menu-table strong {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: var(--white);
+}
+
+.cedula-cell {
+  font-size: 13px;
+  color: var(--gray);
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.celular-cell {
+  font-size: 13px;
+  color: var(--gold);
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.actions-wrapper { justify-content: center; }
+
+@media (max-width: 768px) {
+  .menu-table td { padding: 15px 8px; }
+}

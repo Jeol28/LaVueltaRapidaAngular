@@ -29,6 +29,10 @@ import { AdicionalesAdminComponent } from './admin/adicionales/adicionales-admin
 import { TablaAdicionalesComponent } from './admin/adicionales/tabla-adicionales/tabla-adicionales.component';
 import { AddAdicionalComponent } from './admin/adicionales/add-adicional/add-adicional.component';
 
+import { DomiciliariosAdminComponent } from './admin/domiciliarios/domiciliarios-admin/domiciliarios-admin.component';
+import { TablaDomiciliariosComponent } from './admin/domiciliarios/tabla-domiciliarios/tabla-domiciliarios.component';
+import { AddDomiciliarioComponent } from './admin/domiciliarios/add-domiciliario/add-domiciliario.component';
+
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
@@ -70,6 +74,10 @@ import { TablaPedidosComponent } from './operador/tabla-pedidos/tabla-pedidos.co
     AdicionalesAdminComponent,
     TablaAdicionalesComponent,
     AddAdicionalComponent,
+
+    DomiciliariosAdminComponent,
+    TablaDomiciliariosComponent,
+    AddDomiciliarioComponent,
 
     MenuComponent,
     ProductoDetalleComponent,

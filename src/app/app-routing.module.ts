@@ -7,6 +7,8 @@ import { OperariosAdminComponent } from './admin/operarios/operarios-admin/opera
 import { AddOperarioComponent } from './admin/operarios/add-operario/add-operario.component';
 import { AdicionalesAdminComponent } from './admin/adicionales/adicionales-admin/adicionales-admin.component';
 import { AddAdicionalComponent } from './admin/adicionales/add-adicional/add-adicional.component';
+import { DomiciliariosAdminComponent } from './admin/domiciliarios/domiciliarios-admin/domiciliarios-admin.component';
+import { AddDomiciliarioComponent } from './admin/domiciliarios/add-domiciliario/add-domiciliario.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
@@ -42,6 +44,11 @@ const routes: Routes = [
   { path: 'admin/adicionales',            component: AdicionalesAdminComponent },
   { path: 'admin/adicionales/add',        component: AddAdicionalComponent },
   { path: 'admin/adicionales/update/:id', component: AddAdicionalComponent },
+
+  // ── Domiciliarios ──
+  { path: 'admin/domiciliarios',            component: DomiciliariosAdminComponent },
+  { path: 'admin/domiciliarios/agregar',    component: AddDomiciliarioComponent },
+  { path: 'admin/domiciliarios/update/:id', component: AddDomiciliarioComponent },
 
   { path: '**', redirectTo: '' },
 ];

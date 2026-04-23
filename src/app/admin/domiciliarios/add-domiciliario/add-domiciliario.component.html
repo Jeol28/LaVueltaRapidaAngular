@@ -1,0 +1,67 @@
+<section class="add-hero">
+  <h1 *ngIf="!editMode">AGREGAR <span>DOMICILIARIO</span></h1>
+  <h1 *ngIf="editMode">MODIFICAR <span>DOMICILIARIO</span></h1>
+  <p>{{ editMode ? 'Edita los datos del domiciliario' : 'Registra un nuevo domiciliario en el sistema' }}</p>
+</section>
+
+<main class="add-container">
+  <div class="form-card">
+
+    <div class="form-header">
+      <div class="form-header-accent"></div>
+      <h2>{{ editMode ? 'EDITAR DOMICILIARIO' : 'NUEVO DOMICILIARIO' }}</h2>
+      <p>{{ editMode ? 'Modifica los datos del domiciliario seleccionado' : 'Completa los datos del domiciliario que deseas registrar' }}</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #domiciliarioForm="ngForm" class="product-form">
+
+      <div class="form-grid">
+
+        <div class="form-group full-width">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre"
+                 [(ngModel)]="domiciliario.nombre"
+                 placeholder="Ej: Carlos Sainz"
+                 required>
+        </div>
+
+        <div class="form-group">
+          <label for="cedula">Cédula</label>
+          <input type="text" id="cedula" name="cedula"
+                 [(ngModel)]="domiciliario.cedula"
+                 placeholder="Ej: 1023456789"
+                 required>
+        </div>
+
+        <div class="form-group">
+          <label for="celular">Celular</label>
+          <input type="text" id="celular" name="celular"
+                 [(ngModel)]="domiciliario.celular"
+                 placeholder="Ej: +57 300 000 0000"
+                 required>
+        </div>
+
+        <div class="form-group">
+          <label class="toggle-label">Disponibilidad</label>
+          <label class="av-switch">
+            <input type="checkbox"
+                   [(ngModel)]="domiciliario.disponible" name="disponible"
+                   id="disponibleToggle">
+            <span class="av-track"><span class="av-thumb"></span></span>
+            <span class="av-text">{{ domiciliario.disponible ? 'Disponible' : 'No disponible' }}</span>
+          </label>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <a [routerLink]="['/admin/domiciliarios']" class="btn-cancel">CANCELAR</a>
+        <button type="submit" class="btn-submit">
+          {{ editMode ? 'GUARDAR CAMBIOS' : 'AGREGAR DOMICILIARIO' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</main>
