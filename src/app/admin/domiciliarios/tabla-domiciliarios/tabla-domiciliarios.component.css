@@ -51,6 +51,18 @@
 
 .actions-wrapper { justify-content: center; }
 
+/* Estado */
+.status-cell {
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-available   { color: #22c55e; }
+.status-unavailable { color: var(--red); }
+.row-unavailable    { opacity: 0.6; }
+
 @media (max-width: 768px) {
   .menu-table td { padding: 15px 8px; }
 }
