@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'operador/inicio', component: OperadorInicioComponent },
 
   // ── Productos ──
-  { path: 'producto/menutabla',     component: ProductosAdminComponent },
+  { path: 'admin/comidas',     component: ProductosAdminComponent },
   { path: 'producto/add',           component: AddProductComponent },
   { path: 'producto/update/:id',    component: AddProductComponent },
   { path: 'producto/:id',           component: ProductoDetalleComponent },

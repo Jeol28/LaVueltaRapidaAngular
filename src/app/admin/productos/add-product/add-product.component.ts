@@ -54,7 +54,7 @@ export class AddProductComponent implements OnInit {
           this.previewUrl = found.image;
         },
         error: () => {
-          this.router.navigate(['/producto/menutabla'], { queryParams: { error: 'notfound' } });
+          this.router.navigate(['/admin/comidas'], { queryParams: { error: 'notfound' } });
         }
       });
     }
@@ -67,11 +67,11 @@ export class AddProductComponent implements OnInit {
   onSubmit(): void {
     if (this.editMode && this.editId !== null) {
       this.comidaService.update(this.editId, this.comida).subscribe(() => {
-        this.router.navigate(['/producto/menutabla'], { queryParams: { success: 'updated' } });
+        this.router.navigate(['/admin/comidas'], { queryParams: { success: 'updated' } });
       });
     } else {
       this.comidaService.add(this.comida).subscribe(() => {
-        this.router.navigate(['/producto/menutabla'], { queryParams: { success: 'added' } });
+        this.router.navigate(['/admin/comidas'], { queryParams: { success: 'added' } });
       });
     }
   }

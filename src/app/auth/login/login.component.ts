@@ -36,7 +36,7 @@ export class LoginComponent {
         }
 
         if (role === 'admin') {
-          this.router.navigate(['/producto/menutabla']);
+          this.router.navigate(['/admin/comidas']);
         } else if (role === 'operador') {
           this.router.navigate(['/operador/inicio']);
         } else {
