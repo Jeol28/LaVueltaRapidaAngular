@@ -70,13 +70,12 @@ export class PerfilComponent implements OnInit {
     if (!this.cliente) return;
     this.cargandoPedidos = true;
     this.pedidosError = '';
-    const clienteId = this.cliente.id;
 
-    this.pedidoService.getAll().subscribe({
+    this.pedidoService.getByCliente(this.cliente.id).subscribe({
       next: pedidos => {
-        this.pedidos = pedidos
-          .filter(p => p.cliente?.id === clienteId)
-          .sort((a, b) => this.parseFecha(b.fechaCreacion) - this.parseFecha(a.fechaCreacion));
+        this.pedidos = pedidos.sort(
+          (a, b) => this.parseFecha(b.fechaCreacion) - this.parseFecha(a.fechaCreacion)
+        );
         this.cargandoPedidos = false;
       },
       error: () => {

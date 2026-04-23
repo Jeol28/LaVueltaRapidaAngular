@@ -15,6 +15,14 @@ export class PedidoService {
     return this.http.get<Pedido[]>(`${API_URL}/pedido`);
   }
 
+  getActivos(): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${API_URL}/pedido/activos`);
+  }
+
+  getByCliente(clienteId: number): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${API_URL}/pedido/cliente/${clienteId}`);
+  }
+
   getById(id: number): Observable<Pedido> {
     return this.http.get<Pedido>(`${API_URL}/pedido/${id}`);
   }

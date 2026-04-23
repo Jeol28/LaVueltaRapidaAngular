@@ -29,8 +29,8 @@ export class TablaPedidosComponent implements OnInit {
   }
 
   loadPedidos(): void {
-    this.pedidoService.getAll().subscribe({
-      next: pedidos => this.pedidos = pedidos.filter(p => p.estado !== 'ENTREGADO'),
+    this.pedidoService.getActivos().subscribe({
+      next: pedidos => this.pedidos = pedidos,
       error: () => this.triggerError()
     });
   }
