@@ -100,6 +100,99 @@
     </div>
   </div>
 
+  <!-- ══════ MIS PEDIDOS ══════ -->
+  <div *ngIf="!editMode" class="pf-wrapper pf-pedidos-wrapper">
+    <div class="pf-pedidos-card">
+      <div class="pf-card-stripe"></div>
+
+      <div class="pf-pedidos-header">
+        <h2 class="pf-pedidos-title">MIS <span>PEDIDOS</span></h2>
+        <p class="pf-pedidos-sub">Consulta el estado de tus pedidos y revisa tu historial</p>
+      </div>
+
+      <div class="pf-tabs">
+        <button class="pf-tab" [class.active]="pedidosTab === 'activos'"
+                (click)="cambiarTab('activos')">
+          Activos
+          <span class="pf-tab-count">{{ pedidosActivos.length }}</span>
+        </button>
+        <button class="pf-tab" [class.active]="pedidosTab === 'pasados'"
+                (click)="cambiarTab('pasados')">
+          Historial
+          <span class="pf-tab-count">{{ pedidosPasados.length }}</span>
+        </button>
+      </div>
+
+      <div *ngIf="cargandoPedidos" class="pf-pedidos-empty">Cargando pedidos…</div>
+      <div *ngIf="pedidosError" class="pf-error-banner">{{ pedidosError }}</div>
+
+      <div *ngIf="!cargandoPedidos && !pedidosError && pedidosVisibles.length === 0"
+           class="pf-pedidos-empty">
+        {{ pedidosTab === 'activos'
+            ? 'No tienes pedidos activos en este momento.'
+            : 'Aún no tienes pedidos entregados en tu historial.' }}
+      </div>
+
+      <ul class="pf-pedidos-list" *ngIf="!cargandoPedidos && pedidosVisibles.length > 0">
+        <li *ngFor="let pedido of pedidosVisibles" class="pf-pedido-item">
+
+          <button class="pf-pedido-summary" (click)="toggleDetalle(pedido)">
+            <div class="pf-pedido-info">
+              <span class="pf-pedido-id">Pedido #{{ pedido.id }}</span>
+              <span class="pf-pedido-fecha">{{ formatFecha(pedido.fechaCreacion) }}</span>
+            </div>
+            <div class="pf-pedido-meta">
+              <span class="pf-pedido-estado" [ngClass]="getEstadoClass(pedido.estado)">
+                {{ pedido.estado }}
+              </span>
+              <span class="pf-pedido-total">COP {{ formatCOP(calcularTotal(pedido)) }}</span>
+              <span class="pf-pedido-toggle">
+                {{ pedidoExpandidoId === pedido.id ? '▲' : '▼' }}
+              </span>
+            </div>
+          </button>
+
+          <div class="pf-pedido-detalle" *ngIf="pedidoExpandidoId === pedido.id">
+            <div class="pf-pedido-detalle-grid">
+              <div>
+                <span class="pf-detalle-label">Fecha de entrega</span>
+                <span class="pf-detalle-value">{{ formatFecha(pedido.fechaEntrega) }}</span>
+              </div>
+              <div>
+                <span class="pf-detalle-label">Domiciliario</span>
+                <span class="pf-detalle-value">
+                  {{ pedido.domiciliario ? pedido.domiciliario.nombre : 'Sin asignar' }}
+                </span>
+              </div>
+            </div>
+
+            <ul class="pf-lineas-list">
+              <li *ngFor="let linea of pedido.lineasPedido" class="pf-linea-item">
+                <div class="pf-linea-main">
+                  <span class="pf-linea-cant">{{ linea.cantidad }}×</span>
+                  <span class="pf-linea-nombre">{{ linea.comida.name }}</span>
+                  <span class="pf-linea-subtotal">COP {{ formatCOP(calcularSubtotalLinea(linea)) }}</span>
+                </div>
+                <ul *ngIf="linea.adicionales?.length" class="pf-linea-adicionales">
+                  <li *ngFor="let lpa of linea.adicionales">
+                    + {{ lpa.adicional.name }} ({{ formatCOP(lpa.adicional.price) }})
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="pf-pedido-total-row">
+              <span>Total</span>
+              <span>COP {{ formatCOP(calcularTotal(pedido)) }}</span>
+            </div>
+          </div>
+
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
   <!-- ══════ MODO EDICIÓN ══════ -->
   <div *ngIf="editMode" class="pf-wrapper">
     <div class="pf-driver-card pf-edit-card">

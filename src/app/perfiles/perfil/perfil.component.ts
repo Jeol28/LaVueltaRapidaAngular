@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cliente } from '../../models/cliente.model';
+import { Pedido } from '../../models/pedido.model';
+import { LineaPedido } from '../../models/linea-pedido.model';
+import { EstadoPedido } from '../../models/estado-pedido.model';
 import { ClienteService } from '../../services/cliente.service';
+import { PedidoService } from '../../services/pedido.service';
+
+type PedidosTab = 'activos' | 'pasados';
 
 @Component({
   selector: 'app-perfil',
@@ -17,7 +23,19 @@ export class PerfilComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
-  constructor(private router: Router, private clienteService: ClienteService) {}
+  pedidos: Pedido[] = [];
+  pedidosTab: PedidosTab = 'activos';
+  pedidoExpandidoId: number | null = null;
+  cargandoPedidos: boolean = false;
+  pedidosError: string = '';
+
+  private readonly estadosActivos: EstadoPedido[] = ['RECIBIDO', 'COCINANDO', 'ENVIADO'];
+
+  constructor(
+    private router: Router,
+    private clienteService: ClienteService,
+    private pedidoService: PedidoService
+  ) {}
 
   ngOnInit(): void {
     const username = localStorage.getItem('user');
@@ -33,7 +51,9 @@ export class PerfilComponent implements OnInit {
         this.cliente = cliente ?? null;
         if (!this.cliente) {
           this.router.navigate(['/']);
+          return;
         }
+        this.cargarPedidos();
       },
       error: () => {
         this.router.navigate(['/']);
@@ -45,6 +65,90 @@ export class PerfilComponent implements OnInit {
     return this.cliente?.name?.charAt(0).toUpperCase() ?? '?';
   }
 
+  // ── Pedidos ──────────────────────────────────────────────────────────────
+  cargarPedidos(): void {
+    if (!this.cliente) return;
+    this.cargandoPedidos = true;
+    this.pedidosError = '';
+    const clienteId = this.cliente.id;
+
+    this.pedidoService.getAll().subscribe({
+      next: pedidos => {
+        this.pedidos = pedidos
+          .filter(p => p.cliente?.id === clienteId)
+          .sort((a, b) => this.parseFecha(b.fechaCreacion) - this.parseFecha(a.fechaCreacion));
+        this.cargandoPedidos = false;
+      },
+      error: () => {
+        this.cargandoPedidos = false;
+        this.pedidosError = 'No se pudieron cargar tus pedidos. Intenta de nuevo.';
+      }
+    });
+  }
+
+  cambiarTab(tab: PedidosTab): void {
+    this.pedidosTab = tab;
+    this.pedidoExpandidoId = null;
+  }
+
+  get pedidosActivos(): Pedido[] {
+    return this.pedidos.filter(p => this.estadosActivos.includes(p.estado));
+  }
+
+  get pedidosPasados(): Pedido[] {
+    return this.pedidos.filter(p => p.estado === 'ENTREGADO');
+  }
+
+  get pedidosVisibles(): Pedido[] {
+    return this.pedidosTab === 'activos' ? this.pedidosActivos : this.pedidosPasados;
+  }
+
+  toggleDetalle(pedido: Pedido): void {
+    this.pedidoExpandidoId = this.pedidoExpandidoId === pedido.id ? null : pedido.id;
+  }
+
+  calcularSubtotalLinea(linea: LineaPedido): number {
+    const base = linea.comida.price;
+    const adics = linea.adicionales.reduce((s, lpa) => s + lpa.adicional.price, 0);
+    return (base + adics) * linea.cantidad;
+  }
+
+  calcularTotal(pedido: Pedido): number {
+    return pedido.lineasPedido.reduce((sum, linea) => sum + this.calcularSubtotalLinea(linea), 0);
+  }
+
+  formatCOP(value: number): string {
+    return value.toLocaleString('es-CO');
+  }
+
+  formatFecha(fecha: string | null | undefined): string {
+    if (!fecha) return '—';
+    const ms = this.parseFecha(fecha);
+    if (!ms) return fecha;
+    const d = new Date(ms);
+    return d.toLocaleString('es-CO', {
+      day: '2-digit', month: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+  }
+
+  getEstadoClass(estado: EstadoPedido): string {
+    const mapa: Record<EstadoPedido, string> = {
+      RECIBIDO:  'estado-recibido',
+      COCINANDO: 'estado-cocinando',
+      ENVIADO:   'estado-enviado',
+      ENTREGADO: 'estado-entregado'
+    };
+    return mapa[estado] ?? '';
+  }
+
+  private parseFecha(fecha: string | null | undefined): number {
+    if (!fecha) return 0;
+    const t = Date.parse(fecha);
+    return isNaN(t) ? 0 : t;
+  }
+
+  // ── Edición de perfil ───────────────────────────────────────────────────
   enterEditMode(): void {
     if (!this.cliente) return;
     this.editForm = { ...this.cliente };
