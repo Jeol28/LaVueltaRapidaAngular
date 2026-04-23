@@ -1,0 +1,103 @@
+<section class="menu-list-section">
+  <div class="container">
+
+    <div class="pedidos-tabs">
+      <button class="pedidos-tab" [class.active]="pedidosTab === 'activos'"
+              (click)="cambiarTab('activos')">
+        Activos
+        <span class="pedidos-tab-count">{{ pedidosActivos.length }}</span>
+      </button>
+      <button class="pedidos-tab" [class.active]="pedidosTab === 'pasados'"
+              (click)="cambiarTab('pasados')">
+        Historial
+        <span class="pedidos-tab-count">{{ pedidosPasados.length }}</span>
+      </button>
+    </div>
+
+    <div *ngIf="cargando" class="pedidos-empty">Cargando pedidos…</div>
+    <div *ngIf="errorMsg" class="pedidos-empty pedidos-error">{{ errorMsg }}</div>
+
+    <div *ngIf="!cargando && !errorMsg && pedidosVisibles.length === 0"
+         class="pedidos-empty">
+      {{ pedidosTab === 'activos'
+          ? 'No hay pedidos activos en este momento.'
+          : 'No hay pedidos completados todavía.' }}
+    </div>
+
+    <ul class="pedidos-list" *ngIf="!cargando && pedidosVisibles.length > 0">
+      <li *ngFor="let pedido of pedidosVisibles" class="pedido-item">
+
+        <button class="pedido-summary" (click)="toggleDetalle(pedido)">
+          <div class="pedido-info">
+            <span class="pedido-id">Pedido #{{ pedido.id }}</span>
+            <span class="pedido-cliente">{{ nombreCliente(pedido) }}</span>
+            <span class="pedido-fecha">{{ formatFecha(pedido.fechaCreacion) }}</span>
+          </div>
+          <div class="pedido-meta">
+            <span class="pedido-estado" [ngClass]="getEstadoClass(pedido.estado)">
+              {{ pedido.estado }}
+            </span>
+            <span class="pedido-total">COP {{ formatCOP(calcularTotal(pedido)) }}</span>
+            <span class="pedido-toggle">
+              {{ pedidoExpandidoId === pedido.id ? '▲' : '▼' }}
+            </span>
+          </div>
+        </button>
+
+        <div class="pedido-detalle" *ngIf="pedidoExpandidoId === pedido.id">
+
+          <div class="pedido-detalle-grid">
+            <div>
+              <span class="detalle-label">Cliente</span>
+              <span class="detalle-value">{{ nombreCliente(pedido) }}</span>
+            </div>
+            <div>
+              <span class="detalle-label">Teléfono</span>
+              <span class="detalle-value">{{ pedido.cliente?.telefono || '—' }}</span>
+            </div>
+            <div>
+              <span class="detalle-label">Dirección</span>
+              <span class="detalle-value">{{ pedido.cliente?.direccion || '—' }}</span>
+            </div>
+            <div>
+              <span class="detalle-label">Domiciliario</span>
+              <span class="detalle-value">
+                {{ pedido.domiciliario ? pedido.domiciliario.nombre : 'Sin asignar' }}
+              </span>
+            </div>
+            <div>
+              <span class="detalle-label">Fecha de creación</span>
+              <span class="detalle-value">{{ formatFecha(pedido.fechaCreacion) }}</span>
+            </div>
+            <div>
+              <span class="detalle-label">Fecha de entrega</span>
+              <span class="detalle-value">{{ formatFecha(pedido.fechaEntrega) }}</span>
+            </div>
+          </div>
+
+          <ul class="lineas-list">
+            <li *ngFor="let linea of pedido.lineasPedido" class="linea-item">
+              <div class="linea-main">
+                <span class="linea-cant">{{ linea.cantidad }}×</span>
+                <span class="linea-nombre">{{ linea.comida.name }}</span>
+                <span class="linea-subtotal">COP {{ formatCOP(calcularSubtotalLinea(linea)) }}</span>
+              </div>
+              <ul *ngIf="linea.adicionales?.length" class="linea-adicionales">
+                <li *ngFor="let lpa of linea.adicionales">
+                  + {{ lpa.adicional.name }} ({{ formatCOP(lpa.adicional.price) }})
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="pedido-total-row">
+            <span>Total</span>
+            <span>COP {{ formatCOP(calcularTotal(pedido)) }}</span>
+          </div>
+        </div>
+
+      </li>
+    </ul>
+
+  </div>
+</section>

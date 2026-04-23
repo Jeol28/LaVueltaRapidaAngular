@@ -9,6 +9,7 @@ import { AdicionalesAdminComponent } from './admin/adicionales/adicionales-admin
 import { AddAdicionalComponent } from './admin/adicionales/add-adicional/add-adicional.component';
 import { DomiciliariosAdminComponent } from './admin/domiciliarios/domiciliarios-admin/domiciliarios-admin.component';
 import { AddDomiciliarioComponent } from './admin/domiciliarios/add-domiciliario/add-domiciliario.component';
+import { PedidosAdminComponent } from './admin/pedidos/pedidos-admin/pedidos-admin.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
@@ -49,6 +50,9 @@ const routes: Routes = [
   { path: 'admin/domiciliarios',            component: DomiciliariosAdminComponent },
   { path: 'admin/domiciliarios/agregar',    component: AddDomiciliarioComponent },
   { path: 'admin/domiciliarios/update/:id', component: AddDomiciliarioComponent },
+
+  // ── Pedidos (solo lectura) ──
+  { path: 'admin/pedidos', component: PedidosAdminComponent },
 
   { path: '**', redirectTo: '' },
 ];

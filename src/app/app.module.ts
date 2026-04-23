@@ -33,6 +33,9 @@ import { DomiciliariosAdminComponent } from './admin/domiciliarios/domiciliarios
 import { TablaDomiciliariosComponent } from './admin/domiciliarios/tabla-domiciliarios/tabla-domiciliarios.component';
 import { AddDomiciliarioComponent } from './admin/domiciliarios/add-domiciliario/add-domiciliario.component';
 
+import { PedidosAdminComponent } from './admin/pedidos/pedidos-admin/pedidos-admin.component';
+import { TablaPedidosAdminComponent } from './admin/pedidos/tabla-pedidos/tabla-pedidos.component';
+
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
@@ -78,6 +81,9 @@ import { TablaPedidosComponent } from './operador/tabla-pedidos/tabla-pedidos.co
     DomiciliariosAdminComponent,
     TablaDomiciliariosComponent,
     AddDomiciliarioComponent,
+
+    PedidosAdminComponent,
+    TablaPedidosAdminComponent,
 
     MenuComponent,
     ProductoDetalleComponent,
