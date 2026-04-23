@@ -73,8 +73,10 @@ export class TablaPedidosComponent implements OnInit {
           }
         } else {
           pedido.estado = actualizado.estado;
+          pedido.domiciliario = actualizado.domiciliario;
+          pedido.fechaEntrega = actualizado.fechaEntrega;
           if (this.pedidoSeleccionado?.id === pedido.id) {
-            this.pedidoSeleccionado = { ...this.pedidoSeleccionado, estado: actualizado.estado };
+            this.pedidoSeleccionado = { ...this.pedidoSeleccionado, ...actualizado };
           }
         }
         this.successMsg = `Pedido #${pedido.id} → ${actualizado.estado}`;
