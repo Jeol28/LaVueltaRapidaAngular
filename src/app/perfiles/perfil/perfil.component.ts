@@ -166,8 +166,8 @@ export class PerfilComponent implements OnInit {
   saveChanges(): void {
     if (!this.cliente) return;
 
-    if (this.currentPassword !== this.cliente.password) {
-      this.errorMsg = 'La contraseña actual es incorrecta.';
+    if (!this.currentPassword) {
+      this.errorMsg = 'Debes ingresar tu contraseña actual.';
       return;
     }
 
@@ -180,8 +180,9 @@ export class PerfilComponent implements OnInit {
 
         const payload: Partial<Cliente> = { ...this.editForm };
         if (!payload.password) {
-          payload.password = this.cliente!.password;
+          delete payload.password;
         }
+        payload.currentPassword = this.currentPassword;
 
         this.clienteService.update(this.cliente!.id, payload).subscribe({
           next: updated => {
@@ -196,8 +197,12 @@ export class PerfilComponent implements OnInit {
 
             setTimeout(() => { this.successMsg = false; }, 4000);
           },
-          error: () => {
-            this.errorMsg = 'No se pudieron guardar los cambios. Intenta de nuevo.';
+          error: err => {
+            if (err?.status === 401 || err?.status === 403) {
+              this.errorMsg = 'La contraseña actual es incorrecta.';
+            } else {
+              this.errorMsg = 'No se pudieron guardar los cambios. Intenta de nuevo.';
+            }
           }
         });
       },

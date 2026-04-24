@@ -70,16 +70,17 @@ export class PerfilOperadorComponent implements OnInit {
   saveChanges(): void {
     if (!this.operador) return;
 
-    if (this.currentPassword !== this.operador.contrasena) {
-      this.errorMsg = 'La contraseña actual es incorrecta.';
+    if (!this.currentPassword) {
+      this.errorMsg = 'Debes ingresar tu contraseña actual.';
       return;
     }
 
     const nuevoUsuario = this.editForm.usuario;
     const payload: Partial<Operador> = { ...this.editForm };
     if (!payload.contrasena) {
-      payload.contrasena = this.operador.contrasena;
+      delete payload.contrasena;
     }
+    payload.currentPassword = this.currentPassword;
 
     this.clienteService.isUsernameTaken(nuevoUsuario!, -1).subscribe({
       next: clienteTaken => {
@@ -114,8 +115,12 @@ export class PerfilOperadorComponent implements OnInit {
                     this.errorMsg = '';
                     setTimeout(() => { this.successMsg = false; }, 4000);
                   },
-                  error: () => {
-                    this.errorMsg = 'No se pudieron guardar los cambios. Intenta de nuevo.';
+                  error: err => {
+                    if (err?.status === 401 || err?.status === 403) {
+                      this.errorMsg = 'La contraseña actual es incorrecta.';
+                    } else {
+                      this.errorMsg = 'No se pudieron guardar los cambios. Intenta de nuevo.';
+                    }
                   }
                 });
               },

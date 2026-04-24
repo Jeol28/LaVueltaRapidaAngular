@@ -35,7 +35,7 @@ export class AddOperarioComponent implements OnInit {
           this.operario = {
             nombre: found.nombre,
             usuario: found.usuario,
-            contrasena: found.contrasena
+            contrasena: ''
           };
         },
         error: () => {
@@ -51,7 +51,14 @@ export class AddOperarioComponent implements OnInit {
 
   onSubmit(): void {
     if (this.editMode && this.editId !== null) {
-      this.operadorService.update(this.editId, this.operario).subscribe(() => {
+      const payload: { nombre: string; usuario: string; contrasena?: string } = {
+        nombre: this.operario.nombre,
+        usuario: this.operario.usuario
+      };
+      if (this.operario.contrasena) {
+        payload.contrasena = this.operario.contrasena;
+      }
+      this.operadorService.update(this.editId, payload).subscribe(() => {
         this.router.navigate(['/admin/operarios'], { queryParams: { success: 'updated' } });
       });
     } else {

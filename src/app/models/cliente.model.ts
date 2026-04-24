@@ -4,7 +4,8 @@ export interface Cliente {
   apellido: string;
   email: string;
   username: string;
-  password: string;
+  password?: string;
+  currentPassword?: string;
   direccion: string;
   telefono: string;
 }
