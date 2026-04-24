@@ -21,6 +21,7 @@ export class TablaPedidosComponent implements OnInit {
   showError: boolean = false;
   hideError: boolean = false;
   successMsg: string = '';
+  errorMsg: string = 'No se pudo actualizar el estado.';
 
   constructor(private pedidoService: PedidoService) {}
 
@@ -63,7 +64,9 @@ export class TablaPedidosComponent implements OnInit {
     return value.toLocaleString('es-CO');
   }
 
-  cambiarEstado(pedido: Pedido, nuevoEstado: EstadoPedido): void {
+  cambiarEstado(pedido: Pedido, nuevoEstado: EstadoPedido, selectEl?: HTMLSelectElement): void {
+    const estadoPrevio = pedido.estado;
+
     this.pedidoService.updateEstado(pedido.id, nuevoEstado).subscribe({
       next: actualizado => {
         if (actualizado.estado === 'ENTREGADO') {
@@ -82,8 +85,26 @@ export class TablaPedidosComponent implements OnInit {
         this.successMsg = `Pedido #${pedido.id} → ${actualizado.estado}`;
         this.triggerSuccess();
       },
-      error: () => this.triggerError()
+      error: err => {
+        if (selectEl) {
+          selectEl.value = estadoPrevio;
+        }
+        this.errorMsg = this.mensajeErrorEstado(err, nuevoEstado);
+        this.triggerError();
+      }
     });
+  }
+
+  private mensajeErrorEstado(err: any, nuevoEstado: EstadoPedido): string {
+    const backendMsg: string | undefined =
+      err?.error?.message ?? (typeof err?.error === 'string' ? err.error : undefined);
+
+    if (backendMsg) return backendMsg;
+
+    if (nuevoEstado === 'ENVIADO') {
+      return 'No hay domiciliarios disponibles para asignar al pedido.';
+    }
+    return 'No se pudo actualizar el estado del pedido.';
   }
 
   getEstadoClass(estado: EstadoPedido): string {

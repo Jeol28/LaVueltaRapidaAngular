@@ -60,7 +60,7 @@
               <select class="estado-select"
                       [ngModel]="pedido.estado"
                       [disabled]="pedido.estado === 'ENTREGADO'"
-                      (change)="cambiarEstado(pedido, $any($event.target).value)">
+                      (change)="cambiarEstado(pedido, $any($event.target).value, $any($event.target))">
                 <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
               </select>
             </td>
@@ -167,7 +167,7 @@
       <select class="estado-select dp-estado-select"
               [ngModel]="pedidoSeleccionado.estado"
               [disabled]="pedidoSeleccionado.estado === 'ENTREGADO'"
-              (change)="cambiarEstado(pedidoSeleccionado, $any($event.target).value)">
+              (change)="cambiarEstado(pedidoSeleccionado, $any($event.target).value, $any($event.target))">
         <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
       </select>
     </div>
@@ -187,5 +187,5 @@
      [class.visible]="showError"
      [class.hide]="hideError">
   <span class="op-toast-icon">✕</span>
-  <span class="op-toast-msg">No se pudo actualizar el estado.</span>
+  <span class="op-toast-msg">{{ errorMsg }}</span>
 </div>
