@@ -32,9 +32,7 @@ export class TablaPedidosAdminComponent implements OnInit {
     this.errorMsg = '';
     this.pedidoService.getAll().subscribe({
       next: pedidos => {
-        this.pedidos = pedidos.sort(
-          (a, b) => this.parseFecha(b.fechaCreacion) - this.parseFecha(a.fechaCreacion)
-        );
+        this.pedidos = pedidos;
         this.cargando = false;
       },
       error: () => {
