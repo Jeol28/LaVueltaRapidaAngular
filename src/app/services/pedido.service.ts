@@ -1,18 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Pedido } from '../models/pedido.model';
 import { EstadoPedido } from '../models/estado-pedido.model';
 
 const API_URL = 'http://localhost:8090';
+
+interface PageResponse<T> {
+  content: T[];
+  size: number;
+  page: number;
+  totalPages: number;
+  totalElements: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class PedidoService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Pedido[]> {
-    return this.http.get<Pedido[]>(`${API_URL}/pedido`);
+  getAll(page: number = 0, size: number = 1000): Observable<Pedido[]> {
+    const params = new HttpParams()
+      .set('page', String(page))
+      .set('size', String(size));
+    return this.http
+      .get<PageResponse<Pedido> | Pedido[]>(`${API_URL}/pedido`, { params })
+      .pipe(map(res => Array.isArray(res) ? res : (res?.content ?? [])));
   }
 
   getActivos(): Observable<Pedido[]> {
