@@ -707,6 +707,14 @@
   font-size: 12px;
   color: #fff;
 }
+.pf-linea-item--link {
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.pf-linea-item--link:hover {
+  border-color: var(--pf-red, #e10600);
+  background: #1e1010;
+}
 
 .pf-linea-adicionales {
   list-style: none;

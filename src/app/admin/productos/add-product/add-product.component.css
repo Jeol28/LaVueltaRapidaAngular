@@ -1,3 +1,13 @@
+.form-error-banner {
+  background: rgba(225, 6, 0, 0.1);
+  border: 1px solid rgba(225, 6, 0, 0.4);
+  color: #ff6b6b;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
 /* Textarea y select (exclusivos de productos) */
 .form-group textarea,
 .form-group select {

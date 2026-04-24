@@ -24,6 +24,7 @@ export class AddAdicionalComponent implements OnInit {
   };
 
   categoriaErrorMsg: string = '';
+  errorMsg: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -89,17 +90,25 @@ export class AddAdicionalComponent implements OnInit {
       return;
     }
     this.categoriaErrorMsg = '';
+    this.errorMsg = '';
 
     if (this.editMode && this.editId !== null) {
       this.adicionalService.update(this.editId, this.adicional).subscribe({
         next: () => this.router.navigate(['/admin/adicionales'], { queryParams: { success: 'updated' } }),
-        error: () => this.router.navigate(['/admin/adicionales'], { queryParams: { error: 'update' } })
+        error: err => { this.errorMsg = this.extractError(err, 'No se pudo guardar los cambios. Intenta de nuevo.'); }
       });
     } else {
       this.adicionalService.add(this.adicional).subscribe({
         next: () => this.router.navigate(['/admin/adicionales'], { queryParams: { success: 'added' } }),
-        error: () => this.router.navigate(['/admin/adicionales'], { queryParams: { error: 'add' } })
+        error: err => { this.errorMsg = this.extractError(err, 'No se pudo agregar el adicional. Intenta de nuevo.'); }
       });
     }
+  }
+
+  private extractError(err: any, fallback: string): string {
+    return err?.error?.message
+      ?? err?.error?.error
+      ?? (typeof err?.error === 'string' ? err.error : null)
+      ?? fallback;
   }
 }

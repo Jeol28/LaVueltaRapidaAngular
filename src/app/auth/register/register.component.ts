@@ -48,21 +48,16 @@ export class RegisterComponent {
       return;
     }
 
-    this.clienteService.isUsernameTaken(this.form.username, -1).subscribe(taken => {
-      if (taken) {
-        this.errorMsg = 'Ese nombre de usuario ya está en uso. Por favor elige otro.';
-        return;
-      }
-
-      this.clienteService.add({
-        name: this.form.name,
-        apellido: this.form.apellido,
-        email: this.form.email,
-        username: this.form.username,
-        password: this.form.password,
-        telefono: this.form.telefono,
-        direccion: this.form.direccion
-      }).subscribe(nuevo => {
+    this.clienteService.add({
+      name: this.form.name,
+      apellido: this.form.apellido,
+      email: this.form.email,
+      username: this.form.username,
+      password: this.form.password,
+      telefono: this.form.telefono,
+      direccion: this.form.direccion
+    }).subscribe({
+      next: nuevo => {
         localStorage.setItem('user', nuevo.username);
         localStorage.setItem('role', 'cliente');
         localStorage.setItem('clienteId', String(nuevo.id));
@@ -74,11 +69,13 @@ export class RegisterComponent {
           }
           this.router.navigate(['/perfil']);
         });
-      }, () => {
-        this.errorMsg = 'No se pudo registrar. Intenta de nuevo.';
-      });
-    }, () => {
-      this.errorMsg = 'No se pudo verificar el nombre de usuario. Intenta de nuevo.';
+      },
+      error: err => {
+        this.errorMsg = err?.error?.message
+          ?? err?.error?.error
+          ?? (typeof err?.error === 'string' ? err.error : null)
+          ?? 'No se pudo registrar. Intenta de nuevo.';
+      }
     });
   }
 }

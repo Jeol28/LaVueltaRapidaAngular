@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Operador } from '../../models/operador.model';
 import { OperadorService } from '../../services/operador.service';
-import { ClienteService } from '../../services/cliente.service';
-import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-perfil-operador',
@@ -21,9 +19,7 @@ export class PerfilOperadorComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private operadorService: OperadorService,
-    private clienteService: ClienteService,
-    private adminService: AdminService
+    private operadorService: OperadorService
   ) {}
 
   ngOnInit(): void {
@@ -75,67 +71,28 @@ export class PerfilOperadorComponent implements OnInit {
       return;
     }
 
-    const nuevoUsuario = this.editForm.usuario;
     const payload: Partial<Operador> = { ...this.editForm };
     if (!payload.contrasena) {
       delete payload.contrasena;
     }
     payload.currentPassword = this.currentPassword;
 
-    this.clienteService.isUsernameTaken(nuevoUsuario!, -1).subscribe({
-      next: clienteTaken => {
-        if (clienteTaken) {
-          this.errorMsg = 'Ese nombre de usuario ya está en uso.';
-          return;
-        }
-
-        this.adminService.isUsernameTaken(nuevoUsuario!, -1).subscribe({
-          next: adminTaken => {
-            if (adminTaken) {
-              this.errorMsg = 'Ese nombre de usuario ya está en uso.';
-              return;
-            }
-
-            this.operadorService.getAll().subscribe({
-              next: operadores => {
-                const operadorExistente = operadores.some(o => o.usuario === nuevoUsuario && o.id !== this.operador!.id);
-                if (operadorExistente) {
-                  this.errorMsg = 'Ese nombre de usuario ya está en uso.';
-                  return;
-                }
-
-                this.operadorService.update(this.operador!.id, payload).subscribe({
-                  next: updated => {
-                    this.operador = updated;
-                    localStorage.setItem('user', this.operador.usuario);
-                    window.dispatchEvent(new CustomEvent('userChanged'));
-                    this.editMode = false;
-                    this.currentPassword = '';
-                    this.successMsg = true;
-                    this.errorMsg = '';
-                    setTimeout(() => { this.successMsg = false; }, 4000);
-                  },
-                  error: err => {
-                    if (err?.status === 401 || err?.status === 403) {
-                      this.errorMsg = 'La contraseña actual es incorrecta.';
-                    } else {
-                      this.errorMsg = 'No se pudieron guardar los cambios. Intenta de nuevo.';
-                    }
-                  }
-                });
-              },
-              error: () => {
-                this.errorMsg = 'No se pudo verificar el nombre de usuario.';
-              }
-            });
-          },
-          error: () => {
-            this.errorMsg = 'No se pudo verificar el nombre de usuario.';
-          }
-        });
+    this.operadorService.update(this.operador!.id, payload).subscribe({
+      next: updated => {
+        this.operador = updated;
+        localStorage.setItem('user', this.operador.usuario);
+        window.dispatchEvent(new CustomEvent('userChanged'));
+        this.editMode = false;
+        this.currentPassword = '';
+        this.successMsg = true;
+        this.errorMsg = '';
+        setTimeout(() => { this.successMsg = false; }, 4000);
       },
-      error: () => {
-        this.errorMsg = 'No se pudo verificar el nombre de usuario.';
+      error: err => {
+        this.errorMsg = err?.error?.message
+          ?? err?.error?.error
+          ?? (typeof err?.error === 'string' ? err.error : null)
+          ?? 'No se pudieron guardar los cambios. Intenta de nuevo.';
       }
     });
   }

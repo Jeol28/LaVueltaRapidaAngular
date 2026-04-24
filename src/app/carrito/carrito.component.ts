@@ -93,6 +93,9 @@ export class CarritoComponent implements OnInit, OnDestroy {
   }
 
   verMisPedidos(): void {
-    this.router.navigate(['/perfil']);
+    this.router.navigate(['/perfil'], {
+      fragment: 'mis-pedidos',
+      queryParams: { pedido: this.pedidoId }
+    });
   }
 }

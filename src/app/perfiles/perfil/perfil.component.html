@@ -101,7 +101,7 @@
   </div>
 
   <!-- ══════ MIS PEDIDOS ══════ -->
-  <div *ngIf="!editMode" class="pf-wrapper pf-pedidos-wrapper">
+  <div *ngIf="!editMode" id="mis-pedidos" class="pf-wrapper pf-pedidos-wrapper">
     <div class="pf-pedidos-card">
       <div class="pf-card-stripe"></div>
 
@@ -167,7 +167,7 @@
             </div>
 
             <ul class="pf-lineas-list">
-              <li *ngFor="let linea of pedido.lineasPedido" class="pf-linea-item">
+              <li *ngFor="let linea of pedido.lineasPedido" class="pf-linea-item pf-linea-item--link" (click)="irAProducto(linea)">
                 <div class="pf-linea-main">
                   <span class="pf-linea-cant">{{ linea.cantidad }}×</span>
                   <span class="pf-linea-nombre">{{ linea.comida.name }}</span>

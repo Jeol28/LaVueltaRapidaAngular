@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { Domiciliario } from '../../../models/domiciliario.model';
 import { DomiciliarioService } from '../../../services/domiciliario.service';
+import { PedidoService } from '../../../services/pedido.service';
 
 @Component({
   selector: 'app-tabla-domiciliarios',
@@ -11,6 +13,7 @@ import { DomiciliarioService } from '../../../services/domiciliario.service';
 export class TablaDomiciliariosComponent implements OnInit {
 
   domiciliarios: Domiciliario[] = [];
+  enEntregaIds: Set<number> = new Set();
 
   successMsg: string = '';
   showSuccess: boolean = false;
@@ -22,7 +25,8 @@ export class TablaDomiciliariosComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private domiciliarioService: DomiciliarioService
+    private domiciliarioService: DomiciliarioService,
+    private pedidoService: PedidoService
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +44,16 @@ export class TablaDomiciliariosComponent implements OnInit {
   }
 
   private loadDomiciliarios(): void {
-    this.domiciliarioService.getAll().subscribe(domiciliarios => {
+    forkJoin({
+      domiciliarios: this.domiciliarioService.getAll(),
+      pedidos: this.pedidoService.getActivos()
+    }).subscribe(({ domiciliarios, pedidos }) => {
       this.domiciliarios = domiciliarios;
+      this.enEntregaIds = new Set(
+        pedidos
+          .filter(p => p.estado === 'ENVIADO' && p.domiciliario)
+          .map(p => p.domiciliario!.id)
+      );
     });
   }
 

@@ -1,0 +1,91 @@
+.tcs-card {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.tcs-card:hover {
+  border-color: rgba(225,6,0,0.35);
+}
+
+.tcs-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 28px;
+  background: #161616;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.tcs-numero {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e10600;
+  letter-spacing: 1.5px;
+  min-width: 28px;
+}
+
+.tcs-icon {
+  color: #e10600;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tcs-titulo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.tcs-body {
+  padding: 24px 28px;
+  font-size: 14px;
+  color: #b0b0b0;
+  line-height: 1.75;
+}
+
+.tcs-body p {
+  margin-bottom: 12px;
+}
+
+.tcs-body p:last-child {
+  margin-bottom: 0;
+}
+
+.tcs-body ul {
+  list-style: none;
+  margin: 8px 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.tcs-body ul li::before {
+  content: '—';
+  color: #e10600;
+  margin-right: 10px;
+  font-weight: 700;
+}
+
+.tcs-body strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.tcs-body .tcs-highlight {
+  background: rgba(225,6,0,0.08);
+  border-left: 3px solid #e10600;
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin: 14px 0;
+  color: #d1d5db;
+  font-style: italic;
+}

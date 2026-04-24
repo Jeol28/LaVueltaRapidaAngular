@@ -61,7 +61,7 @@
                       [ngModel]="pedido.estado"
                       [disabled]="pedido.estado === 'ENTREGADO'"
                       (change)="cambiarEstado(pedido, $any($event.target).value, $any($event.target))">
-                <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
+                <option *ngFor="let e of getEstadosPermitidos(pedido.estado)" [value]="e">{{ e }}</option>
               </select>
             </td>
 
@@ -168,7 +168,7 @@
               [ngModel]="pedidoSeleccionado.estado"
               [disabled]="pedidoSeleccionado.estado === 'ENTREGADO'"
               (change)="cambiarEstado(pedidoSeleccionado, $any($event.target).value, $any($event.target))">
-        <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
+        <option *ngFor="let e of getEstadosPermitidos(pedidoSeleccionado.estado)" [value]="e">{{ e }}</option>
       </select>
     </div>
 

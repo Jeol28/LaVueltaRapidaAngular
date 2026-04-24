@@ -25,6 +25,7 @@ export class AddProductComponent implements OnInit {
   };
 
   previewUrl: string = '';
+  errorMsg: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -65,14 +66,25 @@ export class AddProductComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.errorMsg = '';
+
     if (this.editMode && this.editId !== null) {
-      this.comidaService.update(this.editId, this.comida).subscribe(() => {
-        this.router.navigate(['/admin/comidas'], { queryParams: { success: 'updated' } });
+      this.comidaService.update(this.editId, this.comida).subscribe({
+        next: () => this.router.navigate(['/admin/comidas'], { queryParams: { success: 'updated' } }),
+        error: err => { this.errorMsg = this.extractError(err, 'No se pudo guardar los cambios. Intenta de nuevo.'); }
       });
     } else {
-      this.comidaService.add(this.comida).subscribe(() => {
-        this.router.navigate(['/admin/comidas'], { queryParams: { success: 'added' } });
+      this.comidaService.add(this.comida).subscribe({
+        next: () => this.router.navigate(['/admin/comidas'], { queryParams: { success: 'added' } }),
+        error: err => { this.errorMsg = this.extractError(err, 'No se pudo agregar el producto. Intenta de nuevo.'); }
       });
     }
+  }
+
+  private extractError(err: any, fallback: string): string {
+    return err?.error?.message
+      ?? err?.error?.error
+      ?? (typeof err?.error === 'string' ? err.error : null)
+      ?? fallback;
   }
 }

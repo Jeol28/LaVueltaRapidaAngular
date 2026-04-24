@@ -68,43 +68,30 @@ export class PerfilAdminComponent implements OnInit {
       return;
     }
 
-    this.adminService.isUsernameTaken(this.editForm.usuario!, this.admin.id).subscribe({
-      next: taken => {
-        if (taken) {
-          this.errorMsg = 'Ese nombre de usuario ya está en uso.';
-          return;
-        }
+    const payload: Partial<Administrador> = { ...this.editForm };
+    if (!payload.contrasena) {
+      delete payload.contrasena;
+    }
+    payload.currentPassword = this.currentPassword;
 
-        const payload: Partial<Administrador> = { ...this.editForm };
-        if (!payload.contrasena) {
-          delete payload.contrasena;
-        }
-        payload.currentPassword = this.currentPassword;
+    this.adminService.update(this.admin!.id, payload).subscribe({
+      next: updated => {
+        this.admin = updated;
+        localStorage.setItem('user', this.admin.usuario);
+        window.dispatchEvent(new CustomEvent('userChanged'));
 
-        this.adminService.update(this.admin!.id, payload).subscribe({
-          next: updated => {
-            this.admin = updated;
-            localStorage.setItem('user', this.admin.usuario);
-            window.dispatchEvent(new CustomEvent('userChanged'));
+        this.editMode = false;
+        this.currentPassword = '';
+        this.successMsg = true;
+        this.errorMsg = '';
 
-            this.editMode = false;
-            this.currentPassword = '';
-            this.successMsg = true;
-            this.errorMsg = '';
-
-            setTimeout(() => { this.successMsg = false; }, 4000);
-          },
-          error: err => {
-            if (err?.status === 401 || err?.status === 403) {
-              this.errorMsg = 'La contraseña actual es incorrecta.';
-            } else {
-              this.errorMsg = 'No se pudieron guardar los cambios. Intenta de nuevo.';
-            }
-          }
-        });
+        setTimeout(() => { this.successMsg = false; }, 4000);
       },
-      error: () => {
-        this.errorMsg = 'No se pudo verificar el nombre de usuario.';
+      error: err => {
+        this.errorMsg = err?.error?.message
+          ?? err?.error?.error
+          ?? (typeof err?.error === 'string' ? err.error : null)
+          ?? 'No se pudieron guardar los cambios. Intenta de nuevo.';
       }
     });
   }

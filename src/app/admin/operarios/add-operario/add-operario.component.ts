@@ -12,6 +12,7 @@ export class AddOperarioComponent implements OnInit {
   editMode: boolean = false;
   editId: number | null = null;
   showPassword: boolean = false;
+  errorMsg: string = '';
 
   operario = {
     nombre: '',
@@ -45,11 +46,20 @@ export class AddOperarioComponent implements OnInit {
     }
   }
 
+  private extractError(err: any, fallback: string): string {
+    return err?.error?.message
+      ?? err?.error?.error
+      ?? (typeof err?.error === 'string' ? err.error : null)
+      ?? fallback;
+  }
+
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
   onSubmit(): void {
+    this.errorMsg = '';
+
     if (this.editMode && this.editId !== null) {
       const payload: { nombre: string; usuario: string; contrasena?: string } = {
         nombre: this.operario.nombre,
@@ -58,12 +68,14 @@ export class AddOperarioComponent implements OnInit {
       if (this.operario.contrasena) {
         payload.contrasena = this.operario.contrasena;
       }
-      this.operadorService.update(this.editId, payload).subscribe(() => {
-        this.router.navigate(['/admin/operarios'], { queryParams: { success: 'updated' } });
+      this.operadorService.update(this.editId, payload).subscribe({
+        next: () => this.router.navigate(['/admin/operarios'], { queryParams: { success: 'updated' } }),
+        error: err => { this.errorMsg = this.extractError(err, 'No se pudo guardar los cambios. Intenta de nuevo.'); }
       });
     } else {
-      this.operadorService.add(this.operario).subscribe(() => {
-        this.router.navigate(['/admin/operarios'], { queryParams: { success: 'added' } });
+      this.operadorService.add(this.operario).subscribe({
+        next: () => this.router.navigate(['/admin/operarios'], { queryParams: { success: 'added' } }),
+        error: err => { this.errorMsg = this.extractError(err, 'No se pudo agregar el operario. Intenta de nuevo.'); }
       });
     }
   }

@@ -51,6 +51,10 @@ import { OperadorInicioComponent } from './operador/operador-inicio/operador-ini
 import { OperadorHeroComponent } from './operador/shared/operador-hero/operador-hero.component';
 import { TablaPedidosComponent } from './operador/tabla-pedidos/tabla-pedidos.component';
 
+import { TerminosComponent } from './terminos/terminos.component';
+import { TcHeroComponent } from './terminos/tc-hero/tc-hero.component';
+import { TcSeccionComponent } from './terminos/tc-seccion/tc-seccion.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,6 +103,10 @@ import { TablaPedidosComponent } from './operador/tabla-pedidos/tabla-pedidos.co
     OperadorInicioComponent,
     OperadorHeroComponent,
     TablaPedidosComponent,
+
+    TerminosComponent,
+    TcHeroComponent,
+    TcSeccionComponent,
   ],
   imports: [
     BrowserModule,

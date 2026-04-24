@@ -43,13 +43,21 @@
 
         <div class="form-group">
           <label class="toggle-label">Disponibilidad</label>
-          <label class="av-switch">
+          <label class="av-switch" [class.av-switch--disabled]="entregandoPedido">
             <input type="checkbox"
                    [(ngModel)]="domiciliario.disponible" name="disponible"
-                   id="disponibleToggle">
+                   id="disponibleToggle"
+                   [disabled]="entregandoPedido">
             <span class="av-track"><span class="av-thumb"></span></span>
             <span class="av-text">{{ domiciliario.disponible ? 'Disponible' : 'No disponible' }}</span>
           </label>
+          <p *ngIf="entregandoPedido" class="av-entrega-warning">
+            Este domiciliario tiene un pedido en entrega activa. Su disponibilidad no puede modificarse hasta que el pedido sea marcado como entregado.
+          </p>
+        </div>
+
+        <div *ngIf="errorMsg" class="form-error-banner">
+          {{ errorMsg }}
         </div>
 
       </div>

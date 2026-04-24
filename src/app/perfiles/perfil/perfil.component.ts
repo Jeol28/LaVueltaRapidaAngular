@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Cliente } from '../../models/cliente.model';
 import { Pedido } from '../../models/pedido.model';
 import { LineaPedido } from '../../models/linea-pedido.model';
@@ -31,13 +31,21 @@ export class PerfilComponent implements OnInit {
 
   private readonly estadosActivos: EstadoPedido[] = ['RECIBIDO', 'COCINANDO', 'ENVIADO'];
 
+  private scrollToPedidos = false;
+  private expandirPedidoId: number | null = null;
+
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private clienteService: ClienteService,
     private pedidoService: PedidoService
   ) {}
 
   ngOnInit(): void {
+    this.scrollToPedidos = this.route.snapshot.fragment === 'mis-pedidos';
+    const pedidoParam = this.route.snapshot.queryParamMap.get('pedido');
+    this.expandirPedidoId = pedidoParam ? +pedidoParam : null;
+
     const username = localStorage.getItem('user');
     const role = localStorage.getItem('role');
 
@@ -77,6 +85,14 @@ export class PerfilComponent implements OnInit {
           (a, b) => this.parseFecha(b.fechaCreacion) - this.parseFecha(a.fechaCreacion)
         );
         this.cargandoPedidos = false;
+        if (this.expandirPedidoId) {
+          this.pedidoExpandidoId = this.expandirPedidoId;
+        }
+        if (this.scrollToPedidos) {
+          setTimeout(() => {
+            document.getElementById('mis-pedidos')?.scrollIntoView({ behavior: 'smooth' });
+          }, 50);
+        }
       },
       error: () => {
         this.cargandoPedidos = false;
@@ -104,6 +120,13 @@ export class PerfilComponent implements OnInit {
 
   toggleDetalle(pedido: Pedido): void {
     this.pedidoExpandidoId = this.pedidoExpandidoId === pedido.id ? null : pedido.id;
+  }
+
+  irAProducto(linea: LineaPedido): void {
+    const adicionalesIds = linea.adicionales.map(lpa => lpa.adicional.id).join(',');
+    const queryParams: Record<string, string | number> = { _r: Date.now() };
+    if (adicionalesIds) queryParams['adicionales'] = adicionalesIds;
+    this.router.navigate(['/producto', linea.comida.id], { queryParams });
   }
 
   calcularSubtotalLinea(linea: LineaPedido): number {
@@ -171,43 +194,30 @@ export class PerfilComponent implements OnInit {
       return;
     }
 
-    this.clienteService.isUsernameTaken(this.editForm.username!, this.cliente.id).subscribe({
-      next: taken => {
-        if (taken) {
-          this.errorMsg = 'Ese nombre de usuario ya está en uso.';
-          return;
-        }
+    const payload: Partial<Cliente> = { ...this.editForm };
+    if (!payload.password) {
+      delete payload.password;
+    }
+    payload.currentPassword = this.currentPassword;
 
-        const payload: Partial<Cliente> = { ...this.editForm };
-        if (!payload.password) {
-          delete payload.password;
-        }
-        payload.currentPassword = this.currentPassword;
+    this.clienteService.update(this.cliente!.id, payload).subscribe({
+      next: updated => {
+        this.cliente = updated;
+        localStorage.setItem('user', this.cliente.username);
+        window.dispatchEvent(new CustomEvent('userChanged'));
 
-        this.clienteService.update(this.cliente!.id, payload).subscribe({
-          next: updated => {
-            this.cliente = updated;
-            localStorage.setItem('user', this.cliente.username);
-            window.dispatchEvent(new CustomEvent('userChanged'));
+        this.editMode = false;
+        this.currentPassword = '';
+        this.successMsg = true;
+        this.errorMsg = '';
 
-            this.editMode = false;
-            this.currentPassword = '';
-            this.successMsg = true;
-            this.errorMsg = '';
-
-            setTimeout(() => { this.successMsg = false; }, 4000);
-          },
-          error: err => {
-            if (err?.status === 401 || err?.status === 403) {
-              this.errorMsg = 'La contraseña actual es incorrecta.';
-            } else {
-              this.errorMsg = 'No se pudieron guardar los cambios. Intenta de nuevo.';
-            }
-          }
-        });
+        setTimeout(() => { this.successMsg = false; }, 4000);
       },
-      error: () => {
-        this.errorMsg = 'No se pudo verificar el nombre de usuario.';
+      error: err => {
+        this.errorMsg = err?.error?.message
+          ?? err?.error?.error
+          ?? (typeof err?.error === 'string' ? err.error : null)
+          ?? 'No se pudieron guardar los cambios. Intenta de nuevo.';
       }
     });
   }

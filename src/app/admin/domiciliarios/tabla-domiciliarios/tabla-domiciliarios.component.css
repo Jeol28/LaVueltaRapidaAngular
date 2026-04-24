@@ -61,6 +61,7 @@
 
 .status-available   { color: #22c55e; }
 .status-unavailable { color: var(--red); }
+.status-en-entrega  { color: #f0a500; }
 .row-unavailable    { opacity: 0.6; }
 
 @media (max-width: 768px) {

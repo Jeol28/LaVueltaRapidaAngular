@@ -62,6 +62,8 @@
 
       </div>
 
+      <div *ngIf="errorMsg" class="form-error-banner">{{ errorMsg }}</div>
+
       <div class="form-actions">
         <a [routerLink]="['/admin/adicionales']" class="btn-cancel">CANCELAR</a>
         <button type="submit" class="btn-submit">

@@ -12,7 +12,13 @@ import { PedidoService } from '../../services/pedido.service';
 export class TablaPedidosComponent implements OnInit {
 
   pedidos: Pedido[] = [];
-  estados: EstadoPedido[] = ['RECIBIDO', 'COCINANDO', 'ENVIADO', 'ENTREGADO'];
+
+  private readonly SECUENCIA: EstadoPedido[] = ['RECIBIDO', 'COCINANDO', 'ENVIADO', 'ENTREGADO'];
+
+  getEstadosPermitidos(actual: EstadoPedido): EstadoPedido[] {
+    const idx = this.SECUENCIA.indexOf(actual);
+    return idx === -1 ? [actual] : this.SECUENCIA.slice(idx, idx + 2);
+  }
 
   pedidoSeleccionado: Pedido | null = null;
 

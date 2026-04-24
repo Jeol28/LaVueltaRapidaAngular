@@ -19,6 +19,7 @@ import { PerfilComponent } from './perfiles/perfil/perfil.component';
 import { PerfilOperadorComponent } from './perfiles/perfil-operador/perfil-operador.component';
 import { PerfilAdminComponent } from './perfiles/perfil-admin/perfil-admin.component';
 import { OperadorInicioComponent } from './operador/operador-inicio/operador-inicio.component';
+import { TerminosComponent } from './terminos/terminos.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
   // ── Pedidos (solo lectura) ──
   { path: 'admin/pedidos', component: PedidosAdminComponent },
 
+  { path: 'terminos', component: TerminosComponent },
   { path: '**', redirectTo: '' },
 ];
 

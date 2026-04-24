@@ -38,9 +38,11 @@
             </td>
 
             <td class="status-cell"
-                [ngClass]="dom.disponible ? 'status-available' : 'status-unavailable'">
+                [ngClass]="dom.disponible ? 'status-available' : (enEntregaIds.has(dom.id) ? 'status-en-entrega' : 'status-unavailable')">
               <div class="row-inner">
-                {{ dom.disponible ? 'Disponible' : 'No disponible' }}
+                <ng-container *ngIf="dom.disponible">Disponible</ng-container>
+                <ng-container *ngIf="!dom.disponible && enEntregaIds.has(dom.id)">En entrega</ng-container>
+                <ng-container *ngIf="!dom.disponible && !enEntregaIds.has(dom.id)">No disponible</ng-container>
               </div>
             </td>
 
