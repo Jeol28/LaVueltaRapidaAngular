@@ -59,6 +59,8 @@ import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
 import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
 
+import { F1StandingsComponent } from './f1-standings/f1-standings.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,6 +117,8 @@ import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component
     PrivacidadComponent,
     PpHeroComponent,
     PpSeccionComponent,
+
+    F1StandingsComponent,
   ],
   imports: [
     BrowserModule,
