@@ -16,6 +16,7 @@ export class TablaAdicionalesComponent implements OnInit {
   showSuccess: boolean = false;
   hideSuccess: boolean = false;
 
+  errorMsg: string = '';
   showError: boolean = false;
   hideError: boolean = false;
 
@@ -68,7 +69,13 @@ export class TablaAdicionalesComponent implements OnInit {
           this.successMsg = '¡Adicional eliminado correctamente!';
           this.triggerSuccess();
         },
-        error: () => this.triggerError()
+        error: err => {
+          this.errorMsg = err?.error?.message
+            ?? err?.error?.error
+            ?? (typeof err?.error === 'string' ? err.error : null)
+            ?? 'No se pudo eliminar el adicional.';
+          this.triggerError();
+        }
       });
     }
   }

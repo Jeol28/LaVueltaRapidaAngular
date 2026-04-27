@@ -23,6 +23,10 @@ export class PerfilComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
+  showToastError: boolean = false;
+  hideToastError: boolean = false;
+  toastErrorMsg: string = '';
+
   pedidos: Pedido[] = [];
   pedidosTab: PedidosTab = 'activos';
   pedidoExpandidoId: number | null = null;
@@ -164,6 +168,13 @@ export class PerfilComponent implements OnInit {
     return mapa[estado] ?? '';
   }
 
+  private triggerToastError(): void {
+    this.showToastError = true;
+    this.hideToastError = false;
+    setTimeout(() => { this.hideToastError = true; },  3500);
+    setTimeout(() => { this.showToastError = false; }, 4200);
+  }
+
   private parseFecha(fecha: string | null | undefined): number {
     if (!fecha) return 0;
     const t = Date.parse(fecha);
@@ -236,8 +247,12 @@ export class PerfilComponent implements OnInit {
         localStorage.removeItem('carritoId');
         this.router.navigate(['/']);
       },
-      error: () => {
-        this.errorMsg = 'No se pudo eliminar la cuenta. Intenta de nuevo.';
+      error: err => {
+        this.toastErrorMsg = err?.error?.message
+          ?? err?.error?.error
+          ?? (typeof err?.error === 'string' ? err.error : null)
+          ?? 'No se pudo eliminar la cuenta. Intenta de nuevo.';
+        this.triggerToastError();
       }
     });
   }

@@ -19,6 +19,7 @@ export class TablaProductosComponent implements OnInit {
   showSuccess: boolean = false;
   hideSuccess: boolean = false;
 
+  errorMsg: string = '';
   showError: boolean = false;
   hideError: boolean = false;
 
@@ -75,10 +76,19 @@ export class TablaProductosComponent implements OnInit {
   eliminarProducto(event: Event, id: number): void {
     event.stopPropagation();
     if (confirm('¿Seguro que quieres eliminar este producto?')) {
-      this.comidaService.delete(id).subscribe(() => {
-        this.loadComidas();
-        this.successMsg = '¡Producto eliminado correctamente!';
-        this.triggerSuccess();
+      this.comidaService.delete(id).subscribe({
+        next: () => {
+          this.loadComidas();
+          this.successMsg = '¡Producto eliminado correctamente!';
+          this.triggerSuccess();
+        },
+        error: err => {
+          this.errorMsg = err?.error?.message
+            ?? err?.error?.error
+            ?? (typeof err?.error === 'string' ? err.error : null)
+            ?? 'No se pudo eliminar el producto.';
+          this.triggerError();
+        }
       });
     }
   }

@@ -19,6 +19,7 @@ export class TablaDomiciliariosComponent implements OnInit {
   showSuccess: boolean = false;
   hideSuccess: boolean = false;
 
+  errorMsg: string = '';
   showError: boolean = false;
   hideError: boolean = false;
 
@@ -80,7 +81,13 @@ export class TablaDomiciliariosComponent implements OnInit {
           this.successMsg = '¡Domiciliario eliminado correctamente!';
           this.triggerSuccess();
         },
-        error: () => this.triggerError()
+        error: err => {
+          this.errorMsg = err?.error?.message
+            ?? err?.error?.error
+            ?? (typeof err?.error === 'string' ? err.error : null)
+            ?? 'No se pudo eliminar el domiciliario.';
+          this.triggerError();
+        }
       });
     }
   }
