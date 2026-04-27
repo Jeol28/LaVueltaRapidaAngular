@@ -1,0 +1,98 @@
+<div class="f1-standings-container">
+  <!-- Hero Section -->
+  <div class="ranking-hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>F1 2024</h1>
+        <p class="hero-subtitle">Current Season Standings</p>
+        <p class="hero-description">Stay updated with the latest drivers and constructors standings from the Formula 1 championship.</p>
+      </div>
+      <div class="hero-image">
+        <img src="https://via.placeholder.com/600x400/1a1a1a/EB1010?text=F1%202024" alt="F1 Championship" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab Buttons -->
+  <div class="tab-controls">
+    <button 
+      class="ranking-btn" 
+      [ngClass]="{'active': activeTable === 'pilotos'}"
+      (click)="switchTable('pilotos')">
+      PILOTOS
+    </button>
+    <button 
+      class="ranking-btn" 
+      [ngClass]="{'active': activeTable === 'constructores'}"
+      (click)="switchTable('constructores')">
+      CONSTRUCTORES
+    </button>
+  </div>
+
+  <!-- Drivers Table -->
+  <div class="table-container" *ngIf="activeTable === 'pilotos'">
+    <table class="rankings-table table-dark-custom">
+      <thead>
+        <tr>
+          <th>POS</th>
+          <th>PILOTO</th>
+          <th>EQUIPO</th>
+          <th>PUNTOS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let piloto of pilotos" [ngClass]="{'first-place': piloto.position === 1}">
+          <td class="position">{{ piloto.position }}</td>
+          <td class="name">{{ piloto.name }}</td>
+          <td class="team">{{ piloto.team }}</td>
+          <td class="points">{{ piloto.points }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Constructors Table -->
+  <div class="table-container" *ngIf="activeTable === 'constructores'">
+    <table class="rankings-table table-dark-custom">
+      <thead>
+        <tr>
+          <th>POS</th>
+          <th>CONSTRUCTOR</th>
+          <th>PUNTOS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let constructor of constructores" [ngClass]="{'first-place': constructor.position === 1}">
+          <td class="position">{{ constructor.position }}</td>
+          <td class="team">{{ constructor.team }}</td>
+          <td class="points">{{ constructor.points }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Videos Section -->
+  <div class="videos-section">
+    <h2>LATEST F1 HIGHLIGHTS</h2>
+    <div *ngIf="loadingVideos" class="loading-message">Loading videos...</div>
+    <div *ngIf="!loadingVideos && videos.length === 0" class="error-message">
+      Unable to load videos. Please try again later.
+    </div>
+    <div class="video-grid" *ngIf="!loadingVideos && videos.length > 0">
+      <a *ngFor="let video of videos" 
+         [href]="video.videoUrl" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="video-card">
+        <div class="video-thumbnail">
+          <img [src]="video.thumbnail" [alt]="video.title" />
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="video-info">
+          <h3 class="video-title">{{ video.title | slice:0:50 }}...</h3>
+          <p class="video-date">{{ video.publishedAt }}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
