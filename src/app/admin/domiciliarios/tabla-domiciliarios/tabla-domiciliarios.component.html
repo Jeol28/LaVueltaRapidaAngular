@@ -49,12 +49,16 @@
             <td class="actions-cell" (click)="$event.stopPropagation()">
               <div class="row-inner">
                 <div class="actions-wrapper">
-                  <a [routerLink]="['/admin/domiciliarios/update', dom.id]"
-                     class="btn-edit">
+                  <a [routerLink]="enEntregaIds.has(dom.id) ? null : ['/admin/domiciliarios/update', dom.id]"
+                     [class.btn-edit]="true"
+                     [class.btn-blocked]="enEntregaIds.has(dom.id)"
+                     [title]="enEntregaIds.has(dom.id) ? 'No se puede modificar: domiciliario en entrega activa' : ''">
                     Modificar
                   </a>
-                  <a (click)="eliminarDomiciliario($event, dom.id)"
-                     class="btn-delete">
+                  <a (click)="!enEntregaIds.has(dom.id) && eliminarDomiciliario($event, dom.id)"
+                     [class.btn-delete]="true"
+                     [class.btn-blocked]="enEntregaIds.has(dom.id)"
+                     [title]="enEntregaIds.has(dom.id) ? 'No se puede eliminar: domiciliario en entrega activa' : ''">
                     Eliminar
                   </a>
                 </div>
