@@ -55,6 +55,10 @@ import { TerminosComponent } from './terminos/terminos.component';
 import { TcHeroComponent } from './terminos/tc-hero/tc-hero.component';
 import { TcSeccionComponent } from './terminos/tc-seccion/tc-seccion.component';
 
+import { PrivacidadComponent } from './privacidad/privacidad.component';
+import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
+import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,6 +111,10 @@ import { TcSeccionComponent } from './terminos/tc-seccion/tc-seccion.component';
     TerminosComponent,
     TcHeroComponent,
     TcSeccionComponent,
+
+    PrivacidadComponent,
+    PpHeroComponent,
+    PpSeccionComponent,
   ],
   imports: [
     BrowserModule,

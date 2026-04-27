@@ -1,0 +1,116 @@
+.pp-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0a0a0a 0%, #00001a 60%, #0f0f0f 100%);
+  border-bottom: 1px solid rgba(225,6,0,0.3);
+  overflow: hidden;
+}
+
+.pp-hero-flag-stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #e10600 0px, #e10600 20px,
+    #fff    20px, #fff    40px
+  );
+  opacity: 0.7;
+}
+
+.pp-hero-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 64px 32px 56px;
+  text-align: center;
+}
+
+.pp-hero-badges {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.pp-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #d1d5db;
+}
+
+.pp-hero-badge--gold {
+  background: rgba(255,215,0,0.1);
+  border-color: rgba(255,215,0,0.3);
+  color: #ffd700;
+}
+
+.pp-hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.pp-hero-accent {
+  color: #e10600;
+  font-style: italic;
+}
+
+.pp-hero-subtitle {
+  font-size: 18px;
+  color: #9ca3af;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.pp-hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.pp-hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.pp-meta-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  color: #e10600;
+  font-weight: 600;
+}
+
+.pp-meta-label {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.pp-hero-meta-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.1);
+}
+
+.pp-hero-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e10600, transparent);
+}
