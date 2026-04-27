@@ -176,6 +176,78 @@
   }
 }
 
+/* ── Responsive < 550px ── */
+@media (max-width: 549.98px) {
+  .hero-title {
+    font-size: 38px;
+    line-height: 50px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    font-size: 15px;
+    height: 52px;
+  }
+}
+
+/* ── Responsive < 350px ── */
+@media (max-width: 349.98px) {
+  .hero-title {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+    line-height: 22px;
+  }
+
+  .stat-value {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    font-size: 13px;
+    height: 46px;
+  }
+}
+
+/* ── Responsive < 260px ── */
+@media (max-width: 259.98px) {
+  .hero-title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .hero-subtitle {
+    font-size: 11px;
+    line-height: 18px;
+  }
+
+  .stat-value {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    font-size: 11px;
+    height: 40px;
+  }
+}
+
 .scroll-indicator {
   position: absolute;
   bottom: 74px;

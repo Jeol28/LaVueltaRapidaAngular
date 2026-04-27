@@ -173,21 +173,21 @@
 
 @media (max-width: 1000px) {
   .footer-inner { padding: 0 4px; }
-}
 
-@media (max-width: 950px) {
-  .footer-inner { padding: 0 20px; }
-}
-
-@media (max-width: 1000px) {
   .footer-top {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
+    justify-items: center;
   }
 
   .footer-brand {
     order: 1;
-    margin-left: 100px;
+    margin-left: 0;
+  }
+
+  .footer-col {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
   }
 
   /* EXPERIENCIA al mismo nivel que el logo */
@@ -205,10 +205,10 @@
   .footer-top .footer-col:nth-child(4) {
     order: 4;
   }
+}
 
-  .footer-col {
-    padding-left: 100px;
-  }
+@media (max-width: 950px) {
+  .footer-inner { padding: 0 20px; }
 }
 
 @media (max-width: 768px) {

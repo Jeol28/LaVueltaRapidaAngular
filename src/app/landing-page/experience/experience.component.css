@@ -290,3 +290,44 @@
 .exp-map-link:hover {
   color: #fff;
 }
+
+@media (max-width: 991.98px) {
+  .exp-right-column {
+    padding-left: 0;
+    margin-top: 48px;
+  }
+}
+
+@media (max-width: 449.98px) {
+  .experience-inner {
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 399.98px) {
+  .experience-title {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .experience-subtitle {
+    font-size: 15px;
+    line-height: 26px;
+  }
+}
+
+@media (max-width: 269.98px) {
+  .experience-title {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .experience-subtitle {
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .resto-gallery {
+    grid-template-columns: 1fr;
+  }
+}

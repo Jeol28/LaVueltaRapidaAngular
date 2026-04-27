@@ -105,3 +105,18 @@
   background: linear-gradient(to bottom, transparent, rgba(225,6,0,0.4), transparent);
   flex-shrink: 0;
 }
+
+@media (max-width: 499.98px) {
+  .size-stats {
+    flex-wrap: wrap;
+    gap: 32px 0;
+  }
+
+  .size-stat {
+    flex: 0 0 50%;
+  }
+
+  .size-stat-divider {
+    display: none;
+  }
+}
