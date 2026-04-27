@@ -119,3 +119,13 @@
 .pps-body .pps-table tr:last-child td {
   border-bottom: none;
 }
+
+@media (max-width: 300px) {
+  .pps-header { padding: 14px 16px; gap: 10px; }
+  .pps-titulo { font-size: 11px; }
+  .pps-body   { padding: 16px; font-size: 12px; }
+  .pps-body .pps-highlight { padding: 10px 12px; font-size: 12px; }
+  .pps-body .pps-table     { font-size: 11px; }
+  .pps-body .pps-table th,
+  .pps-body .pps-table td  { padding: 8px 10px; }
+}

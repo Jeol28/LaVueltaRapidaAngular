@@ -89,3 +89,10 @@
   color: #d1d5db;
   font-style: italic;
 }
+
+@media (max-width: 300px) {
+  .tcs-header { padding: 14px 16px; gap: 10px; }
+  .tcs-titulo { font-size: 11px; }
+  .tcs-body   { padding: 16px; font-size: 12px; }
+  .tcs-body .tcs-highlight { padding: 10px 12px; font-size: 12px; }
+}

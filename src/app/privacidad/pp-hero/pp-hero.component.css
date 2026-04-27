@@ -114,3 +114,12 @@
   height: 2px;
   background: linear-gradient(90deg, transparent, #e10600, transparent);
 }
+
+@media (max-width: 300px) {
+  .pp-hero-inner    { padding: 40px 16px 36px; }
+  .pp-hero-title    { font-size: 22px; }
+  .pp-hero-subtitle { font-size: 13px; }
+  .pp-meta-value    { font-size: 16px; }
+  .pp-meta-label    { font-size: 10px; }
+  .pp-hero-badge    { font-size: 10px; padding: 4px 10px; }
+}

@@ -53,3 +53,10 @@
   color: #555;
   line-height: 1.8;
 }
+
+@media (max-width: 300px) {
+  .tc-main       { padding: 32px 12px 60px; }
+  .tc-intro p    { font-size: 12px; }
+  .tc-intro-alert { font-size: 11px; padding: 10px 12px; }
+  .tc-footer-note { font-size: 11px; }
+}

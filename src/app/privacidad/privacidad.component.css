@@ -57,3 +57,10 @@
   color: #555;
   line-height: 1.8;
 }
+
+@media (max-width: 300px) {
+  .pp-main        { padding: 32px 12px 60px; }
+  .pp-intro p     { font-size: 12px; }
+  .pp-intro-alert { font-size: 11px; padding: 10px 12px; }
+  .pp-footer-note { font-size: 11px; }
+}
