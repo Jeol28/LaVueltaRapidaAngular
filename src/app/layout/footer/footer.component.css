@@ -4,27 +4,29 @@
   font-family: 'Inter', sans-serif;
   width: 100%;
   padding: 80px 0 40px 0;
-  margin-top: auto; /* lo mantiene pegado abajo si usas flex en body */
+  margin-top: auto;
 }
 
-/* Contenedor interno */
 .footer-inner {
-  padding: 0 150px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 80px;
 }
 
 /* ================= TOP SECTION ================= */
 
 .footer-top {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 60px;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
   margin-bottom: 60px;
+  align-items: start;
 }
 
 /* ================= BRAND ================= */
 
 .footer-brand {
-  max-width: 320px;
+  max-width: 300px;
 }
 
 .footer-logo {
@@ -71,8 +73,6 @@
 .footer-col {
   display: flex;
   flex-direction: column;
-  /* min-width: 160px; */
-  padding-left: 150px;
 }
 
 .footer-col-title {
@@ -88,31 +88,19 @@
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;   /*  fuerza vertical */
-  align-items: flex-start;  /*  evita que se alineen horizontalmente */
-  gap: 12px;                /*  espacio entre links */
-}
-
-.footer-links li {
-  width: 100%;              /* cada item ocupa toda la línea */
+  flex-direction: column;
+  gap: 12px;
 }
 
 .footer-links a {
-  display: block;           /* fuerza salto de línea */
   text-decoration: none;
   color: #b5b5b5;
   font-size: 14px;
   transition: color 0.2s ease;
-
-  white-space: normal;
 }
 
 .footer-links a:hover {
   color: #ffffff;
-}
-
-.footer-top .footer-col:nth-child(3) {
-  transform: translateX(-30px);
 }
 
 /* ================= BOTTOM SECTION ================= */
@@ -149,85 +137,59 @@
 
 /* ================= RESPONSIVE ================= */
 
-@media (max-width: 1500px) {
-  .footer-inner { padding: 0 60px; }
-  .footer-col { padding-left: 40px; }
-  .footer-top { gap: 32px; }
-  .footer-top .footer-col:nth-child(3) { transform: translateX(0); padding-left: 16px; }
-  .footer-top .footer-col:nth-child(2) { padding-left: 80px; }
-}
-
-@media (min-width: 1000px) and (max-width: 1100px) {
-  .footer-inner { padding: 0 60px 0 40px; }
-  .footer-top {
-    grid-template-columns: minmax(180px, 260px) auto auto auto;
-    justify-content: space-between;
-    gap: 0;
+@media (max-width: 1100px) {
+  .footer-inner {
+    padding: 0 40px;
   }
-  .footer-brand { margin-left: 40px; }
-  .footer-col { padding-left: 0; }
-  .footer-top > *:nth-child(2) { margin-left: 60px; }
-  .footer-top > *:nth-child(3) { margin-left: 72px; }
-  .footer-top > *:last-child { margin-left: 24px; }
+  .footer-top {
+    gap: 24px;
+  }
 }
 
-@media (max-width: 1000px) {
-  .footer-inner { padding: 0 4px; }
+/* --- 2x2: brand + menú arriba, experiencia + marca abajo --- */
+@media (max-width: 960px) {
+  .footer-inner {
+    padding: 0 40px;
+  }
 
   .footer-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    justify-items: center;
+    grid-template-columns: minmax(180px, 280px) minmax(140px, 200px);
+    grid-template-areas:
+      "brand        menu"
+      "experiencia  marca";
+    row-gap: 48px;
+    column-gap: 0;
+    justify-content: space-evenly;
   }
 
-  .footer-brand {
-    order: 1;
-    margin-left: 0;
-  }
-
-  .footer-col {
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-  }
-
-  /* EXPERIENCIA al mismo nivel que el logo */
-  .footer-top .footer-col:nth-child(3) {
-    order: 2;
-    transform: translateX(0);
-  }
-
-  /* MENÚ a la fila 2 */
-  .footer-top .footer-col:nth-child(2) {
-    order: 3;
-  }
-
-  /* MARCA en fila 2 */
-  .footer-top .footer-col:nth-child(4) {
-    order: 4;
-  }
+  .footer-brand                { grid-area: brand; max-width: 100%; }
+  .footer-top > *:nth-child(2) { grid-area: menu; }
+  .footer-top > *:nth-child(3) { grid-area: experiencia; }
+  .footer-top > *:nth-child(4) { grid-area: marca; }
 }
 
-@media (max-width: 950px) {
-  .footer-inner { padding: 0 20px; }
-}
+/* --- 1 COLUMNA: todo centrado --- */
+@media (max-width: 600px) {
+  .footer-inner {
+    padding: 0 24px;
+  }
 
-@media (max-width: 768px) {
   .footer-top {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "menu"
+      "experiencia"
+      "marca";
+    gap: 36px;
     text-align: center;
-  }
-
-  .footer-col {
-    padding-left: 0;
-    align-items: center;
   }
 
   .footer-brand {
     max-width: 100%;
-    margin-left: 0;
-    align-items: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   .footer-logo {
@@ -238,7 +200,7 @@
     justify-content: center;
   }
 
-  .footer-links {
+  .footer-col {
     align-items: center;
   }
 
