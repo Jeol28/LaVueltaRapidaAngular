@@ -178,6 +178,77 @@ a {
   transform: translateY(-2px);
 }
 
+/* ── Tablas: sin scroll horizontal, el contenido baja ── */
+.table-responsive {
+  overflow-x: visible !important;
+}
+
+/* ── Tablas responsive: card layout en móvil ── */
+@media (max-width: 900px) {
+  .menu-table { table-layout: auto; }
+
+  .menu-table,
+  .menu-table tbody,
+  .menu-table tbody tr,
+  .menu-table tbody td {
+    display: block;
+    width: 100% !important;
+  }
+
+  .menu-table thead { display: none; }
+
+  .menu-table tbody tr {
+    margin-bottom: 12px;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .menu-table tbody tr:hover { background: #111; }
+  .menu-table tbody tr:hover .row-inner { transform: none; }
+
+  .menu-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid #1c1c1c;
+  }
+
+  .menu-table tbody td:last-child { border-bottom: none; }
+
+  .menu-table td::before {
+    content: attr(data-label);
+    font-size: 10px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .menu-table .row-inner {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .actions-wrapper { justify-content: flex-end; }
+
+  /* Celda de imagen: centrada, sin label */
+  .menu-table td.img-cell {
+    justify-content: center;
+    background: #0e0e0e;
+    padding: 10px;
+  }
+  .menu-table td.img-cell .row-inner { justify-content: center; flex: unset; }
+  .menu-table td.img-cell::before { display: none; }
+  .table-img { width: 64px !important; aspect-ratio: 1 / 1 !important; }
+}
+
 /* ================================================= */
 /* ============== ADMIN — TOAST ==================== */
 /* ================================================= */

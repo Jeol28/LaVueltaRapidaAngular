@@ -41,7 +41,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loadUser();
     this.routerSub = this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => this.loadUser());
+      .subscribe(() => {
+        this.loadUser();
+        this.isMenuOpen = false;
+      });
     this.cartSub = this.carritoService.items$.subscribe(items => {
       this.cartItems = items;
       this.cartCount = items.reduce((s, i) => s + i.cantidad, 0);

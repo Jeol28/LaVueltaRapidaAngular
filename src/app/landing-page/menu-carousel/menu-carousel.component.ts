@@ -29,8 +29,8 @@ export class MenuCarouselComponent implements OnInit, AfterViewInit {
   private initializeSwiper(): void {
     new Swiper('.menu-swiper', {
       modules: [Navigation, Pagination],
-      slidesPerView: 1,
-      spaceBetween: 20,
+      slidesPerView: 1.2,
+      spaceBetween: 16,
       loop: true,
 
       navigation: {
@@ -44,11 +44,21 @@ export class MenuCarouselComponent implements OnInit, AfterViewInit {
       },
 
       breakpoints: {
+        480: {
+          slidesPerView: 2,
+          spaceBetween: 16
+        },
         768: {
-          slidesPerView: 2
+          slidesPerView: 3,
+          spaceBetween: 18
         },
         1024: {
-          slidesPerView: 3
+          slidesPerView: 4,
+          spaceBetween: 20
+        },
+        1280: {
+          slidesPerView: 5,
+          spaceBetween: 20
         }
       }
     });

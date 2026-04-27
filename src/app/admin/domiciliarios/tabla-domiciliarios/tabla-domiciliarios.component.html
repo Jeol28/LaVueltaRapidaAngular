@@ -19,25 +19,25 @@
           <tr *ngFor="let dom of domiciliarios"
               [class.row-unavailable]="!dom.disponible">
 
-            <td>
+            <td data-label="Nombre">
               <div class="row-inner">
                 <strong>{{ dom.nombre }}</strong>
               </div>
             </td>
 
-            <td>
+            <td data-label="Cédula">
               <div class="row-inner">
                 <span class="cedula-cell">{{ dom.cedula }}</span>
               </div>
             </td>
 
-            <td>
+            <td data-label="Celular">
               <div class="row-inner">
                 <span class="celular-cell">{{ dom.celular }}</span>
               </div>
             </td>
 
-            <td class="status-cell"
+            <td class="status-cell" data-label="Estado"
                 [ngClass]="dom.disponible ? 'status-available' : (enEntregaIds.has(dom.id) ? 'status-en-entrega' : 'status-unavailable')">
               <div class="row-inner">
                 <ng-container *ngIf="dom.disponible">Disponible</ng-container>
@@ -46,7 +46,7 @@
               </div>
             </td>
 
-            <td class="actions-cell" (click)="$event.stopPropagation()">
+            <td class="actions-cell" data-label="Acciones" (click)="$event.stopPropagation()">
               <div class="row-inner">
                 <div class="actions-wrapper">
                   <a [routerLink]="enEntregaIds.has(dom.id) ? null : ['/admin/domiciliarios/update', dom.id]"

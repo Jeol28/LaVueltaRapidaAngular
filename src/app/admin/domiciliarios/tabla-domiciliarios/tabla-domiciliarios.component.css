@@ -71,6 +71,20 @@
 .status-en-entrega  { color: #f0a500; }
 .row-unavailable    { opacity: 0.6; }
 
+@media (max-width: 1000px) {
+  .actions-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .actions-wrapper .btn-edit,
+  .actions-wrapper .btn-delete,
+  .actions-wrapper a {
+    text-align: center;
+  }
+}
+
 @media (max-width: 768px) {
   .menu-table td { padding: 15px 8px; }
 }

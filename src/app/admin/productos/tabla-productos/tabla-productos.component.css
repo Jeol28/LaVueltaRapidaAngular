@@ -11,10 +11,10 @@
 /* Acciones alineadas a la derecha */
 .actions-wrapper { justify-content: flex-end; }
 
-/* Imagen */
+/* Imagen: siempre cuadrada */
 .table-img {
   width: 75px;
-  height: 75px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 10px;
   transition: 0.3s ease;
@@ -45,7 +45,6 @@
   font-weight: 700;
   font-size: 16px;
   color: var(--gold);
-  white-space: nowrap;
   text-align: right;
   padding-right: 30px;
 }
@@ -62,10 +61,148 @@
 .status-unavailable { color: var(--red); }
 .row-unavailable   { opacity: 0.6; }
 
+/* Por debajo de 350px: todo centrado, imagen más grande */
+@media (max-width: 349px) {
+  .menu-table tbody td {
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .menu-table tbody td::before {
+    text-align: center;
+    width: 100%;
+  }
+
+  .menu-table tbody td .row-inner {
+    justify-content: center !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .menu-table tbody td:nth-child(2) strong,
+  .menu-table tbody td:nth-child(2) .desc {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .table-img {
+    width: 85% !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .actions-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .actions-wrapper .btn-edit,
+  .actions-wrapper .btn-delete {
+    width: 85%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 550px) {
+  .actions-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .actions-wrapper .btn-edit,
+  .actions-wrapper .btn-delete {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .menu-table td { padding: 15px 8px; }
-  .table-img     { width: 60px; height: 60px; }
+  .table-img     { width: 60px; }
   .desc          { font-size: 12px; }
   .price-cell    { font-size: 14px; }
+}
+
+@media (max-width: 900px) {
+  .menu-table td:nth-child(2) .row-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+/* 700–900px: dos columnas reales con Grid */
+@media (min-width: 350px) and (max-width: 900px) {
+  .menu-table tbody tr {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: repeat(4, auto);
+  }
+
+  /* Imagen: columna 1, abarca todas las filas */
+  .menu-table tbody tr .img-cell {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    background: transparent;
+    border-bottom: none;
+    border-right: 1px solid #2a2a2a;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-table tbody tr .img-cell .row-inner {
+    flex: unset;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .table-img {
+    width: 100% !important;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  /* Las 4 celdas restantes: columna 2, apiladas y centradas */
+  .menu-table tbody tr td:not(.img-cell) {
+    grid-column: 2;
+    width: 100%;
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .menu-table tbody tr td:not(.img-cell)::before {
+    text-align: center;
+    width: 100%;
+  }
+
+  /* row-inner centrado en todas las celdas de contenido */
+  .menu-table tbody tr td:not(.img-cell) .row-inner {
+    justify-content: center !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .menu-table tbody tr td:nth-child(2) strong,
+  .menu-table tbody tr td:nth-child(2) .desc {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .menu-table tbody tr .actions-cell .actions-wrapper {
+    justify-content: center;
+  }
 }

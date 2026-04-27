@@ -538,7 +538,7 @@
 
 .mobile-panel.open {
   display: flex;
-  max-height: 420px;
+  max-height: 520px;
   padding-bottom: 20px;
 }
 
@@ -587,8 +587,24 @@
 .mobile-user {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
+
+.mobile-user-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mobile-user-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 
 /* ══════════════════════════════════════
    RESPONSIVE
@@ -601,9 +617,16 @@
   .header-inner { padding: 0 4px; }
   .header-nav { gap: 18px; }
   .nav-link   { font-size: 13px; }
+
+  .logo-text {
+    white-space: normal;
+    font-size: 14px;
+    line-height: 1.25;
+    max-width: 80px;
+  }
 }
 
-@media (max-width: 950px) {
+@media (max-width: 900px) {
   .header-inner {
     padding: 0 20px;
     height: 62px;
@@ -616,10 +639,23 @@
   .nav-toggle    { display: flex; }
   .mobile-panel  { display: flex; }
 
-  .logo-text { font-size: 15px; }
+  .logo-text {
+    font-size: 15px;
+    white-space: nowrap;
+    max-width: none;
+  }
 
   .logo-icon {
     width: 26px !important;
     height: auto !important;
+  }
+
+  .cart-panel { top: 62px; }
+}
+
+@media (max-width: 350px) {
+  .logo-text {
+    white-space: normal;
+    max-width: 80px;
   }
 }

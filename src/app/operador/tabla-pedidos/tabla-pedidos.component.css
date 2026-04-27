@@ -4,6 +4,10 @@
   min-height: 400px;
 }
 
+.pedidos-section > .container {
+  max-width: 100%;
+}
+
 .empty-state {
   text-align: center;
   padding: 80px 0;
@@ -14,7 +18,7 @@
 }
 
 .table-responsive {
-  overflow-x: auto;
+  overflow-x: visible;
 }
 
 .pedidos-table {
@@ -36,7 +40,6 @@
   color: #888;
   padding: 14px 16px;
   text-align: left;
-  white-space: nowrap;
 }
 
 .pedidos-table tbody tr {
@@ -66,7 +69,6 @@
 
 /* Fecha */
 .fecha-cell {
-  white-space: nowrap;
   color: #aaa;
   font-size: 13px;
 }
@@ -484,13 +486,81 @@
   font-weight: bold;
 }
 
-@media (max-width: 768px) {
-  .pedidos-table th,
-  .pedidos-table td {
-    padding: 12px 10px;
+@media (max-width: 950px) {
+  .pedidos-section {
+    padding: 0;
   }
 
-  .detalle-panel {
-    width: 100vw;
+  .pedidos-section > .container {
+    padding: 0;
   }
+}
+
+@media (max-width: 768px) {
+  .detalle-panel { width: 100vw; }
+}
+
+@media (max-width: 900px) {
+  /* Table y filas como bloque */
+  .pedidos-table,
+  .pedidos-table tbody,
+  .pedidos-table tbody tr {
+    display: block;
+    width: 100%;
+  }
+
+  .pedidos-table thead { display: none; }
+
+  .pedidos-table tbody tr {
+    margin-bottom: 14px;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    background: #111;
+    cursor: pointer;
+  }
+
+  .pedidos-table tbody tr:hover { background: #151515; }
+
+  /* td: flex column con mayor especificidad para ganar a display:block */
+  .pedidos-table tbody td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #1f1f1f;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .pedidos-table tbody td:last-child { border-bottom: none; }
+
+  /* Etiqueta gris encima del valor */
+  .pedidos-table tbody td::before {
+    content: attr(data-label);
+    font-size: 10px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    line-height: 1;
+  }
+
+  /* Primera celda (ID) como cabecera de la tarjeta */
+  .pedidos-table tbody .id-cell {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #0d0d0d;
+    border-bottom: 2px solid #1f1f1f;
+    padding: 14px 16px;
+  }
+  .pedidos-table tbody .id-cell::before { display: none; }
+  .pedido-id { font-size: 15px; }
+
+  /* Alineación izquierda para celdas centradas en desktop */
+  .items-cell { text-align: left; }
+
+  /* Select a ancho completo */
+  .estado-select { width: 100%; }
 }

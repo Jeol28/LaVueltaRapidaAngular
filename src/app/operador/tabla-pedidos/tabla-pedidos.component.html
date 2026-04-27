@@ -23,31 +23,31 @@
               class="fila-pedido"
               (click)="verDetalle(pedido)">
 
-            <td class="id-cell">
+            <td class="id-cell" data-label="#">
               <span class="pedido-id">#{{ pedido.id }}</span>
             </td>
 
-            <td class="fecha-cell">
+            <td class="fecha-cell" data-label="Fecha">
               {{ pedido.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}
             </td>
 
-            <td class="cliente-cell">
+            <td class="cliente-cell" data-label="Cliente">
               <strong>{{ pedido.cliente.name }} {{ pedido.cliente.apellido }}</strong>
               <span class="cliente-sub">{{ pedido.cliente.email }}</span>
             </td>
 
-            <td class="items-cell">
+            <td class="items-cell" data-label="Ítems">
               {{ pedido.lineasPedido.length }}
               {{ pedido.lineasPedido.length === 1 ? 'ítem' : 'ítems' }}
             </td>
 
-            <td class="estado-cell">
+            <td class="estado-cell" data-label="Estado">
               <span class="estado-badge" [ngClass]="getEstadoClass(pedido.estado)">
                 {{ pedido.estado }}
               </span>
             </td>
 
-            <td class="domiciliario-cell">
+            <td class="domiciliario-cell" data-label="Domiciliario">
               <span *ngIf="pedido.domiciliario; else sinAsignar">
                 {{ pedido.domiciliario.nombre }}
               </span>
@@ -56,7 +56,7 @@
               </ng-template>
             </td>
 
-            <td class="accion-cell" (click)="$event.stopPropagation()">
+            <td class="accion-cell" data-label="Cambiar estado" (click)="$event.stopPropagation()">
               <select class="estado-select"
                       [ngModel]="pedido.estado"
                       [disabled]="pedido.estado === 'ENTREGADO'"

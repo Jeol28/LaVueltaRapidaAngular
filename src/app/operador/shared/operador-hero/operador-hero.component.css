@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+.op-hero > .container {
+  max-width: 100%;
+}
+
 .op-hero-badge {
   display: inline-block;
   font-family: 'Orbitron', sans-serif;

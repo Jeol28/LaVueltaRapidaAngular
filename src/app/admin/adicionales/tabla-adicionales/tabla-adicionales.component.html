@@ -8,26 +8,26 @@
           <tr *ngFor="let adicional of adicionales"
               [class.row-unavailable]="!adicional.available">
 
-            <td>
+            <td data-label="Adicional">
               <div class="row-inner">
                 <strong>{{ adicional.name }}</strong>
               </div>
             </td>
 
-            <td class="price-cell">
+            <td class="price-cell" data-label="Precio">
               <div class="row-inner">
                 {{ adicional.price | currency:'$ ':'symbol':'1.0-0' }} COP
               </div>
             </td>
 
-            <td class="status-cell"
+            <td class="status-cell" data-label="Estado"
                 [ngClass]="adicional.available ? 'status-available' : 'status-unavailable'">
               <div class="row-inner">
                 {{ adicional.available ? 'Disponible' : 'No disponible' }}
               </div>
             </td>
 
-            <td class="actions-cell" (click)="$event.stopPropagation()">
+            <td class="actions-cell" data-label="Acciones" (click)="$event.stopPropagation()">
               <div class="row-inner">
                 <div class="actions-wrapper">
                   <a [routerLink]="['/admin/adicionales/update', adicional.id]"

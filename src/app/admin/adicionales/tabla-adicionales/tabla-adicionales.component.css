@@ -17,7 +17,6 @@
   font-weight: 700;
   font-size: 16px;
   color: var(--gold);
-  white-space: nowrap;
   text-align: right;
   padding-right: 30px;
 }

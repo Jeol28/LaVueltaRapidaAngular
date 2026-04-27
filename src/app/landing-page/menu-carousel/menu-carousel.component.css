@@ -56,9 +56,28 @@
   padding-bottom: 48px !important;
 }
 
+@media (max-width: 415px) {
+  .menu-swiper {
+    padding-bottom: 75px !important;
+  }
+}
+
+@media (max-width: 319px) {
+  .menu-swiper {
+    padding-bottom: 100px !important;
+  }
+}
+
+@media (max-width: 255px) {
+  .menu-swiper {
+    padding-bottom: 130px !important;
+  }
+}
+
 .menu-swiper .swiper-slide {
-  height: 390px;
+  height: auto;
   display: flex;
+  align-self: stretch;
 }
 
 /* ================================================= */

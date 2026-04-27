@@ -17,25 +17,25 @@
 
           <tr *ngFor="let op of operadores">
 
-            <td>
+            <td data-label="Nombre">
               <div class="row-inner">
                 <strong>{{ op.nombre }}</strong>
               </div>
             </td>
 
-            <td>
+            <td data-label="Usuario">
               <div class="row-inner">
                 <span class="username-cell">{{ op.usuario }}</span>
               </div>
             </td>
 
-            <td>
+            <td data-label="Contraseña">
               <div class="row-inner">
                 <span class="pass-cell">••••••••</span>
               </div>
             </td>
 
-            <td class="actions-cell" (click)="$event.stopPropagation()">
+            <td class="actions-cell" data-label="Acciones" (click)="$event.stopPropagation()">
               <div class="row-inner">
                 <div class="actions-wrapper">
                   <a (click)="eliminarOperario($event, op.id)"
