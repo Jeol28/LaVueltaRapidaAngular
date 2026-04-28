@@ -261,7 +261,7 @@ export class F1StandingsComponent implements OnInit {
   //{ name: 'Nico Hulkenburg', team: 'Audi', points: 0 },
   //{ name: 'Gabriel Bortoleto', team: 'Audi', points: 2 },
 
-    { name: 'Pierre Gasly', team: 'Alpine', points: 15 },
+    { name: 'Pierre Gasly', team: 'Alpine', points: 150 },
     { name: 'Franco Colapinto', team: 'Alpine', points: 1 },
     
   // { name: 'Sergio Perez', team: 'Cadillac', points: 0 },
@@ -281,6 +281,35 @@ export class F1StandingsComponent implements OnInit {
   'Audi': 'Audi Revolut F1',
   'Cadillac': 'Cadillac F1'
 };
+
+getTeamClass(team: string): string {
+  return {
+    'Mercedes': 'mercedes',
+    'Ferrari': 'ferrari',
+    'McLaren': 'mclaren',
+    'Red Bull': 'redbull',
+    'Racing Bulls': 'rb',
+    'Aston Martin': 'aston',
+    'Alpine': 'alpine',
+    'Haas': 'haas',
+    'Williams': 'williams',
+    'Audi': 'audi',
+    'Cadillac': 'cadillac',
+
+    // constructors (official names)
+    'Mercedes-AMG PETRONAS F1': 'mercedes',
+    'Scuderia Ferrari HP': 'ferrari',
+    'McLaren Mastercard F1': 'mclaren',
+    'Oracle Red Bull Racing': 'redbull',
+    'Visa Cash App Racing Bulls F1': 'rb',
+    'Aston Martin Aramco F1': 'aston',
+    'BWT Alpine F1': 'alpine',
+    'TGR Haas F1': 'haas',
+    'Atlassian Williams F1': 'williams',
+    'Audi Revolut F1': 'audi',
+    'Cadillac F1': 'cadillac'
+  }[team] || '';
+}
 
 constructores: Constructor[] = [];
 

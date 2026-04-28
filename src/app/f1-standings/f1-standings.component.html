@@ -49,47 +49,60 @@
     </button>
   </div>
 
+  
+
+
   <!-- ================= DRIVERS TABLE ================= -->
   <div class="table-container" *ngIf="activeTable === 'pilotos'">
-    <table class="rankings-table table-dark-custom">
-      <thead>
-        <tr>
-          <th>POS</th>
-          <th>PILOTO</th>
-          <th>EQUIPO</th>
-          <th>PUNTOS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let piloto of pilotos" [ngClass]="{'first-place': piloto.position === 1}">
-          <td class="position">{{ piloto.position }}</td>
-          <td class="name">{{ piloto.name }}</td>
-          <td class="team">{{ piloto.team }}</td>
-          <td class="points">{{ piloto.points }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="rankings-table table-dark-custom">
+    <thead>
+      <tr>
+        <th>POS</th>
+        <th>PILOTO</th>
+        <th>EQUIPO</th>
+        <th>PUNTOS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let piloto of pilotos"
+          [ngClass]="[
+            piloto.position === 1 ? 'first-place' : '',
+            getTeamClass(piloto.team)
+          ]">
+
+        <td class="position">{{ piloto.position }}</td>
+        <td class="name">{{ piloto.name }}</td>
+        <td class="team">{{ piloto.team }}</td>
+        <td class="points">{{ piloto.points }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
   <!-- ================= CONSTRUCTORS TABLE ================= -->
   <div class="table-container" *ngIf="activeTable === 'constructores'">
-    <table class="rankings-table table-dark-custom">
-      <thead>
-        <tr>
-          <th>POS</th>
-          <th>CONSTRUCTOR</th>
-          <th>PUNTOS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let constructor of constructores" [ngClass]="{'first-place': constructor.position === 1}">
-          <td class="position">{{ constructor.position }}</td>
-          <td class="team">{{ constructor.team }}</td>
-          <td class="points">{{ constructor.points }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="rankings-table table-dark-custom">
+    <thead>
+      <tr>
+        <th>POS</th>
+        <th>CONSTRUCTOR</th>
+        <th>PUNTOS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let constructor of constructores"
+          [ngClass]="[
+            constructor.position === 1 ? 'first-place' : '',
+            getTeamClass(constructor.team)
+          ]">
+
+        <td class="position">{{ constructor.position }}</td>
+        <td class="team">{{ constructor.team }}</td>
+        <td class="points">{{ constructor.points }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
   <!-- ================= VIDEOS ================= -->
   <div class="videos-section">

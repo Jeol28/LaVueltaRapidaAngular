@@ -3,9 +3,26 @@
   --red-dark: #C10500;
   --gold: #FFD700;
   --gray: #AAA;
-  --dark: #1a1a1a;
-  --dark-alt: #252525;
+
+  /* DARK GREYS */
+  --dark: #1f1f1f;
+  --dark-alt: #2a2a2a;
+  --dark-soft: #343434;
+
   --white: #FFF;
+
+  /* TEAM COLORS */
+  --mercedes: #00D7B6;
+  --ferrari: #df0000;
+  --mclaren: #F47600;
+  --redbull: #1351D8;
+  --aston: #229971;
+  --alpine: #FB79B3;
+  --haas: #9C9FA2;
+  --williams: #1868DB;
+  --audi: #f5461a;
+  --rb: #6C98FF;
+  --cadillac: #000000;
 }
 
 /* ================= BASE ================= */
@@ -17,11 +34,7 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* ================================================= */
-/* ================= HERO (FIXED) =================== */
-/* ================================================= */
-
-/* ONLY the important fix shown here */
+/* ================= HERO ================= */
 
 .ranking-hero {
   padding: 140px 0;
@@ -29,10 +42,8 @@
   min-height: 50vh;
   display: flex;
   align-items: center;
-
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
 }
 
 .ranking-hero::before {
@@ -110,25 +121,17 @@
   border: 2px solid var(--red);
   color: var(--red);
   font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 4px;
+  transition: 0.3s;
 }
 
-.ranking-btn:hover {
-  background-color: var(--red);
-  color: var(--white);
-  box-shadow: 0 0 20px rgba(235, 16, 16, 0.5);
-}
-
+.ranking-btn:hover,
 .ranking-btn.active {
   background-color: var(--red);
-  color: var(--white);
-  box-shadow: 0 0 20px rgba(235, 16, 16, 0.5);
+  color: white;
+  box-shadow: 0 0 20px rgba(235,16,16,0.5);
 }
 
 /* ================= TABLE ================= */
@@ -137,28 +140,12 @@
   max-width: 1200px;
   margin: 0 auto 40px;
   padding: 0 20px;
-  animation: fadeUp 0.5s ease-out;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .rankings-table {
   width: 100%;
   border-collapse: collapse;
   background-color: var(--dark-alt);
-}
-
-.table-dark-custom {
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .table-dark-custom thead {
@@ -168,68 +155,75 @@
 
 .table-dark-custom thead th {
   padding: 16px;
-  text-align: left;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-family: 'Orbitron';
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--white);
 }
+
+/* ROWS */
 
 .table-dark-custom tbody tr {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: 0.3s;
+  cursor: pointer;
 }
+
+/* HOVER FIX */
 
 .table-dark-custom tbody tr:hover {
-  background-color: var(--white);
-  color: var(--dark);
+  background-color: white;
 }
 
-.table-dark-custom tbody tr.first-place {
-  background-color: var(--red);
-  color: var(--gold);
-  font-weight: 700;
+.table-dark-custom tbody tr:hover td {
+  color: black !important;
 }
 
-.table-dark-custom tbody tr.first-place:hover {
-  background-color: var(--red-dark);
-  color: var(--gold);
-}
+/* CELLS */
 
-.table-dark-custom tbody td {
+.table-dark-custom td {
   padding: 12px 16px;
-  font-size: 0.95rem;
 }
 
-.table-dark-custom tbody td.position {
+.position {
+  font-family: 'Orbitron';
   font-weight: 700;
-  width: 60px;
   text-align: center;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.1rem;
 }
 
-.table-dark-custom tbody td.name {
-  font-weight: 600;
-}
-
-.table-dark-custom tbody td.team {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.table-dark-custom tbody td.points {
-  font-weight: 700;
+.points {
   text-align: right;
-  color: var(--gold);
-  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
 }
+
+/* ================= P1 TEAM COLOR ================= */
+
+tr.first-place td {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+tr.first-place:hover td {
+  color: black !important;
+}
+
+/* TEAM COLORS */
+
+tr.first-place.mercedes { background: var(--mercedes); }
+tr.first-place.ferrari { background: var(--ferrari); }
+tr.first-place.mclaren { background: var(--mclaren); }
+tr.first-place.redbull { background: var(--redbull); }
+tr.first-place.aston { background: var(--aston); }
+tr.first-place.alpine { background: var(--alpine); }
+tr.first-place.haas { background: var(--haas); }
+tr.first-place.williams { background: var(--williams); }
+tr.first-place.audi { background: var(--audi); }
+tr.first-place.rb { background: var(--rb); }
+tr.first-place.cadillac { background: var(--cadillac); }
 
 /* ================= VIDEOS ================= */
 
 .videos-section {
-  background-color: var(--dark-alt);
+  background-color: var(--dark-soft);
   padding: 60px 20px;
   margin-top: 60px;
 }
@@ -237,17 +231,16 @@
 .videos-section h2 {
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--red);
   text-align: center;
-  margin: 0 0 40px 0;
-  letter-spacing: 2px;
+  color: var(--red);
+  margin-bottom: 40px;
 }
+
+/* ✅ 4x2 GRID FIX */
 
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   max-width: 1400px;
   margin: 0 auto;
@@ -256,20 +249,16 @@
 .video-card {
   display: flex;
   flex-direction: column;
-  background-color: var(--dark);
+  background-color: var(--dark-alt);
   border-radius: 8px;
   overflow: hidden;
-  text-decoration: none;
-  color: var(--white);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: 1px solid rgba(235, 16, 16, 0.2);
+  transition: 0.3s;
+  height: 100%;
 }
 
 .video-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(235, 16, 16, 0.4);
-  border-color: var(--red);
+  box-shadow: 0 20px 40px rgba(235,16,16,0.4);
 }
 
 .video-thumbnail {
@@ -277,7 +266,7 @@
   width: 100%;
   padding-bottom: 56.25%;
   overflow: hidden;
-  background-color: #000;
+  background: #000;
 }
 
 .video-thumbnail img {
@@ -285,46 +274,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.video-card:hover .video-thumbnail img {
-  transform: scale(1.05);
-}
-
-.play-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3rem;
-  color: var(--white);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background-color: rgba(235, 16, 16, 0.7);
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.video-card:hover .play-icon {
-  opacity: 1;
 }
 
 .video-info {
   padding: 16px;
-  display: flex;
-  flex-direction: column;
 }
 
 .video-title {
-  font-family: 'Orbitron', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  margin-bottom: 8px;
 }
 
 .video-date {
@@ -344,40 +302,13 @@
     font-size: 42px;
   }
 
-  .ranking-hero {
-    padding: 80px 20px;
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 768px) {
-  .tab-controls {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .ranking-btn {
-    width: 100%;
-  }
-
+@media (max-width: 600px) {
   .video-grid {
     grid-template-columns: 1fr;
-  }
-
-  .videos-section h2 {
-    font-size: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .ranking-hero {
-    padding: 40px 15px;
-  }
-
-  .next-race-title {
-    font-size: 28px;
-  }
-
-  .next-race-info {
-    font-size: 14px;
   }
 }
