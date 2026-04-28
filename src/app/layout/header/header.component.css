@@ -654,20 +654,19 @@
     height: auto !important;
   }
 
-  .cart-panel { top: 62px; }
+  .cart-panel {
+    top: 62px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 0;
+  }
 }
 
 @media (max-width: 350px) {
   .logo-text {
     white-space: normal;
     max-width: 80px;
-  }
-
-  .cart-panel {
-    left: 0;
-    right: 0;
-    width: 100%;
-    padding: 0;
   }
 
   .cp-title        { font-size: 9px; letter-spacing: 1.5px; }
