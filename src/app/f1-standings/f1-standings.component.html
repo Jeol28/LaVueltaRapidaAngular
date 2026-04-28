@@ -1,33 +1,39 @@
 <div class="f1-standings-container">
-  <!-- ================= HERO (SPRINGBOOT STYLE) ================= -->
-<section class="ranking-hero">
-  <div class="ranking-hero-inner container">
-    <div class="hero-grid">
 
-      <div class="hero-left">
-        <span class="next-race-label">PRÓXIMA CARRERA</span>
+  <!-- ================= HERO ================= -->
+  <section 
+    class="ranking-hero"
+    [ngStyle]="{
+      'background-image': 'url(' + (nextRace?.bg || 'assets/Images/china-flag.gif') + ')'
+    }"
+  >
+    <div class="ranking-hero-inner container">
+      <div class="hero-grid">
 
-        <h1 class="next-race-title">
-          {{ nextRace.name }}
-        </h1>
+        <div class="hero-left">
+          <span class="next-race-label">PRÓXIMA CARRERA</span>
 
-        <p class="next-race-info">
-          {{ nextRace.round }} · {{ nextRace.circuit }} · {{ nextRace.date }}
-        </p>
-      </div>
+          <h1 class="next-race-title">
+            {{ nextRace?.name }}
+          </h1>
 
-      <div class="hero-right">
-        <img 
-          [src]="nextRace.image"
-          alt="Circuito"
-          class="circuit-image">
-      </div>
+          <p class="next-race-info">
+            ROUND {{ nextRace?.round }} · {{ nextRace?.circuit }} · {{ nextRace?.date }}
+          </p>
+        </div>
 
-    </div>  
-  </div>
-</section>
+        <div class="hero-right">
+          <img 
+            [src]="nextRace?.image"
+            alt="Circuito"
+            class="circuit-image">
+        </div>
 
-  <!-- Tab Buttons -->
+      </div>  
+    </div>
+  </section>
+
+  <!-- ================= TABS ================= -->
   <div class="tab-controls">
     <button 
       class="ranking-btn" 
@@ -43,7 +49,7 @@
     </button>
   </div>
 
-  <!-- Drivers Table -->
+  <!-- ================= DRIVERS TABLE ================= -->
   <div class="table-container" *ngIf="activeTable === 'pilotos'">
     <table class="rankings-table table-dark-custom">
       <thead>
@@ -65,7 +71,7 @@
     </table>
   </div>
 
-  <!-- Constructors Table -->
+  <!-- ================= CONSTRUCTORS TABLE ================= -->
   <div class="table-container" *ngIf="activeTable === 'constructores'">
     <table class="rankings-table table-dark-custom">
       <thead>
@@ -85,28 +91,37 @@
     </table>
   </div>
 
-  <!-- Videos Section -->
+  <!-- ================= VIDEOS ================= -->
   <div class="videos-section">
     <h2>LATEST F1 HIGHLIGHTS</h2>
-    <div *ngIf="loadingVideos" class="loading-message">Loading videos...</div>
+
+    <div *ngIf="loadingVideos" class="loading-message">
+      Loading videos...
+    </div>
+
     <div *ngIf="!loadingVideos && videos.length === 0" class="error-message">
       Unable to load videos. Please try again later.
     </div>
+
     <div class="video-grid" *ngIf="!loadingVideos && videos.length > 0">
       <a *ngFor="let video of videos" 
          [href]="video.videoUrl" 
-         target="_blank" 
+         target="_blank"
          rel="noopener noreferrer"
          class="video-card">
+
         <div class="video-thumbnail">
           <img [src]="video.thumbnail" [alt]="video.title" />
           <div class="play-icon">▶</div>
         </div>
+
         <div class="video-info">
           <h3 class="video-title">{{ video.title | slice:0:50 }}...</h3>
           <p class="video-date">{{ video.publishedAt }}</p>
         </div>
+
       </a>
     </div>
   </div>
+
 </div>

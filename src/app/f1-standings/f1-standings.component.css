@@ -8,6 +8,8 @@
   --white: #FFF;
 }
 
+/* ================= BASE ================= */
+
 .f1-standings-container {
   width: 100%;
   background-color: var(--dark);
@@ -15,61 +17,85 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* Hero Section */
+/* ================================================= */
+/* ================= HERO (FIXED) =================== */
+/* ================================================= */
+
+/* ONLY the important fix shown here */
+
 .ranking-hero {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(235, 16, 16, 0.1) 100%),
-              radial-gradient(circle at 30% 50%, rgba(235, 16, 16, 0.2) 0%, transparent 50%);
-  padding: 140px 40px;
-  margin-bottom: 40px;
+  padding: 140px 0;
   position: relative;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.hero-content {
+.ranking-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+}
+
+.ranking-hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
   align-items: center;
+  gap: 100px;
 }
 
-.hero-text h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 4rem;
-  font-weight: 700;
+.hero-left {
+  color: white;
+}
+
+.next-race-label {
+  font-size: 18px;
+  letter-spacing: 4px;
   color: var(--red);
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  color: var(--gold);
-  margin: 10px 0 20px 0;
-  font-weight: 600;
-}
-
-.hero-description {
-  font-size: 1rem;
-  color: var(--gray);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.hero-image {
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 0 30px rgba(235, 16, 16, 0.3);
-}
-
-.hero-image img {
-  width: 100%;
-  height: auto;
+  font-weight: 700;
+  margin-bottom: 20px;
   display: block;
 }
 
-/* Tab Controls */
+.next-race-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 60px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.next-race-info {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.hero-right {
+  text-align: center;
+}
+
+.circuit-image {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+  transition: transform 0.4s ease;
+}
+
+.circuit-image:hover {
+  transform: scale(1.05);
+}
+
+/* ================= TABS ================= */
+
 .tab-controls {
   display: flex;
   justify-content: center;
@@ -105,7 +131,8 @@
   box-shadow: 0 0 20px rgba(235, 16, 16, 0.5);
 }
 
-/* Table Styles */
+/* ================= TABLE ================= */
+
 .table-container {
   max-width: 1200px;
   margin: 0 auto 40px;
@@ -199,7 +226,8 @@
   font-size: 1.1rem;
 }
 
-/* Videos Section */
+/* ================= VIDEOS ================= */
+
 .videos-section {
   background-color: var(--dark-alt);
   padding: 60px 20px;
@@ -254,8 +282,6 @@
 
 .video-thumbnail img {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -290,7 +316,6 @@
 
 .video-info {
   padding: 16px;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
@@ -299,38 +324,24 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  margin: 0 0 8px 0;
-  line-height: 1.4;
-  color: var(--white);
+  margin-bottom: 8px;
 }
 
 .video-date {
   font-size: 0.8rem;
   color: var(--gray);
-  margin: 0;
 }
 
-.loading-message,
-.error-message {
-  text-align: center;
-  padding: 40px 20px;
-  font-size: 1.1rem;
-  color: var(--gray);
-}
+/* ================= RESPONSIVE ================= */
 
-.error-message {
-  color: var(--red);
-}
-
-/* Responsive Design */
 @media (max-width: 992px) {
-  .hero-content {
+  .hero-grid {
     grid-template-columns: 1fr;
-    padding: 0 20px;
+    text-align: center;
   }
 
-  .hero-text h1 {
-    font-size: 2.5rem;
+  .next-race-title {
+    font-size: 42px;
   }
 
   .ranking-hero {
@@ -339,22 +350,6 @@
 }
 
 @media (max-width: 768px) {
-  .ranking-bare {
-    padding: 60px 20px;
-  }
-
-  .hero-text h1 {
-    font-size: 2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.2rem;
-  }
-
-  .hero-description {
-    font-size: 0.9rem;
-  }
-
   .tab-controls {
     flex-direction: column;
     gap: 10px;
@@ -364,19 +359,8 @@
     width: 100%;
   }
 
-  .table-dark-custom thead th {
-    padding: 12px 8px;
-    font-size: 0.8rem;
-  }
-
-  .table-dark-custom tbody td {
-    padding: 10px 8px;
-    font-size: 0.85rem;
-  }
-
   .video-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
   }
 
   .videos-section h2 {
@@ -389,117 +373,11 @@
     padding: 40px 15px;
   }
 
-  .hero-text h1 {
-    font-size: 1.8rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-
-  .hero-description {
-    font-size: 0.85rem;
-  }
-
-  .tab-controls {
-    margin: 20px 0;
-  }
-
-  .ranking-btn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-
-  .table-dark-custom thead th,
-  .table-dark-custom tbody td {
-    padding: 8px 6px;
-    font-size: 0.75rem;
-  }
-
-  .videos-section h2 {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-  }
-}
-
-/* ===== SPRINGBOOT HERO STYLES ===== */
-
-.ranking-hero {
-  padding: 140px 0;
-  position: relative;
-  background: url("/assets/Images/china-flag.gif") center/cover no-repeat;
-  overflow: hidden;
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-}
-
-.ranking-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-}
-
-.ranking-hero-inner {
-  position: relative;
-  z-index: 2;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 100px;
-}
-
-.hero-left {
-  color: white;
-}
-
-.next-race-label {
-  font-size: 18px;
-  letter-spacing: 4px;
-  color: var(--red);
-  font-weight: 700;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.next-race-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 60px;
-  line-height: 1.1;
-  margin-bottom: 20px;
-}
-
-.next-race-info {
-  font-size: 20px;
-  opacity: 0.9;
-}
-
-.hero-right {
-  text-align: center;
-}
-
-.circuit-image {
-  max-width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
-  transition: transform 0.4s ease;
-}
-
-.circuit-image:hover {
-  transform: scale(1.05);
-}
-
-@media (max-width: 992px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
   .next-race-title {
-    font-size: 42px;
+    font-size: 28px;
+  }
+
+  .next-race-info {
+    font-size: 14px;
   }
 }

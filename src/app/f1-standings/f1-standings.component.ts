@@ -1,6 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+interface Piloto {
+  name: string;
+  team: string;
+  points: number;
+  position?: number; // 👈 IMPORTANT
+}
+
+interface Constructor {
+  team: string;
+  points: number;
+  position?: number; // 👈 IMPORTANT
+}
+
+
 interface VideoItem {
   id: string;
   title: string;
@@ -20,60 +34,147 @@ export class F1StandingsComponent implements OnInit {
   videos: VideoItem[] = [];
   loadingVideos: boolean = true;
 
-  // Datos de pilotos
-  pilotos = [
-    { position: 1, name: 'George Russell', team: 'Mercedes', points: 25 },
-    { position: 2, name: 'Kimi Antonelli', team: 'Mercedes', points: 18 },
-    { position: 3, name: 'Charles Leclerc', team: 'Ferrari', points: 15 },
-    { position: 4, name: 'Lewis Hamilton', team: 'Ferrari', points: 12 },
-    { position: 5, name: 'Lando Norris', team: 'McLaren', points: 10 },
-    { position: 6, name: 'Max Verstappen', team: 'Red Bull', points: 8 },
-    { position: 7, name: 'Oliver Bearman', team: 'Haas', points: 6 },
-    { position: 8, name: 'Arvid Lindblad', team: 'Racing Bulls', points: 4 },
-    { position: 9, name: 'Gabriel Bortoleto', team: 'Audi', points: 2 },
-    { position: 10, name: 'Pierre Gasly', team: 'Alpine', points: 1 },
-    { position: 11, name: 'Esteban Ocon', team: 'Haas', points: 0 },
-    { position: 12, name: 'Alexander Albon', team: 'Williams', points: 0 },
-    { position: 13, name: 'Liam Lawson', team: 'Racing Bulls', points: 0 },
-    { position: 14, name: 'Franco Colapinto', team: 'Alpine', points: 0 },
-    { position: 15, name: 'Carlos Sainz', team: 'Williams', points: 0 },
-    { position: 16, name: 'Sergio Perez', team: 'Cadillac', points: 0 },
-    { position: 17, name: 'Isack Hadjar', team: 'Racing Bulls', points: 0 },
-    { position: 18, name: 'Oscar Piastri', team: 'McLaren', points: 0 },
-    { position: 19, name: 'Nico Hulkenburg', team: 'Audi', points: 0 },
-    { position: 20, name: 'Fernando Alonso', team: 'Aston Martin', points: 0 },
-    { position: 21, name: 'Valtteri Bottas', team: 'Cadillac', points: 0 },
-    { position: 22, name: 'Lance Stroll', team: 'Aston Martin', points: 0 }
+  currentRound: number = 9;
+
+  // ================= RACES (UNCHANGED) =================
+  races = [
+    {
+      round: 1,
+      name: 'FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026',
+      circuit: 'Albert Park Circuit',
+      date: '6-8 Marzo 2026',
+      image: 'assets/Images/australia-track.png',
+      bg: 'assets/Images/australia-flag.gif'
+    },
+    {
+      round: 2,
+      name: 'FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026',
+      circuit: 'Shanghai International Circuit',
+      date: '13-15 Marzo 2026',
+      image: 'assets/Images/china-track.webp',
+      bg: 'assets/Images/china-flag.gif'
+    },
+    {
+      round: 3,
+      name: 'FORMULA 1 ARAMCO JAPANESE GRAND PRIX 2026',
+      circuit: 'Suzuka Circuit',
+      date: '27-29 Marzo 2026',
+      image: 'assets/Images/japan-track.png',
+      bg: 'assets/Images/japan-flag.gif'
+    },
+    {
+      round: 4,
+      name: 'FORMULA 1 CRYPTO.COM MIAMI GRAND PRIX 2026',
+      circuit: 'Miami International Autodrome',
+      date: '01-03 Mayo 2026',
+      image: 'assets/Images/miami-track.png',
+      bg: 'assets/Images/usa-flag.gif'
+    },
+    {
+      round: 5,
+      name: 'FORMULA 1 LENOVO GRAND PRIX DU CANADA 2026',
+      circuit: 'Circuit Gilles-Villeneuve',
+      date: '22-24 Mayo 2026',
+      image: 'assets/Images/canada-track.png',
+      bg: 'assets/Images/canada-flag.gif'
+    },
+    {
+      round: 6,
+      name: 'FORMULA 1 LOUIS VUITTON GRAND PRIX DE MONACO 2026',
+      circuit: 'Circuit de Monaco',
+      date: '05-07 Junio 2026',
+      image: 'assets/Images/monaco-track.png',
+      bg: 'assets/Images/monaco-flag.gif'
+    },
+    {
+      round: 7,
+      name: 'FORMULA 1 MSC CRUISES GRAN PREMIO DE BARCELONA-CATALUNYA 2026',
+      circuit: 'Circuit de Barcelona-Catalunya',
+      date: '12-14 Junio 2026',
+      image: 'assets/Images/barcelona-track.png',
+      bg: 'assets/Images/spain-flag.gif'
+    },
+    {
+      round: 8,
+      name: 'FORMULA 1 LENOVO AUSTRIAN GRAND PRIX 2026',
+      circuit: 'Red Bull Ring',
+      date: '26-28 Junio 2026',
+      image: 'assets/Images/austria-track.png',
+      bg: 'assets/Images/austria-flag.gif'
+    },
+    {
+      round: 9,
+      name: 'FORMULA 1 PIRELLI BRITISH GRAND PRIX 2026',
+      circuit: 'Silverstone Circuit',
+      date: '03-05 Julio 2026',
+      image: 'assets/Images/uk-track.png',
+      bg: 'assets/Images/uk-flag.gif'
+    }
   ];
 
-  // Datos de constructores
-  constructores = [
-    { position: 1, team: 'Mercedes-AMG PETRONAS F1', points: 43 },
-    { position: 2, team: 'Scuderia Ferrari HP', points: 27 },
-    { position: 3, team: 'McLaren Mastercard F1', points: 10 },
-    { position: 4, team: 'Oracle Red Bull Racing', points: 8 },
-    { position: 5, team: 'TGR Haas F1', points: 6 },
-    { position: 6, team: 'Visa Cash App Racing Bulls F1', points: 4 },
-    { position: 7, team: 'Audi Revolut F1', points: 2 },
-    { position: 8, team: 'BWT Alpine F1', points: 1 },
-    { position: 9, team: 'Atlassian Williams F1', points: 0 },
-    { position: 10, team: 'Cadillac F1', points: 0 },
-    { position: 11, team: 'Aston Martin Aramco F1', points: 0 }
+  get nextRace() {
+    return this.races.find(r => r.round === this.currentRound);
+  }
+
+  // ================= RAW DATA (ONLY EDIT POINTS HERE) =================
+  pilotos: Piloto[] = [
+    
+    { name: 'Lando Norris', team: 'McLaren', points: 25 },
+    { name: 'Oscar Piastri', team: 'McLaren', points: 21 },
+
+    { name: 'George Russell', team: 'Mercedes', points: 63 },
+    { name: 'Kimi Antonelli', team: 'Mercedes', points: 72 },
+
+    { name: 'Max Verstappen', team: 'Red Bull', points: 12 },
+
+    { name: 'Arvid Lindblad', team: 'Racing Bulls', points: 4 },
+
+    { name: 'Isack Hadjar', team: 'Red Bull', points: 4 },
+
+    { name: 'Charles Leclerc', team: 'Ferrari', points: 49 },
+    { name: 'Lewis Hamilton', team: 'Ferrari', points: 41 },
+    
+    { name: 'Nico Hulkenburg', team: 'Audi', points: 0 },
+
+    { name: 'Alex Albon', team: 'Williams', points: 0 },
+
+    { name: 'Gabriel Bortoleto', team: 'Audi', points: 2 },
+    
+    { name: 'Carlos Sainz', team: 'Williams', points: 2 },
+
+    { name: 'Liam Lawson', team: 'Racing Bulls', points: 10 },
+  //{ name: 'Arvid Lindblad', team: 'Racing Bulls', points: 4 },
+    
+    { name: 'Fernando Alonso', team: 'Aston Martin', points: 0 },
+    { name: 'Lance Stroll', team: 'Aston Martin', points: 0 },
+    
+    { name: 'Oliver Bearman', team: 'Haas', points: 17 },
+    { name: 'Esteban Ocon', team: 'Haas', points: 1 },
+    
+  //{ name: 'Nico Hulkenburg', team: 'Audi', points: 0 },
+  //{ name: 'Gabriel Bortoleto', team: 'Audi', points: 2 },
+    
+    { name: 'Sergio Perez', team: 'Cadillac', points: 0 },
+    { name: 'Valtteri Bottas', team: 'Cadillac', points: 0 },
+
+    { name: 'Pierre Gasly', team: 'Alpine', points: 15 },
+    { name: 'Franco Colapinto', team: 'Alpine', points: 1 },
+    
+  // { name: 'Sergio Perez', team: 'Cadillac', points: 0 },
+  //  { name: 'Valtteri Bottas', team: 'Cadillac', points: 0 },
   ];
 
-  nextRace = {
-  name: 'FORMULA 1 HEINEKEN CHINESE GRAND PRIX',
-  round: 'ROUND 2',
-  circuit: 'Shanghai International Circuit',
-  date: '13-16 Marzo 2026',
-  image: 'https://media.formula1.com/image/upload/c_fit,h_704/q_auto/v1740000000/common/f1/2026/track/2026trackshanghaidetailed.webp'
-};
-
-
+  constructores: Constructor[] = [
+    { team: 'Mercedes-AMG PETRONAS F1', points: 43 },
+    { team: 'Scuderia Ferrari HP', points: 27 },
+    { team: 'McLaren Mastercard F1', points: 10 },
+    { team: 'Oracle Red Bull Racing', points: 8 }
+  ];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.sortAllTables();
     this.loadVideos();
   }
 
@@ -81,6 +182,27 @@ export class F1StandingsComponent implements OnInit {
     this.activeTable = table;
   }
 
+  // ================= AUTO SORT LOGIC =================
+  sortAllTables(): void {
+
+    // Sort pilotos
+    this.pilotos = this.pilotos
+      .sort((a, b) => b.points - a.points)
+      .map((p, index) => ({
+        ...p,
+        position: index + 1
+      }));
+
+    // Sort constructores
+    this.constructores = this.constructores
+      .sort((a, b) => b.points - a.points)
+      .map((c, index) => ({
+        ...c,
+        position: index + 1
+      }));
+  }
+
+  // ================= YOUTUBE (UNCHANGED + SAFE) =================
   loadVideos(): void {
     const API_KEY = 'AIzaSyDduusVLhf4BehAD7GnYLLnAeopFPefsdo';
     const CHANNEL_ID = 'UCB_qr75-ydFVKSF9Dmo6izg';
@@ -88,23 +210,26 @@ export class F1StandingsComponent implements OnInit {
 
     const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=${MAX_RESULTS}`;
 
+    this.loadingVideos = true;
+
     this.http.get<any>(url).subscribe({
       next: (data) => {
-        if (data.items) {
+        if (data?.items) {
           this.videos = data.items
-            .filter((item: any) => item.id.videoId)
+            .filter((item: any) => item.id?.videoId)
             .map((item: any) => ({
               id: item.id.videoId,
               title: item.snippet.title,
-              thumbnail: item.snippet.thumbnails.high.url,
+              thumbnail: item.snippet.thumbnails?.high?.url,
               publishedAt: new Date(item.snippet.publishedAt).toLocaleDateString(),
               videoUrl: `https://www.youtube.com/watch?v=${item.id.videoId}`
             }));
         }
+
         this.loadingVideos = false;
       },
       error: (err) => {
-        console.error('Error loading F1 videos:', err);
+        console.error('YouTube API ERROR:', err);
         this.loadingVideos = false;
       }
     });
