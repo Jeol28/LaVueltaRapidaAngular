@@ -421,3 +421,85 @@
     margin-bottom: 30px;
   }
 }
+
+/* ===== SPRINGBOOT HERO STYLES ===== */
+
+.ranking-hero {
+  padding: 140px 0;
+  position: relative;
+  background: url("/assets/Images/china-flag.gif") center/cover no-repeat;
+  overflow: hidden;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+}
+
+.ranking-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.ranking-hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 100px;
+}
+
+.hero-left {
+  color: white;
+}
+
+.next-race-label {
+  font-size: 18px;
+  letter-spacing: 4px;
+  color: var(--red);
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.next-race-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 60px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.next-race-info {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.hero-right {
+  text-align: center;
+}
+
+.circuit-image {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+  transition: transform 0.4s ease;
+}
+
+.circuit-image:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .next-race-title {
+    font-size: 42px;
+  }
+}

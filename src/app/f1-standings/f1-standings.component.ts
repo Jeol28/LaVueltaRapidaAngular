@@ -61,6 +61,16 @@ export class F1StandingsComponent implements OnInit {
     { position: 11, team: 'Aston Martin Aramco F1', points: 0 }
   ];
 
+  nextRace = {
+  name: 'FORMULA 1 HEINEKEN CHINESE GRAND PRIX',
+  round: 'ROUND 2',
+  circuit: 'Shanghai International Circuit',
+  date: '13-16 Marzo 2026',
+  image: 'https://media.formula1.com/image/upload/c_fit,h_704/q_auto/v1740000000/common/f1/2026/track/2026trackshanghaidetailed.webp'
+};
+
+
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {

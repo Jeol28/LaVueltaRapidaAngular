@@ -1,17 +1,31 @@
 <div class="f1-standings-container">
-  <!-- Hero Section -->
-  <div class="ranking-hero">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1>F1 2024</h1>
-        <p class="hero-subtitle">Current Season Standings</p>
-        <p class="hero-description">Stay updated with the latest drivers and constructors standings from the Formula 1 championship.</p>
+  <!-- ================= HERO (SPRINGBOOT STYLE) ================= -->
+<section class="ranking-hero">
+  <div class="ranking-hero-inner container">
+    <div class="hero-grid">
+
+      <div class="hero-left">
+        <span class="next-race-label">PRÓXIMA CARRERA</span>
+
+        <h1 class="next-race-title">
+          {{ nextRace.name }}
+        </h1>
+
+        <p class="next-race-info">
+          {{ nextRace.round }} · {{ nextRace.circuit }} · {{ nextRace.date }}
+        </p>
       </div>
-      <div class="hero-image">
-        <img src="https://via.placeholder.com/600x400/1a1a1a/EB1010?text=F1%202024" alt="F1 Championship" />
+
+      <div class="hero-right">
+        <img 
+          [src]="nextRace.image"
+          alt="Circuito"
+          class="circuit-image">
       </div>
-    </div>
+
+    </div>  
   </div>
+</section>
 
   <!-- Tab Buttons -->
   <div class="tab-controls">
