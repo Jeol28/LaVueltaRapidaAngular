@@ -34,7 +34,7 @@ export class F1StandingsComponent implements OnInit {
   videos: VideoItem[] = [];
   loadingVideos: boolean = true;
 
-  currentRound: number = 9;
+  currentRound: number = 1;
 
   // ================= RACES (UNCHANGED) =================
   races = [
@@ -109,7 +109,111 @@ export class F1StandingsComponent implements OnInit {
       date: '03-05 Julio 2026',
       image: 'assets/Images/uk-track.png',
       bg: 'assets/Images/uk-flag.gif'
-    }
+    },
+    {
+      round: 10,
+      name: 'FORMULA 1 MOËT & CHANDON BELGIAN GRAND PRIX 2026',
+      circuit: 'Circuit Spa/Francorchamps',
+      date: '17-19 Julio 2026',
+      image: 'assets/Images/belgium-track.png',
+      bg: 'assets/Images/belgium-flag.gif'
+    },
+    {
+      round: 11,
+      name: 'FORMULA 1 AWS HUNGARIAN GRAND PRIX 2026',
+      circuit: 'Hungaroring',
+      date: '24-26 Julio 2026',
+      image: 'assets/Images/hungary-track.png',
+      bg: 'assets/Images/hungary-flag.gif'
+    },
+    {
+      round: 12,
+      name: 'FORMULA 1 HEINEKEN DUTCH GRAND PRIX 2026',
+      circuit: 'Circuit Zandvoort',
+      date: '21-23 Agosto 2026',
+      image: 'assets/Images/netherlands-track.png',
+      bg: 'assets/Images/netherlands-flag.gif'
+    },
+    {
+      round: 13,
+      name: 'FORMULA 1 PIRELLI GRAN PREMIO D’ITALIA 2026',
+      circuit: 'Autodromo Nazionale Monza',
+      date: '04-06 Septiembre 2026',
+      image: 'assets/Images/italy-track.png',
+      bg: 'assets/Images/italy-flag.gif'
+    },
+    {
+      round: 14,
+      name: 'FORMULA 1 TAG HEUER GRAN PREMIO DE ESPAÑA 2026',
+      circuit: 'Madring',
+      date: '11-13 Septiembre 2026',
+      image: 'assets/Images/madrid-track.png',
+      bg: 'assets/Images/spain-flag.gif'
+    },
+    {
+      round: 15,
+      name: 'FORMULA 1 QATAR AIRWAYS AZERBAIJAN GRAND PRIX 2026',
+      circuit: 'Baku City Circuit',
+      date: '24-26 Septiembre 2026',
+      image: 'assets/Images/azerbijan-track.png',
+      bg: 'assets/Images/azerbaijan-flag.gif'
+    },
+    {
+      round: 16,
+      name: 'FORMULA 1 SINGAPORE AIRLINES SINGAPORE GRAND PRIX 2026',
+      circuit: 'Marina Bay Street Circuit',
+      date: '09-11 Octubre 2026',
+      image: 'assets/Images/singapore-track.png',
+      bg: 'assets/Images/singapore-flag.gif'
+    },
+    {
+      round: 17,
+      name: 'FORMULA 1 MSC CRUISES UNITED STATES GRAND PRIX 2026',
+      circuit: 'Circuit of the Americas',
+      date: '23-25 Octubre 2026',
+      image: 'assets/Images/austin-track.png',
+      bg: 'assets/Images/usa-flag.gif'
+    },
+    {
+      round: 18,
+      name: 'FORMULA 1 GRAN PREMIO DE LA CIUDAD DE MÉXICO 2026',
+      circuit: 'Autódromo Hermanos Rodríguez',
+      date: '30-01 Octubre/Noviembre 2026',
+      image: 'assets/Images/mexico-track.png',
+      bg: 'assets/Images/mexico-flag.gif'
+    },
+    {
+      round: 19,
+      name: 'FORMULA 1 MSC CRUISES GRANDE PRÊMIO DE SÃO PAULO 2026',
+      circuit: 'Autodromo José Carlos Pace',
+      date: '06-08 Noviembre 2026',
+      image: 'assets/Images/brazil-track.png',
+      bg: 'assets/Images/brazil-flag.gif'
+    },
+    {
+      round: 20,
+      name: 'FORMULA 1 HEINEKEN LAS VEGAS GRAND PRIX 2026',
+      circuit: 'Las Vegas Strip Circuit',
+      date: '19-21 Noviembre 2026',
+      image: 'assets/Images/vegas-track.png',
+      bg: 'assets/Images/usa-flag.gif'
+    },
+    {
+      round: 21,
+      name: 'FORMULA 1 QATAR AIRWAYS QATAR GRAND PRIX 2026',
+      circuit: 'Lusail International Circuit',
+      date: '27-29 Noviembre 2026',
+      image: 'assets/Images/qatar-track.png',
+      bg: 'assets/Images/qatar-flag.gif'
+    },
+    {
+      round: 22,
+      name: 'FORMULA 1 ETIHAD AIRWAYS ABU DHABI GRAND PRIX 2026',
+      circuit: 'Yas Marina Circuit',
+      date: '27-29 Noviembre 2026',
+      image: 'assets/Images/uae-track.png',
+      bg: 'assets/Images/uae-flag.gif'
+    },
   ];
 
   get nextRace() {
@@ -144,6 +248,9 @@ export class F1StandingsComponent implements OnInit {
 
     { name: 'Liam Lawson', team: 'Racing Bulls', points: 10 },
   //{ name: 'Arvid Lindblad', team: 'Racing Bulls', points: 4 },
+
+    { name: 'Sergio Perez', team: 'Cadillac', points: 0 },
+    { name: 'Valtteri Bottas', team: 'Cadillac', points: 0 },
     
     { name: 'Fernando Alonso', team: 'Aston Martin', points: 0 },
     { name: 'Lance Stroll', team: 'Aston Martin', points: 0 },
@@ -153,9 +260,6 @@ export class F1StandingsComponent implements OnInit {
     
   //{ name: 'Nico Hulkenburg', team: 'Audi', points: 0 },
   //{ name: 'Gabriel Bortoleto', team: 'Audi', points: 2 },
-    
-    { name: 'Sergio Perez', team: 'Cadillac', points: 0 },
-    { name: 'Valtteri Bottas', team: 'Cadillac', points: 0 },
 
     { name: 'Pierre Gasly', team: 'Alpine', points: 15 },
     { name: 'Franco Colapinto', team: 'Alpine', points: 1 },
@@ -164,43 +268,82 @@ export class F1StandingsComponent implements OnInit {
   //  { name: 'Valtteri Bottas', team: 'Cadillac', points: 0 },
   ];
 
-  constructores: Constructor[] = [
-    { team: 'Mercedes-AMG PETRONAS F1', points: 43 },
-    { team: 'Scuderia Ferrari HP', points: 27 },
-    { team: 'McLaren Mastercard F1', points: 10 },
-    { team: 'Oracle Red Bull Racing', points: 8 }
-  ];
+  teamMap: { [key: string]: string } = {
+  'Mercedes': 'Mercedes-AMG PETRONAS F1',
+  'Ferrari': 'Scuderia Ferrari HP',
+  'McLaren': 'McLaren Mastercard F1',
+  'Red Bull': 'Oracle Red Bull Racing',
+  'Racing Bulls': 'Visa Cash App Racing Bulls F1',
+  'Aston Martin': 'Aston Martin Aramco F1',
+  'Alpine': 'BWT Alpine F1',
+  'Haas': 'TGR Haas F1',
+  'Williams': 'Atlassian Williams F1',
+  'Audi': 'Audi Revolut F1',
+  'Cadillac': 'Cadillac F1'
+};
+
+constructores: Constructor[] = [];
+
+generateConstructors(): void {
+  const teamPoints: { [team: string]: number } = {};
+  const teamDriverCount: { [team: string]: number } = {};
+
+  // 1. Agrupar pilotos por equipo (máximo 2 como en F1 real)
+  this.pilotos.forEach(p => {
+    const officialName = this.teamMap[p.team] || p.team;
+
+    if (!teamPoints[officialName]) {
+      teamPoints[officialName] = 0;
+      teamDriverCount[officialName] = 0;
+    }
+
+    // 👇 SOLO contar máximo 2 pilotos por equipo
+    if (teamDriverCount[officialName] < 2) {
+      teamPoints[officialName] += p.points;
+      teamDriverCount[officialName]++;
+    }
+  });
+
+  // 2. Convertir a array
+  this.constructores = Object.keys(teamPoints).map(team => ({
+    team,
+    points: teamPoints[team]
+  }));
+
+  // 3. Ordenar + asignar posiciones
+  this.constructores = this.constructores
+    .sort((a, b) => b.points - a.points)
+    .map((c, index) => ({
+      ...c,
+      position: index + 1
+    }));
+}
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.sortAllTables();
-    this.loadVideos();
-  }
+  this.updateStandings();
+  this.loadVideos();
+}
 
   switchTable(table: string): void {
     this.activeTable = table;
   }
 
+  updateStandings(): void {
+  this.sortPilotos();
+  this.generateConstructors();
+}
+
   // ================= AUTO SORT LOGIC =================
-  sortAllTables(): void {
-
-    // Sort pilotos
-    this.pilotos = this.pilotos
-      .sort((a, b) => b.points - a.points)
-      .map((p, index) => ({
-        ...p,
-        position: index + 1
-      }));
-
-    // Sort constructores
-    this.constructores = this.constructores
-      .sort((a, b) => b.points - a.points)
-      .map((c, index) => ({
-        ...c,
-        position: index + 1
-      }));
-  }
+  sortPilotos(): void {
+  this.pilotos = this.pilotos
+    .sort((a, b) => b.points - a.points)
+    .map((p, index) => ({
+      ...p,
+      position: index + 1
+    }));
+}
 
   // ================= YOUTUBE (UNCHANGED + SAFE) =================
   loadVideos(): void {
