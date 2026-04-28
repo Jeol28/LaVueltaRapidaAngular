@@ -88,3 +88,7 @@
 @media (max-width: 768px) {
   .menu-table td { padding: 15px 8px; }
 }
+
+@media (max-width: 250px) {
+  .list-category { font-size: 16px; letter-spacing: 1px; }
+}

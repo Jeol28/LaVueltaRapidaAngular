@@ -57,3 +57,21 @@
   font-size: 12px;
   margin-top: 2px;
 }
+
+@media (max-width: 315px) {
+  .input-icon-wrapper input { font-size: 13px; padding: 11px 14px 11px 40px; }
+  .plain-input              { font-size: 13px; padding: 11px 14px; }
+  label                     { font-size: 10px; letter-spacing: 1px; }
+}
+
+@media (max-width: 290px) {
+  .input-icon-wrapper input { font-size: 12px; padding: 10px 12px 10px 36px; }
+  .plain-input              { font-size: 12px; padding: 10px 12px; }
+  label                     { font-size: 9px; letter-spacing: 0.8px; }
+}
+
+@media (max-width: 230px) {
+  .input-icon-wrapper input { font-size: 11px; padding: 9px 10px 9px 32px; }
+  .plain-input              { font-size: 11px; padding: 9px 10px; }
+  label                     { font-size: 8px; letter-spacing: 0.5px; }
+}

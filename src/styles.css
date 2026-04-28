@@ -530,3 +530,10 @@ a {
   .btn-cancel,
   .btn-submit        { width: 100%; justify-content: center; text-align: center; }
 }
+
+@media (max-width: 300px) {
+  .add-hero          { padding: 70px 14px 36px; }
+  .add-hero h1       { font-size: 20px; letter-spacing: 1px; }
+  .add-hero p        { font-size: 12px; }
+  .btn-add-hero      { font-size: 12px; padding: 9px 18px; }
+}

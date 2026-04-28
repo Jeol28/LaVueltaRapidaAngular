@@ -592,17 +592,21 @@
 
 .mobile-user-top {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .mobile-user-name {
-  flex: 1;
-  min-width: 0;
+  width: 100%;
+  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.mobile-user-top .cart-wrapper {
+  height: auto;
 }
 
 
@@ -658,4 +662,37 @@
     white-space: normal;
     max-width: 80px;
   }
+
+  .cart-panel {
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 0;
+  }
+
+  .cp-title        { font-size: 9px; letter-spacing: 1.5px; }
+  .cp-count        { font-size: 9px; }
+  .cp-header       { padding: 12px 14px 10px; }
+
+  .cp-img          { width: 38px; height: 38px; }
+  .cp-name         { font-size: 11px; }
+  .cp-price        { font-size: 10px; }
+  .cp-adic-tag     { font-size: 9px; padding: 1px 5px; }
+  .cp-item         { padding: 8px 14px; gap: 8px; }
+
+  .cp-qty-btn      { width: 20px; height: 20px; font-size: 13px; }
+  .cp-qty-val      { font-size: 11px; }
+
+  .cp-total-label  { font-size: 9px; }
+  .cp-total-value  { font-size: 13px; }
+  .cp-footer       { padding: 10px 14px; }
+
+  .cp-btn-pedido   { font-size: 9px; letter-spacing: 1px; padding: 9px; }
+  .cp-btn-vaciar   { font-size: 8px; letter-spacing: 1px; padding: 8px; }
+}
+
+@media (max-width: 300px) {
+  .cp-item  { flex-wrap: wrap; }
+  .cp-info  { flex: 1; min-width: 0; }
+  .cp-qty   { width: 100%; justify-content: center; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.05); }
 }

@@ -235,3 +235,60 @@
 @media (max-width: 480px) {
   .pedido-detalle-grid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 350px) {
+  .pedidos-tabs {
+    gap: 0;
+  }
+
+  .pedidos-tab {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 8px;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    gap: 6px;
+  }
+
+  .pedidos-tab-count {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  .pedido-summary {
+    padding: 12px 14px;
+  }
+
+  .pedido-id    { font-size: 12px; }
+  .pedido-cliente { font-size: 11px; }
+  .pedido-fecha { font-size: 11px; }
+
+  .pedido-estado {
+    font-size: 9px;
+    padding: 4px 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .pedido-total { font-size: 12px; }
+
+  .pedido-detalle { padding: 14px; }
+
+  .pedido-total-row { font-size: 13px; }
+}
+
+@media (max-width: 250px) {
+  .pedidos-tab      { font-size: 9px; letter-spacing: 0.5px; padding: 8px 6px; }
+  .pedidos-tab-count { font-size: 9px; padding: 1px 5px; }
+
+  .pedido-id      { font-size: 11px; }
+  .pedido-cliente { font-size: 10px; }
+  .pedido-fecha   { font-size: 10px; }
+
+  .pedido-estado  { font-size: 8px; padding: 3px 6px; }
+  .pedido-total   { font-size: 11px; }
+  .pedido-total-row { font-size: 12px; }
+
+  .detalle-label  { font-size: 9px; }
+  .detalle-value  { font-size: 12px; }
+  .linea-main     { font-size: 11px; }
+}

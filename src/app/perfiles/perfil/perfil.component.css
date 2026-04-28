@@ -743,3 +743,214 @@
   .pf-pedido-meta { width: 100%; justify-content: space-between; }
   .pf-pedido-detalle-grid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 400px) {
+  /* Hero */
+  .pf-page-hero       { padding: 36px 16px 32px; }
+  .pf-hero-label      { font-size: 10px; letter-spacing: 2px; }
+  .pf-hero-title      { font-size: 28px; }
+  .pf-hero-sub        { font-size: 13px; }
+
+  /* Card perfil */
+  .pf-driver-card     { padding: 24px 16px 20px; }
+  .pf-full-name       { font-size: 16px; }
+  .pf-username-tag    { font-size: 13px; }
+  .pf-btn             { font-size: 11px; letter-spacing: 1px; padding: 12px 16px; }
+
+  /* Tabs activos/historial */
+  .pf-tabs            { gap: 0; }
+  .pf-tab             { flex: 1; justify-content: center; padding: 8px 10px; font-size: 10px; letter-spacing: 1px; gap: 6px; }
+  .pf-tab-count       { font-size: 10px; padding: 2px 6px; }
+
+  /* Pedidos card */
+  .pf-pedidos-card    { padding: 20px 16px; }
+  .pf-pedidos-title   { font-size: 18px; }
+  .pf-pedidos-sub     { font-size: 12px; }
+  .pf-pedido-total    { font-size: 12px; }
+  .pf-pedido-total-row { font-size: 13px; }
+
+  /* Edit mode */
+  .pf-edit-title      { font-size: 16px; }
+  .pf-edit-sub        { font-size: 12px; }
+  .pf-confirm-password { padding: 14px 14px; }
+}
+
+@media (max-width: 350px) {
+  /* Hero */
+  .pf-hero-label      { font-size: 9px; letter-spacing: 1.8px; }
+  .pf-hero-title      { font-size: 24px; }
+  .pf-hero-sub        { font-size: 12px; }
+
+  /* Card perfil */
+  .pf-full-name       { font-size: 15px; }
+  .pf-username-tag    { font-size: 12px; }
+  .pf-pilot-badge     { font-size: 10px; letter-spacing: 1.5px; }
+  .pf-btn             { font-size: 10px; letter-spacing: 0.8px; padding: 11px 14px; }
+
+  /* Tabs */
+  .pf-tab             { font-size: 9px; letter-spacing: 0.8px; padding: 8px 8px; }
+  .pf-tab-count       { font-size: 9px; padding: 1px 5px; }
+
+  /* Pedidos */
+  .pf-pedidos-title   { font-size: 17px; }
+  .pf-pedidos-sub     { font-size: 12px; }
+  .pf-pedido-id       { font-size: 12px; }
+  .pf-pedido-fecha    { font-size: 11px; }
+  .pf-pedido-estado   { font-size: 10px; padding: 4px 8px; }
+  .pf-pedido-total    { font-size: 12px; }
+  .pf-pedido-total-row { font-size: 12px; }
+  .pf-linea-main      { font-size: 12px; }
+
+  /* Edit */
+  .pf-edit-title      { font-size: 15px; }
+  .pf-field label     { font-size: 10px; letter-spacing: 1px; }
+  .pf-field input     { font-size: 13px; padding: 9px 12px; }
+  .pf-confirm-password input { font-size: 13px; }
+
+  /* Banners */
+  .pf-success-banner,
+  .pf-error-banner    { font-size: 12px; padding: 11px 14px; }
+}
+
+@media (max-width: 320px) {
+  /* Hero */
+  .pf-page-hero       { padding: 28px 12px 24px; }
+  .pf-hero-label      { font-size: 9px; letter-spacing: 1.5px; }
+  .pf-hero-title      { font-size: 22px; }
+  .pf-hero-sub        { font-size: 12px; }
+
+  /* Card perfil */
+  .pf-driver-card     { padding: 20px 12px 16px; }
+  .pf-full-name       { font-size: 14px; }
+  .pf-username-tag    { font-size: 12px; }
+  .pf-pilot-badge     { font-size: 10px; letter-spacing: 1.5px; padding: 4px 10px; }
+  .pf-btn             { font-size: 10px; letter-spacing: 0.8px; padding: 11px 12px; }
+
+  /* Tabs */
+  .pf-tab             { font-size: 9px; letter-spacing: 0.8px; padding: 8px 6px; }
+  .pf-tab-count       { font-size: 9px; padding: 1px 5px; }
+
+  /* Pedidos */
+  .pf-pedidos-card    { padding: 16px 12px; }
+  .pf-pedidos-title   { font-size: 16px; letter-spacing: 1.5px; }
+  .pf-pedido-id       { font-size: 12px; }
+  .pf-pedido-fecha    { font-size: 11px; }
+  .pf-pedido-estado   { font-size: 9px; padding: 3px 8px; }
+  .pf-pedido-total    { font-size: 11px; }
+  .pf-pedido-total-row { font-size: 12px; }
+  .pf-linea-main      { font-size: 12px; }
+  .pf-linea-adicionales { font-size: 11px; }
+
+  /* Edit */
+  .pf-edit-title      { font-size: 14px; }
+  .pf-field label     { font-size: 10px; letter-spacing: 1px; }
+  .pf-field input     { font-size: 13px; padding: 9px 12px; }
+  .pf-confirm-password input { font-size: 13px; }
+  .pf-confirm-hint    { font-size: 10px; }
+
+  /* Banners */
+  .pf-success-banner,
+  .pf-error-banner    { font-size: 12px; padding: 11px 14px; }
+}
+
+@media (max-width: 300px) {
+  .pf-page-hero       { padding: 22px 10px 20px; }
+  .pf-hero-label      { font-size: 8px; letter-spacing: 1px; }
+  .pf-hero-title      { font-size: 19px; }
+  .pf-hero-sub        { font-size: 11px; }
+
+  .pf-driver-card     { padding: 18px 10px 14px; }
+  .pf-full-name       { font-size: 13px; }
+  .pf-username-tag    { font-size: 11px; }
+  .pf-pilot-badge     { font-size: 9px; padding: 3px 8px; }
+  .pf-btn             { font-size: 9px; letter-spacing: 0.5px; padding: 10px; }
+
+  .pf-tab             { font-size: 8px; letter-spacing: 0.5px; padding: 7px 4px; }
+  .pf-tab-count       { font-size: 8px; padding: 1px 4px; }
+
+  .pf-pedidos-card    { padding: 14px 10px; }
+  .pf-pedidos-title   { font-size: 14px; letter-spacing: 1px; }
+  .pf-pedidos-sub     { font-size: 11px; }
+  .pf-pedido-id       { font-size: 11px; }
+  .pf-pedido-fecha    { font-size: 10px; }
+  .pf-pedido-estado   { font-size: 8px; padding: 3px 6px; }
+  .pf-pedido-total    { font-size: 11px; }
+  .pf-pedido-total-row { font-size: 11px; }
+  .pf-linea-main      { font-size: 11px; }
+  .pf-linea-adicionales { font-size: 10px; }
+
+  .pf-edit-title      { font-size: 13px; }
+  .pf-field label     { font-size: 9px; }
+  .pf-field input     { font-size: 12px; padding: 8px 10px; }
+  .pf-confirm-password input { font-size: 12px; }
+  .pf-confirm-hint    { font-size: 9px; }
+
+  .pf-success-banner,
+  .pf-error-banner    { font-size: 11px; padding: 10px 12px; }
+}
+
+@media (max-width: 260px) {
+  .pf-hero-title      { font-size: 14px; }
+  .pf-hero-sub        { font-size: 9px; }
+  .pf-hero-label      { font-size: 6px; }
+
+  .pf-full-name       { font-size: 11px; }
+  .pf-username-tag    { font-size: 9px; }
+  .pf-pilot-badge     { font-size: 7px; padding: 2px 6px; }
+  .pf-btn             { font-size: 7px; padding: 8px; }
+
+  .pf-tab             { font-size: 6px; padding: 5px 3px; }
+  .pf-tab-count       { font-size: 6px; padding: 1px 3px; }
+
+  .pf-pedidos-title   { font-size: 11px; }
+  .pf-pedidos-sub     { font-size: 9px; }
+  .pf-pedido-id       { font-size: 9px; }
+  .pf-pedido-fecha    { font-size: 8px; }
+  .pf-pedido-estado   { font-size: 6px; padding: 2px 4px; }
+  .pf-pedido-total    { font-size: 9px; }
+  .pf-pedido-total-row { font-size: 9px; }
+  .pf-linea-main      { font-size: 9px; }
+
+  .pf-edit-title      { font-size: 11px; }
+  .pf-field input     { font-size: 10px; padding: 6px 8px; }
+  .pf-confirm-password input { font-size: 10px; }
+
+  .pf-success-banner,
+  .pf-error-banner    { font-size: 9px; padding: 7px 9px; }
+}
+
+@media (max-width: 280px) {
+  .pf-page-hero       { padding: 18px 8px 16px; }
+  .pf-hero-label      { font-size: 7px; letter-spacing: 0.8px; }
+  .pf-hero-title      { font-size: 16px; }
+  .pf-hero-sub        { font-size: 10px; }
+
+  .pf-driver-card     { padding: 14px 8px 12px; }
+  .pf-full-name       { font-size: 12px; }
+  .pf-username-tag    { font-size: 10px; }
+  .pf-pilot-badge     { font-size: 8px; padding: 3px 7px; }
+  .pf-btn             { font-size: 8px; letter-spacing: 0; padding: 9px; }
+
+  .pf-tab             { font-size: 7px; letter-spacing: 0; padding: 6px 4px; }
+  .pf-tab-count       { font-size: 7px; padding: 1px 4px; }
+
+  .pf-pedidos-card    { padding: 12px 8px; }
+  .pf-pedidos-title   { font-size: 12px; letter-spacing: 0.8px; }
+  .pf-pedidos-sub     { font-size: 10px; }
+  .pf-pedido-id       { font-size: 10px; }
+  .pf-pedido-fecha    { font-size: 9px; }
+  .pf-pedido-estado   { font-size: 7px; padding: 2px 5px; }
+  .pf-pedido-total    { font-size: 10px; }
+  .pf-pedido-total-row { font-size: 10px; }
+  .pf-linea-main      { font-size: 10px; }
+  .pf-linea-adicionales { font-size: 9px; }
+
+  .pf-edit-title      { font-size: 12px; }
+  .pf-field label     { font-size: 8px; }
+  .pf-field input     { font-size: 11px; padding: 7px 9px; }
+  .pf-confirm-password input { font-size: 11px; }
+  .pf-confirm-hint    { font-size: 8px; }
+
+  .pf-success-banner,
+  .pf-error-banner    { font-size: 10px; padding: 8px 10px; }
+}

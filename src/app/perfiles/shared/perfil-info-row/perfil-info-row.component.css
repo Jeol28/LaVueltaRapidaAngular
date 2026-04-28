@@ -49,3 +49,37 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@media (max-width: 350px) {
+  .pf-info-row    { padding: 10px 12px; gap: 10px; }
+  .pf-info-label  { font-size: 9px; letter-spacing: 1px; }
+  .pf-info-value  { font-size: 13px; }
+}
+
+@media (max-width: 320px) {
+  .pf-info-row    { padding: 10px 12px; gap: 10px; }
+  .pf-info-icon   { width: 28px; height: 28px; border-radius: 6px; }
+  .pf-info-label  { font-size: 9px; letter-spacing: 1px; }
+  .pf-info-value  { font-size: 13px; }
+}
+
+@media (max-width: 300px) {
+  .pf-info-row    { padding: 8px 10px; gap: 8px; }
+  .pf-info-icon   { width: 26px; height: 26px; }
+  .pf-info-label  { font-size: 8px; letter-spacing: 0.8px; }
+  .pf-info-value  { font-size: 12px; }
+}
+
+@media (max-width: 260px) {
+  .pf-info-row    { padding: 6px 7px; gap: 6px; }
+  .pf-info-icon   { width: 22px; height: 22px; }
+  .pf-info-label  { font-size: 6px; }
+  .pf-info-value  { font-size: 10px; }
+}
+
+@media (max-width: 280px) {
+  .pf-info-row    { padding: 7px 8px; gap: 7px; }
+  .pf-info-icon   { width: 24px; height: 24px; border-radius: 5px; }
+  .pf-info-label  { font-size: 7px; letter-spacing: 0.5px; }
+  .pf-info-value  { font-size: 11px; }
+}

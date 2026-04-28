@@ -1,7 +1,3 @@
-:host .menu-list-section {
-  padding-top: 48px;
-}
-
 .menu-table td:nth-child(1) { width: 45%; }
 .menu-table td:nth-child(2) { width: 160px; text-align: right; }
 .menu-table td:nth-child(3) { width: 160px; text-align: center; }

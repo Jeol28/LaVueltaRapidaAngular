@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private routerSub!: Subscription;
   private cartSub!: Subscription;
 
-  constructor(private router: Router, public carritoService: CarritoService) {}
+  constructor(private router: Router, public carritoService: CarritoService, private el: ElementRef) {}
 
   private loadUser(): void {
     this.user = localStorage.getItem('user');
@@ -102,5 +102,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     this.isScrolled = window.scrollY > 10;
+  }
+
+  @HostListener('window:resize', [])
+  onWindowResize(): void {
+    if (window.innerWidth >= 900) this.isMenuOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (this.isMenuOpen && !this.el.nativeElement.contains(event.target)) {
+      this.isMenuOpen = false;
+    }
   }
 }
