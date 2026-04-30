@@ -484,6 +484,10 @@
 }
 
 @media (max-width: 250px) {
+  .order-title    { font-size: 13px; letter-spacing: 1px; }
+  .order-subtitle { font-size: 11px; }
+  .order-hint     { font-size: 10px; }
+
   .cart-table tbody tr    { justify-content: center; text-align: center; }
   .cart-td-product        { justify-content: center; }
   .cart-td-adicionales    { text-align: center; }
