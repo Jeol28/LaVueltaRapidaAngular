@@ -1,0 +1,19 @@
+<section class="ev-seccion">
+  <div class="ev-seccion-inner">
+
+    <div class="ev-seccion-header">
+      <div class="ev-seccion-line"></div>
+      <h2 class="ev-seccion-titulo">{{ titulo }}</h2>
+      <div class="ev-seccion-line ev-seccion-line--right"></div>
+    </div>
+
+    <div class="ev-seccion-grid">
+      <app-evento-card
+        *ngFor="let evento of eventos"
+        [evento]="evento"
+        [isNext]="evento.round === nextRound">
+      </app-evento-card>
+    </div>
+
+  </div>
+</section>

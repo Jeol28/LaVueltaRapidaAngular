@@ -1,0 +1,27 @@
+<div class="ev-card"
+     [class.ev-card--next]="isNext"
+     [class.ev-card--done]="evento.completed">
+
+  <!-- Round badge -->
+  <span class="ev-card-round">R{{ roundLabel }}</span>
+
+  <!-- Status badge -->
+  <span class="ev-card-status ev-card-status--next" *ngIf="isNext">PRÓXIMA</span>
+  <span class="ev-card-status ev-card-status--done" *ngIf="evento.completed">COMPLETADA</span>
+
+  <!-- Track image -->
+  <div class="ev-card-img">
+    <img [src]="evento.image" [alt]="evento.circuit">
+  </div>
+
+  <!-- Info -->
+  <div class="ev-card-body">
+    <h3 class="ev-card-name">{{ evento.shortName }}</h3>
+    <p class="ev-card-circuit">{{ evento.circuit }}</p>
+    <div class="ev-card-footer">
+      <span class="ev-card-location">{{ evento.location }}</span>
+      <span class="ev-card-date">{{ evento.date }}</span>
+    </div>
+  </div>
+
+</div>

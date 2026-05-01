@@ -60,6 +60,10 @@ import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
 import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
 
 import { F1StandingsComponent } from './f1-standings/main/f1-standings.component';
+import { EventosComponent } from './eventos/eventos/eventos.component';
+import { EventosHeroComponent } from './eventos/eventos-hero/eventos-hero.component';
+import { EventoCardComponent } from './eventos/evento-card/evento-card.component';
+import { EventosSeccionComponent } from './eventos/eventos-seccion/eventos-seccion.component';
 import { F1HeroComponent } from './f1-standings/f1-hero/f1-hero.component';
 import { F1TabControlsComponent } from './f1-standings/f1-tab-controls/f1-tab-controls.component';
 import { F1DriversTableComponent } from './f1-standings/f1-drivers-table/f1-drivers-table.component';
@@ -125,6 +129,10 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
 
     F1StandingsComponent,
     F1HeroComponent,
+    EventosComponent,
+    EventosHeroComponent,
+    EventoCardComponent,
+    EventosSeccionComponent,
     F1TabControlsComponent,
     F1DriversTableComponent,
     F1ConstructorsTableComponent,

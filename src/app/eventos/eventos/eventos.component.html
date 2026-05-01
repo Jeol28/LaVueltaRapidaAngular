@@ -1,0 +1,18 @@
+<div class="eventos-page">
+  <app-eventos-hero
+    [total]="eventos.length"
+    [completadas]="pasados.length">
+  </app-eventos-hero>
+
+  <app-eventos-seccion
+    titulo="PRÓXIMAS CARRERAS"
+    [eventos]="proximos"
+    [nextRound]="nextRound">
+  </app-eventos-seccion>
+
+  <app-eventos-seccion
+    titulo="CARRERAS COMPLETADAS"
+    [eventos]="pasados"
+    [nextRound]="0">
+  </app-eventos-seccion>
+</div>
