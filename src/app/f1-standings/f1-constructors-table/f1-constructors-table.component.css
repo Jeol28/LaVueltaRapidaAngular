@@ -2,17 +2,6 @@
   --gold: #FFD700;
   --dark: #1f1f1f;
   --dark-alt: #2a2a2a;
-  --mercedes: #00D7B6;
-  --ferrari: #df0000;
-  --mclaren: #F47600;
-  --redbull: #1351D8;
-  --aston: #229971;
-  --alpine: #FB79B3;
-  --haas: #9C9FA2;
-  --williams: #1868DB;
-  --audi: #f5461a;
-  --rb: #6C98FF;
-  --cadillac: #000000;
 }
 
 .table-container {
@@ -55,17 +44,6 @@
 tr.first-place td { color: var(--gold); font-weight: 700; }
 tr.first-place:hover td { color: black !important; }
 
-tr.first-place.mercedes { background: var(--mercedes); }
-tr.first-place.ferrari  { background: var(--ferrari); }
-tr.first-place.mclaren  { background: var(--mclaren); }
-tr.first-place.redbull  { background: var(--redbull); }
-tr.first-place.aston    { background: var(--aston); }
-tr.first-place.alpine   { background: var(--alpine); }
-tr.first-place.haas     { background: var(--haas); }
-tr.first-place.williams { background: var(--williams); }
-tr.first-place.audi     { background: var(--audi); }
-tr.first-place.rb       { background: var(--rb); }
-tr.first-place.cadillac { background: var(--cadillac); }
 
 @media (max-width: 768px) {
   .table-dark-custom thead th { padding: 12px; font-size: 12px; }

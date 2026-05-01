@@ -18,12 +18,13 @@ export interface Constructor {
 
 @Injectable({ providedIn: 'root' })
 export class F1Service {
-  private readonly API = 'https://api.jolpi.ca/ergast/f1/current/driverstandings/';
+  private readonly DRIVERS_API      = 'https://api.jolpi.ca/ergast/f1/current/driverstandings/';
+  private readonly CONSTRUCTORS_API = 'https://api.jolpi.ca/ergast/f1/2026/constructorstandings/';
 
   constructor(private http: HttpClient) {}
 
   getDriverStandings(): Observable<Piloto[]> {
-    return this.http.get<any>(this.API).pipe(
+    return this.http.get<any>(this.DRIVERS_API).pipe(
       map(res => {
         const list = res?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings ?? [];
         return list.map((d: any): Piloto => ({
@@ -37,35 +38,18 @@ export class F1Service {
     );
   }
 
-  generateConstructors(pilotos: Piloto[]): Constructor[] {
-    const pts: { [team: string]: number } = {};
-    const cnt: { [team: string]: number } = {};
-
-    pilotos.forEach(p => {
-      if (!pts[p.team]) { pts[p.team] = 0; cnt[p.team] = 0; }
-      if (cnt[p.team] < 2) { pts[p.team] += p.points; cnt[p.team]++; }
-    });
-
-    return Object.keys(pts)
-      .map(team => ({ team, points: pts[team], position: 0 }))
-      .sort((a, b) => b.points - a.points)
-      .map((c, i) => ({ ...c, position: i + 1 }));
+  getConstructorStandings(): Observable<Constructor[]> {
+    return this.http.get<any>(this.CONSTRUCTORS_API).pipe(
+      map(res => {
+        const list = res?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings ?? [];
+        return list.map((c: any): Constructor => ({
+          position: +c.position,
+          team: c.Constructor?.name ?? '—',
+          points: +c.points
+        }));
+      })
+    );
   }
 
-  getTeamClass(team: string): string {
-    const map: { [k: string]: string } = {
-      'McLaren': 'mclaren', 'McLaren Mastercard F1': 'mclaren',
-      'Mercedes': 'mercedes', 'Mercedes-AMG PETRONAS F1 Team': 'mercedes',
-      'Ferrari': 'ferrari', 'Scuderia Ferrari HP': 'ferrari',
-      'Red Bull': 'redbull', 'Oracle Red Bull Racing': 'redbull',
-      'RB F1 Team': 'rb', 'Racing Bulls': 'rb', 'Visa Cash App Racing Bulls F1': 'rb',
-      'Aston Martin': 'aston', 'Aston Martin Aramco F1': 'aston',
-      'Alpine': 'alpine', 'Alpine F1 Team': 'alpine', 'BWT Alpine F1': 'alpine',
-      'Haas': 'haas', 'Haas F1 Team': 'haas', 'TGR Haas F1': 'haas',
-      'Williams': 'williams', 'Atlassian Williams F1': 'williams',
-      'Kick Sauber': 'audi', 'Audi': 'audi', 'Audi Revolut F1': 'audi',
-      'Cadillac': 'cadillac', 'Cadillac F1': 'cadillac',
-    };
-    return map[team] ?? '';
-  }
+
 }

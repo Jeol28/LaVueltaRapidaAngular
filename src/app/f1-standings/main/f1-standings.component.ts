@@ -55,13 +55,17 @@ export class F1StandingsComponent implements OnInit {
     this.f1.getDriverStandings().subscribe({
       next: pilotos => {
         this.pilotos = pilotos;
-        this.constructores = this.f1.generateConstructors(pilotos);
         this.loadingStandings = false;
       },
       error: () => {
         this.standingsError = 'No se pudo cargar la clasificación. Intenta más tarde.';
         this.loadingStandings = false;
       }
+    });
+
+    this.f1.getConstructorStandings().subscribe({
+      next: constructores => { this.constructores = constructores; },
+      error: () => {}
     });
   }
 }

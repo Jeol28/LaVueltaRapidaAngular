@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let p of pilotos"
-          [ngClass]="[p.position === 1 ? 'first-place' : '', f1.getTeamClass(p.team)]">
+          [class.first-place]="p.position === 1">
         <td class="position">{{ p.position }}</td>
         <td class="name">{{ p.name }}</td>
         <td class="team">{{ p.team }}</td>

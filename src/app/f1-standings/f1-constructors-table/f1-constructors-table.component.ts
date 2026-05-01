@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { F1Service, Constructor } from '../../services/f1.service';
+import { Constructor } from '../../services/f1.service';
 
 @Component({
   selector: 'app-f1-constructors-table',
@@ -8,6 +8,4 @@ import { F1Service, Constructor } from '../../services/f1.service';
 })
 export class F1ConstructorsTableComponent {
   @Input() constructores: Constructor[] = [];
-
-  constructor(public f1: F1Service) {}
 }

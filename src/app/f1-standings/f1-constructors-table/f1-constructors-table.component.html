@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let c of constructores"
-          [ngClass]="[c.position === 1 ? 'first-place' : '', f1.getTeamClass(c.team)]">
+          [class.first-place]="c.position === 1">
         <td class="position">{{ c.position }}</td>
         <td class="team">{{ c.team }}</td>
         <td class="points">{{ c.points }}</td>
