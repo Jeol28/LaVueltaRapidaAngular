@@ -2,9 +2,10 @@
   <table class="rankings-table table-dark-custom" *ngIf="constructores.length > 0">
     <thead>
       <tr>
-        <th>POS</th>
+        <th class="position">POS</th>
         <th>CONSTRUCTOR</th>
-        <th>PUNTOS</th>
+        <th class="points">PUNTOS</th>
+        <th class="wins">V</th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
         <td class="position">{{ c.position }}</td>
         <td class="team">{{ c.team }}</td>
         <td class="points">{{ c.points }}</td>
+        <td class="wins">{{ c.wins }}</td>
       </tr>
     </tbody>
   </table>

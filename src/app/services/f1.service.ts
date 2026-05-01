@@ -14,6 +14,7 @@ export interface Constructor {
   position: number;
   team: string;
   points: number;
+  wins: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -45,7 +46,8 @@ export class F1Service {
         return list.map((c: any): Constructor => ({
           position: +c.position,
           team: c.Constructor?.name ?? '—',
-          points: +c.points
+          points: +c.points,
+          wins: +c.wins
         }));
       })
     );

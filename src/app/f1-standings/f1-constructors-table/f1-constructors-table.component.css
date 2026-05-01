@@ -40,6 +40,7 @@
 
 .position { font-family: 'Orbitron'; font-weight: 700; text-align: center; }
 .points   { text-align: right; font-weight: 700; color: white; }
+.wins     { text-align: right; font-weight: 600; color: #AAA; }
 
 tr.first-place td { color: var(--gold); font-weight: 700; }
 tr.first-place:hover td { color: black !important; }
