@@ -1,0 +1,21 @@
+<section
+  class="ranking-hero"
+  [ngStyle]="{'background-image': 'url(' + (nextRace?.bg || 'assets/Images/china-flag.gif') + ')'}">
+  <div class="ranking-hero-inner container">
+    <div class="hero-grid">
+
+      <div class="hero-left">
+        <span class="next-race-label">PRÓXIMA CARRERA</span>
+        <h1 class="next-race-title">{{ nextRace?.name }}</h1>
+        <p class="next-race-info">
+          ROUND {{ nextRace?.round }} · {{ nextRace?.circuit }} · {{ nextRace?.date }}
+        </p>
+      </div>
+
+      <div class="hero-right">
+        <img [src]="nextRace?.image" alt="Circuito" class="circuit-image">
+      </div>
+
+    </div>
+  </div>
+</section>

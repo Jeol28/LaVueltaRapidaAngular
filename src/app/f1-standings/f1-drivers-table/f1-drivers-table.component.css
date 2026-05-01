@@ -1,0 +1,105 @@
+:host {
+  --gold: #FFD700;
+  --dark: #1f1f1f;
+  --dark-alt: #2a2a2a;
+  --mercedes: #00D7B6;
+  --ferrari: #df0000;
+  --mclaren: #F47600;
+  --redbull: #1351D8;
+  --aston: #229971;
+  --alpine: #FB79B3;
+  --haas: #9C9FA2;
+  --williams: #1868DB;
+  --audi: #f5461a;
+  --rb: #6C98FF;
+  --cadillac: #000000;
+}
+
+.table-container {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+}
+
+.table-status {
+  text-align: center;
+  padding: 40px 20px;
+  color: #AAA;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.table-error { color: #ef4444; font-style: normal; }
+
+.rankings-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--dark-alt);
+}
+
+.table-dark-custom thead {
+  background-color: var(--dark);
+  border-bottom: 2px solid #EB1010;
+}
+
+.table-dark-custom thead th {
+  padding: 16px;
+  font-family: 'Orbitron';
+  text-transform: uppercase;
+}
+
+.table-dark-custom tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.table-dark-custom tbody tr:hover { background-color: white; }
+.table-dark-custom tbody tr:hover td { color: black !important; }
+
+.table-dark-custom td { padding: 12px 16px; }
+
+.position { font-family: 'Orbitron'; font-weight: 700; text-align: center; }
+.points   { text-align: right; font-weight: 700; color: white; }
+.wins     { text-align: right; font-weight: 600; color: #AAA; }
+
+tr.first-place td { color: var(--gold); font-weight: 700; }
+tr.first-place:hover td { color: black !important; }
+
+tr.first-place.mercedes { background: var(--mercedes); }
+tr.first-place.ferrari  { background: var(--ferrari); }
+tr.first-place.mclaren  { background: var(--mclaren); }
+tr.first-place.redbull  { background: var(--redbull); }
+tr.first-place.aston    { background: var(--aston); }
+tr.first-place.alpine   { background: var(--alpine); }
+tr.first-place.haas     { background: var(--haas); }
+tr.first-place.williams { background: var(--williams); }
+tr.first-place.audi     { background: var(--audi); }
+tr.first-place.rb       { background: var(--rb); }
+tr.first-place.cadillac { background: var(--cadillac); }
+
+@media (max-width: 768px) {
+  .table-dark-custom thead th { padding: 12px; font-size: 12px; }
+  .table-dark-custom td       { padding: 10px 12px; font-size: 14px; }
+}
+
+@media (max-width: 600px) {
+  .table-dark-custom thead th { padding: 10px 8px; font-size: 11px; }
+  .table-dark-custom td       { padding: 9px 8px; font-size: 13px; }
+}
+
+@media (max-width: 400px) {
+  .table-dark-custom thead th { padding: 8px 6px; font-size: 10px; }
+  .table-dark-custom td       { padding: 8px 6px; font-size: 12px; }
+}
+
+@media (max-width: 300px) {
+  .table-dark-custom thead th { padding: 6px 4px; font-size: 9px; }
+  .table-dark-custom td       { padding: 7px 4px; font-size: 11px; }
+}
+
+@media (max-width: 250px) {
+  .table-container            { padding: 0 8px; }
+  .table-dark-custom thead th { padding: 5px 3px; font-size: 8px; }
+  .table-dark-custom td       { padding: 6px 3px; font-size: 10px; }
+}

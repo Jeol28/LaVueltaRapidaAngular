@@ -59,7 +59,12 @@ import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
 import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
 
-import { F1StandingsComponent } from './f1-standings/f1-standings.component';
+import { F1StandingsComponent } from './f1-standings/main/f1-standings.component';
+import { F1HeroComponent } from './f1-standings/f1-hero/f1-hero.component';
+import { F1TabControlsComponent } from './f1-standings/f1-tab-controls/f1-tab-controls.component';
+import { F1DriversTableComponent } from './f1-standings/f1-drivers-table/f1-drivers-table.component';
+import { F1ConstructorsTableComponent } from './f1-standings/f1-constructors-table/f1-constructors-table.component';
+import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +124,11 @@ import { F1StandingsComponent } from './f1-standings/f1-standings.component';
     PpSeccionComponent,
 
     F1StandingsComponent,
+    F1HeroComponent,
+    F1TabControlsComponent,
+    F1DriversTableComponent,
+    F1ConstructorsTableComponent,
+    F1VideosComponent,
   ],
   imports: [
     BrowserModule,

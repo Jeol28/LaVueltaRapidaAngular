@@ -1,0 +1,19 @@
+<div class="table-container">
+  <table class="rankings-table table-dark-custom" *ngIf="constructores.length > 0">
+    <thead>
+      <tr>
+        <th>POS</th>
+        <th>CONSTRUCTOR</th>
+        <th>PUNTOS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of constructores"
+          [ngClass]="[c.position === 1 ? 'first-place' : '', f1.getTeamClass(c.team)]">
+        <td class="position">{{ c.position }}</td>
+        <td class="team">{{ c.team }}</td>
+        <td class="points">{{ c.points }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

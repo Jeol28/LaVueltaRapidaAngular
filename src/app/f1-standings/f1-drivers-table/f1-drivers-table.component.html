@@ -1,0 +1,29 @@
+<div class="table-container">
+
+  <div *ngIf="loading" class="table-status">Cargando clasificación…</div>
+
+  <div *ngIf="error && !loading" class="table-status table-error">{{ error }}</div>
+
+  <table class="rankings-table table-dark-custom" *ngIf="!loading && !error">
+    <thead>
+      <tr>
+        <th>POS</th>
+        <th>PILOTO</th>
+        <th>EQUIPO</th>
+        <th>PTS</th>
+        <th>V</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of pilotos"
+          [ngClass]="[p.position === 1 ? 'first-place' : '', f1.getTeamClass(p.team)]">
+        <td class="position">{{ p.position }}</td>
+        <td class="name">{{ p.name }}</td>
+        <td class="team">{{ p.team }}</td>
+        <td class="points">{{ p.points }}</td>
+        <td class="wins">{{ p.wins }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

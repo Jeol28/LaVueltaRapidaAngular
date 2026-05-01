@@ -1,0 +1,29 @@
+<div class="videos-section">
+  <h2>LATEST F1 HIGHLIGHTS</h2>
+
+  <div *ngIf="loading" class="loading-message">Loading videos...</div>
+
+  <div *ngIf="!loading && videos.length === 0" class="error-message">
+    Unable to load videos. Please try again later.
+  </div>
+
+  <div class="video-grid" *ngIf="!loading && videos.length > 0">
+    <a *ngFor="let video of videos"
+       [href]="video.videoUrl"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="video-card">
+
+      <div class="video-thumbnail">
+        <img [src]="video.thumbnail" [alt]="video.title" />
+        <div class="play-icon">▶</div>
+      </div>
+
+      <div class="video-info">
+        <h3 class="video-title">{{ video.title | slice:0:50 }}...</h3>
+        <p class="video-date">{{ video.publishedAt }}</p>
+      </div>
+
+    </a>
+  </div>
+</div>

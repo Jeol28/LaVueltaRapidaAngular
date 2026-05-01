@@ -1,0 +1,12 @@
+<div class="tab-controls">
+  <button class="ranking-btn"
+          [class.active]="activeTable === 'pilotos'"
+          (click)="onSwitch('pilotos')">
+    PILOTOS
+  </button>
+  <button class="ranking-btn"
+          [class.active]="activeTable === 'constructores'"
+          (click)="onSwitch('constructores')">
+    CONSTRUCTORES
+  </button>
+</div>

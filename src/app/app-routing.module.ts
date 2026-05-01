@@ -21,7 +21,7 @@ import { PerfilAdminComponent } from './perfiles/perfil-admin/perfil-admin.compo
 import { OperadorInicioComponent } from './operador/operador-inicio/operador-inicio.component';
 import { TerminosComponent } from './terminos/terminos.component';
 import { PrivacidadComponent } from './privacidad/privacidad.component';
-import { F1StandingsComponent } from './f1-standings/f1-standings.component';
+import { F1StandingsComponent } from './f1-standings/main/f1-standings.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },

@@ -1,0 +1,24 @@
+<div class="f1-standings-container">
+
+  <app-f1-hero [nextRace]="nextRace"></app-f1-hero>
+
+  <app-f1-tab-controls
+    [activeTable]="activeTable"
+    (tableChange)="onTableChange($event)">
+  </app-f1-tab-controls>
+
+  <app-f1-drivers-table
+    *ngIf="activeTable === 'pilotos'"
+    [pilotos]="pilotos"
+    [loading]="loadingStandings"
+    [error]="standingsError">
+  </app-f1-drivers-table>
+
+  <app-f1-constructors-table
+    *ngIf="activeTable === 'constructores'"
+    [constructores]="constructores">
+  </app-f1-constructors-table>
+
+  <app-f1-videos></app-f1-videos>
+
+</div>
