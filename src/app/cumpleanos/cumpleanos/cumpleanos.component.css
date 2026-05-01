@@ -1,0 +1,114 @@
+.cb-page {
+  min-height: 100vh;
+  background: #0f0f0f;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── CTA ── */
+.cb-cta {
+  padding: 80px 24px;
+  text-align: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 60%, #0f0f0f 100%);
+  border-top: 1px solid rgba(225,6,0,0.2);
+}
+
+.cb-cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.cb-cta-label {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #e10600;
+  margin-bottom: 16px;
+}
+
+.cb-cta-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.cb-cta-title span { color: #e10600; }
+
+.cb-cta-sub {
+  font-size: 15px;
+  color: #9ca3af;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.cb-cta-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cb-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.cb-cta-btn--primary {
+  background: linear-gradient(135deg, #e10600, #a00000);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(225,6,0,0.35);
+}
+
+.cb-cta-btn--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(225,6,0,0.55);
+  color: #fff;
+}
+
+.cb-cta-btn--whatsapp {
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+}
+
+.cb-cta-btn--whatsapp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(37,211,102,0.5);
+  color: #fff;
+}
+
+@media (max-width: 540px) {
+  .cb-cta-actions { flex-direction: column; align-items: center; }
+  .cb-cta-btn     { width: 100%; max-width: 280px; justify-content: center; }
+}
+
+@media (max-width: 360px) {
+  .cb-cta       { padding: 56px 16px; }
+  .cb-cta-sub   { font-size: 13px; }
+  .cb-cta-btn   { font-size: 11px; padding: 12px 24px; }
+}
+
+@media (max-width: 300px) {
+  .cb-cta-label { font-size: 9px; letter-spacing: 2px; }
+  .cb-cta-title { font-size: 17px; }
+  .cb-cta-sub   { font-size: 12px; }
+  .cb-cta-btn   { font-size: 10px; padding: 10px 18px; }
+}
+
+@media (max-width: 250px) {
+  .cb-cta-title { font-size: 14px; }
+  .cb-cta-btn   { font-size: 9px; padding: 9px 14px; max-width: 100%; }
+}

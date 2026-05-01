@@ -1,0 +1,12 @@
+<section class="ec-paquetes">
+  <div class="ec-sec-inner">
+    <div class="ec-sec-header">
+      <div class="ec-sec-line"></div>
+      <h2 class="ec-sec-titulo">NUESTROS PAQUETES</h2>
+      <div class="ec-sec-line ec-sec-line--right"></div>
+    </div>
+    <div class="ec-paquetes-grid">
+      <app-ec-paquete-card *ngFor="let p of paquetes" [paquete]="p"></app-ec-paquete-card>
+    </div>
+  </div>
+</section>

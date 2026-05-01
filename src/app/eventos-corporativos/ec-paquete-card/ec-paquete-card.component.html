@@ -1,0 +1,23 @@
+<div class="ec-paq-card" [class.ec-paq-card--destacado]="paquete.destacado">
+  <div class="ec-paq-accent" [ngStyle]="{'background': paquete.color}"></div>
+
+  <div *ngIf="paquete.destacado" class="ec-paq-badge">MÁS SOLICITADO</div>
+
+  <div class="ec-paq-header">
+    <h3 class="ec-paq-nombre" [ngStyle]="{'color': paquete.color}">{{ paquete.nombre }}</h3>
+    <p class="ec-paq-subtitulo">{{ paquete.subtitulo }}</p>
+  </div>
+
+  <div class="ec-paq-precio">{{ paquete.precio }}</div>
+  <div class="ec-paq-capacidad">{{ paquete.capacidad }}</div>
+
+  <ul class="ec-paq-items">
+    <li *ngFor="let item of paquete.items">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           [ngStyle]="{'color': paquete.color}">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      {{ item }}
+    </li>
+  </ul>
+</div>

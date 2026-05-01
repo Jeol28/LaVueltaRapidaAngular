@@ -1,0 +1,23 @@
+<div class="cb-paq-card" [class.cb-paq-card--destacado]="paquete.destacado">
+  <div class="cb-paq-accent" [ngStyle]="{'background': paquete.color}"></div>
+
+  <div *ngIf="paquete.destacado" class="cb-paq-badge">MÁS POPULAR</div>
+
+  <div class="cb-paq-header">
+    <h3 class="cb-paq-nombre" [ngStyle]="{'color': paquete.color}">{{ paquete.nombre }}</h3>
+    <p class="cb-paq-subtitulo">{{ paquete.subtitulo }}</p>
+  </div>
+
+  <div class="cb-paq-precio">{{ paquete.precio }}</div>
+  <div class="cb-paq-capacidad">{{ paquete.capacidad }}</div>
+
+  <ul class="cb-paq-items">
+    <li *ngFor="let item of paquete.items">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           [ngStyle]="{'color': paquete.color}">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      {{ item }}
+    </li>
+  </ul>
+</div>

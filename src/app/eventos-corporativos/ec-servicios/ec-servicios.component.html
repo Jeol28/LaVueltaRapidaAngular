@@ -1,0 +1,12 @@
+<section class="ec-servicios">
+  <div class="ec-sec-inner">
+    <div class="ec-sec-header">
+      <div class="ec-sec-line"></div>
+      <h2 class="ec-sec-titulo">¿QUÉ OFRECEMOS?</h2>
+      <div class="ec-sec-line ec-sec-line--right"></div>
+    </div>
+    <div class="ec-servicios-grid">
+      <app-ec-servicio-card *ngFor="let s of servicios" [servicio]="s"></app-ec-servicio-card>
+    </div>
+  </div>
+</section>

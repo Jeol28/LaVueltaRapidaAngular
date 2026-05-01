@@ -1,0 +1,12 @@
+<section class="cb-paquetes">
+  <div class="cb-paquetes-inner">
+    <div class="cb-sec-header">
+      <div class="cb-sec-line"></div>
+      <h2 class="cb-sec-titulo">NUESTROS PAQUETES</h2>
+      <div class="cb-sec-line cb-sec-line--right"></div>
+    </div>
+    <div class="cb-paquetes-grid">
+      <app-cb-paquete-card *ngFor="let p of paquetes" [paquete]="p"></app-cb-paquete-card>
+    </div>
+  </div>
+</section>

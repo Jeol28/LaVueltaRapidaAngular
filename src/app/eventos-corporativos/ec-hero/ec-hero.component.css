@@ -1,0 +1,99 @@
+.ec-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0a0a0a 0%, #00101a 55%, #0f0f0f 100%);
+  padding: 80px 24px 72px;
+  text-align: center;
+  border-bottom: 1px solid rgba(74,158,255,0.25);
+  overflow: hidden;
+}
+
+.ec-hero-stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #4a9eff 0px, #4a9eff 20px,
+    #0a2a5a 20px, #0a2a5a 40px
+  );
+  opacity: 0.8;
+}
+
+.ec-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.ec-hero-label {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #4a9eff;
+  margin-bottom: 18px;
+}
+
+.ec-hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(28px, 5vw, 60px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+
+.ec-hero-title span { color: #4a9eff; }
+
+.ec-hero-sub {
+  font-size: 16px;
+  color: #9ca3af;
+  line-height: 1.65;
+  margin-bottom: 36px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ec-hero-badges {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ec-badge {
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(74,158,255,0.08);
+  border: 1px solid rgba(74,158,255,0.2);
+  font-size: 13px;
+  color: #d1d5db;
+}
+
+@media (max-width: 600px) {
+  .ec-hero     { padding: 56px 16px 52px; }
+  .ec-hero-sub { font-size: 14px; margin-bottom: 28px; }
+  .ec-badge    { font-size: 12px; padding: 6px 12px; }
+}
+
+@media (max-width: 360px) {
+  .ec-hero-label { font-size: 10px; letter-spacing: 2px; }
+  .ec-hero-sub   { font-size: 13px; }
+  .ec-badge      { font-size: 11px; padding: 5px 10px; }
+}
+
+@media (max-width: 300px) {
+  .ec-hero       { padding: 40px 12px 36px; }
+  .ec-hero-title { font-size: 22px; }
+  .ec-hero-sub   { font-size: 12px; }
+  .ec-badge      { font-size: 10px; padding: 4px 8px; }
+}
+
+@media (max-width: 250px) {
+  .ec-hero-title  { font-size: 18px; letter-spacing: 0; }
+  .ec-hero-label  { font-size: 8px; letter-spacing: 1px; }
+  .ec-badge       { font-size: 9px; }
+}

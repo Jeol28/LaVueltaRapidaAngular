@@ -1,0 +1,118 @@
+.cb-paq-card {
+  position: relative;
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.cb-paq-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.cb-paq-card--destacado {
+  border-color: rgba(225,6,0,0.4);
+  box-shadow: 0 0 0 1px rgba(225,6,0,0.25), 0 8px 32px rgba(225,6,0,0.12);
+}
+
+.cb-paq-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.cb-paq-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: #e10600;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.cb-paq-header { margin-top: 4px; }
+
+.cb-paq-nombre {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0 0 4px;
+  letter-spacing: -0.5px;
+}
+
+.cb-paq-subtitulo {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.cb-paq-precio {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffd700;
+}
+
+.cb-paq-capacidad {
+  display: inline-block;
+  font-size: 12px;
+  color: #9ca3af;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 4px 12px;
+}
+
+.cb-paq-items {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 16px;
+}
+
+.cb-paq-items li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: #d1d5db;
+  line-height: 1.4;
+}
+
+.cb-paq-items svg { flex-shrink: 0; margin-top: 2px; }
+
+@media (max-width: 400px) {
+  .cb-paq-card   { padding: 24px 18px; }
+  .cb-paq-nombre { font-size: 18px; }
+  .cb-paq-precio { font-size: 16px; }
+  .cb-paq-items li { font-size: 12px; }
+}
+
+@media (max-width: 300px) {
+  .cb-paq-nombre  { font-size: 16px; }
+  .cb-paq-precio  { font-size: 14px; }
+  .cb-paq-subtitulo { font-size: 11px; }
+  .cb-paq-items li  { font-size: 11px; }
+}
+
+@media (max-width: 250px) {
+  .cb-paq-card   { padding: 18px 14px; gap: 10px; }
+  .cb-paq-nombre { font-size: 14px; }
+  .cb-paq-precio { font-size: 13px; }
+  .cb-paq-items li { font-size: 10px; }
+}

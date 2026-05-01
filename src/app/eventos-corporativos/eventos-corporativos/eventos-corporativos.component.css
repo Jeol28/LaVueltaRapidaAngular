@@ -1,0 +1,111 @@
+.ec-page {
+  min-height: 100vh;
+  background: #0f0f0f;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+.ec-cta {
+  padding: 80px 24px;
+  text-align: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #00101a 60%, #0f0f0f 100%);
+  border-top: 1px solid rgba(74,158,255,0.2);
+}
+
+.ec-cta-inner { max-width: 640px; margin: 0 auto; }
+
+.ec-cta-label {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #4a9eff;
+  margin-bottom: 16px;
+}
+
+.ec-cta-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(20px, 3.5vw, 30px);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.ec-cta-title span { color: #4a9eff; }
+
+.ec-cta-sub {
+  font-size: 15px;
+  color: #9ca3af;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.ec-cta-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ec-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.ec-cta-btn--primary {
+  background: linear-gradient(135deg, #1a4a8a, #0a2a5a);
+  border: 1px solid rgba(74,158,255,0.4);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(74,158,255,0.2);
+}
+
+.ec-cta-btn--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(74,158,255,0.4);
+  color: #fff;
+}
+
+.ec-cta-btn--whatsapp {
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+}
+
+.ec-cta-btn--whatsapp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(37,211,102,0.5);
+  color: #fff;
+}
+
+@media (max-width: 540px) {
+  .ec-cta-actions { flex-direction: column; align-items: center; }
+  .ec-cta-btn     { width: 100%; max-width: 300px; justify-content: center; }
+}
+
+@media (max-width: 360px) {
+  .ec-cta     { padding: 56px 16px; }
+  .ec-cta-sub { font-size: 13px; }
+  .ec-cta-btn { font-size: 11px; padding: 12px 20px; }
+}
+
+@media (max-width: 300px) {
+  .ec-cta-label { font-size: 9px; letter-spacing: 2px; }
+  .ec-cta-title { font-size: 17px; }
+  .ec-cta-sub   { font-size: 12px; }
+  .ec-cta-btn   { font-size: 10px; padding: 10px 16px; }
+}
+
+@media (max-width: 250px) {
+  .ec-cta-title { font-size: 14px; }
+  .ec-cta-btn   { font-size: 9px; padding: 9px 12px; max-width: 100%; }
+}

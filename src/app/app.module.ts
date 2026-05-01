@@ -62,6 +62,18 @@ import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component
 import { F1StandingsComponent } from './f1-standings/main/f1-standings.component';
 import { EventosComponent } from './eventos/eventos/eventos.component';
 import { CarrerasEnVivoComponent } from './carreras-en-vivo/carreras-en-vivo/carreras-en-vivo.component';
+import { CumpleanosComponent } from './cumpleanos/cumpleanos/cumpleanos.component';
+import { EventosCorporativosComponent } from './eventos-corporativos/eventos-corporativos/eventos-corporativos.component';
+import { EcHeroComponent } from './eventos-corporativos/ec-hero/ec-hero.component';
+import { EcServicioCardComponent } from './eventos-corporativos/ec-servicio-card/ec-servicio-card.component';
+import { EcServiciosComponent } from './eventos-corporativos/ec-servicios/ec-servicios.component';
+import { EcPaqueteCardComponent } from './eventos-corporativos/ec-paquete-card/ec-paquete-card.component';
+import { EcPaquetesComponent } from './eventos-corporativos/ec-paquetes/ec-paquetes.component';
+import { CbHeroComponent } from './cumpleanos/cb-hero/cb-hero.component';
+import { CbIncluyeCardComponent } from './cumpleanos/cb-incluye-card/cb-incluye-card.component';
+import { CbIncluyeComponent } from './cumpleanos/cb-incluye/cb-incluye.component';
+import { CbPaqueteCardComponent } from './cumpleanos/cb-paquete-card/cb-paquete-card.component';
+import { CbPaquetesComponent } from './cumpleanos/cb-paquetes/cb-paquetes.component';
 import { ClvHeroComponent } from './carreras-en-vivo/clv-hero/clv-hero.component';
 import { ClvProximaCarreraComponent } from './carreras-en-vivo/clv-proxima-carrera/clv-proxima-carrera.component';
 import { ClvPlataformaCardComponent } from './carreras-en-vivo/clv-plataforma-card/clv-plataforma-card.component';
@@ -136,6 +148,18 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     F1HeroComponent,
     EventosComponent,
     CarrerasEnVivoComponent,
+    CumpleanosComponent,
+    CbHeroComponent,
+    CbIncluyeCardComponent,
+    CbIncluyeComponent,
+    CbPaqueteCardComponent,
+    CbPaquetesComponent,
+    EventosCorporativosComponent,
+    EcHeroComponent,
+    EcServicioCardComponent,
+    EcServiciosComponent,
+    EcPaqueteCardComponent,
+    EcPaquetesComponent,
     ClvHeroComponent,
     ClvProximaCarreraComponent,
     ClvPlataformaCardComponent,
