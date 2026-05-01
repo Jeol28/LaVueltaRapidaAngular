@@ -1,0 +1,48 @@
+<div class="clv-page">
+
+  <app-clv-hero></app-clv-hero>
+
+  <app-clv-proxima-carrera
+    *ngIf="proximaCarrera"
+    [carrera]="proximaCarrera">
+  </app-clv-proxima-carrera>
+
+  <app-clv-seccion-plataformas
+    titulo="¿POR QUÉ VERNOS AQUÍ?"
+    [plataformas]="experiencia">
+  </app-clv-seccion-plataformas>
+
+  <!-- Próximas transmisiones -->
+  <section class="clv-calendario" *ngIf="proximasCarreras.length > 0">
+    <div class="clv-calendario-inner">
+
+      <div class="clv-cal-header">
+        <div class="clv-cal-line"></div>
+        <h2 class="clv-cal-titulo">PRÓXIMAS TRANSMISIONES</h2>
+        <div class="clv-cal-line clv-cal-line--right"></div>
+      </div>
+
+      <div class="clv-cal-grid">
+        <div class="clv-cal-item" *ngFor="let r of proximasCarreras">
+          <span class="clv-cal-round">R{{ r.round < 10 ? '0' + r.round : r.round }}</span>
+          <div class="clv-cal-info">
+            <span class="clv-cal-name">{{ r.shortName }}</span>
+            <span class="clv-cal-circuit">{{ r.circuit }}</span>
+          </div>
+          <span class="clv-cal-date">{{ r.date }}</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA reserva -->
+  <section class="clv-cta">
+    <div class="clv-cta-inner">
+      <h2 class="clv-cta-title">¿LISTO PARA LA PRÓXIMA CARRERA?</h2>
+      <p class="clv-cta-sub">Reserva tu mesa y vive la Fórmula 1 como nunca antes — con la mejor pizza de la ciudad.</p>
+      <a routerLink="/menu" class="clv-cta-btn">VER EL MENÚ</a>
+    </div>
+  </section>
+
+</div>

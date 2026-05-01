@@ -1,0 +1,96 @@
+.clv-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 60%, #0f0f0f 100%);
+  padding: 80px 24px 72px;
+  text-align: center;
+  border-bottom: 1px solid rgba(225,6,0,0.3);
+  overflow: hidden;
+}
+
+.clv-hero-stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #e10600 0px, #e10600 20px,
+    #fff    20px, #fff    40px
+  );
+  opacity: 0.7;
+}
+
+.clv-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.clv-hero-label {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #e10600;
+  margin-bottom: 16px;
+}
+
+.clv-hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(28px, 5vw, 58px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.clv-hero-title span { color: #e10600; }
+
+.clv-hero-sub {
+  font-size: 16px;
+  color: #9ca3af;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.clv-hero-badges {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.clv-badge {
+  padding: 8px 18px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 13px;
+  color: #d1d5db;
+}
+
+@media (max-width: 600px) {
+  .clv-hero      { padding: 56px 16px 52px; }
+  .clv-hero-sub  { font-size: 14px; margin-bottom: 28px; }
+  .clv-badge     { font-size: 12px; padding: 6px 14px; }
+}
+
+@media (max-width: 360px) {
+  .clv-hero-label { font-size: 10px; letter-spacing: 2px; }
+  .clv-hero-sub   { font-size: 13px; }
+  .clv-badge      { font-size: 11px; padding: 5px 10px; }
+}
+
+@media (max-width: 300px) {
+  .clv-hero       { padding: 40px 12px 36px; }
+  .clv-hero-title { font-size: 22px; }
+  .clv-hero-sub   { font-size: 12px; }
+  .clv-badge      { font-size: 10px; padding: 4px 8px; }
+}
+
+@media (max-width: 250px) {
+  .clv-hero-title { font-size: 18px; letter-spacing: 0; }
+  .clv-hero-label { font-size: 8px; }
+  .clv-badge      { font-size: 9px; }
+}

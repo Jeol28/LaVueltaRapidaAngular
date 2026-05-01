@@ -1,0 +1,18 @@
+<section class="clv-seccion">
+  <div class="clv-seccion-inner">
+
+    <div class="clv-seccion-header">
+      <div class="clv-seccion-line"></div>
+      <h2 class="clv-seccion-titulo">{{ titulo }}</h2>
+      <div class="clv-seccion-line clv-seccion-line--right"></div>
+    </div>
+
+    <div class="clv-seccion-grid">
+      <app-clv-plataforma-card
+        *ngFor="let p of plataformas"
+        [plataforma]="p">
+      </app-clv-plataforma-card>
+    </div>
+
+  </div>
+</section>

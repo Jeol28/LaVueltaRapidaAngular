@@ -1,0 +1,43 @@
+<div class="clv-proxima-wrap">
+  <div class="clv-proxima-inner">
+
+    <div class="clv-proxima-header">
+      <div>
+        <span class="clv-proxima-label">PRÓXIMA TRANSMISIÓN EN EL RESTAURANTE</span>
+        <span class="clv-proxima-round">R{{ roundLabel }}</span>
+      </div>
+      <span class="clv-live-pill">
+        <span class="clv-live-dot"></span>
+        Transmitiremos en vivo
+      </span>
+    </div>
+
+    <div class="clv-proxima-body">
+
+      <div class="clv-proxima-info">
+        <h2 class="clv-proxima-name">{{ carrera.shortName }}</h2>
+        <p class="clv-proxima-circuit">{{ carrera.circuit }}</p>
+        <div class="clv-proxima-meta">
+          <span class="clv-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            {{ carrera.location }}
+          </span>
+          <span class="clv-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            {{ carrera.date }}
+          </span>
+        </div>
+        <a routerLink="/menu" class="clv-reserva-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          RESERVA TU MESA
+        </a>
+      </div>
+
+      <div class="clv-proxima-img">
+        <img [src]="carrera.image" [alt]="carrera.circuit">
+      </div>
+
+    </div>
+
+  </div>
+</div>

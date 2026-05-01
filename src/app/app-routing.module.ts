@@ -23,6 +23,7 @@ import { TerminosComponent } from './terminos/terminos.component';
 import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { F1StandingsComponent } from './f1-standings/main/f1-standings.component';
 import { EventosComponent } from './eventos/eventos/eventos.component';
+import { CarrerasEnVivoComponent } from './carreras-en-vivo/carreras-en-vivo/carreras-en-vivo.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -62,6 +63,7 @@ const routes: Routes = [
   { path: 'privacidad', component: PrivacidadComponent },
   { path: 'f1-standings', component: F1StandingsComponent },
   { path: 'eventos', component: EventosComponent },
+  { path: 'ver-en-vivo', component: CarrerasEnVivoComponent },
   { path: '**', redirectTo: '' },
 ];
 

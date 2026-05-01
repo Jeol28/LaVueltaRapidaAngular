@@ -61,6 +61,11 @@ import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component
 
 import { F1StandingsComponent } from './f1-standings/main/f1-standings.component';
 import { EventosComponent } from './eventos/eventos/eventos.component';
+import { CarrerasEnVivoComponent } from './carreras-en-vivo/carreras-en-vivo/carreras-en-vivo.component';
+import { ClvHeroComponent } from './carreras-en-vivo/clv-hero/clv-hero.component';
+import { ClvProximaCarreraComponent } from './carreras-en-vivo/clv-proxima-carrera/clv-proxima-carrera.component';
+import { ClvPlataformaCardComponent } from './carreras-en-vivo/clv-plataforma-card/clv-plataforma-card.component';
+import { ClvSeccionPlataformasComponent } from './carreras-en-vivo/clv-seccion-plataformas/clv-seccion-plataformas.component';
 import { EventosHeroComponent } from './eventos/eventos-hero/eventos-hero.component';
 import { EventoCardComponent } from './eventos/evento-card/evento-card.component';
 import { EventosSeccionComponent } from './eventos/eventos-seccion/eventos-seccion.component';
@@ -130,6 +135,11 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     F1StandingsComponent,
     F1HeroComponent,
     EventosComponent,
+    CarrerasEnVivoComponent,
+    ClvHeroComponent,
+    ClvProximaCarreraComponent,
+    ClvPlataformaCardComponent,
+    ClvSeccionPlataformasComponent,
     EventosHeroComponent,
     EventoCardComponent,
     EventosSeccionComponent,
