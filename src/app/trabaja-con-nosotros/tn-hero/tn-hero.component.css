@@ -111,10 +111,12 @@
 }
 
 @media (max-width: 300px) {
-  .tn-hero       { padding: 40px 12px 36px; }
-  .tn-hero-title { font-size: 22px; }
-  .tn-hero-sub   { font-size: 12px; }
-  .tn-badge      { font-size: 10px; padding: 4px 8px; }
+  .tn-hero        { padding: 36px 12px 32px; }
+  .tn-hero-label  { font-size: 8px; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .tn-hero-title  { font-size: 20px; letter-spacing: -0.3px; margin-bottom: 12px; line-height: 1.05; }
+  .tn-hero-sub    { font-size: 11px; line-height: 1.5; margin-bottom: 18px; }
+  .tn-hero-badges { gap: 5px; }
+  .tn-badge       { font-size: 9px; padding: 3px 7px; }
 }
 
 @media (max-width: 250px) {

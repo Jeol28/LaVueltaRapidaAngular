@@ -162,3 +162,17 @@
   .tn-cta-correo-mail  { font-size: 14px; }
   .tn-cta-correo-asunto { font-size: 11px; }
 }
+
+@media (max-width: 300px) {
+  .tn-cta              { padding: 32px 10px; }
+  .tn-cta-label        { font-size: 9px; letter-spacing: 1.6px; margin-bottom: 10px; }
+  .tn-cta-title        { font-size: 19px; letter-spacing: -0.3px; margin-bottom: 12px; line-height: 1.1; }
+  .tn-cta-sub          { font-size: 11px; line-height: 1.55; margin-bottom: 20px; }
+  .tn-cta-correo       { padding: 12px 14px; margin-bottom: 18px; gap: 4px; border-radius: 8px; }
+  .tn-cta-correo-lbl   { font-size: 9px; letter-spacing: 1.2px; }
+  .tn-cta-correo-mail  { font-size: 12px; letter-spacing: 0.2px; }
+  .tn-cta-correo-asunto { font-size: 10px; }
+  .tn-cta-actions      { gap: 8px; }
+  .tn-cta-btn          { height: 38px; font-size: 10px; padding: 0 14px; letter-spacing: 0.5px; gap: 5px; border-radius: 5px; }
+  .tn-cta-btn--ghost   { border-width: 1.5px; }
+}

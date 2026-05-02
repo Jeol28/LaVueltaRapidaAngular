@@ -170,6 +170,21 @@
   .tn-paso-flecha   { font-size: 18px; }
 }
 
+@media (max-width: 300px) {
+  .tn-proceso       { padding: 32px 0; }
+  .tn-proceso-inner { padding: 0 12px; }
+  .tn-sec-titulo    { font-size: 8px; letter-spacing: 1px; }
+  .tn-sec-header    { gap: 10px; margin-bottom: 12px; }
+  .tn-proceso-intro { font-size: 12px; margin-bottom: 22px; line-height: 1.55; }
+  .tn-proceso-grid  { gap: 6px; }
+  .tn-paso-card     { padding: 14px 12px; gap: 8px; border-radius: 10px; }
+  .tn-paso-icono    { font-size: 24px; }
+  .tn-paso-numero   { font-size: 17px; top: 6px; right: 10px; }
+  .tn-paso-titulo   { font-size: 10px; letter-spacing: 0.6px; }
+  .tn-paso-desc     { font-size: 10px; line-height: 1.5; }
+  .tn-paso-flecha   { font-size: 16px; }
+}
+
 @media (max-width: 260px) {
   .tn-proceso-inner { padding: 0 10px; }
   .tn-sec-titulo    { font-size: 9px; letter-spacing: 1px; }
