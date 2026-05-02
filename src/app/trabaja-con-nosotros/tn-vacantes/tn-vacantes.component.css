@@ -72,6 +72,15 @@
   .tn-sec-titulo     { font-size: 10px; letter-spacing: 1.5px; }
 }
 
+@media (max-width: 350px) {
+  .tn-vacantes       { padding: 40px 0; }
+  .tn-vacantes-inner { padding: 0 14px; }
+  .tn-sec-titulo     { font-size: 9px; letter-spacing: 1.2px; }
+  .tn-sec-header     { gap: 12px; margin-bottom: 14px; }
+  .tn-vacantes-intro { font-size: 13px; margin-bottom: 30px; }
+  .tn-vacantes-grid  { gap: 18px; }
+}
+
 @media (max-width: 260px) {
   .tn-vacantes-inner { padding: 0 10px; }
   .tn-sec-titulo     { font-size: 9px; letter-spacing: 1px; }

@@ -69,6 +69,14 @@
   .tn-sec-titulo       { font-size: 10px; letter-spacing: 1.5px; }
 }
 
+@media (max-width: 350px) {
+  .tn-beneficios       { padding: 40px 0; }
+  .tn-beneficios-inner { padding: 0 14px; }
+  .tn-sec-titulo       { font-size: 9px; letter-spacing: 1.2px; }
+  .tn-sec-header       { gap: 12px; margin-bottom: 14px; }
+  .tn-beneficios-intro { font-size: 13px; margin-bottom: 28px; }
+}
+
 @media (max-width: 260px) {
   .tn-beneficios-inner { padding: 0 10px; }
   .tn-sec-titulo       { font-size: 9px; letter-spacing: 1px; }

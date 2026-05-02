@@ -139,6 +139,19 @@
   .tn-cta-correo-mail { font-size: 16px; }
 }
 
+@media (max-width: 350px) {
+  .tn-cta              { padding: 44px 14px; }
+  .tn-cta-label        { font-size: 11px; letter-spacing: 2.2px; margin-bottom: 12px; }
+  .tn-cta-title        { font-size: 22px; letter-spacing: -0.5px; margin-bottom: 14px; }
+  .tn-cta-sub          { font-size: 13px; margin-bottom: 24px; }
+  .tn-cta-correo       { padding: 14px 18px; margin-bottom: 20px; gap: 5px; }
+  .tn-cta-correo-lbl   { font-size: 10px; letter-spacing: 1.6px; }
+  .tn-cta-correo-mail  { font-size: 15px; }
+  .tn-cta-correo-asunto { font-size: 11px; }
+  .tn-cta-actions      { gap: 10px; }
+  .tn-cta-btn          { height: 44px; font-size: 11px; padding: 0 18px; letter-spacing: 0.8px; }
+}
+
 @media (max-width: 320px) {
   .tn-cta              { padding: 40px 12px; }
   .tn-cta-label        { font-size: 10px; letter-spacing: 2px; }

@@ -155,6 +155,21 @@
   .tn-paso-desc     { font-size: 12px; }
 }
 
+@media (max-width: 350px) {
+  .tn-proceso       { padding: 40px 0; }
+  .tn-proceso-inner { padding: 0 14px; }
+  .tn-sec-titulo    { font-size: 9px; letter-spacing: 1.2px; }
+  .tn-sec-header    { gap: 12px; margin-bottom: 14px; }
+  .tn-proceso-intro { font-size: 13px; margin-bottom: 30px; }
+  .tn-proceso-grid  { gap: 8px; }
+  .tn-paso-card     { padding: 18px 14px; gap: 10px; border-radius: 12px; }
+  .tn-paso-icono    { font-size: 28px; }
+  .tn-paso-numero   { font-size: 20px; top: 8px; right: 12px; }
+  .tn-paso-titulo   { font-size: 11px; letter-spacing: 0.8px; }
+  .tn-paso-desc     { font-size: 11px; line-height: 1.55; }
+  .tn-paso-flecha   { font-size: 18px; }
+}
+
 @media (max-width: 260px) {
   .tn-proceso-inner { padding: 0 10px; }
   .tn-sec-titulo    { font-size: 9px; letter-spacing: 1px; }
