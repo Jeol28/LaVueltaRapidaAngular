@@ -176,3 +176,16 @@
   .tn-cta-btn          { height: 38px; font-size: 10px; padding: 0 14px; letter-spacing: 0.5px; gap: 5px; border-radius: 5px; }
   .tn-cta-btn--ghost   { border-width: 1.5px; }
 }
+
+@media (max-width: 250px) {
+  .tn-cta              { padding: 24px 8px; }
+  .tn-cta-label        { font-size: 7px; letter-spacing: 1.2px; margin-bottom: 8px; }
+  .tn-cta-title        { font-size: 16px; letter-spacing: -0.2px; margin-bottom: 10px; line-height: 1.05; }
+  .tn-cta-sub          { font-size: 10px; line-height: 1.45; margin-bottom: 16px; }
+  .tn-cta-correo       { padding: 10px 12px; margin-bottom: 14px; gap: 3px; border-radius: 6px; }
+  .tn-cta-correo-lbl   { font-size: 7px; letter-spacing: 0.8px; }
+  .tn-cta-correo-mail  { font-size: 10px; letter-spacing: 0.1px; }
+  .tn-cta-correo-asunto { font-size: 8px; }
+  .tn-cta-actions      { gap: 6px; flex-direction: column; }
+  .tn-cta-btn          { height: 34px; font-size: 9px; padding: 0 12px; letter-spacing: 0.3px; gap: 4px; width: 100%; }
+}

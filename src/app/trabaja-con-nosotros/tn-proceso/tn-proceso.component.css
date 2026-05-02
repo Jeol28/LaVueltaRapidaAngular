@@ -193,3 +193,18 @@
   .tn-paso-titulo   { font-size: 10px; }
   .tn-paso-desc     { font-size: 11px; }
 }
+
+@media (max-width: 250px) {
+  .tn-proceso       { padding: 26px 0; }
+  .tn-proceso-inner { padding: 0 8px; }
+  .tn-sec-titulo    { font-size: 7px; letter-spacing: 0.8px; }
+  .tn-sec-header    { gap: 8px; margin-bottom: 10px; }
+  .tn-proceso-intro { font-size: 10px; margin-bottom: 18px; line-height: 1.5; }
+  .tn-proceso-grid  { gap: 5px; }
+  .tn-paso-card     { padding: 12px 10px; gap: 6px; border-radius: 8px; }
+  .tn-paso-icono    { font-size: 20px; }
+  .tn-paso-numero   { font-size: 14px; top: 5px; right: 8px; }
+  .tn-paso-titulo   { font-size: 9px; letter-spacing: 0.5px; }
+  .tn-paso-desc     { font-size: 9px; line-height: 1.45; }
+  .tn-paso-flecha   { font-size: 14px; }
+}

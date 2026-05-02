@@ -68,8 +68,8 @@
 }
 
 @media (max-width: 250px) {
-  .tn-ben-card   { padding: 14px 12px; gap: 8px; }
-  .tn-ben-icono  { font-size: 20px; }
-  .tn-ben-titulo { font-size: 10px; }
-  .tn-ben-desc   { font-size: 10px; }
+  .tn-ben-card   { padding: 12px 10px; gap: 6px; border-radius: 8px; }
+  .tn-ben-icono  { font-size: 18px; }
+  .tn-ben-titulo { font-size: 9px; letter-spacing: 0.5px; }
+  .tn-ben-desc   { font-size: 9px; line-height: 1.45; }
 }

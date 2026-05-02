@@ -95,3 +95,12 @@
   .tn-sec-titulo     { font-size: 9px; letter-spacing: 1px; }
   .tn-sec-header     { gap: 10px; margin-bottom: 12px; }
 }
+
+@media (max-width: 250px) {
+  .tn-vacantes       { padding: 26px 0; }
+  .tn-vacantes-inner { padding: 0 8px; }
+  .tn-sec-titulo     { font-size: 7px; letter-spacing: 0.8px; }
+  .tn-sec-header     { gap: 8px; margin-bottom: 10px; }
+  .tn-vacantes-intro { font-size: 10px; margin-bottom: 18px; line-height: 1.5; }
+  .tn-vacantes-grid  { gap: 10px; }
+}

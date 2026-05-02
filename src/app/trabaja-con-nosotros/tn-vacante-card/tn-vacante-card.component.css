@@ -221,3 +221,22 @@
   .tn-vac-correo-lbl     { font-size: 8px; letter-spacing: 0.8px; }
   .tn-vac-correo-mail    { font-size: 10px; }
 }
+
+@media (max-width: 250px) {
+  .tn-vac-card           { padding: 12px 10px; gap: 8px; border-radius: 8px; }
+  .tn-vac-tag            { font-size: 7px; padding: 2px 6px; letter-spacing: 0.8px; left: 10px; top: -8px; }
+  .tn-vac-cargo          { font-size: 11px; letter-spacing: -0.1px; }
+  .tn-vac-area           { font-size: 8px; letter-spacing: 0.8px; padding: 2px 6px; }
+  .tn-vac-meta           { font-size: 9px; gap: 6px; }
+  .tn-vac-meta-icon      { font-size: 10px; }
+  .tn-vac-desc           { font-size: 10px; line-height: 1.5; }
+  .tn-vac-requisitos     { padding-top: 10px; }
+  .tn-vac-req-titulo     { font-size: 8px; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .tn-vac-req-lista      { gap: 4px; }
+  .tn-vac-req-lista li   { font-size: 9px; padding-left: 12px; line-height: 1.5; }
+  .tn-vac-req-lista li::before { width: 4px; height: 4px; top: 6px; }
+  .tn-vac-correo         { padding: 8px 10px; gap: 2px; }
+  .tn-vac-correo-lbl     { font-size: 7px; letter-spacing: 0.8px; }
+  .tn-vac-correo-mail    { font-size: 9px; letter-spacing: 0.1px; }
+  .tn-vac-correo-asunto  { font-size: 8px; }
+}
