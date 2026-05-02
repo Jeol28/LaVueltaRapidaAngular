@@ -8,9 +8,4 @@ import { ModeloFranquiciaItem } from '../franquicias/franquicias.component';
 })
 export class FrModeloCardComponent {
   @Input() modelo!: ModeloFranquiciaItem;
-
-  get mailtoLink(): string {
-    const subject = encodeURIComponent(`Información franquicia - ${this.modelo.nombre}`);
-    return `mailto:franquicias@lavueltarapida.co?subject=${subject}`;
-  }
 }

@@ -145,53 +145,69 @@
   background: #e10600;
 }
 
-.fr-mod-btn {
+.fr-mod-correo {
   margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 46px;
-  background: transparent;
-  color: #e10600;
-  border: 1.5px solid #e10600;
+  padding: 14px 16px;
+  background: rgba(225,6,0,0.08);
+  border: 1px solid rgba(225,6,0,0.3);
+  border-left: 3px solid #e10600;
   border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fr-mod-card--destacado .fr-mod-correo {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.25);
+  border-left-color: #fff;
+}
+
+.fr-mod-correo-lbl {
   font-family: 'Orbitron', sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.5px;
-  text-decoration: none;
-  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  color: #e10600;
+  text-transform: uppercase;
 }
 
-.fr-mod-card--destacado .fr-mod-btn {
-  background: #e10600;
+.fr-mod-card--destacado .fr-mod-correo-lbl { color: #fff; }
+
+.fr-mod-correo-mail {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
   color: #fff;
+  letter-spacing: 0.3px;
+  word-break: break-all;
+  user-select: all;
 }
 
-.fr-mod-btn:hover {
-  background: #e10600;
-  color: #fff;
-  transform: translateY(-2px);
+.fr-mod-correo-asunto {
+  font-size: 11px;
+  color: #9ca3af;
+  font-style: italic;
 }
 
-.fr-mod-card--destacado .fr-mod-btn:hover {
-  background: #b80500;
-  border-color: #b80500;
-}
+.fr-mod-card--destacado .fr-mod-correo-asunto { color: rgba(255,255,255,0.85); }
 
 @media (max-width: 400px) {
-  .fr-mod-card    { padding: 26px 18px 22px; gap: 14px; }
-  .fr-mod-nombre  { font-size: 18px; }
-  .fr-mod-desc    { font-size: 12px; }
-  .fr-mod-grid    { padding: 12px; gap: 10px; }
-  .fr-mod-item-value { font-size: 12px; }
-  .fr-mod-btn     { height: 42px; font-size: 11px; letter-spacing: 1px; }
+  .fr-mod-card           { padding: 26px 18px 22px; gap: 14px; }
+  .fr-mod-nombre         { font-size: 18px; }
+  .fr-mod-desc           { font-size: 12px; }
+  .fr-mod-grid           { padding: 12px; gap: 10px; }
+  .fr-mod-item-value     { font-size: 12px; }
+  .fr-mod-correo         { padding: 12px 14px; }
+  .fr-mod-correo-mail    { font-size: 13px; }
+  .fr-mod-correo-asunto  { font-size: 10px; }
 }
 
 @media (max-width: 280px) {
-  .fr-mod-card    { padding: 22px 14px 18px; }
-  .fr-mod-nombre  { font-size: 16px; }
-  .fr-mod-grid    { grid-template-columns: 1fr; }
+  .fr-mod-card           { padding: 22px 14px 18px; }
+  .fr-mod-nombre         { font-size: 16px; }
+  .fr-mod-grid           { grid-template-columns: 1fr; }
   .fr-mod-incluye-lista li { font-size: 12px; }
-  .fr-mod-btn     { font-size: 10px; letter-spacing: 0.8px; }
+  .fr-mod-correo-lbl     { font-size: 9px; letter-spacing: 1px; }
+  .fr-mod-correo-mail    { font-size: 12px; }
 }

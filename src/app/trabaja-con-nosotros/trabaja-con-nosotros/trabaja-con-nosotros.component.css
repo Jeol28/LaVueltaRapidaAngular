@@ -48,6 +48,43 @@
   margin-bottom: 32px;
 }
 
+.tn-cta-correo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 28px;
+  background: rgba(225,6,0,0.1);
+  border: 1px solid rgba(225,6,0,0.35);
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+
+.tn-cta-correo-lbl {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #e10600;
+  text-transform: uppercase;
+}
+
+.tn-cta-correo-mail {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.3px;
+  word-break: break-all;
+  user-select: all;
+}
+
+.tn-cta-correo-asunto {
+  font-size: 12px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
 .tn-cta-actions {
   display: flex;
   gap: 16px;
@@ -95,14 +132,20 @@
 }
 
 @media (max-width: 540px) {
-  .tn-cta       { padding: 56px 16px; }
-  .tn-cta-sub   { font-size: 14px; }
-  .tn-cta-btn   { height: 48px; padding: 0 22px; font-size: 12px; letter-spacing: 1px; }
+  .tn-cta             { padding: 56px 16px; }
+  .tn-cta-sub         { font-size: 14px; }
+  .tn-cta-btn         { height: 48px; padding: 0 22px; font-size: 12px; letter-spacing: 1px; }
+  .tn-cta-correo      { padding: 16px 20px; }
+  .tn-cta-correo-mail { font-size: 16px; }
 }
 
 @media (max-width: 320px) {
-  .tn-cta       { padding: 40px 12px; }
-  .tn-cta-label { font-size: 10px; letter-spacing: 2px; }
-  .tn-cta-sub   { font-size: 13px; }
-  .tn-cta-btn   { height: 42px; font-size: 11px; padding: 0 16px; gap: 6px; }
+  .tn-cta              { padding: 40px 12px; }
+  .tn-cta-label        { font-size: 10px; letter-spacing: 2px; }
+  .tn-cta-sub          { font-size: 13px; }
+  .tn-cta-btn          { height: 42px; font-size: 11px; padding: 0 16px; gap: 6px; }
+  .tn-cta-correo       { padding: 14px 16px; }
+  .tn-cta-correo-lbl   { font-size: 10px; letter-spacing: 1.5px; }
+  .tn-cta-correo-mail  { font-size: 14px; }
+  .tn-cta-correo-asunto { font-size: 11px; }
 }

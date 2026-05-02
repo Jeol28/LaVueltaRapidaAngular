@@ -132,42 +132,58 @@
   background: #e10600;
 }
 
-.tn-vac-btn {
+.tn-vac-correo {
   margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 44px;
-  background: transparent;
-  color: #e10600;
-  border: 1.5px solid #e10600;
+  padding: 14px 16px;
+  background: rgba(225,6,0,0.08);
+  border: 1px solid rgba(225,6,0,0.3);
+  border-left: 3px solid #e10600;
   border-radius: 6px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-decoration: none;
-  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.tn-vac-btn:hover {
-  background: #e10600;
+.tn-vac-correo-lbl {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #e10600;
+  text-transform: uppercase;
+}
+
+.tn-vac-correo-mail {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
   color: #fff;
-  transform: translateY(-2px);
+  letter-spacing: 0.3px;
+  word-break: break-all;
+  user-select: all;
+}
+
+.tn-vac-correo-asunto {
+  font-size: 11px;
+  color: #9ca3af;
+  font-style: italic;
 }
 
 @media (max-width: 400px) {
-  .tn-vac-card    { padding: 22px 18px; gap: 14px; }
-  .tn-vac-cargo   { font-size: 16px; }
-  .tn-vac-desc    { font-size: 13px; }
-  .tn-vac-meta    { font-size: 12px; }
-  .tn-vac-btn     { height: 40px; font-size: 11px; }
+  .tn-vac-card           { padding: 22px 18px; gap: 14px; }
+  .tn-vac-cargo          { font-size: 16px; }
+  .tn-vac-desc           { font-size: 13px; }
+  .tn-vac-meta           { font-size: 12px; }
+  .tn-vac-correo         { padding: 12px 14px; }
+  .tn-vac-correo-mail    { font-size: 13px; }
+  .tn-vac-correo-asunto  { font-size: 10px; }
 }
 
 @media (max-width: 280px) {
-  .tn-vac-card    { padding: 16px 14px; }
-  .tn-vac-cargo   { font-size: 14px; }
-  .tn-vac-desc    { font-size: 12px; }
-  .tn-vac-req-lista li { font-size: 12px; }
-  .tn-vac-btn     { font-size: 10px; letter-spacing: 1px; }
+  .tn-vac-card           { padding: 16px 14px; }
+  .tn-vac-cargo          { font-size: 14px; }
+  .tn-vac-desc           { font-size: 12px; }
+  .tn-vac-req-lista li   { font-size: 12px; }
+  .tn-vac-correo-lbl     { font-size: 9px; letter-spacing: 1px; }
+  .tn-vac-correo-mail    { font-size: 12px; }
 }

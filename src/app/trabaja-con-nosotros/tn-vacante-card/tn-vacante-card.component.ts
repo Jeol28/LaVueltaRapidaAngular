@@ -8,9 +8,4 @@ import { VacanteItem } from '../trabaja-con-nosotros/trabaja-con-nosotros.compon
 })
 export class TnVacanteCardComponent {
   @Input() vacante!: VacanteItem;
-
-  get mailtoLink(): string {
-    const subject = encodeURIComponent(`Postulación - ${this.vacante.cargo}`);
-    return `mailto:talento@lavueltarapida.co?subject=${subject}`;
-  }
 }
