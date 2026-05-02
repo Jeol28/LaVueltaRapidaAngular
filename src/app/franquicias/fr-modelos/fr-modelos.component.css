@@ -82,12 +82,12 @@
 }
 
 @media (max-width: 300px) {
-  .fr-modelos       { padding: 36px 0; }
-  .fr-modelos-inner { padding: 0 12px; }
-  .fr-sec-titulo    { font-size: 8px; letter-spacing: 1px; }
-  .fr-sec-header    { gap: 10px; margin-bottom: 12px; }
-  .fr-modelos-intro { font-size: 12px; margin-bottom: 24px; line-height: 1.55; }
-  .fr-modelos-grid  { gap: 14px; }
+  .fr-modelos       { padding: 28px 0; }
+  .fr-modelos-inner { padding: 0 10px; }
+  .fr-sec-titulo    { font-size: 7px; letter-spacing: 0.8px; }
+  .fr-sec-header    { gap: 8px; margin-bottom: 10px; }
+  .fr-modelos-intro { font-size: 10px; margin-bottom: 18px; line-height: 1.5; }
+  .fr-modelos-grid  { gap: 11px; }
 }
 
 @media (max-width: 260px) {
