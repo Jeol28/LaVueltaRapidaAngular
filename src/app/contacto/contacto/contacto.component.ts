@@ -45,14 +45,6 @@ export class ContactoComponent {
       disponibilidad: 'Lun a Dom · 11:30 a.m. - 11:00 p.m.'
     },
     {
-      icono: '📩',
-      titulo: 'PEDIDOS',
-      detalle: 'pedidos@lavueltarapida.co',
-      color: '#ffb800',
-      tiempoRespuesta: 'Respuesta < 30 min',
-      disponibilidad: 'Lun a Dom · 11:30 a.m. - 11:00 p.m.'
-    },
-    {
       icono: '💬',
       titulo: 'WHATSAPP',
       detalle: '+57 300 123 4567',
@@ -63,6 +55,14 @@ export class ContactoComponent {
       tiempoRespuesta: 'Respuesta < 5 min',
       disponibilidad: 'Disponible 24 / 7',
       recomendado: true
+    },
+    {
+      icono: '📩',
+      titulo: 'PEDIDOS',
+      detalle: 'pedidos@lavueltarapida.co',
+      color: '#ffb800',
+      tiempoRespuesta: 'Respuesta < 30 min',
+      disponibilidad: 'Lun a Dom · 11:30 a.m. - 11:00 p.m.'
     },
     {
       icono: '✉️',
