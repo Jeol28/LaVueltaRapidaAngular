@@ -15,8 +15,6 @@ export class CarritoComponent implements OnInit, OnDestroy {
   items: ItemCarrito[] = [];
   private sub!: Subscription;
 
-  pedidoCreado: boolean = false;
-  pedidoId: number | null = null;
   cargando: boolean = false;
   errorMsg: string = '';
 
@@ -57,13 +55,16 @@ export class CarritoComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const totalPedido = this.carritoService.total;
+
     this.cargando = true;
     this.pedidoService.crearDesdeCarrito(+carritoId).subscribe({
       next: (pedido) => {
         this.cargando = false;
-        this.pedidoId = pedido.id;
-        this.pedidoCreado = true;
         this.carritoService.vaciar();
+        this.router.navigate(['/pago', pedido.id], {
+          state: { total: totalPedido }
+        });
       },
       error: (err) => {
         this.cargando = false;
@@ -90,12 +91,5 @@ export class CarritoComponent implements OnInit, OnDestroy {
 
   volverAlMenu(): void {
     this.router.navigate(['/menu']);
-  }
-
-  verMisPedidos(): void {
-    this.router.navigate(['/perfil'], {
-      fragment: 'mis-pedidos',
-      queryParams: { pedido: this.pedidoId }
-    });
   }
 }

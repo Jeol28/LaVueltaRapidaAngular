@@ -13,6 +13,7 @@ import { PedidosAdminComponent } from './admin/pedidos/pedidos-admin/pedidos-adm
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { PagoComponent } from './pago/pago.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'carrito', component: CarritoComponent },
+  { path: 'pago/:pedidoId', component: PagoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'perfil', component: PerfilComponent },

@@ -1,0 +1,386 @@
+<main class="pg-main">
+
+  <!-- Banda superior tipo gateway -->
+  <header class="pg-topbar">
+    <div class="pg-topbar-inner">
+      <div class="pg-brand">
+        <span class="pg-brand-mark">⚡</span>
+        <span class="pg-brand-name">VUELTAPAY</span>
+        <span class="pg-brand-sub">PASARELA SEGURA</span>
+      </div>
+      <div class="pg-secure">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+          <rect x="4" y="11" width="16" height="9" rx="1.5"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
+        <span>CONEXIÓN ENCRIPTADA · SSL 256</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Estado de carga -->
+  <div class="pg-loading" *ngIf="cargando">
+    <div class="pg-loader-ring"></div>
+    <p>Cargando información de tu pedido…</p>
+  </div>
+
+  <!-- Error de carga: sin total disponible o pedido no verificado -->
+  <div class="pg-error-box" *ngIf="!cargando && (pedidoNoEncontrado || (errorCarga && !total))">
+    <h2>NO PODEMOS PROCESAR EL PAGO</h2>
+    <p>{{ errorCarga }}</p>
+    <button class="pg-btn-secundario" (click)="cancelar()">VOLVER A MI PERFIL</button>
+  </div>
+
+  <!-- Layout principal -->
+  <div class="pg-grid" *ngIf="!cargando && total > 0 && !pedidoNoEncontrado">
+
+    <!-- ─── COLUMNA IZQUIERDA: RESUMEN ──────────────────────────────── -->
+    <aside class="pg-resumen">
+      <div class="pg-resumen-header">
+        <span class="pg-stripe"></span>
+        <h2>RESUMEN DEL PEDIDO</h2>
+      </div>
+
+      <div class="pg-pedido-num">
+        <span class="pg-pedido-label">PEDIDO</span>
+        <span class="pg-pedido-id">#{{ pedidoId }}</span>
+      </div>
+
+      <div class="pg-items-list" *ngIf="pedido && pedido.lineasPedido?.length">
+        <div class="pg-item-row" *ngFor="let lp of pedido!.lineasPedido">
+          <div class="pg-item-info">
+            <span class="pg-item-name">{{ lp.comida.name }}</span>
+            <span class="pg-item-extras" *ngIf="lp.adicionales?.length">
+              <span *ngFor="let a of lp.adicionales">+ {{ a.adicional.name }}</span>
+            </span>
+          </div>
+          <div class="pg-item-qty">x{{ lp.cantidad }}</div>
+        </div>
+      </div>
+
+      <div class="pg-resumen-divider"></div>
+
+      <div class="pg-row">
+        <span>Subtotal</span>
+        <span>${{ formatCOP(total) }}</span>
+      </div>
+      <div class="pg-row pg-row-mute">
+        <span>Domicilio</span>
+        <span class="pg-tag-free">GRATIS</span>
+      </div>
+
+      <div class="pg-total-block">
+        <span class="pg-total-label">TOTAL A PAGAR</span>
+        <span class="pg-total-value">${{ formatCOP(total) }} <small>COP</small></span>
+      </div>
+
+      <div class="pg-ref">
+        <span class="pg-ref-lbl">REF. TRANSACCIÓN</span>
+        <span class="pg-ref-val">{{ refTransaccion }}</span>
+      </div>
+
+      <div class="pg-trust">
+        <div class="pg-trust-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e10600" stroke-width="2.4">
+            <path d="M12 2 4 6v6c0 5 3.4 9.3 8 10 4.6-.7 8-5 8-10V6l-8-4z"/>
+          </svg>
+          <span>Transacción protegida</span>
+        </div>
+        <div class="pg-trust-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e10600" stroke-width="2.4">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          <span>Cifrado PCI-DSS</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ─── COLUMNA DERECHA: GATEWAY ────────────────────────────────── -->
+    <section class="pg-gateway">
+
+      <!-- Pasos -->
+      <div class="pg-steps">
+        <div class="pg-step" [class.is-active]="fase === 'metodo'" [class.is-done]="fase !== 'metodo'">
+          <span class="pg-step-num">01</span>
+          <span class="pg-step-name">MÉTODO</span>
+        </div>
+        <div class="pg-step-line"></div>
+        <div class="pg-step"
+             [class.is-active]="fase === 'datos'"
+             [class.is-done]="fase === 'procesando' || fase === 'exito' || fase === 'fallo'">
+          <span class="pg-step-num">02</span>
+          <span class="pg-step-name">DATOS</span>
+        </div>
+        <div class="pg-step-line"></div>
+        <div class="pg-step"
+             [class.is-active]="fase === 'procesando'"
+             [class.is-done]="fase === 'exito' || fase === 'fallo'">
+          <span class="pg-step-num">03</span>
+          <span class="pg-step-name">CONFIRMACIÓN</span>
+        </div>
+      </div>
+
+      <!-- ── FASE 1: SELECCIÓN DE MÉTODO ────────────────────────────── -->
+      <div class="pg-panel" *ngIf="fase === 'metodo'">
+        <h3 class="pg-panel-title">ELIGE TU MÉTODO DE PAGO</h3>
+        <p class="pg-panel-sub">Selecciona cómo deseas pagar tu pedido. Todos los métodos son seguros y cifrados.</p>
+
+        <div class="pg-metodos-grid">
+
+          <button class="pg-metodo-card" (click)="seleccionarMetodo('tarjeta')">
+            <div class="pg-metodo-icon">
+              <svg width="32" height="22" viewBox="0 0 32 22" fill="none">
+                <rect x="1" y="1" width="30" height="20" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                <rect x="1" y="5" width="30" height="3.5" fill="currentColor"/>
+                <rect x="4" y="13" width="9" height="2" rx="0.5" fill="currentColor"/>
+                <rect x="4" y="16.5" width="6" height="1.5" rx="0.4" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">TARJETA</span>
+              <span class="pg-metodo-desc">Crédito o débito · Visa, Mastercard, Amex</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="seleccionarMetodo('pse')">
+            <div class="pg-metodo-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="9" width="18" height="11" rx="1"/>
+                <path d="M3 9 12 3l9 6"/>
+                <line x1="7" y1="13" x2="7" y2="18"/>
+                <line x1="12" y1="13" x2="12" y2="18"/>
+                <line x1="17" y1="13" x2="17" y2="18"/>
+              </svg>
+            </div>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">PSE</span>
+              <span class="pg-metodo-desc">Débito desde tu cuenta bancaria</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="seleccionarMetodo('nequi')">
+            <div class="pg-metodo-icon pg-icon-nequi">N</div>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">NEQUI</span>
+              <span class="pg-metodo-desc">Paga desde tu app Nequi</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="seleccionarMetodo('daviplata')">
+            <div class="pg-metodo-icon pg-icon-davi">D</div>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">DAVIPLATA</span>
+              <span class="pg-metodo-desc">Paga desde tu app Daviplata</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+        </div>
+
+        <button class="pg-btn-cancelar" (click)="cancelar()">CANCELAR Y VOLVER</button>
+      </div>
+
+      <!-- ── FASE 2: DATOS ──────────────────────────────────────────── -->
+      <div class="pg-panel" *ngIf="fase === 'datos'">
+
+        <div class="pg-method-header">
+          <button class="pg-back-btn" (click)="volverAMetodos()" aria-label="Volver">‹</button>
+          <h3 class="pg-panel-title">{{ nombreMetodo | uppercase }}</h3>
+        </div>
+
+        <!-- TARJETA -->
+        <div class="pg-form" *ngIf="metodo === 'tarjeta'">
+          <div class="pg-card-preview" [attr.data-tipo]="tarjetaTipo">
+            <div class="pg-card-chip"></div>
+            <div class="pg-card-num">
+              {{ numeroTarjeta || '•••• •••• •••• ••••' }}
+            </div>
+            <div class="pg-card-bottom">
+              <div>
+                <span class="pg-card-lbl">TITULAR</span>
+                <span class="pg-card-val">{{ nombreTarjeta || 'NOMBRE APELLIDO' }}</span>
+              </div>
+              <div>
+                <span class="pg-card-lbl">VENCE</span>
+                <span class="pg-card-val">{{ vencimiento || 'MM/AA' }}</span>
+              </div>
+            </div>
+            <div class="pg-card-brand">{{ tarjetaTipo === 'desconocida' ? '' : tarjetaTipo.toUpperCase() }}</div>
+          </div>
+
+          <label class="pg-field pg-field-full">
+            <span>Número de tarjeta</span>
+            <input type="text" inputmode="numeric" autocomplete="cc-number"
+                   placeholder="1234 5678 9012 3456"
+                   [value]="numeroTarjeta"
+                   (input)="formatearTarjeta($event)">
+          </label>
+
+          <label class="pg-field pg-field-full">
+            <span>Nombre del titular</span>
+            <input type="text" autocomplete="cc-name" placeholder="Como figura en la tarjeta"
+                   [(ngModel)]="nombreTarjeta">
+          </label>
+
+          <label class="pg-field">
+            <span>Vencimiento</span>
+            <input type="text" inputmode="numeric" autocomplete="cc-exp"
+                   placeholder="MM/AA"
+                   [value]="vencimiento"
+                   (input)="formatearVencimiento($event)">
+          </label>
+
+          <label class="pg-field">
+            <span>CVV</span>
+            <input type="password" inputmode="numeric" autocomplete="cc-csc"
+                   placeholder="•••"
+                   [value]="cvv"
+                   (input)="formatearCvv($event)">
+          </label>
+
+          <label class="pg-field pg-field-full">
+            <span>Cuotas</span>
+            <select [(ngModel)]="cuotas">
+              <option [value]="1">1 cuota (sin interés)</option>
+              <option [value]="3">3 cuotas</option>
+              <option [value]="6">6 cuotas</option>
+              <option [value]="12">12 cuotas</option>
+              <option [value]="24">24 cuotas</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- PSE -->
+        <div class="pg-form" *ngIf="metodo === 'pse'">
+          <label class="pg-field pg-field-full">
+            <span>Selecciona tu banco</span>
+            <select [(ngModel)]="bancoPse">
+              <option value="" disabled>-- Elige un banco --</option>
+              <option *ngFor="let b of bancosPse" [value]="b.id">{{ b.nombre }}</option>
+            </select>
+          </label>
+          <label class="pg-field pg-field-full">
+            <span>Cédula / NIT</span>
+            <input type="text" inputmode="numeric" placeholder="Sin puntos ni guiones"
+                   [value]="cedula"
+                   (input)="formatearCedula($event)">
+          </label>
+          <p class="pg-form-info">
+            Serás redirigido a tu banco para autorizar el débito y luego volverás a esta página.
+          </p>
+        </div>
+
+        <!-- NEQUI / DAVIPLATA -->
+        <div class="pg-form" *ngIf="metodo === 'nequi' || metodo === 'daviplata'">
+          <div class="pg-wallet-icon" [class.is-davi]="metodo === 'daviplata'">
+            {{ metodo === 'nequi' ? 'N' : 'D' }}
+          </div>
+          <label class="pg-field pg-field-full">
+            <span>Número de celular</span>
+            <input type="tel" inputmode="numeric" placeholder="3001234567"
+                   [value]="numeroCelular"
+                   (input)="formatearCelular($event)">
+          </label>
+          <p class="pg-form-info">
+            Recibirás una notificación en tu app de
+            <strong>{{ metodo === 'nequi' ? 'Nequi' : 'Daviplata' }}</strong>
+            para confirmar el pago.
+          </p>
+        </div>
+
+        <p class="pg-error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+        <div class="pg-actions">
+          <button class="pg-btn-secundario" (click)="volverAMetodos()">CAMBIAR MÉTODO</button>
+          <button class="pg-btn-pagar" (click)="pagar()">
+            PAGAR ${{ formatCOP(total) }}
+          </button>
+        </div>
+      </div>
+
+      <!-- ── FASE 3: PROCESANDO ─────────────────────────────────────── -->
+      <div class="pg-panel pg-panel-center" *ngIf="fase === 'procesando'">
+        <div class="pg-pulse-track">
+          <div class="pg-pulse-car">🏎️</div>
+          <div class="pg-pulse-flag">🏁</div>
+        </div>
+        <h3 class="pg-state-title">PROCESANDO TU PAGO…</h3>
+        <p class="pg-state-sub">
+          Estamos validando tu transacción de forma segura.<br>
+          No cierres esta ventana.
+        </p>
+        <div class="pg-state-loader">
+          <div class="pg-loader-ring"></div>
+        </div>
+      </div>
+
+      <!-- ── FASE 4: ÉXITO ──────────────────────────────────────────── -->
+      <div class="pg-panel pg-panel-center" *ngIf="fase === 'exito'">
+        <div class="pg-result-icon pg-result-ok">
+          <svg viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" stroke="#22c55e" stroke-width="2.5"/>
+            <path d="M14 27l9 9 16-17" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="pg-state-title pg-title-ok">¡PAGO APROBADO!</h3>
+        <p class="pg-state-sub">
+          Tu pedido <strong>#{{ pedidoId }}</strong> está confirmado y entró en preparación.<br>
+          Serás redirigido a tu perfil en unos segundos…
+        </p>
+
+        <div class="pg-recibo">
+          <div class="pg-recibo-row">
+            <span>Método</span><span>{{ nombreMetodo }}</span>
+          </div>
+          <div class="pg-recibo-row">
+            <span>Referencia</span><span>{{ refTransaccion }}</span>
+          </div>
+          <div class="pg-recibo-row pg-recibo-total">
+            <span>Total pagado</span><span>${{ formatCOP(total) }} COP</span>
+          </div>
+        </div>
+
+        <button class="pg-btn-pagar" (click)="finalizar()">VER MI PEDIDO</button>
+      </div>
+
+      <!-- ── FASE 5: FALLO ──────────────────────────────────────────── -->
+      <div class="pg-panel pg-panel-center" *ngIf="fase === 'fallo'">
+        <div class="pg-result-icon pg-result-err">
+          <svg viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" stroke="#e10600" stroke-width="2.5"/>
+            <path d="M18 18l16 16M34 18L18 34" stroke="#e10600" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="pg-state-title pg-title-err">PAGO RECHAZADO</h3>
+        <p class="pg-state-sub">
+          No pudimos procesar tu pago. Verifica los datos o intenta con otro método.<br>
+          Tu pedido <strong>#{{ pedidoId }}</strong> sigue pendiente de pago.
+        </p>
+        <div class="pg-actions pg-actions-center">
+          <button class="pg-btn-secundario" (click)="cancelar()">SALIR</button>
+          <button class="pg-btn-pagar" (click)="reintentar()">REINTENTAR</button>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- Banda inferior tipo gateway -->
+  <footer class="pg-bottombar">
+    <div class="pg-bottom-inner">
+      <span>© VUELTAPAY · Procesador autorizado</span>
+      <div class="pg-badges">
+        <span class="pg-badge">VISA</span>
+        <span class="pg-badge">MASTERCARD</span>
+        <span class="pg-badge">AMEX</span>
+        <span class="pg-badge">PSE</span>
+        <span class="pg-badge">NEQUI</span>
+      </div>
+    </div>
+  </footer>
+
+</main>

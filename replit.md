@@ -44,8 +44,13 @@ src/app/
                       acordeón) with reusable items: ct-canal-card,
                       ct-sede-card, ct-faq-item
   ubicaciones/       - "Ubicaciones" public page (hero with stats, sedes
-                      detalladas, cobertura por zona, próximas aperturas)
-                      with reusable cards: ub-sede-card, ub-zona-card
+                      detalladas, próximas aperturas) with reusable cards:
+                      ub-sede-card
+  pago/              - VueltaPay payment gateway page (route /pago/:pedidoId).
+                      F1-themed simulated checkout with methods Tarjeta /
+                      PSE / Nequi / Daviplata. Carrito redirects here after
+                      creating a pedido (state.total). Auto-redirect to
+                      /perfil#mis-pedidos on success. Requires login.
   data/
     mock-data.ts     - Central mock data (CLIENTES, ADMINISTRADORES, OPERADORES, COMIDAS, etc.)
   models/            - TypeScript interfaces for all entities

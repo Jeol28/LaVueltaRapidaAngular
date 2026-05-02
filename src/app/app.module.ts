@@ -39,6 +39,7 @@ import { TablaPedidosAdminComponent } from './admin/pedidos/tabla-pedidos/tabla-
 import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { PagoComponent } from './pago/pago.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-icon-field.component';
@@ -163,6 +164,7 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     MenuComponent,
     ProductoDetalleComponent,
     CarritoComponent,
+    PagoComponent,
     LoginComponent,
     RegisterComponent,
     InputIconFieldComponent,
