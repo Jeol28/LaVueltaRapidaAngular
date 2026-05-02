@@ -63,8 +63,6 @@ import { UbicacionesComponent } from './ubicaciones/ubicaciones/ubicaciones.comp
 import { UbHeroComponent } from './ubicaciones/ub-hero/ub-hero.component';
 import { UbSedesComponent } from './ubicaciones/ub-sedes/ub-sedes.component';
 import { UbSedeCardComponent } from './ubicaciones/ub-sede-card/ub-sede-card.component';
-import { UbCoberturaComponent } from './ubicaciones/ub-cobertura/ub-cobertura.component';
-import { UbZonaCardComponent } from './ubicaciones/ub-zona-card/ub-zona-card.component';
 import { UbProximaComponent } from './ubicaciones/ub-proxima/ub-proxima.component';
 
 import { ContactoComponent } from './contacto/contacto/contacto.component';
@@ -189,8 +187,6 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     UbHeroComponent,
     UbSedesComponent,
     UbSedeCardComponent,
-    UbCoberturaComponent,
-    UbZonaCardComponent,
     UbProximaComponent,
 
     ContactoComponent,

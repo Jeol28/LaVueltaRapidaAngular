@@ -19,15 +19,6 @@ export interface SedeUbicacion {
   destacada?: boolean;
 }
 
-export interface ZonaCobertura {
-  nombre: string;
-  barrios: string[];
-  tiempoMin: number;
-  tiempoMax: number;
-  envioDesde: number;
-  color: string;
-}
-
 export interface ProximaApertura {
   ciudad: string;
   zona: string;
@@ -89,33 +80,6 @@ export class UbicacionesComponent {
       ],
       parqueadero: 'Parqueadero del centro comercial · 2 horas gratis',
       imagenIcono: '🏆'
-    }
-  ];
-
-  zonas: ZonaCobertura[] = [
-    {
-      nombre: 'NORTE',
-      barrios: ['Usaquén', 'Cedritos', 'Santa Bárbara', 'Country Club', 'Chicó Norte', 'Multicentro'],
-      tiempoMin: 25,
-      tiempoMax: 40,
-      envioDesde: 5000,
-      color: '#e10600'
-    },
-    {
-      nombre: 'CENTRO',
-      barrios: ['Chapinero', 'Quinta Camacho', 'La Soledad', 'Teusaquillo', 'La Macarena', 'La Candelaria'],
-      tiempoMin: 20,
-      tiempoMax: 35,
-      envioDesde: 4000,
-      color: '#ffb800'
-    },
-    {
-      nombre: 'OCCIDENTE',
-      barrios: ['Salitre', 'Modelia', 'Hayuelos', 'Ciudad Salitre', 'Capellanía', 'Engativá'],
-      tiempoMin: 25,
-      tiempoMax: 45,
-      envioDesde: 5000,
-      color: '#10b981'
     }
   ];
 
