@@ -59,6 +59,14 @@ import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
 import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
 
+import { UbicacionesComponent } from './ubicaciones/ubicaciones/ubicaciones.component';
+import { UbHeroComponent } from './ubicaciones/ub-hero/ub-hero.component';
+import { UbSedesComponent } from './ubicaciones/ub-sedes/ub-sedes.component';
+import { UbSedeCardComponent } from './ubicaciones/ub-sede-card/ub-sede-card.component';
+import { UbCoberturaComponent } from './ubicaciones/ub-cobertura/ub-cobertura.component';
+import { UbZonaCardComponent } from './ubicaciones/ub-zona-card/ub-zona-card.component';
+import { UbProximaComponent } from './ubicaciones/ub-proxima/ub-proxima.component';
+
 import { ContactoComponent } from './contacto/contacto/contacto.component';
 import { CtHeroComponent } from './contacto/ct-hero/ct-hero.component';
 import { CtCanalesComponent } from './contacto/ct-canales/ct-canales.component';
@@ -176,6 +184,14 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     PrivacidadComponent,
     PpHeroComponent,
     PpSeccionComponent,
+
+    UbicacionesComponent,
+    UbHeroComponent,
+    UbSedesComponent,
+    UbSedeCardComponent,
+    UbCoberturaComponent,
+    UbZonaCardComponent,
+    UbProximaComponent,
 
     ContactoComponent,
     CtHeroComponent,

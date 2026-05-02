@@ -1,0 +1,129 @@
+.ub-zona {
+  position: relative;
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 26px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.ub-zona:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  border-color: rgba(255,255,255,0.14);
+}
+
+.ub-zona-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.ub-zona-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ub-zona-nombre {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.ub-zona-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ub-zona-metrics {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+}
+
+.ub-zona-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.ub-zona-metric-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.ub-zona-metric-lbl {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.ub-zona-metric-div {
+  width: 1px;
+  height: 32px;
+  background: rgba(255,255,255,0.1);
+}
+
+.ub-zona-barrios { display: flex; flex-direction: column; gap: 10px; }
+
+.ub-zona-barrios-lbl {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #e10600;
+}
+
+.ub-zona-barrios-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ub-zona-chip {
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  font-size: 11px;
+  color: #d1d5db;
+}
+
+@media (max-width: 540px) {
+  .ub-zona         { padding: 22px 18px 20px; gap: 16px; }
+  .ub-zona-nombre  { font-size: 16px; }
+  .ub-zona-metric-num { font-size: 16px; }
+}
+
+@media (max-width: 320px) {
+  .ub-zona-metrics    { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .ub-zona-metric-div { width: 100%; height: 1px; }
+  .ub-zona-chip       { font-size: 10px; padding: 4px 8px; }
+}
+
+@media (max-width: 260px) {
+  .ub-zona            { padding: 16px 14px; }
+  .ub-zona-nombre     { font-size: 14px; }
+  .ub-zona-metric-num { font-size: 14px; }
+  .ub-zona-metric-lbl { font-size: 9px; }
+  .ub-zona-barrios-lbl { font-size: 9px; letter-spacing: 1.5px; }
+}

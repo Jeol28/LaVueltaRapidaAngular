@@ -1,0 +1,18 @@
+<section class="ub-sedes">
+  <div class="ub-sedes-inner">
+    <div class="ub-sec-header">
+      <div class="ub-sec-line"></div>
+      <h2 class="ub-sec-titulo">SEDES ACTIVAS</h2>
+      <div class="ub-sec-line ub-sec-line--right"></div>
+    </div>
+
+    <p class="ub-sedes-intro">
+      Cada sede es un box: misma calidad, misma masa madre, misma carta. Elige
+      la que te quede más cómoda y revisa horarios y servicios disponibles.
+    </p>
+
+    <div class="ub-sedes-grid">
+      <app-ub-sede-card *ngFor="let s of sedes" [sede]="s"></app-ub-sede-card>
+    </div>
+  </div>
+</section>

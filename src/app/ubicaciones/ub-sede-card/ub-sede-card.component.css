@@ -1,0 +1,214 @@
+.ub-sede {
+  position: relative;
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 28px 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.ub-sede:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.55);
+  border-color: rgba(225,6,0,0.4);
+}
+
+.ub-sede--destacada {
+  border-color: rgba(225,6,0,0.5);
+  background: linear-gradient(160deg, #181010 0%, #141414 60%);
+}
+
+.ub-sede-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ub-sede-icono {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: rgba(225,6,0,0.12);
+  border: 1px solid rgba(225,6,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.ub-sede-titulos { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+.ub-sede-tag {
+  align-self: flex-start;
+  background: #e10600;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 4px;
+}
+
+.ub-sede-nombre {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.3px;
+  line-height: 1.1;
+}
+
+.ub-sede-zona {
+  font-size: 12px;
+  color: #9ca3af;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.ub-sede-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ub-sede-block { display: flex; flex-direction: column; gap: 8px; }
+
+.ub-sede-block-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #e10600;
+}
+
+.ub-sede-block-text {
+  margin: 0;
+  font-size: 13px;
+  color: #d1d5db;
+  line-height: 1.55;
+}
+
+.ub-sede-block-text--muted { color: #9ca3af; font-size: 12px; }
+
+.ub-sede-horario {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ub-sede-horario li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+}
+
+.ub-sede-dia {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.ub-sede-rango {
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: right;
+}
+
+.ub-sede-servicios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ub-sede-chip {
+  padding: 5px 10px;
+  background: rgba(225,6,0,0.1);
+  border: 1px solid rgba(225,6,0,0.25);
+  border-radius: 100px;
+  font-size: 11px;
+  color: #f5d8d6;
+  font-weight: 500;
+}
+
+.ub-sede-foot {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ub-sede-btn {
+  flex: 1;
+  min-width: 130px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 6px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.ub-sede-btn--primary { background: #e10600; color: #fff; }
+.ub-sede-btn--primary:hover { background: #b80500; transform: translateY(-2px); }
+
+.ub-sede-btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.25);
+}
+
+.ub-sede-btn--ghost:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 540px) {
+  .ub-sede        { padding: 22px 18px 20px; gap: 18px; }
+  .ub-sede-icono  { width: 48px; height: 48px; font-size: 24px; }
+  .ub-sede-nombre { font-size: 19px; }
+  .ub-sede-rango  { font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .ub-sede-head   { gap: 12px; }
+  .ub-sede-icono  { width: 42px; height: 42px; font-size: 20px; }
+  .ub-sede-nombre { font-size: 17px; }
+  .ub-sede-zona   { font-size: 11px; }
+  .ub-sede-block-text { font-size: 12px; }
+  .ub-sede-chip   { font-size: 10px; padding: 4px 8px; }
+  .ub-sede-btn    { font-size: 10px; height: 40px; }
+}
+
+@media (max-width: 280px) {
+  .ub-sede        { padding: 18px 14px; }
+  .ub-sede-head   { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .ub-sede-nombre { font-size: 16px; }
+  .ub-sede-block-label { font-size: 9px; letter-spacing: 1.5px; }
+  .ub-sede-foot   { flex-direction: column; }
+  .ub-sede-btn    { width: 100%; }
+}

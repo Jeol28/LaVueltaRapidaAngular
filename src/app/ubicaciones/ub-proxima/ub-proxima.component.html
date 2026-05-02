@@ -1,0 +1,24 @@
+<section class="ub-proxima">
+  <div class="ub-proxima-inner">
+    <div class="ub-sec-header">
+      <div class="ub-sec-line"></div>
+      <h2 class="ub-sec-titulo">PRÓXIMAS APERTURAS</h2>
+      <div class="ub-sec-line ub-sec-line--right"></div>
+    </div>
+
+    <p class="ub-proxima-intro">
+      La parrilla de salida sigue creciendo. Estas son las próximas pistas
+      donde encontrarás La Vuelta Rápida.
+    </p>
+
+    <div class="ub-proxima-grid">
+      <article class="ub-proxima-card" *ngFor="let a of aperturas">
+        <span class="ub-proxima-tag">PRÓXIMAMENTE</span>
+        <span class="ub-proxima-fecha">{{ a.fecha }}</span>
+        <h3 class="ub-proxima-ciudad">{{ a.ciudad }}</h3>
+        <p class="ub-proxima-zona">{{ a.zona }}</p>
+        <div class="ub-proxima-flag"></div>
+      </article>
+    </div>
+  </div>
+</section>

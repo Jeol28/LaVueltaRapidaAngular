@@ -1,0 +1,50 @@
+<article class="ub-sede" [class.ub-sede--destacada]="sede.destacada">
+  <header class="ub-sede-head">
+    <div class="ub-sede-icono" aria-hidden="true">{{ sede.imagenIcono }}</div>
+    <div class="ub-sede-titulos">
+      <span *ngIf="sede.destacada" class="ub-sede-tag">⭐ SEDE PRINCIPAL</span>
+      <h3 class="ub-sede-nombre">{{ sede.nombre }}</h3>
+      <p class="ub-sede-zona">{{ sede.zona }}</p>
+    </div>
+  </header>
+
+  <div class="ub-sede-body">
+    <div class="ub-sede-block">
+      <span class="ub-sede-block-label">📍 DIRECCIÓN</span>
+      <p class="ub-sede-block-text">{{ sede.direccion }}</p>
+      <p class="ub-sede-block-text ub-sede-block-text--muted">{{ sede.comoLlegar }}</p>
+    </div>
+
+    <div class="ub-sede-block">
+      <span class="ub-sede-block-label">🕒 HORARIOS</span>
+      <ul class="ub-sede-horario">
+        <li *ngFor="let h of sede.horario">
+          <span class="ub-sede-dia">{{ h.dia }}</span>
+          <span class="ub-sede-rango">{{ h.rango }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="ub-sede-block">
+      <span class="ub-sede-block-label">✅ SERVICIOS</span>
+      <div class="ub-sede-servicios">
+        <span class="ub-sede-chip" *ngFor="let s of sede.servicios">{{ s }}</span>
+      </div>
+    </div>
+
+    <div class="ub-sede-block">
+      <span class="ub-sede-block-label">🅿️ PARQUEADERO</span>
+      <p class="ub-sede-block-text">{{ sede.parqueadero }}</p>
+    </div>
+  </div>
+
+  <footer class="ub-sede-foot">
+    <a class="ub-sede-btn ub-sede-btn--primary"
+       [href]="sede.mapsUrl" target="_blank" rel="noopener noreferrer">
+      VER EN MAPA →
+    </a>
+    <a class="ub-sede-btn ub-sede-btn--ghost" [href]="telefonoLink">
+      📞 LLAMAR
+    </a>
+  </footer>
+</article>

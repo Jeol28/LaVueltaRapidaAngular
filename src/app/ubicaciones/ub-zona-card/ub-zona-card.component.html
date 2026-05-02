@@ -1,0 +1,26 @@
+<article class="ub-zona">
+  <div class="ub-zona-bar" [ngStyle]="{'background': zona.color}"></div>
+  <div class="ub-zona-head">
+    <h3 class="ub-zona-nombre">{{ zona.nombre }}</h3>
+    <span class="ub-zona-dot" [ngStyle]="{'background': zona.color, 'box-shadow': '0 0 12px ' + zona.color}"></span>
+  </div>
+
+  <div class="ub-zona-metrics">
+    <div class="ub-zona-metric">
+      <span class="ub-zona-metric-num">{{ zona.tiempoMin }}-{{ zona.tiempoMax }}</span>
+      <span class="ub-zona-metric-lbl">minutos</span>
+    </div>
+    <div class="ub-zona-metric-div"></div>
+    <div class="ub-zona-metric">
+      <span class="ub-zona-metric-num">${{ zona.envioDesde | number:'1.0-0' }}</span>
+      <span class="ub-zona-metric-lbl">envío desde</span>
+    </div>
+  </div>
+
+  <div class="ub-zona-barrios">
+    <span class="ub-zona-barrios-lbl">BARRIOS CUBIERTOS</span>
+    <div class="ub-zona-barrios-list">
+      <span class="ub-zona-chip" *ngFor="let b of zona.barrios">{{ b }}</span>
+    </div>
+  </div>
+</article>

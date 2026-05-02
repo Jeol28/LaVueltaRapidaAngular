@@ -30,6 +30,7 @@ import { NuestraHistoriaComponent } from './nuestra-historia/nuestra-historia/nu
 import { TrabajaConNosotrosComponent } from './trabaja-con-nosotros/trabaja-con-nosotros/trabaja-con-nosotros.component';
 import { FranquiciasComponent } from './franquicias/franquicias/franquicias.component';
 import { ContactoComponent } from './contacto/contacto/contacto.component';
+import { UbicacionesComponent } from './ubicaciones/ubicaciones/ubicaciones.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -76,6 +77,7 @@ const routes: Routes = [
   { path: 'trabaja-con-nosotros', component: TrabajaConNosotrosComponent },
   { path: 'franquicias', component: FranquiciasComponent },
   { path: 'contacto', component: ContactoComponent },
+  { path: 'ubicaciones', component: UbicacionesComponent },
   { path: '**', redirectTo: '' },
 ];
 

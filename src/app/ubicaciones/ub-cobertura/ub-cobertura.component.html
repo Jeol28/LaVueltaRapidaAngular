@@ -1,0 +1,23 @@
+<section class="ub-cobertura">
+  <div class="ub-cobertura-inner">
+    <div class="ub-sec-header">
+      <div class="ub-sec-line"></div>
+      <h2 class="ub-sec-titulo">ZONAS DE COBERTURA</h2>
+      <div class="ub-sec-line ub-sec-line--right"></div>
+    </div>
+
+    <p class="ub-cobertura-intro">
+      Llevamos pizza recién horneada a tres grandes zonas de Bogotá. Si tu
+      barrio no aparece, escríbenos por WhatsApp para confirmar disponibilidad.
+    </p>
+
+    <div class="ub-cobertura-grid">
+      <app-ub-zona-card *ngFor="let z of zonas" [zona]="z"></app-ub-zona-card>
+    </div>
+
+    <p class="ub-cobertura-note">
+      * El tiempo y costo de envío pueden variar según la hora y el tráfico.
+      Pedido mínimo: COP 25.000.
+    </p>
+  </div>
+</section>
