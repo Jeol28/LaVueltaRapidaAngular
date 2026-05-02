@@ -190,16 +190,16 @@
 }
 
 @media (max-width: 250px) {
-  .fr-proceso       { padding: 26px 0; }
-  .fr-proceso-inner { padding: 0 8px; }
-  .fr-sec-titulo    { font-size: 7px; letter-spacing: 0.8px; }
-  .fr-sec-header    { gap: 8px; margin-bottom: 10px; }
-  .fr-proceso-intro { font-size: 10px; margin-bottom: 18px; line-height: 1.5; }
-  .fr-proceso-grid  { gap: 5px; }
-  .fr-paso-card     { padding: 12px 10px; gap: 6px; border-radius: 8px; }
-  .fr-paso-icono    { font-size: 20px; }
-  .fr-paso-numero   { font-size: 14px; top: 5px; right: 8px; }
-  .fr-paso-titulo   { font-size: 9px; letter-spacing: 0.5px; }
-  .fr-paso-desc     { font-size: 9px; line-height: 1.45; }
-  .fr-paso-flecha   { font-size: 14px; }
+  .fr-proceso       { padding: 20px 0; }
+  .fr-proceso-inner { padding: 0 6px; }
+  .fr-sec-titulo    { font-size: 6px; letter-spacing: 0.6px; }
+  .fr-sec-header    { gap: 6px; margin-bottom: 8px; }
+  .fr-proceso-intro { font-size: 9px; margin-bottom: 14px; line-height: 1.4; }
+  .fr-proceso-grid  { gap: 4px; }
+  .fr-paso-card     { padding: 9px 7px; gap: 4px; border-radius: 6px; }
+  .fr-paso-icono    { font-size: 16px; }
+  .fr-paso-numero   { font-size: 11px; top: 4px; right: 6px; }
+  .fr-paso-titulo   { font-size: 8px; letter-spacing: 0.3px; }
+  .fr-paso-desc     { font-size: 8px; line-height: 1.4; }
+  .fr-paso-flecha   { font-size: 11px; }
 }

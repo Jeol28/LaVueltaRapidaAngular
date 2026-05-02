@@ -178,14 +178,14 @@
 }
 
 @media (max-width: 250px) {
-  .fr-cta              { padding: 24px 8px; }
-  .fr-cta-label        { font-size: 7px; letter-spacing: 1.2px; margin-bottom: 8px; }
-  .fr-cta-title        { font-size: 16px; letter-spacing: -0.2px; margin-bottom: 10px; line-height: 1.05; }
-  .fr-cta-sub          { font-size: 10px; line-height: 1.45; margin-bottom: 16px; }
-  .fr-cta-correo       { padding: 10px 12px; margin-bottom: 14px; gap: 3px; border-radius: 6px; }
-  .fr-cta-correo-lbl   { font-size: 7px; letter-spacing: 0.8px; }
-  .fr-cta-correo-mail  { font-size: 10px; letter-spacing: 0.1px; }
-  .fr-cta-correo-asunto { font-size: 8px; }
-  .fr-cta-actions      { gap: 6px; flex-direction: column; }
-  .fr-cta-btn          { height: 34px; font-size: 9px; padding: 0 12px; letter-spacing: 0.3px; gap: 4px; width: 100%; }
+  .fr-cta              { padding: 18px 6px; }
+  .fr-cta-label        { font-size: 6px; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .fr-cta-title        { font-size: 14px; letter-spacing: 0; margin-bottom: 8px; line-height: 1.05; }
+  .fr-cta-sub          { font-size: 9px; line-height: 1.4; margin-bottom: 12px; }
+  .fr-cta-correo       { padding: 8px 10px; margin-bottom: 12px; gap: 2px; border-radius: 5px; }
+  .fr-cta-correo-lbl   { font-size: 6px; letter-spacing: 0.5px; }
+  .fr-cta-correo-mail  { font-size: 9px; letter-spacing: 0; }
+  .fr-cta-correo-asunto { font-size: 7px; }
+  .fr-cta-actions      { gap: 5px; flex-direction: column; }
+  .fr-cta-btn          { height: 30px; font-size: 8px; padding: 0 10px; letter-spacing: 0.2px; gap: 3px; width: 100%; border-radius: 4px; }
 }

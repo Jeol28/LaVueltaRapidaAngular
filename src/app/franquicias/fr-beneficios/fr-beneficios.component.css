@@ -93,10 +93,10 @@
 }
 
 @media (max-width: 250px) {
-  .fr-beneficios       { padding: 26px 0; }
-  .fr-beneficios-inner { padding: 0 8px; }
-  .fr-sec-titulo       { font-size: 7px; letter-spacing: 0.8px; }
-  .fr-sec-header       { gap: 8px; margin-bottom: 10px; }
-  .fr-beneficios-intro { font-size: 10px; margin-bottom: 18px; line-height: 1.5; }
-  .fr-beneficios-grid  { gap: 10px; }
+  .fr-beneficios       { padding: 20px 0; }
+  .fr-beneficios-inner { padding: 0 6px; }
+  .fr-sec-titulo       { font-size: 6px; letter-spacing: 0.6px; }
+  .fr-sec-header       { gap: 6px; margin-bottom: 8px; }
+  .fr-beneficios-intro { font-size: 9px; margin-bottom: 14px; line-height: 1.4; }
+  .fr-beneficios-grid  { gap: 8px; }
 }

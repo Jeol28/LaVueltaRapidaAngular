@@ -251,21 +251,21 @@
 }
 
 @media (max-width: 250px) {
-  .fr-mod-card           { padding: 14px 10px 12px; gap: 8px; border-radius: 8px; }
-  .fr-mod-tag            { font-size: 7px; padding: 3px 8px; letter-spacing: 0.8px; top: -8px; }
-  .fr-mod-pill           { font-size: 7px; letter-spacing: 0.8px; padding: 2px 6px; }
-  .fr-mod-nombre         { font-size: 13px; letter-spacing: -0.1px; }
-  .fr-mod-desc           { font-size: 10px; line-height: 1.5; }
-  .fr-mod-grid           { padding: 8px; gap: 6px; border-radius: 6px; }
-  .fr-mod-item-label     { font-size: 7px; letter-spacing: 0.5px; }
-  .fr-mod-item-value     { font-size: 10px; }
-  .fr-mod-incluye        { padding-top: 8px; }
-  .fr-mod-incluye-titulo { font-size: 8px; letter-spacing: 0.8px; margin-bottom: 6px; }
-  .fr-mod-incluye-lista  { gap: 4px; }
-  .fr-mod-incluye-lista li { font-size: 9px; padding-left: 12px; line-height: 1.5; }
-  .fr-mod-incluye-lista li::before { width: 4px; height: 4px; top: 6px; }
-  .fr-mod-correo         { padding: 8px 10px; gap: 2px; }
-  .fr-mod-correo-lbl     { font-size: 7px; letter-spacing: 0.8px; }
-  .fr-mod-correo-mail    { font-size: 9px; letter-spacing: 0.1px; }
-  .fr-mod-correo-asunto  { font-size: 8px; }
+  .fr-mod-card           { padding: 11px 8px 10px; gap: 6px; border-radius: 6px; }
+  .fr-mod-tag            { font-size: 6px; padding: 2px 6px; letter-spacing: 0.5px; top: -7px; }
+  .fr-mod-pill           { font-size: 6px; letter-spacing: 0.5px; padding: 1px 5px; }
+  .fr-mod-nombre         { font-size: 11px; letter-spacing: 0; }
+  .fr-mod-desc           { font-size: 9px; line-height: 1.4; }
+  .fr-mod-grid           { padding: 6px; gap: 4px; border-radius: 5px; grid-template-columns: 1fr; }
+  .fr-mod-item-label     { font-size: 6px; letter-spacing: 0.3px; }
+  .fr-mod-item-value     { font-size: 9px; }
+  .fr-mod-incluye        { padding-top: 6px; }
+  .fr-mod-incluye-titulo { font-size: 7px; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .fr-mod-incluye-lista  { gap: 3px; }
+  .fr-mod-incluye-lista li { font-size: 8px; padding-left: 10px; line-height: 1.4; }
+  .fr-mod-incluye-lista li::before { width: 3px; height: 3px; top: 5px; }
+  .fr-mod-correo         { padding: 6px 8px; gap: 2px; border-radius: 5px; }
+  .fr-mod-correo-lbl     { font-size: 6px; letter-spacing: 0.5px; }
+  .fr-mod-correo-mail    { font-size: 8px; letter-spacing: 0; }
+  .fr-mod-correo-asunto  { font-size: 7px; }
 }
