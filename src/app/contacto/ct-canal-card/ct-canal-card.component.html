@@ -1,8 +1,29 @@
-<div class="ct-canal-card">
-  <div class="ct-canal-accent" [ngStyle]="{'background': canal.color}"></div>
-  <div class="ct-canal-icono" [ngStyle]="{'color': canal.color}">{{ canal.icono }}</div>
+<div class="ct-canal-card"
+     [class.ct-canal-card--recomendado]="canal.recomendado"
+     [ngStyle]="{'--canal-color': canal.color}">
+  <span *ngIf="canal.recomendado" class="ct-canal-badge">⚡ MÁS RÁPIDO</span>
+
+  <div class="ct-canal-accent"></div>
+
+  <div class="ct-canal-top">
+    <div class="ct-canal-icono">{{ canal.icono }}</div>
+    <span class="ct-canal-sla">
+      <span class="ct-canal-sla-dot"></span>
+      {{ canal.tiempoRespuesta }}
+    </span>
+  </div>
+
   <h3 class="ct-canal-titulo">{{ canal.titulo }}</h3>
+
+  <div class="ct-canal-disp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12" aria-hidden="true">
+      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7V7z"/>
+    </svg>
+    <span>{{ canal.disponibilidad }}</span>
+  </div>
+
   <p class="ct-canal-detalle" [class.ct-canal-detalle--mail]="!canal.enlace">{{ canal.detalle }}</p>
+
   <a *ngIf="canal.enlace"
      class="ct-canal-btn"
      [href]="canal.enlace"

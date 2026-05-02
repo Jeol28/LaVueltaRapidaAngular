@@ -3,40 +3,127 @@
   background: #141414;
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 14px;
-  padding: 28px 22px;
+  padding: 26px 22px 22px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   overflow: hidden;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .ct-canal-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-  border-color: rgba(255,255,255,0.14);
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.5),
+    0 0 0 1px var(--canal-color, #e10600),
+    0 8px 32px color-mix(in srgb, var(--canal-color, #e10600) 28%, transparent);
+  border-color: var(--canal-color, rgba(255,255,255,0.14));
+}
+
+.ct-canal-card--recomendado {
+  border-color: var(--canal-color);
+  box-shadow:
+    0 0 0 1px var(--canal-color),
+    0 10px 28px color-mix(in srgb, var(--canal-color) 22%, transparent);
 }
 
 .ct-canal-accent {
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 3px;
+  background: var(--canal-color);
 }
 
-.ct-canal-icono { font-size: 34px; line-height: 1; }
+.ct-canal-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--canal-color);
+  color: #0a0a0a;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  padding: 5px 9px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.ct-canal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.ct-canal-icono {
+  font-size: 36px;
+  line-height: 1;
+  color: var(--canal-color);
+  filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--canal-color) 35%, transparent));
+}
+
+.ct-canal-sla {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: color-mix(in srgb, var(--canal-color) 12%, transparent);
+  color: var(--canal-color);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--canal-color) 30%, transparent);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ct-canal-sla-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--canal-color);
+  box-shadow: 0 0 6px var(--canal-color);
+  animation: ct-canal-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes ct-canal-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.7); }
+}
 
 .ct-canal-titulo {
   font-family: 'Orbitron', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1.5px;
   color: #fff;
-  margin: 0;
+  margin: 4px 0 0;
+}
+
+.ct-canal-disp {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #6b7280;
+  letter-spacing: 0.2px;
+}
+
+.ct-canal-disp svg {
+  flex-shrink: 0;
+  color: #6b7280;
 }
 
 .ct-canal-detalle {
   font-size: 13px;
-  color: #9ca3af;
+  color: #cbd5e1;
   line-height: 1.5;
   margin: 0;
   word-break: break-word;
@@ -51,52 +138,63 @@
   letter-spacing: 0.3px;
   word-break: break-all;
   user-select: all;
-  padding-top: 8px;
-}
-
-@media (max-width: 400px) {
-  .ct-canal-detalle--mail { font-size: 13px; }
-}
-
-@media (max-width: 280px) {
-  .ct-canal-detalle--mail { font-size: 12px; }
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--canal-color) 12%, rgba(0,0,0,0.3));
+  border-left: 3px solid var(--canal-color);
+  border-radius: 6px;
+  text-align: center;
 }
 
 .ct-canal-btn {
   margin-top: auto;
-  padding-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  background: var(--canal-color);
+  color: #0a0a0a;
   font-family: 'Orbitron', sans-serif;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1px;
-  color: #e10600;
+  letter-spacing: 1.2px;
   text-decoration: none;
-  transition: color 0.2s, transform 0.2s;
-  display: inline-block;
+  border-radius: 6px;
+  transition: transform 0.2s, filter 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--canal-color) 25%, transparent);
 }
 
 .ct-canal-btn:hover {
-  color: #fff;
-  transform: translateX(3px);
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--canal-color) 40%, transparent);
+}
+
+@media (max-width: 540px) {
+  .ct-canal-card        { padding: 22px 18px; gap: 10px; }
+  .ct-canal-icono       { font-size: 30px; }
+  .ct-canal-titulo      { font-size: 13px; }
+  .ct-canal-detalle     { font-size: 12px; }
+  .ct-canal-detalle--mail { font-size: 13px; padding: 11px 12px; }
+  .ct-canal-disp        { font-size: 10px; }
+  .ct-canal-sla         { font-size: 9px; padding: 4px 8px; }
+  .ct-canal-btn         { height: 40px; font-size: 10px; }
+  .ct-canal-badge       { font-size: 8px; padding: 4px 7px; }
 }
 
 @media (max-width: 400px) {
-  .ct-canal-card     { padding: 20px 16px; gap: 8px; }
-  .ct-canal-icono    { font-size: 26px; }
-  .ct-canal-titulo   { font-size: 12px; }
-  .ct-canal-detalle  { font-size: 12px; }
-  .ct-canal-btn      { font-size: 10px; }
+  .ct-canal-card        { padding: 20px 16px; }
+  .ct-canal-icono       { font-size: 26px; }
+  .ct-canal-titulo      { font-size: 12px; letter-spacing: 1.2px; }
+  .ct-canal-detalle     { font-size: 12px; }
+  .ct-canal-detalle--mail { font-size: 12px; }
 }
 
 @media (max-width: 280px) {
-  .ct-canal-titulo  { font-size: 11px; }
-  .ct-canal-detalle { font-size: 11px; }
-}
-
-@media (max-width: 250px) {
-  .ct-canal-card    { padding: 14px 12px; }
-  .ct-canal-icono   { font-size: 22px; }
-  .ct-canal-titulo  { font-size: 10px; }
-  .ct-canal-detalle { font-size: 10px; }
-  .ct-canal-btn     { font-size: 9px; }
+  .ct-canal-card        { padding: 16px 12px; gap: 8px; }
+  .ct-canal-icono       { font-size: 22px; }
+  .ct-canal-titulo      { font-size: 11px; letter-spacing: 1px; }
+  .ct-canal-detalle     { font-size: 11px; }
+  .ct-canal-detalle--mail { font-size: 11px; padding: 10px; }
+  .ct-canal-disp        { font-size: 9px; }
+  .ct-canal-top         { flex-direction: column; align-items: flex-start; gap: 6px; }
 }

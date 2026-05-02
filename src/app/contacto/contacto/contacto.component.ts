@@ -8,6 +8,9 @@ export interface CanalContacto {
   ctaTexto?: string;
   externo?: boolean;
   color: string;
+  tiempoRespuesta: string;
+  disponibilidad: string;
+  recomendado?: boolean;
 }
 
 export interface SedeContacto {
@@ -37,28 +40,37 @@ export class ContactoComponent {
       detalle: '+57 300 123 4567',
       enlace: 'tel:+573001234567',
       ctaTexto: 'Llamar ahora',
-      color: '#e10600'
+      color: '#e10600',
+      tiempoRespuesta: 'Inmediato',
+      disponibilidad: 'Lun a Dom · 11:30 a.m. - 11:00 p.m.'
     },
     {
       icono: '📩',
       titulo: 'PEDIDOS',
       detalle: 'pedidos@lavueltarapida.co',
-      color: '#ffb800'
+      color: '#ffb800',
+      tiempoRespuesta: 'Respuesta < 30 min',
+      disponibilidad: 'Lun a Dom · 11:30 a.m. - 11:00 p.m.'
     },
     {
       icono: '💬',
       titulo: 'WHATSAPP',
-      detalle: 'Respuesta en menos de 5 minutos',
+      detalle: '+57 300 123 4567',
       enlace: 'https://wa.me/573001234567',
       ctaTexto: 'Escribir por WhatsApp',
       externo: true,
-      color: '#10b981'
+      color: '#10b981',
+      tiempoRespuesta: 'Respuesta < 5 min',
+      disponibilidad: 'Disponible 24 / 7',
+      recomendado: true
     },
     {
       icono: '✉️',
       titulo: 'INFORMACIÓN',
       detalle: 'hola@lavueltarapida.co',
-      color: '#3b82f6'
+      color: '#3b82f6',
+      tiempoRespuesta: 'Respuesta < 24 h',
+      disponibilidad: 'Lun a Vie · 9:00 a.m. - 6:00 p.m.'
     }
   ];
 
