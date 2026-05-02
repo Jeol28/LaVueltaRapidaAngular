@@ -139,6 +139,19 @@
   .fr-cta-correo-mail { font-size: 16px; }
 }
 
+@media (max-width: 350px) {
+  .fr-cta              { padding: 44px 14px; }
+  .fr-cta-label        { font-size: 11px; letter-spacing: 2.2px; margin-bottom: 12px; }
+  .fr-cta-title        { font-size: 22px; letter-spacing: -0.5px; margin-bottom: 14px; }
+  .fr-cta-sub          { font-size: 13px; margin-bottom: 24px; }
+  .fr-cta-correo       { padding: 14px 18px; margin-bottom: 20px; gap: 5px; }
+  .fr-cta-correo-lbl   { font-size: 10px; letter-spacing: 1.6px; }
+  .fr-cta-correo-mail  { font-size: 15px; }
+  .fr-cta-correo-asunto { font-size: 11px; }
+  .fr-cta-actions      { gap: 10px; }
+  .fr-cta-btn          { height: 44px; font-size: 11px; padding: 0 18px; letter-spacing: 0.8px; }
+}
+
 @media (max-width: 320px) {
   .fr-cta              { padding: 40px 12px; }
   .fr-cta-label        { font-size: 10px; letter-spacing: 2px; }
@@ -148,4 +161,31 @@
   .fr-cta-correo-lbl   { font-size: 10px; letter-spacing: 1.5px; }
   .fr-cta-correo-mail  { font-size: 14px; }
   .fr-cta-correo-asunto { font-size: 11px; }
+}
+
+@media (max-width: 300px) {
+  .fr-cta              { padding: 32px 10px; }
+  .fr-cta-label        { font-size: 9px; letter-spacing: 1.6px; margin-bottom: 10px; }
+  .fr-cta-title        { font-size: 19px; letter-spacing: -0.3px; margin-bottom: 12px; line-height: 1.1; }
+  .fr-cta-sub          { font-size: 11px; line-height: 1.55; margin-bottom: 20px; }
+  .fr-cta-correo       { padding: 12px 14px; margin-bottom: 18px; gap: 4px; border-radius: 8px; }
+  .fr-cta-correo-lbl   { font-size: 9px; letter-spacing: 1.2px; }
+  .fr-cta-correo-mail  { font-size: 12px; letter-spacing: 0.2px; }
+  .fr-cta-correo-asunto { font-size: 10px; }
+  .fr-cta-actions      { gap: 8px; }
+  .fr-cta-btn          { height: 38px; font-size: 10px; padding: 0 14px; letter-spacing: 0.5px; gap: 5px; border-radius: 5px; }
+  .fr-cta-btn--ghost   { border-width: 1.5px; }
+}
+
+@media (max-width: 250px) {
+  .fr-cta              { padding: 24px 8px; }
+  .fr-cta-label        { font-size: 7px; letter-spacing: 1.2px; margin-bottom: 8px; }
+  .fr-cta-title        { font-size: 16px; letter-spacing: -0.2px; margin-bottom: 10px; line-height: 1.05; }
+  .fr-cta-sub          { font-size: 10px; line-height: 1.45; margin-bottom: 16px; }
+  .fr-cta-correo       { padding: 10px 12px; margin-bottom: 14px; gap: 3px; border-radius: 6px; }
+  .fr-cta-correo-lbl   { font-size: 7px; letter-spacing: 0.8px; }
+  .fr-cta-correo-mail  { font-size: 10px; letter-spacing: 0.1px; }
+  .fr-cta-correo-asunto { font-size: 8px; }
+  .fr-cta-actions      { gap: 6px; flex-direction: column; }
+  .fr-cta-btn          { height: 34px; font-size: 9px; padding: 0 12px; letter-spacing: 0.3px; gap: 4px; width: 100%; }
 }

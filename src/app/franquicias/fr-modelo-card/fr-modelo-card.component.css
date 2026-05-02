@@ -203,11 +203,68 @@
   .fr-mod-correo-asunto  { font-size: 10px; }
 }
 
-@media (max-width: 280px) {
-  .fr-mod-card           { padding: 22px 14px 18px; }
-  .fr-mod-nombre         { font-size: 16px; }
-  .fr-mod-grid           { grid-template-columns: 1fr; }
-  .fr-mod-incluye-lista li { font-size: 12px; }
-  .fr-mod-correo-lbl     { font-size: 9px; letter-spacing: 1px; }
+@media (max-width: 350px) {
+  .fr-mod-card           { padding: 24px 16px 20px; gap: 12px; border-radius: 12px; }
+  .fr-mod-tag            { font-size: 9px; padding: 5px 12px; letter-spacing: 1.2px; top: -10px; }
+  .fr-mod-pill           { font-size: 9px; letter-spacing: 1.2px; padding: 3px 8px; }
+  .fr-mod-nombre         { font-size: 17px; letter-spacing: -0.3px; }
+  .fr-mod-desc           { font-size: 12px; line-height: 1.6; }
+  .fr-mod-grid           { padding: 11px; gap: 9px; }
+  .fr-mod-item-label     { font-size: 9px; letter-spacing: 0.8px; }
+  .fr-mod-item-value     { font-size: 12px; }
+  .fr-mod-incluye        { padding-top: 12px; }
+  .fr-mod-incluye-titulo { font-size: 10px; letter-spacing: 1.2px; margin-bottom: 8px; }
+  .fr-mod-incluye-lista li { font-size: 12px; padding-left: 16px; }
+  .fr-mod-correo         { padding: 11px 13px; }
+  .fr-mod-correo-lbl     { font-size: 9px; letter-spacing: 1.2px; }
   .fr-mod-correo-mail    { font-size: 12px; }
+  .fr-mod-correo-asunto  { font-size: 10px; }
+}
+
+@media (max-width: 300px) {
+  .fr-mod-card           { padding: 20px 13px 16px; gap: 10px; border-radius: 10px; }
+  .fr-mod-tag            { font-size: 8px; padding: 4px 10px; letter-spacing: 1px; top: -9px; }
+  .fr-mod-pill           { font-size: 8px; letter-spacing: 1px; padding: 2px 7px; }
+  .fr-mod-nombre         { font-size: 15px; letter-spacing: -0.2px; }
+  .fr-mod-desc           { font-size: 11px; line-height: 1.55; }
+  .fr-mod-grid           { padding: 10px; gap: 8px; border-radius: 8px; }
+  .fr-mod-item-label     { font-size: 8px; letter-spacing: 0.6px; }
+  .fr-mod-item-value     { font-size: 11px; }
+  .fr-mod-incluye        { padding-top: 10px; }
+  .fr-mod-incluye-titulo { font-size: 9px; letter-spacing: 1px; margin-bottom: 7px; }
+  .fr-mod-incluye-lista li { font-size: 11px; padding-left: 14px; }
+  .fr-mod-incluye-lista li::before { width: 5px; height: 5px; top: 7px; }
+  .fr-mod-correo         { padding: 10px 12px; gap: 3px; border-left-width: 2px; }
+  .fr-mod-correo-lbl     { font-size: 8px; letter-spacing: 1px; }
+  .fr-mod-correo-mail    { font-size: 11px; letter-spacing: 0.2px; }
+  .fr-mod-correo-asunto  { font-size: 9px; }
+}
+
+@media (max-width: 280px) {
+  .fr-mod-card           { padding: 18px 12px 16px; }
+  .fr-mod-nombre         { font-size: 14px; }
+  .fr-mod-grid           { grid-template-columns: 1fr; }
+  .fr-mod-incluye-lista li { font-size: 10px; }
+  .fr-mod-correo-lbl     { font-size: 8px; letter-spacing: 0.8px; }
+  .fr-mod-correo-mail    { font-size: 10px; }
+}
+
+@media (max-width: 250px) {
+  .fr-mod-card           { padding: 14px 10px 12px; gap: 8px; border-radius: 8px; }
+  .fr-mod-tag            { font-size: 7px; padding: 3px 8px; letter-spacing: 0.8px; top: -8px; }
+  .fr-mod-pill           { font-size: 7px; letter-spacing: 0.8px; padding: 2px 6px; }
+  .fr-mod-nombre         { font-size: 13px; letter-spacing: -0.1px; }
+  .fr-mod-desc           { font-size: 10px; line-height: 1.5; }
+  .fr-mod-grid           { padding: 8px; gap: 6px; border-radius: 6px; }
+  .fr-mod-item-label     { font-size: 7px; letter-spacing: 0.5px; }
+  .fr-mod-item-value     { font-size: 10px; }
+  .fr-mod-incluye        { padding-top: 8px; }
+  .fr-mod-incluye-titulo { font-size: 8px; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .fr-mod-incluye-lista  { gap: 4px; }
+  .fr-mod-incluye-lista li { font-size: 9px; padding-left: 12px; line-height: 1.5; }
+  .fr-mod-incluye-lista li::before { width: 4px; height: 4px; top: 6px; }
+  .fr-mod-correo         { padding: 8px 10px; gap: 2px; }
+  .fr-mod-correo-lbl     { font-size: 7px; letter-spacing: 0.8px; }
+  .fr-mod-correo-mail    { font-size: 9px; letter-spacing: 0.1px; }
+  .fr-mod-correo-asunto  { font-size: 8px; }
 }

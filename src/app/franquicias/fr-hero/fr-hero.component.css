@@ -133,17 +133,35 @@
   .fr-hero-stats  { padding: 12px 14px; gap: 10px; }
 }
 
+@media (max-width: 350px) {
+  .fr-hero            { padding: 48px 14px 44px; }
+  .fr-hero-label      { font-size: 9px; letter-spacing: 1.8px; margin-bottom: 12px; }
+  .fr-hero-title      { font-size: 24px; letter-spacing: -0.5px; margin-bottom: 14px; }
+  .fr-hero-sub        { font-size: 12px; line-height: 1.55; margin-bottom: 22px; }
+  .fr-hero-stats      { padding: 10px 12px; gap: 10px; border-radius: 12px; }
+  .fr-hero-stat       { min-width: 70px; }
+  .fr-hero-stat-num   { font-size: 20px; }
+  .fr-hero-stat-label { font-size: 9px; letter-spacing: 0.4px; }
+}
+
 @media (max-width: 300px) {
-  .fr-hero        { padding: 40px 12px 36px; }
-  .fr-hero-title  { font-size: 22px; }
-  .fr-hero-sub    { font-size: 12px; }
-  .fr-hero-stat-num { font-size: 18px; }
-  .fr-hero-stat-label { font-size: 9px; }
+  .fr-hero            { padding: 36px 12px 32px; }
+  .fr-hero-label      { font-size: 8px; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .fr-hero-title      { font-size: 20px; letter-spacing: -0.3px; margin-bottom: 12px; line-height: 1.05; }
+  .fr-hero-sub        { font-size: 11px; line-height: 1.5; margin-bottom: 18px; }
+  .fr-hero-stats      { padding: 9px 10px; gap: 8px; border-radius: 10px; }
+  .fr-hero-stat       { min-width: 62px; gap: 3px; }
+  .fr-hero-stat-num   { font-size: 17px; }
+  .fr-hero-stat-label { font-size: 8px; }
 }
 
 @media (max-width: 250px) {
-  .fr-hero-title  { font-size: 18px; letter-spacing: 0; }
-  .fr-hero-label  { font-size: 8px; letter-spacing: 1px; }
-  .fr-hero-stat-num { font-size: 16px; }
-  .fr-hero-stat-label { font-size: 8px; }
+  .fr-hero            { padding: 28px 8px 26px; }
+  .fr-hero-label      { font-size: 7px; letter-spacing: 1px; margin-bottom: 8px; }
+  .fr-hero-title      { font-size: 16px; letter-spacing: 0; margin-bottom: 10px; line-height: 1.05; }
+  .fr-hero-sub        { font-size: 10px; line-height: 1.45; margin-bottom: 14px; }
+  .fr-hero-stats      { padding: 8px; gap: 6px; border-radius: 8px; }
+  .fr-hero-stat       { min-width: 54px; gap: 2px; }
+  .fr-hero-stat-num   { font-size: 14px; }
+  .fr-hero-stat-label { font-size: 7px; letter-spacing: 0.3px; }
 }
