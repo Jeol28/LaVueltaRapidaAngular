@@ -1,0 +1,153 @@
+.nh-tl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 120px 1fr;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+/* Item por defecto: card a la izquierda, marker centro, vacío a la derecha */
+.nh-tl-item .nh-tl-card     { grid-column: 1; text-align: right; }
+.nh-tl-item .nh-tl-marker   { grid-column: 2; }
+
+/* Item invertido: vacío izquierda, marker centro, card a la derecha */
+.nh-tl-item--right .nh-tl-card   { grid-column: 3; text-align: left; }
+.nh-tl-item--right .nh-tl-marker { grid-column: 2; }
+
+/* ===== CARD ===== */
+.nh-tl-card {
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 26px 24px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  position: relative;
+}
+
+.nh-tl-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  border-color: rgba(225,6,0,0.4);
+}
+
+.nh-tl-icono {
+  font-size: 30px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.nh-tl-titulo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  margin: 0 0 10px;
+}
+
+.nh-tl-desc {
+  font-size: 14px;
+  color: #9ca3af;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Año mobile (oculto por defecto) */
+.nh-tl-anio-mobile {
+  display: none;
+  font-family: 'Orbitron', sans-serif;
+  color: #e10600;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+/* ===== MARKER (línea + año + dot) ===== */
+.nh-tl-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  min-height: 100px;
+}
+
+.nh-tl-anio {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #e10600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  background: #0a0a0a;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(225,6,0,0.3);
+  z-index: 1;
+}
+
+.nh-tl-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #e10600;
+  border: 3px solid #0a0a0a;
+  box-shadow: 0 0 0 2px #e10600, 0 0 14px rgba(225,6,0,0.6);
+  z-index: 1;
+}
+
+/* ===== RESPONSIVE: a partir de 720px abajo, todo a la izquierda ===== */
+@media (max-width: 720px) {
+  .nh-tl-item,
+  .nh-tl-item--right {
+    grid-template-columns: 50px 1fr;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .nh-tl-item .nh-tl-card,
+  .nh-tl-item--right .nh-tl-card {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: left;
+  }
+
+  .nh-tl-item .nh-tl-marker,
+  .nh-tl-item--right .nh-tl-marker {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: auto;
+    padding-top: 14px;
+  }
+
+  /* Año en escritorio se oculta, lo mostramos dentro de la card */
+  .nh-tl-anio { display: none; }
+  .nh-tl-anio-mobile { display: block; }
+
+  .nh-tl-card { padding: 20px 18px; }
+  .nh-tl-titulo { font-size: 12px; }
+  .nh-tl-desc { font-size: 13px; }
+  .nh-tl-anio-mobile { font-size: 16px; }
+}
+
+@media (max-width: 360px) {
+  .nh-tl-item,
+  .nh-tl-item--right { grid-template-columns: 36px 1fr; }
+  .nh-tl-card        { padding: 16px 14px; }
+  .nh-tl-icono       { font-size: 24px; }
+  .nh-tl-titulo      { font-size: 11px; }
+  .nh-tl-desc        { font-size: 12px; }
+  .nh-tl-anio-mobile { font-size: 14px; }
+  .nh-tl-dot         { width: 12px; height: 12px; }
+}
+
+@media (max-width: 260px) {
+  .nh-tl-item,
+  .nh-tl-item--right { grid-template-columns: 28px 1fr; }
+  .nh-tl-card        { padding: 12px 10px; }
+  .nh-tl-icono       { font-size: 20px; }
+  .nh-tl-titulo      { font-size: 10px; }
+  .nh-tl-desc        { font-size: 11px; }
+}

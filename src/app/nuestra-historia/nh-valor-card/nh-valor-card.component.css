@@ -1,0 +1,61 @@
+.nh-val-card {
+  position: relative;
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.nh-val-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  border-color: rgba(255,255,255,0.14);
+}
+
+.nh-val-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.nh-val-icono { font-size: 34px; line-height: 1; }
+
+.nh-val-titulo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  margin: 0;
+}
+
+.nh-val-desc {
+  font-size: 13px;
+  color: #9ca3af;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 400px) {
+  .nh-val-card   { padding: 20px 16px; gap: 10px; }
+  .nh-val-icono  { font-size: 26px; }
+  .nh-val-titulo { font-size: 12px; }
+  .nh-val-desc   { font-size: 12px; }
+}
+
+@media (max-width: 280px) {
+  .nh-val-titulo { font-size: 11px; }
+  .nh-val-desc   { font-size: 11px; }
+}
+
+@media (max-width: 250px) {
+  .nh-val-card   { padding: 14px 12px; gap: 8px; }
+  .nh-val-icono  { font-size: 20px; }
+  .nh-val-titulo { font-size: 10px; }
+  .nh-val-desc   { font-size: 10px; }
+}

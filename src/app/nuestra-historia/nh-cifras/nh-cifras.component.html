@@ -1,0 +1,12 @@
+<section class="nh-cifras">
+  <div class="nh-cifras-stripe"></div>
+  <div class="nh-cifras-inner">
+    <div class="nh-cifras-grid">
+      <div class="nh-cifra" *ngFor="let c of cifras">
+        <div class="nh-cifra-valor">{{ c.valor }}</div>
+        <div class="nh-cifra-label">{{ c.etiqueta }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="nh-cifras-stripe"></div>
+</section>

@@ -1,0 +1,17 @@
+<section class="nh-valores">
+  <div class="nh-valores-inner">
+    <div class="nh-sec-header">
+      <div class="nh-sec-line"></div>
+      <h2 class="nh-sec-titulo">NUESTROS VALORES</h2>
+      <div class="nh-sec-line nh-sec-line--right"></div>
+    </div>
+
+    <p class="nh-valores-intro">
+      Lo que nos mueve cada día en cada pizza, cada pedido y cada carrera.
+    </p>
+
+    <div class="nh-valores-grid">
+      <app-nh-valor-card *ngFor="let v of valores" [valor]="v"></app-nh-valor-card>
+    </div>
+  </div>
+</section>

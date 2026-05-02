@@ -59,6 +59,14 @@ import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
 import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
 
+import { NuestraHistoriaComponent } from './nuestra-historia/nuestra-historia/nuestra-historia.component';
+import { NhHeroComponent } from './nuestra-historia/nh-hero/nh-hero.component';
+import { NhTimelineComponent } from './nuestra-historia/nh-timeline/nh-timeline.component';
+import { NhTimelineItemComponent } from './nuestra-historia/nh-timeline-item/nh-timeline-item.component';
+import { NhValoresComponent } from './nuestra-historia/nh-valores/nh-valores.component';
+import { NhValorCardComponent } from './nuestra-historia/nh-valor-card/nh-valor-card.component';
+import { NhCifrasComponent } from './nuestra-historia/nh-cifras/nh-cifras.component';
+
 import { F1StandingsComponent } from './f1-standings/main/f1-standings.component';
 import { EventosComponent } from './eventos/eventos/eventos.component';
 import { CarrerasEnVivoComponent } from './carreras-en-vivo/carreras-en-vivo/carreras-en-vivo.component';
@@ -143,6 +151,14 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     PrivacidadComponent,
     PpHeroComponent,
     PpSeccionComponent,
+
+    NuestraHistoriaComponent,
+    NhHeroComponent,
+    NhTimelineComponent,
+    NhTimelineItemComponent,
+    NhValoresComponent,
+    NhValorCardComponent,
+    NhCifrasComponent,
 
     F1StandingsComponent,
     F1HeroComponent,

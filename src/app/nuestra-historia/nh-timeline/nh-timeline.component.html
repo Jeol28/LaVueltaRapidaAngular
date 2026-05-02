@@ -1,0 +1,23 @@
+<section class="nh-timeline">
+  <div class="nh-timeline-inner">
+    <div class="nh-sec-header">
+      <div class="nh-sec-line"></div>
+      <h2 class="nh-sec-titulo">LÍNEA DE TIEMPO</h2>
+      <div class="nh-sec-line nh-sec-line--right"></div>
+    </div>
+
+    <p class="nh-timeline-intro">
+      De un food truck a la pizzería F1 favorita de Bogotá.
+      Estos son los hitos que marcaron nuestra carrera.
+    </p>
+
+    <div class="nh-timeline-rail">
+      <div class="nh-timeline-line"></div>
+      <app-nh-timeline-item
+        *ngFor="let hito of hitos; let i = index"
+        [hito]="hito"
+        [index]="i">
+      </app-nh-timeline-item>
+    </div>
+  </div>
+</section>
