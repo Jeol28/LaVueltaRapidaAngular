@@ -4,8 +4,8 @@ export interface CanalContacto {
   icono: string;
   titulo: string;
   detalle: string;
-  enlace: string;
-  ctaTexto: string;
+  enlace?: string;
+  ctaTexto?: string;
   externo?: boolean;
   color: string;
 }
@@ -43,8 +43,6 @@ export class ContactoComponent {
       icono: '📩',
       titulo: 'PEDIDOS',
       detalle: 'pedidos@lavueltarapida.co',
-      enlace: 'mailto:pedidos@lavueltarapida.co',
-      ctaTexto: 'Enviar correo',
       color: '#ffb800'
     },
     {
@@ -60,8 +58,6 @@ export class ContactoComponent {
       icono: '✉️',
       titulo: 'INFORMACIÓN',
       detalle: 'hola@lavueltarapida.co',
-      enlace: 'mailto:hola@lavueltarapida.co',
-      ctaTexto: 'Enviar correo',
       color: '#3b82f6'
     }
   ];

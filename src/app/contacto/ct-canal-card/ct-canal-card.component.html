@@ -2,8 +2,9 @@
   <div class="ct-canal-accent" [ngStyle]="{'background': canal.color}"></div>
   <div class="ct-canal-icono" [ngStyle]="{'color': canal.color}">{{ canal.icono }}</div>
   <h3 class="ct-canal-titulo">{{ canal.titulo }}</h3>
-  <p class="ct-canal-detalle">{{ canal.detalle }}</p>
-  <a class="ct-canal-btn"
+  <p class="ct-canal-detalle" [class.ct-canal-detalle--mail]="!canal.enlace">{{ canal.detalle }}</p>
+  <a *ngIf="canal.enlace"
+     class="ct-canal-btn"
      [href]="canal.enlace"
      [attr.target]="canal.externo ? '_blank' : null"
      [attr.rel]="canal.externo ? 'noopener noreferrer' : null">
