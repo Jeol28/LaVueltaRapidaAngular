@@ -105,10 +105,6 @@ export class ContactoComponent {
       respuesta: 'Sí. Para grupos de 10 personas o más en sede, escríbenos por WhatsApp con al menos 24 horas de anticipación y te confirmamos disponibilidad.'
     },
     {
-      pregunta: '¿Tienen opciones vegetarianas o sin gluten?',
-      respuesta: 'Sí. Toda nuestra carta tiene opciones vegetarianas marcadas y manejamos masa sin gluten bajo pedido (con un costo adicional).'
-    },
-    {
       pregunta: '¿Cómo organizo un evento corporativo o un cumpleaños?',
       respuesta: 'Visita nuestras secciones de Cumpleaños y Eventos Corporativos en el sitio. También puedes escribirnos directamente a hola@lavueltarapida.co.'
     }
