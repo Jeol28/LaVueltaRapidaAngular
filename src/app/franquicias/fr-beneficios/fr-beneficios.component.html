@@ -1,0 +1,18 @@
+<section class="fr-beneficios">
+  <div class="fr-beneficios-inner">
+    <div class="fr-sec-header">
+      <div class="fr-sec-line"></div>
+      <h2 class="fr-sec-titulo">¿POR QUÉ FRANQUICIARTE?</h2>
+      <div class="fr-sec-line fr-sec-line--right"></div>
+    </div>
+
+    <p class="fr-beneficios-intro">
+      Una franquicia La Vuelta Rápida no es solo un local: es entrar a una marca
+      con identidad fuerte, procesos probados y un equipo que te acompaña en cada vuelta.
+    </p>
+
+    <div class="fr-beneficios-grid">
+      <app-fr-beneficio-card *ngFor="let b of beneficios" [beneficio]="b"></app-fr-beneficio-card>
+    </div>
+  </div>
+</section>

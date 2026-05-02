@@ -1,0 +1,25 @@
+<section class="fr-proceso">
+  <div class="fr-proceso-inner">
+    <div class="fr-sec-header">
+      <div class="fr-sec-line"></div>
+      <h2 class="fr-sec-titulo">CÓMO ABRIR TU FRANQUICIA</h2>
+      <div class="fr-sec-line fr-sec-line--right"></div>
+    </div>
+
+    <p class="fr-proceso-intro">
+      Cuatro pasos claros desde tu primer correo hasta la inauguración de tu sede.
+    </p>
+
+    <div class="fr-proceso-grid">
+      <div class="fr-paso" *ngFor="let p of pasos; let last = last">
+        <div class="fr-paso-card">
+          <div class="fr-paso-numero">{{ p.numero }}</div>
+          <div class="fr-paso-icono">{{ p.icono }}</div>
+          <h3 class="fr-paso-titulo">{{ p.titulo }}</h3>
+          <p class="fr-paso-desc">{{ p.descripcion }}</p>
+        </div>
+        <div class="fr-paso-flecha" *ngIf="!last">→</div>
+      </div>
+    </div>
+  </div>
+</section>

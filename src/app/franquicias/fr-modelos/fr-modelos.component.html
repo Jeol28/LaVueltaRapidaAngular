@@ -1,0 +1,18 @@
+<section class="fr-modelos">
+  <div class="fr-modelos-inner">
+    <div class="fr-sec-header">
+      <div class="fr-sec-line"></div>
+      <h2 class="fr-sec-titulo">MODELOS DE FRANQUICIA</h2>
+      <div class="fr-sec-line fr-sec-line--right"></div>
+    </div>
+
+    <p class="fr-modelos-intro">
+      Tres formatos pensados para diferentes presupuestos, ubicaciones y experiencias.
+      Elige el que mejor se ajusta a tu proyecto.
+    </p>
+
+    <div class="fr-modelos-grid">
+      <app-fr-modelo-card *ngFor="let m of modelos" [modelo]="m"></app-fr-modelo-card>
+    </div>
+  </div>
+</section>

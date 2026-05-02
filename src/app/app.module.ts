@@ -59,6 +59,14 @@ import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
 import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
 
+import { FranquiciasComponent } from './franquicias/franquicias/franquicias.component';
+import { FrHeroComponent } from './franquicias/fr-hero/fr-hero.component';
+import { FrBeneficiosComponent } from './franquicias/fr-beneficios/fr-beneficios.component';
+import { FrBeneficioCardComponent } from './franquicias/fr-beneficio-card/fr-beneficio-card.component';
+import { FrModelosComponent } from './franquicias/fr-modelos/fr-modelos.component';
+import { FrModeloCardComponent } from './franquicias/fr-modelo-card/fr-modelo-card.component';
+import { FrProcesoComponent } from './franquicias/fr-proceso/fr-proceso.component';
+
 import { TrabajaConNosotrosComponent } from './trabaja-con-nosotros/trabaja-con-nosotros/trabaja-con-nosotros.component';
 import { TnHeroComponent } from './trabaja-con-nosotros/tn-hero/tn-hero.component';
 import { TnBeneficiosComponent } from './trabaja-con-nosotros/tn-beneficios/tn-beneficios.component';
@@ -159,6 +167,14 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     PrivacidadComponent,
     PpHeroComponent,
     PpSeccionComponent,
+
+    FranquiciasComponent,
+    FrHeroComponent,
+    FrBeneficiosComponent,
+    FrBeneficioCardComponent,
+    FrModelosComponent,
+    FrModeloCardComponent,
+    FrProcesoComponent,
 
     TrabajaConNosotrosComponent,
     TnHeroComponent,

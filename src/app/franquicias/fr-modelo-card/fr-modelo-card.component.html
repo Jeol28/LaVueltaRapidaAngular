@@ -1,0 +1,35 @@
+<article class="fr-mod-card" [class.fr-mod-card--destacado]="modelo.destacado">
+  <span *ngIf="modelo.destacado" class="fr-mod-tag">⭐ {{ modelo.etiqueta }}</span>
+  <span *ngIf="!modelo.destacado" class="fr-mod-pill">{{ modelo.etiqueta }}</span>
+
+  <h3 class="fr-mod-nombre">{{ modelo.nombre }}</h3>
+  <p class="fr-mod-desc">{{ modelo.descripcion }}</p>
+
+  <div class="fr-mod-grid">
+    <div class="fr-mod-item">
+      <span class="fr-mod-item-label">Inversión</span>
+      <span class="fr-mod-item-value">{{ modelo.inversion }}</span>
+    </div>
+    <div class="fr-mod-item">
+      <span class="fr-mod-item-label">Área</span>
+      <span class="fr-mod-item-value">{{ modelo.area }}</span>
+    </div>
+    <div class="fr-mod-item">
+      <span class="fr-mod-item-label">Equipo</span>
+      <span class="fr-mod-item-value">{{ modelo.empleados }}</span>
+    </div>
+    <div class="fr-mod-item">
+      <span class="fr-mod-item-label">Retorno</span>
+      <span class="fr-mod-item-value">{{ modelo.retorno }}</span>
+    </div>
+  </div>
+
+  <div class="fr-mod-incluye">
+    <h4 class="fr-mod-incluye-titulo">Incluye</h4>
+    <ul class="fr-mod-incluye-lista">
+      <li *ngFor="let item of modelo.incluye">{{ item }}</li>
+    </ul>
+  </div>
+
+  <a class="fr-mod-btn" [href]="mailtoLink">SOLICITAR INFORMACIÓN →</a>
+</article>
