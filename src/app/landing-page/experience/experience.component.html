@@ -55,26 +55,40 @@
             </div>
 
             <div class="exp-map-panel">
+              <div class="exp-map-stripe" aria-hidden="true"></div>
               <div class="exp-map-header">
                 <div class="exp-map-pin">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                   ENCUÉNTRANOS
                 </div>
-                <p class="exp-map-address">Calle 93 #15-15, Zona Rosa · Bogotá, Colombia</p>
-                <p class="exp-map-hours">Lun – Dom: 11:00 am – 11:00 pm</p>
+                <div class="exp-map-titulos">
+                  <span class="exp-map-tag">⭐ SEDE PRINCIPAL · CHAPINERO</span>
+                  <p class="exp-map-address">Calle 67 # 10-23 · Zona G, Bogotá</p>
+                  <ul class="exp-map-horario">
+                    <li><span>Lun a Jue</span><span>11:30 a.m. - 10:30 p.m.</span></li>
+                    <li><span>Vie y Sáb</span><span>11:30 a.m. - 11:30 p.m.</span></li>
+                    <li><span>Domingo</span><span>12:00 p.m. - 10:00 p.m.</span></li>
+                  </ul>
+                </div>
               </div>
               <div class="exp-map-frame">
                 <iframe
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=-74.060%2C4.670%2C-74.038%2C4.682&amp;layer=mapnik&amp;marker=4.6757%2C-74.0494"
-                  title="Ubicación La Vuelta Rápida"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-74.0640%2C4.6500%2C-74.0540%2C4.6580&amp;layer=mapnik&amp;marker=4.6533%2C-74.0593"
+                  title="Ubicación La Vuelta Rápida · Chapinero"
                   loading="lazy"
                   allowfullscreen>
                 </iframe>
               </div>
-              <a href="https://www.google.com/maps" target="_blank" class="exp-map-link">
-                Abrir en Google Maps
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
+              <div class="exp-map-actions">
+                <a href="https://www.google.com/maps/search/?api=1&query=Calle+67+%2310-23+Bogot%C3%A1"
+                   target="_blank" rel="noopener noreferrer" class="exp-map-btn exp-map-btn--primary">
+                  ABRIR EN GOOGLE MAPS
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+                <a routerLink="/ubicaciones" class="exp-map-btn exp-map-btn--ghost">
+                  VER LAS 3 SEDES →
+                </a>
+              </div>
             </div>
 
           </div>

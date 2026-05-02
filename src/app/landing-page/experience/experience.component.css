@@ -218,21 +218,33 @@
 
 /* ── Experience Map ── */
 .exp-map-panel {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(225,6,0,0.35);
+  background: #141414;
   box-shadow: 0 24px 60px rgba(0,0,0,0.6);
 }
 
+.exp-map-stripe {
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #e10600 0px, #e10600 16px,
+    #fff    16px, #fff    32px
+  );
+  opacity: 0.85;
+}
+
 .exp-map-header {
-  background: #111;
-  padding: 20px 24px;
+  background: linear-gradient(160deg, #181010 0%, #111 60%);
+  padding: 20px 24px 22px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 12px;
 }
 
 .exp-map-pin {
@@ -247,17 +259,64 @@
   text-transform: uppercase;
 }
 
-.exp-map-address {
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  margin: 4px 0 0;
+.exp-map-titulos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.exp-map-hours {
-  font-size: 13px;
-  color: #6b7280;
+.exp-map-tag {
+  align-self: flex-start;
+  background: #e10600;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.exp-map-address {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
   margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.exp-map-horario {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.exp-map-horario li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+}
+
+.exp-map-horario li span:first-child {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.exp-map-horario li span:last-child {
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: right;
 }
 
 .exp-map-frame {
@@ -273,22 +332,60 @@
   filter: invert(0.9) hue-rotate(180deg) saturate(0.6);
 }
 
-.exp-map-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 14px 24px;
+.exp-map-actions {
+  display: flex;
+  gap: 0;
   background: #111;
   border-top: 1px solid rgba(255,255,255,0.06);
-  font-size: 13px;
-  font-weight: 600;
-  color: #9ca3af;
-  text-decoration: none;
-  transition: color 0.2s;
 }
 
-.exp-map-link:hover {
+.exp-map-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.exp-map-btn--primary {
+  background: #e10600;
   color: #fff;
+}
+
+.exp-map-btn--primary:hover {
+  background: #b80500;
+  color: #fff;
+}
+
+.exp-map-btn--ghost {
+  background: transparent;
+  color: #fff;
+  border-left: 1px solid rgba(255,255,255,0.08);
+}
+
+.exp-map-btn--ghost:hover {
+  background: rgba(255,255,255,0.05);
+  color: #e10600;
+}
+
+@media (max-width: 540px) {
+  .exp-map-header     { padding: 18px 18px 20px; }
+  .exp-map-address    { font-size: 14px; }
+  .exp-map-btn        { font-size: 10px; letter-spacing: 1px; padding: 12px 10px; }
+  .exp-map-actions    { flex-direction: column; }
+  .exp-map-btn--ghost { border-left: none; border-top: 1px solid rgba(255,255,255,0.08); }
+}
+
+@media (max-width: 360px) {
+  .exp-map-horario li span:last-child { font-size: 11px; }
+  .exp-map-tag        { font-size: 8px; letter-spacing: 1px; padding: 3px 8px; }
 }
 
 @media (max-width: 991.98px) {
