@@ -1,0 +1,115 @@
+.tn-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 55%, #0f0f0f 100%);
+  padding: 80px 24px 72px;
+  text-align: center;
+  border-bottom: 1px solid rgba(225,6,0,0.3);
+  overflow: hidden;
+}
+
+.tn-hero-stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #e10600 0px, #e10600 20px,
+    #fff    20px, #fff    40px
+  );
+  opacity: 0.8;
+}
+
+.tn-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.tn-hero-label {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #e10600;
+  margin-bottom: 18px;
+}
+
+.tn-hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(28px, 5.2vw, 58px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+
+.tn-hero-title span { color: #e10600; font-style: italic; }
+
+.tn-hero-sub {
+  font-size: 16px;
+  color: #9ca3af;
+  line-height: 1.65;
+  margin-bottom: 36px;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tn-hero-badges {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tn-badge {
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 13px;
+  color: #d1d5db;
+}
+
+.tn-hero-flags {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  opacity: 0.4;
+}
+
+.tn-flag-strip {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #e10600 0px, #e10600 20px,
+    #fff    20px, #fff    40px
+  );
+}
+
+@media (max-width: 600px) {
+  .tn-hero      { padding: 56px 16px 52px; }
+  .tn-hero-sub  { font-size: 14px; margin-bottom: 28px; }
+  .tn-badge     { font-size: 12px; padding: 6px 12px; }
+}
+
+@media (max-width: 360px) {
+  .tn-hero-label { font-size: 10px; letter-spacing: 2px; }
+  .tn-hero-sub   { font-size: 13px; }
+  .tn-badge      { font-size: 11px; padding: 5px 10px; }
+}
+
+@media (max-width: 300px) {
+  .tn-hero       { padding: 40px 12px 36px; }
+  .tn-hero-title { font-size: 22px; }
+  .tn-hero-sub   { font-size: 12px; }
+  .tn-badge      { font-size: 10px; padding: 4px 8px; }
+}
+
+@media (max-width: 250px) {
+  .tn-hero-title { font-size: 18px; letter-spacing: 0; }
+  .tn-hero-label { font-size: 8px; letter-spacing: 1px; }
+  .tn-badge      { font-size: 9px; }
+}

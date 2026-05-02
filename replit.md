@@ -34,6 +34,9 @@ src/app/
       perfil-info-row/ - Reusable info row component (icon + label + value)
   nuestra-historia/  - "Nuestra historia" public page (hero, timeline, cifras, valores)
                       reusable cards: nh-timeline-item, nh-valor-card
+  trabaja-con-nosotros/ - "Trabaja con nosotros" public page (hero, beneficios,
+                      vacantes, proceso) with reusable cards: tn-beneficio-card,
+                      tn-vacante-card
   data/
     mock-data.ts     - Central mock data (CLIENTES, ADMINISTRADORES, OPERADORES, COMIDAS, etc.)
   models/            - TypeScript interfaces for all entities
@@ -61,6 +64,7 @@ styles.css           - Global styles
 - **Menú (/menu):** Public product catalog grouped by category. Each card links to `/producto/:id`.
 - **Detalle de producto (/producto/:id):** Full product detail page with image, base price panel, customizable adicionales with real-time subtotal, add-to-cart button with toast notification, and a recommendations section showing other products in the same category.
 - **Nuestra Historia (/nuestra-historia):** Public page linked from the footer. Built from reusable section components (`nh-hero`, `nh-timeline`, `nh-cifras`, `nh-valores`) and item/card components (`nh-timeline-item`, `nh-valor-card`). Fully responsive down to ~250px.
+- **Trabaja con Nosotros (/trabaja-con-nosotros):** Public careers page linked from the footer. Sections: hero, beneficios (6 cards), vacantes (5 job listings with mailto postulation), proceso (4 steps). CTA links to `mailto:talento@lavueltarapida.co` and WhatsApp. Fully responsive down to ~250px.
 - **Reusable components:** `PerfilInfoRowComponent` (icon + label + value row), `AdminHeroComponent` (admin page hero banner), `InputIconFieldComponent` (styled form inputs), `CardsComponent` (clickable product card).
 
 ## Development

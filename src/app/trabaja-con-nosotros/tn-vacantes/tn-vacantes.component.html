@@ -1,0 +1,18 @@
+<section class="tn-vacantes">
+  <div class="tn-vacantes-inner">
+    <div class="tn-sec-header">
+      <div class="tn-sec-line"></div>
+      <h2 class="tn-sec-titulo">VACANTES ABIERTAS</h2>
+      <div class="tn-sec-line tn-sec-line--right"></div>
+    </div>
+
+    <p class="tn-vacantes-intro">
+      Estas son las posiciones que tenemos abiertas hoy. Si ninguna encaja contigo,
+      escríbenos igualmente — siempre estamos buscando talento apasionado.
+    </p>
+
+    <div class="tn-vacantes-grid">
+      <app-tn-vacante-card *ngFor="let v of vacantes" [vacante]="v"></app-tn-vacante-card>
+    </div>
+  </div>
+</section>

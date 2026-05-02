@@ -1,0 +1,30 @@
+<article class="tn-vac-card" [class.tn-vac-card--destacada]="vacante.destacada">
+  <span *ngIf="vacante.destacada" class="tn-vac-tag">🔥 DESTACADA</span>
+
+  <div class="tn-vac-header">
+    <h3 class="tn-vac-cargo">{{ vacante.cargo }}</h3>
+    <span class="tn-vac-area">{{ vacante.area }}</span>
+  </div>
+
+  <div class="tn-vac-meta">
+    <span class="tn-vac-meta-item">
+      <span class="tn-vac-meta-icon">⏱️</span>
+      {{ vacante.modalidad }}
+    </span>
+    <span class="tn-vac-meta-item">
+      <span class="tn-vac-meta-icon">📍</span>
+      {{ vacante.ubicacion }}
+    </span>
+  </div>
+
+  <p class="tn-vac-desc">{{ vacante.descripcion }}</p>
+
+  <div class="tn-vac-requisitos">
+    <h4 class="tn-vac-req-titulo">Requisitos</h4>
+    <ul class="tn-vac-req-lista">
+      <li *ngFor="let req of vacante.requisitos">{{ req }}</li>
+    </ul>
+  </div>
+
+  <a class="tn-vac-btn" [href]="mailtoLink">POSTULARME →</a>
+</article>

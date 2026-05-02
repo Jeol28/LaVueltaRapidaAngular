@@ -1,0 +1,18 @@
+<section class="tn-beneficios">
+  <div class="tn-beneficios-inner">
+    <div class="tn-sec-header">
+      <div class="tn-sec-line"></div>
+      <h2 class="tn-sec-titulo">¿POR QUÉ NOSOTROS?</h2>
+      <div class="tn-sec-line tn-sec-line--right"></div>
+    </div>
+
+    <p class="tn-beneficios-intro">
+      Trabajar en La Vuelta Rápida es más que un empleo: es un equipo,
+      una afición y un proyecto que avanza rápido. Esto es lo que recibes:
+    </p>
+
+    <div class="tn-beneficios-grid">
+      <app-tn-beneficio-card *ngFor="let b of beneficios" [beneficio]="b"></app-tn-beneficio-card>
+    </div>
+  </div>
+</section>

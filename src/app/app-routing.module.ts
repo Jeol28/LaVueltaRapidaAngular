@@ -27,6 +27,7 @@ import { CarrerasEnVivoComponent } from './carreras-en-vivo/carreras-en-vivo/car
 import { CumpleanosComponent } from './cumpleanos/cumpleanos/cumpleanos.component';
 import { EventosCorporativosComponent } from './eventos-corporativos/eventos-corporativos/eventos-corporativos.component';
 import { NuestraHistoriaComponent } from './nuestra-historia/nuestra-historia/nuestra-historia.component';
+import { TrabajaConNosotrosComponent } from './trabaja-con-nosotros/trabaja-con-nosotros/trabaja-con-nosotros.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -70,6 +71,7 @@ const routes: Routes = [
   { path: 'cumpleanos', component: CumpleanosComponent },
   { path: 'eventos-corporativos', component: EventosCorporativosComponent },
   { path: 'nuestra-historia', component: NuestraHistoriaComponent },
+  { path: 'trabaja-con-nosotros', component: TrabajaConNosotrosComponent },
   { path: '**', redirectTo: '' },
 ];
 

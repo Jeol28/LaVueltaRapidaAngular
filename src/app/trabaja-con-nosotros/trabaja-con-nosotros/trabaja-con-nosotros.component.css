@@ -1,0 +1,108 @@
+.tn-page {
+  background: #0a0a0a;
+  min-height: 100vh;
+  color: #fff;
+}
+
+/* ===== CTA FINAL ===== */
+.tn-cta {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 60%, #0a0a0a 100%);
+  border-top: 1px solid rgba(225,6,0,0.25);
+  text-align: center;
+}
+
+.tn-cta-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.tn-cta-label {
+  display: inline-block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #e10600;
+  margin-bottom: 16px;
+}
+
+.tn-cta-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(26px, 4.5vw, 44px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.tn-cta-title span {
+  color: #e10600;
+  font-style: italic;
+}
+
+.tn-cta-sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #9ca3af;
+  margin-bottom: 32px;
+}
+
+.tn-cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tn-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 54px;
+  padding: 0 32px;
+  border-radius: 6px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.tn-cta-btn--primary {
+  background: #e10600;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(225,6,0,0.3);
+}
+
+.tn-cta-btn--primary:hover {
+  background: #b80500;
+  transform: translateY(-2px);
+}
+
+.tn-cta-btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+
+.tn-cta-btn--ghost:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 540px) {
+  .tn-cta       { padding: 56px 16px; }
+  .tn-cta-sub   { font-size: 14px; }
+  .tn-cta-btn   { height: 48px; padding: 0 22px; font-size: 12px; letter-spacing: 1px; }
+}
+
+@media (max-width: 320px) {
+  .tn-cta       { padding: 40px 12px; }
+  .tn-cta-label { font-size: 10px; letter-spacing: 2px; }
+  .tn-cta-sub   { font-size: 13px; }
+  .tn-cta-btn   { height: 42px; font-size: 11px; padding: 0 16px; gap: 6px; }
+}

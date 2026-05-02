@@ -59,6 +59,14 @@ import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
 import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
 
+import { TrabajaConNosotrosComponent } from './trabaja-con-nosotros/trabaja-con-nosotros/trabaja-con-nosotros.component';
+import { TnHeroComponent } from './trabaja-con-nosotros/tn-hero/tn-hero.component';
+import { TnBeneficiosComponent } from './trabaja-con-nosotros/tn-beneficios/tn-beneficios.component';
+import { TnBeneficioCardComponent } from './trabaja-con-nosotros/tn-beneficio-card/tn-beneficio-card.component';
+import { TnVacantesComponent } from './trabaja-con-nosotros/tn-vacantes/tn-vacantes.component';
+import { TnVacanteCardComponent } from './trabaja-con-nosotros/tn-vacante-card/tn-vacante-card.component';
+import { TnProcesoComponent } from './trabaja-con-nosotros/tn-proceso/tn-proceso.component';
+
 import { NuestraHistoriaComponent } from './nuestra-historia/nuestra-historia/nuestra-historia.component';
 import { NhHeroComponent } from './nuestra-historia/nh-hero/nh-hero.component';
 import { NhTimelineComponent } from './nuestra-historia/nh-timeline/nh-timeline.component';
@@ -151,6 +159,14 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     PrivacidadComponent,
     PpHeroComponent,
     PpSeccionComponent,
+
+    TrabajaConNosotrosComponent,
+    TnHeroComponent,
+    TnBeneficiosComponent,
+    TnBeneficioCardComponent,
+    TnVacantesComponent,
+    TnVacanteCardComponent,
+    TnProcesoComponent,
 
     NuestraHistoriaComponent,
     NhHeroComponent,

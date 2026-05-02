@@ -1,0 +1,25 @@
+<section class="tn-proceso">
+  <div class="tn-proceso-inner">
+    <div class="tn-sec-header">
+      <div class="tn-sec-line"></div>
+      <h2 class="tn-sec-titulo">EL PROCESO</h2>
+      <div class="tn-sec-line tn-sec-line--right"></div>
+    </div>
+
+    <p class="tn-proceso-intro">
+      Cuatro vueltas y estás dentro del equipo. Así de simple.
+    </p>
+
+    <div class="tn-proceso-grid">
+      <div class="tn-paso" *ngFor="let p of pasos; let last = last">
+        <div class="tn-paso-card">
+          <div class="tn-paso-numero">{{ p.numero }}</div>
+          <div class="tn-paso-icono">{{ p.icono }}</div>
+          <h3 class="tn-paso-titulo">{{ p.titulo }}</h3>
+          <p class="tn-paso-desc">{{ p.descripcion }}</p>
+        </div>
+        <div class="tn-paso-flecha" *ngIf="!last">→</div>
+      </div>
+    </div>
+  </div>
+</section>
