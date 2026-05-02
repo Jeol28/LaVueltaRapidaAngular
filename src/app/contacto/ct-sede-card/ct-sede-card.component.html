@@ -1,0 +1,24 @@
+<article class="ct-sede-card" [class.ct-sede-card--destacada]="sede.destacada">
+  <span *ngIf="sede.destacada" class="ct-sede-tag">⭐ SEDE PRINCIPAL</span>
+
+  <h3 class="ct-sede-nombre">{{ sede.nombre }}</h3>
+
+  <div class="ct-sede-info">
+    <div class="ct-sede-row">
+      <span class="ct-sede-icono">📍</span>
+      <span class="ct-sede-text">{{ sede.direccion }}</span>
+    </div>
+    <div class="ct-sede-row">
+      <span class="ct-sede-icono">🕒</span>
+      <span class="ct-sede-text">{{ sede.horario }}</span>
+    </div>
+    <div class="ct-sede-row">
+      <span class="ct-sede-icono">📞</span>
+      <a class="ct-sede-text ct-sede-text--link" [href]="telefonoLink">{{ sede.telefono }}</a>
+    </div>
+  </div>
+
+  <a class="ct-sede-btn" [href]="sede.mapsUrl" target="_blank" rel="noopener noreferrer">
+    VER EN MAPA →
+  </a>
+</article>

@@ -1,0 +1,119 @@
+.ct-sede-card {
+  position: relative;
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 30px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.ct-sede-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  border-color: rgba(225,6,0,0.4);
+}
+
+.ct-sede-card--destacada {
+  border-color: rgba(225,6,0,0.5);
+  background: linear-gradient(160deg, #181010 0%, #141414 60%);
+}
+
+.ct-sede-tag {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: #e10600;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  box-shadow: 0 4px 12px rgba(225,6,0,0.4);
+}
+
+.ct-sede-nombre {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.3px;
+  border-left: 3px solid #e10600;
+  padding-left: 12px;
+}
+
+.ct-sede-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ct-sede-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ct-sede-icono {
+  font-size: 16px;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.ct-sede-text {
+  font-size: 13px;
+  color: #d1d5db;
+  line-height: 1.55;
+  text-decoration: none;
+}
+
+.ct-sede-text--link {
+  color: #e10600;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.ct-sede-text--link:hover { color: #fff; }
+
+.ct-sede-btn {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  background: transparent;
+  color: #e10600;
+  border: 1.5px solid #e10600;
+  border-radius: 6px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.ct-sede-btn:hover {
+  background: #e10600;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 400px) {
+  .ct-sede-card    { padding: 24px 18px 20px; gap: 14px; }
+  .ct-sede-nombre  { font-size: 18px; }
+  .ct-sede-text    { font-size: 12px; }
+  .ct-sede-btn     { height: 40px; font-size: 11px; }
+}
+
+@media (max-width: 280px) {
+  .ct-sede-card    { padding: 18px 14px; }
+  .ct-sede-nombre  { font-size: 16px; padding-left: 10px; }
+  .ct-sede-text    { font-size: 11px; }
+  .ct-sede-btn     { font-size: 10px; letter-spacing: 1px; }
+}

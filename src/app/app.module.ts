@@ -59,6 +59,15 @@ import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { PpHeroComponent } from './privacidad/pp-hero/pp-hero.component';
 import { PpSeccionComponent } from './privacidad/pp-seccion/pp-seccion.component';
 
+import { ContactoComponent } from './contacto/contacto/contacto.component';
+import { CtHeroComponent } from './contacto/ct-hero/ct-hero.component';
+import { CtCanalesComponent } from './contacto/ct-canales/ct-canales.component';
+import { CtCanalCardComponent } from './contacto/ct-canal-card/ct-canal-card.component';
+import { CtSedesComponent } from './contacto/ct-sedes/ct-sedes.component';
+import { CtSedeCardComponent } from './contacto/ct-sede-card/ct-sede-card.component';
+import { CtFaqComponent } from './contacto/ct-faq/ct-faq.component';
+import { CtFaqItemComponent } from './contacto/ct-faq-item/ct-faq-item.component';
+
 import { FranquiciasComponent } from './franquicias/franquicias/franquicias.component';
 import { FrHeroComponent } from './franquicias/fr-hero/fr-hero.component';
 import { FrBeneficiosComponent } from './franquicias/fr-beneficios/fr-beneficios.component';
@@ -167,6 +176,15 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     PrivacidadComponent,
     PpHeroComponent,
     PpSeccionComponent,
+
+    ContactoComponent,
+    CtHeroComponent,
+    CtCanalesComponent,
+    CtCanalCardComponent,
+    CtSedesComponent,
+    CtSedeCardComponent,
+    CtFaqComponent,
+    CtFaqItemComponent,
 
     FranquiciasComponent,
     FrHeroComponent,

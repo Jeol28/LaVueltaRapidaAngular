@@ -1,0 +1,18 @@
+<section class="ct-faq-section">
+  <div class="ct-faq-inner">
+    <div class="ct-sec-header">
+      <div class="ct-sec-line"></div>
+      <h2 class="ct-sec-titulo">PREGUNTAS FRECUENTES</h2>
+      <div class="ct-sec-line ct-sec-line--right"></div>
+    </div>
+
+    <p class="ct-faq-intro">
+      Las dudas más comunes de nuestros clientes. Si tu pregunta no está aquí,
+      escríbenos por WhatsApp y te respondemos al instante.
+    </p>
+
+    <div class="ct-faq-lista">
+      <app-ct-faq-item *ngFor="let f of faqs" [faq]="f"></app-ct-faq-item>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+<section class="ct-canales">
+  <div class="ct-canales-inner">
+    <div class="ct-sec-header">
+      <div class="ct-sec-line"></div>
+      <h2 class="ct-sec-titulo">CANALES DE CONTACTO</h2>
+      <div class="ct-sec-line ct-sec-line--right"></div>
+    </div>
+
+    <p class="ct-canales-intro">
+      Elige el canal que más te acomode. Atendemos pedidos, reservas, dudas
+      sobre eventos y cualquier comentario que tengas para nosotros.
+    </p>
+
+    <div class="ct-canales-grid">
+      <app-ct-canal-card *ngFor="let c of canales" [canal]="c"></app-ct-canal-card>
+    </div>
+  </div>
+</section>

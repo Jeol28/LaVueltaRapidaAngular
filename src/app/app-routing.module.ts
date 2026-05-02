@@ -29,6 +29,7 @@ import { EventosCorporativosComponent } from './eventos-corporativos/eventos-cor
 import { NuestraHistoriaComponent } from './nuestra-historia/nuestra-historia/nuestra-historia.component';
 import { TrabajaConNosotrosComponent } from './trabaja-con-nosotros/trabaja-con-nosotros/trabaja-con-nosotros.component';
 import { FranquiciasComponent } from './franquicias/franquicias/franquicias.component';
+import { ContactoComponent } from './contacto/contacto/contacto.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -74,6 +75,7 @@ const routes: Routes = [
   { path: 'nuestra-historia', component: NuestraHistoriaComponent },
   { path: 'trabaja-con-nosotros', component: TrabajaConNosotrosComponent },
   { path: 'franquicias', component: FranquiciasComponent },
+  { path: 'contacto', component: ContactoComponent },
   { path: '**', redirectTo: '' },
 ];
 

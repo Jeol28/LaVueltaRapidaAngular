@@ -1,0 +1,9 @@
+<div class="ct-faq" [class.ct-faq--abierto]="abierto">
+  <button type="button" class="ct-faq-btn" (click)="toggle()" [attr.aria-expanded]="abierto">
+    <span class="ct-faq-pregunta">{{ faq.pregunta }}</span>
+    <span class="ct-faq-icono" aria-hidden="true">+</span>
+  </button>
+  <div class="ct-faq-respuesta" *ngIf="abierto">
+    <p>{{ faq.respuesta }}</p>
+  </div>
+</div>

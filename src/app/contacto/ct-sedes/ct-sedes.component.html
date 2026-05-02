@@ -1,0 +1,17 @@
+<section class="ct-sedes">
+  <div class="ct-sedes-inner">
+    <div class="ct-sec-header">
+      <div class="ct-sec-line"></div>
+      <h2 class="ct-sec-titulo">NUESTRAS SEDES</h2>
+      <div class="ct-sec-line ct-sec-line--right"></div>
+    </div>
+
+    <p class="ct-sedes-intro">
+      Tres pistas, un mismo equipo. Visítanos en la sede más cercana o haz tu pedido a domicilio.
+    </p>
+
+    <div class="ct-sedes-grid">
+      <app-ct-sede-card *ngFor="let s of sedes" [sede]="s"></app-ct-sede-card>
+    </div>
+  </div>
+</section>

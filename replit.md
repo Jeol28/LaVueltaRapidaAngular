@@ -40,6 +40,9 @@ src/app/
   franquicias/       - "Franquicias" public page (hero, beneficios, modelos,
                       proceso) with reusable cards: fr-beneficio-card,
                       fr-modelo-card
+  contacto/          - "Contacto" public page (hero, canales, sedes, FAQ
+                      acordeón) with reusable items: ct-canal-card,
+                      ct-sede-card, ct-faq-item
   data/
     mock-data.ts     - Central mock data (CLIENTES, ADMINISTRADORES, OPERADORES, COMIDAS, etc.)
   models/            - TypeScript interfaces for all entities
@@ -69,6 +72,7 @@ styles.css           - Global styles
 - **Nuestra Historia (/nuestra-historia):** Public page linked from the footer. Built from reusable section components (`nh-hero`, `nh-timeline`, `nh-cifras`, `nh-valores`) and item/card components (`nh-timeline-item`, `nh-valor-card`). Fully responsive down to ~250px.
 - **Trabaja con Nosotros (/trabaja-con-nosotros):** Public careers page linked from the footer. Sections: hero, beneficios (6 cards), vacantes (5 job listings with mailto postulation), proceso (4 steps). CTA links to `mailto:talento@lavueltarapida.co` and WhatsApp. Fully responsive down to ~250px.
 - **Franquicias (/franquicias):** Public franchises page linked from the footer. Sections: hero with stats (sedes/modelos/inversión), beneficios (6 cards), modelos (3 franchise tiers: Box Express, Local Estándar destacado, Local Premium with investment/area/team/ROI metrics + included features), proceso (4 steps). CTA links to `mailto:franquicias@lavueltarapida.co` and WhatsApp. Fully responsive down to ~250px.
+- **Contacto (/contacto):** Public contact page linked from the footer. Sections: hero, canales (4 channel cards: teléfono, pedidos, WhatsApp, información — each with its own accent color), sedes (3 sede cards Chapinero/Usaquén/Salitre with address, hours, phone and Google Maps link), FAQ accordion (6 collapsible Q&A items with toggle state per item). Final CTA links to `/menu` and WhatsApp. Fully responsive down to ~250px.
 - **Reusable components:** `PerfilInfoRowComponent` (icon + label + value row), `AdminHeroComponent` (admin page hero banner), `InputIconFieldComponent` (styled form inputs), `CardsComponent` (clickable product card).
 
 ## Development

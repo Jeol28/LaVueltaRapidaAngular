@@ -1,0 +1,89 @@
+.ct-faq {
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.25s, background-color 0.25s;
+}
+
+.ct-faq--abierto {
+  border-color: rgba(225,6,0,0.4);
+  background: linear-gradient(160deg, #181010 0%, #141414 60%);
+}
+
+.ct-faq-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+}
+
+.ct-faq-pregunta {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+}
+
+.ct-faq-icono {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #e10600;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(225,6,0,0.12);
+  flex-shrink: 0;
+  transition: transform 0.25s;
+}
+
+.ct-faq--abierto .ct-faq-icono {
+  transform: rotate(45deg);
+}
+
+.ct-faq-respuesta {
+  padding: 0 22px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.ct-faq-respuesta p {
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: #9ca3af;
+  line-height: 1.7;
+}
+
+@media (max-width: 540px) {
+  .ct-faq-btn       { padding: 16px 16px; gap: 12px; }
+  .ct-faq-pregunta  { font-size: 13px; }
+  .ct-faq-icono     { font-size: 20px; width: 24px; height: 24px; }
+  .ct-faq-respuesta { padding: 0 16px 16px; }
+  .ct-faq-respuesta p { font-size: 13px; }
+}
+
+@media (max-width: 320px) {
+  .ct-faq-btn       { padding: 14px 12px; }
+  .ct-faq-pregunta  { font-size: 12px; }
+  .ct-faq-respuesta { padding: 0 12px 14px; }
+  .ct-faq-respuesta p { font-size: 12px; }
+}
+
+@media (max-width: 250px) {
+  .ct-faq-pregunta  { font-size: 11px; }
+  .ct-faq-icono     { font-size: 16px; width: 20px; height: 20px; }
+}
