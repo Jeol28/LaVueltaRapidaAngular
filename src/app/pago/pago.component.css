@@ -995,3 +995,35 @@
   text-align: center;
 }
 .pg-mp-note strong { color: #f59e0b; font-weight: 700; }
+
+.pg-mp-recover {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border: 1px dashed rgba(225, 6, 0, 0.35);
+  border-radius: 8px;
+  background: rgba(225, 6, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  text-align: center;
+}
+.pg-mp-recover span {
+  font-size: 12px;
+  color: #d4a574;
+  letter-spacing: 0.4px;
+}
+.pg-mp-recover-link {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #e10600;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(225, 6, 0, 0.5);
+  padding-bottom: 1px;
+  transition: color 0.15s ease;
+}
+.pg-mp-recover-link:hover {
+  color: #ff3322;
+}

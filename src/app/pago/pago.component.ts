@@ -137,6 +137,11 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.router.navigate(['/perfil'], { fragment: 'mis-pedidos' });
   }
 
+  verificarPago(): void {
+    if (!this.pedidoId) return;
+    this.router.navigate(['/pago/resultado', this.pedidoId]);
+  }
+
   formatCOP(amount: number): string {
     return new Intl.NumberFormat('es-CO').format(amount);
   }
