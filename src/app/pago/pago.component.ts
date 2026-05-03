@@ -116,7 +116,7 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.http.post<PreferenciaMP>(`${API_URL}/api/mp/preference`, body).subscribe({
       next: (resp) => {
         if (this.destruido) return;
-        const url = resp.sandbox_init_point || resp.init_point;
+        const url = resp.init_point || resp.sandbox_init_point;
         if (!url) {
           this.redirigiendo = false;
           this.errorPago = 'No recibimos la URL de pago. Intenta nuevamente.';
