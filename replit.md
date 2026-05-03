@@ -49,7 +49,9 @@ src/app/
   pago/              - VueltaPay payment gateway integrated with Mercado Pago.
                       Route /pago/:pedidoId shows F1-themed pedido summary +
                       single "Pagar" button → POST /api/mp/preference (proxied
-                      to local Node mp-server) → redirect to Mercado Pago
+                      via proxy.conf.json to the Java backend on
+                      http://localhost:8090, which holds the MP access token
+                      and creates the preference) → redirect to Mercado Pago
                       Checkout Pro (real PSE, tarjeta, Efecty, etc).
                       Return URL /pago/resultado/:pedidoId reads MP query params
                       (collection_status, payment_id) and shows aprobado /
