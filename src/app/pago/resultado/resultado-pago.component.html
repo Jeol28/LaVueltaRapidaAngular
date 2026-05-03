@@ -1,0 +1,113 @@
+<main class="rp-main">
+
+  <header class="rp-topbar">
+    <div class="rp-topbar-inner">
+      <div class="rp-brand">
+        <span class="rp-brand-mark">⚡</span>
+        <span class="rp-brand-name">VUELTAPAY</span>
+        <span class="rp-brand-sub">RESULTADO DE LA TRANSACCIÓN</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="rp-content">
+
+    <!-- Cargando -->
+    <div class="rp-card" *ngIf="estado === 'cargando'">
+      <div class="rp-loader-ring"></div>
+      <h2>VERIFICANDO TU PAGO…</h2>
+      <p>Estamos consultando el estado de tu transacción con Mercado Pago.</p>
+    </div>
+
+    <!-- Aprobado -->
+    <div class="rp-card rp-card-ok" *ngIf="estado === 'aprobado'">
+      <div class="rp-icon rp-icon-ok">
+        <svg viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="24" stroke="#22c55e" stroke-width="2.5"/>
+          <path d="M14 27l9 9 16-17" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="rp-title rp-title-ok">¡PAGO APROBADO!</h2>
+      <p class="rp-sub">
+        Tu pedido <strong>#{{ pedidoId }}</strong> está confirmado y entró en preparación.<br>
+        Te llevaremos a tu perfil en unos segundos…
+      </p>
+
+      <div class="rp-recibo">
+        <div class="rp-row" *ngIf="paymentId"><span>ID Transacción</span><span>{{ paymentId }}</span></div>
+        <div class="rp-row"><span>Método</span><span>{{ metodoLegible() }}</span></div>
+        <div class="rp-row" *ngIf="pago?.date_approved"><span>Fecha</span><span>{{ pago?.date_approved | date:'medium' }}</span></div>
+        <div class="rp-row rp-row-total" *ngIf="total > 0">
+          <span>Total pagado</span><span>${{ formatCOP(total) }} COP</span>
+        </div>
+      </div>
+
+      <button class="rp-btn-pagar" (click)="irAMisPedidos()">VER MI PEDIDO</button>
+    </div>
+
+    <!-- Pendiente -->
+    <div class="rp-card rp-card-warn" *ngIf="estado === 'pendiente'">
+      <div class="rp-icon rp-icon-warn">
+        <svg viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="24" stroke="#f59e0b" stroke-width="2.5"/>
+          <path d="M26 14v14M26 36v.5" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="rp-title rp-title-warn">PAGO EN PROCESO</h2>
+      <p class="rp-sub">
+        Tu pago aún se está procesando (común en Efecty, PSE o pagos en efectivo).<br>
+        Recibirás una notificación cuando se confirme. Tu pedido <strong>#{{ pedidoId }}</strong> queda registrado.
+      </p>
+      <div class="rp-recibo">
+        <div class="rp-row" *ngIf="paymentId"><span>ID Transacción</span><span>{{ paymentId }}</span></div>
+        <div class="rp-row"><span>Estado</span><span>{{ pago?.status_detail || 'pendiente' }}</span></div>
+      </div>
+      <button class="rp-btn-pagar" (click)="irAMisPedidos()">IR A MIS PEDIDOS</button>
+    </div>
+
+    <!-- Rechazado -->
+    <div class="rp-card rp-card-err" *ngIf="estado === 'rechazado'">
+      <div class="rp-icon rp-icon-err">
+        <svg viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="24" stroke="#e10600" stroke-width="2.5"/>
+          <path d="M18 18l16 16M34 18L18 34" stroke="#e10600" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="rp-title rp-title-err">PAGO RECHAZADO</h2>
+      <p class="rp-sub">
+        No pudimos procesar tu pago. Verifica los datos o intenta con otro método.<br>
+        Tu pedido <strong>#{{ pedidoId }}</strong> sigue pendiente de pago.
+      </p>
+      <div class="rp-recibo" *ngIf="pago?.status_detail">
+        <div class="rp-row"><span>Motivo</span><span>{{ pago?.status_detail }}</span></div>
+      </div>
+      <div class="rp-actions">
+        <button class="rp-btn-secundario" (click)="irAMisPedidos()">SALIR</button>
+        <button class="rp-btn-pagar" (click)="reintentar()">REINTENTAR PAGO</button>
+      </div>
+    </div>
+
+    <!-- Desconocido -->
+    <div class="rp-card" *ngIf="estado === 'desconocido'">
+      <div class="rp-icon rp-icon-warn">
+        <svg viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="24" stroke="#f59e0b" stroke-width="2.5"/>
+          <path d="M22 20a4 4 0 1 1 6 3l-2 2v3M26 36v.5" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="rp-title">NO PUDIMOS DETERMINAR EL ESTADO</h2>
+      <p class="rp-sub">
+        No recibimos información clara del pago. Revisa "Mis Pedidos" para ver si quedó registrado o intenta de nuevo.
+      </p>
+      <div class="rp-actions">
+        <button class="rp-btn-secundario" (click)="reintentar()">VOLVER A INTENTAR</button>
+        <button class="rp-btn-pagar" (click)="irAMisPedidos()">IR A MIS PEDIDOS</button>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="rp-bottombar">
+    <span>© VUELTAPAY · Powered by Mercado Pago</span>
+  </footer>
+</main>

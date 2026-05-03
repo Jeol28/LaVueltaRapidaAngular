@@ -40,6 +40,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ProductoDetalleComponent } from './producto/producto-detalle/producto-detalle.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PagoComponent } from './pago/pago.component';
+import { ResultadoPagoComponent } from './pago/resultado/resultado-pago.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-icon-field.component';
@@ -165,6 +166,7 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     ProductoDetalleComponent,
     CarritoComponent,
     PagoComponent,
+    ResultadoPagoComponent,
     LoginComponent,
     RegisterComponent,
     InputIconFieldComponent,

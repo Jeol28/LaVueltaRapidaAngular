@@ -46,8 +46,17 @@ src/app/
   ubicaciones/       - "Ubicaciones" public page (hero with stats, sedes
                       detalladas, próximas aperturas) with reusable cards:
                       ub-sede-card
-  pago/              - VueltaPay payment gateway page (route /pago/:pedidoId).
-                      F1-themed simulated checkout with methods Tarjeta /
+  pago/              - VueltaPay payment gateway integrated with Mercado Pago.
+                      Route /pago/:pedidoId shows F1-themed pedido summary +
+                      single "Pagar" button → POST /api/mp/preference (proxied
+                      to local Node mp-server) → redirect to Mercado Pago
+                      Checkout Pro (real PSE, tarjeta, Efecty, etc).
+                      Return URL /pago/resultado/:pedidoId reads MP query params
+                      (collection_status, payment_id) and shows aprobado /
+                      pendiente / rechazado / desconocido state, fetching full
+                      payment detail from /api/mp/payment/:id. Auto-redirects
+                      to /perfil#mis-pedidos on success.
+                      Legacy F1-themed simulated checkout had methods Tarjeta /
                       PSE / Nequi / Daviplata. Carrito redirects here after
                       creating a pedido (state.total). Auto-redirect to
                       /perfil#mis-pedidos on success. Requires login.
