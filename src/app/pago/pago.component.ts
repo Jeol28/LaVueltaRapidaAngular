@@ -10,6 +10,8 @@ interface PreferenciaMP {
   sandbox_init_point: string;
 }
 
+const API_URL = 'http://localhost:8090';
+
 @Component({
   selector: 'app-pago',
   templateUrl: './pago.component.html',
@@ -124,7 +126,7 @@ export class PagoComponent implements OnInit, OnDestroy {
       origin: window.location.origin
     };
 
-    this.http.post<PreferenciaMP>('/api/mp/preference', body).subscribe({
+    this.http.post<PreferenciaMP>(`${API_URL}/api/mp/preference`, body).subscribe({
       next: (resp) => {
         if (this.destruido) return;
         const url = resp.sandbox_init_point || resp.init_point;

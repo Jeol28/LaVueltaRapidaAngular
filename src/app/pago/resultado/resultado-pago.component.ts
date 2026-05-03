@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 
 type ResultadoEstado = 'cargando' | 'aprobado' | 'pendiente' | 'rechazado' | 'desconocido';
 
+const API_URL = 'http://localhost:8090';
+
 interface PagoMP {
   id: number | string;
   status: string;
@@ -60,7 +62,7 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
     } catch {}
 
     if (this.paymentId) {
-      this.http.get<PagoMP>(`/api/mp/payment/${this.paymentId}`).subscribe({
+      this.http.get<PagoMP>(`${API_URL}/api/mp/payment/${this.paymentId}`).subscribe({
         next: (p) => {
           if (this.destruido) return;
           this.pago = p;
