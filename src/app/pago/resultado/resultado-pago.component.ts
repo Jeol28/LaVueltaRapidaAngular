@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { PedidoService } from '../../services/pedido.service';
 
 type ResultadoEstado = 'cargando' | 'aprobado' | 'pendiente' | 'rechazado' | 'desconocido';
 
@@ -44,7 +45,8 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private pedidoService: PedidoService
   ) {}
 
   ngOnInit(): void {
@@ -72,14 +74,55 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
         },
         error: () => {
           if (this.destruido) return;
-          this.estado = this.mapearEstado(this.collectionStatus);
-          this.programarRedireccion();
+          if (this.collectionStatus) {
+            this.estado = this.mapearEstado(this.collectionStatus);
+            this.programarRedireccion();
+          } else {
+            this.consultarPedido();
+          }
         }
       });
-    } else {
+    } else if (this.collectionStatus) {
       this.estado = this.mapearEstado(this.collectionStatus);
       this.programarRedireccion();
+    } else {
+      this.consultarPedido();
     }
+  }
+
+  private consultarPedido(): void {
+    if (!this.pedidoId || isNaN(this.pedidoId)) {
+      this.estado = 'desconocido';
+      return;
+    }
+    this.pedidoService.getById(this.pedidoId).subscribe({
+      next: (pedido) => {
+        if (this.destruido) return;
+        const ep = (pedido?.estadoPago || '').toUpperCase();
+        if (ep === 'APROBADO') this.estado = 'aprobado';
+        else if (ep === 'EN_PROCESO' || ep === 'PENDIENTE') this.estado = 'pendiente';
+        else if (ep === 'RECHAZADO') this.estado = 'rechazado';
+        else this.estado = 'desconocido';
+
+        if (pedido?.totalPagado) this.total = pedido.totalPagado;
+        if (pedido?.mpPaymentId) {
+          this.pago = {
+            id: pedido.mpPaymentId,
+            status: ep.toLowerCase(),
+            payment_method_id: pedido.mpPaymentMethod,
+            payment_type_id: pedido.mpPaymentType,
+            transaction_amount: pedido.totalPagado,
+            currency_id: 'COP',
+            date_approved: pedido.fechaPago
+          };
+        }
+        this.programarRedireccion();
+      },
+      error: () => {
+        if (this.destruido) return;
+        this.estado = 'desconocido';
+      }
+    });
   }
 
   ngOnDestroy(): void {
