@@ -92,18 +92,6 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.errorPago = '';
     this.redirigiendo = true;
 
-    const userRaw = localStorage.getItem('user');
-    let payer: { name?: string; email?: string } = {};
-    try {
-      const u = userRaw ? JSON.parse(userRaw) : null;
-      if (u) {
-        payer = {
-          name: u.name || u.nombre || u.username || undefined,
-          email: u.email || undefined
-        };
-      }
-    } catch {}
-
     const items = (this.pedido?.lineasPedido || []).map((lp) => {
       const adicionales = (lp.adicionales || []).reduce(
         (s, a) => s + (a.adicional?.price ?? 0), 0
@@ -122,7 +110,6 @@ export class PagoComponent implements OnInit, OnDestroy {
       pedidoId: this.pedidoId,
       total: this.total,
       items: items.length > 0 ? items : undefined,
-      payer,
       origin: window.location.origin
     };
 
