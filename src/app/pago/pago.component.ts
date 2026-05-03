@@ -106,11 +106,21 @@ export class PagoComponent implements OnInit, OnDestroy {
       };
     });
 
+    const cliente = this.pedido?.cliente;
+    const payer = cliente ? {
+      name: cliente.name,
+      surname: cliente.apellido,
+      email: cliente.email,
+      phone: cliente.telefono ? { area_code: '57', number: cliente.telefono } : undefined,
+      address: cliente.direccion ? { street_name: cliente.direccion } : undefined
+    } : undefined;
+
     const body = {
       pedidoId: this.pedidoId,
       total: this.total,
       items: items.length > 0 ? items : undefined,
-      origin: window.location.origin
+      origin: window.location.origin,
+      payer
     };
 
     this.http.post<PreferenciaMP>(`${API_URL}/api/mp/preference`, body).subscribe({
