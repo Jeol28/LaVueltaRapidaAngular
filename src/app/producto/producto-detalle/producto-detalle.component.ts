@@ -77,7 +77,10 @@ export class ProductoDetalleComponent implements OnInit {
 
   addToCart(): void {
     if (!localStorage.getItem('user')) {
-      this.router.navigate(['/login']);
+      const adicionalesStr = Array.from(this.selectedAdicionales).join(',');
+      let returnUrl = `/producto/${this.comida?.id ?? ''}`;
+      if (adicionalesStr) returnUrl += `?adicionales=${adicionalesStr}`;
+      this.router.navigate(['/login'], { queryParams: { returnUrl } });
       return;
     }
     if (!this.comida) return;

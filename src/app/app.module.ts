@@ -44,6 +44,9 @@ import { ResultadoPagoComponent } from './pago/resultado/resultado-pago.componen
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { InputIconFieldComponent } from './auth/shared/input-icon-field/input-icon-field.component';
+import { AuthFormCardComponent } from './auth/shared/auth-form-card/auth-form-card.component';
+import { RecuperarComponent } from './auth/recuperar/recuperar.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
 import { PerfilInfoRowComponent } from './perfiles/shared/perfil-info-row/perfil-info-row.component';
@@ -170,6 +173,9 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     LoginComponent,
     RegisterComponent,
     InputIconFieldComponent,
+    AuthFormCardComponent,
+    RecuperarComponent,
+    ResetPasswordComponent,
 
     PerfilComponent,
     PerfilInfoRowComponent,

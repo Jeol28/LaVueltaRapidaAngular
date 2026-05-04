@@ -1,0 +1,92 @@
+.auth-hero {
+  padding: 100px 20px 50px;
+  text-align: center;
+  background: linear-gradient(135deg, #0f0f0f, #3a0000);
+  border-bottom: 2px solid var(--red);
+}
+
+.auth-hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 44px;
+  letter-spacing: 2px;
+  font-weight: 100;
+  color: white;
+}
+
+.auth-hero span {
+  color: var(--red);
+  font-weight: 100;
+}
+
+.auth-hero p {
+  margin-top: 15px;
+  color: var(--gray);
+  font-size: 15px;
+}
+
+.auth-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 60px 20px 120px;
+}
+
+.auth-card {
+  background: #141414;
+  border-radius: 16px;
+  border: 1px solid #1f1f1f;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.auth-card-header {
+  padding: 40px 40px 30px;
+  border-bottom: 1px solid #1f1f1f;
+  text-align: center;
+}
+
+.auth-header-accent {
+  width: 48px;
+  height: 4px;
+  background-color: var(--red);
+  margin: 0 auto 24px;
+}
+
+.auth-card-icon {
+  margin-bottom: 20px;
+}
+
+.auth-card-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.auth-card-header p {
+  color: var(--gray);
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .auth-hero h1      { font-size: 30px; }
+  .auth-container    { padding: 40px 16px 80px; }
+  .auth-card-header  { padding: 24px 24px 20px; }
+}
+
+@media (max-width: 315px) {
+  .auth-hero h1       { font-size: 20px; letter-spacing: 1px; }
+  .auth-hero p        { font-size: 11px; }
+  .auth-container     { padding: 24px 10px 60px; }
+  .auth-card-header   { padding: 18px 16px 14px; }
+  .auth-card-header h2 { font-size: 17px; letter-spacing: 1px; }
+  .auth-card-header p  { font-size: 11px; }
+}
+
+@media (max-width: 230px) {
+  .auth-hero h1        { font-size: 14px; letter-spacing: 0; }
+  .auth-container      { padding: 12px 6px 40px; }
+  .auth-card-header    { padding: 12px 10px 8px; }
+  .auth-card-header h2 { font-size: 12px; letter-spacing: 0; }
+  .auth-card-header p  { font-size: 9px; }
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from '../../services/cliente.service';
 import { AuthService } from '../../services/auth.service';
 import { CarritoService } from '../../services/carrito.service';
@@ -24,13 +24,17 @@ export class RegisterComponent {
 
   errorMsg: string = '';
   passwordErrorMsg: string = '';
+  private returnUrl: string = '';
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private clienteService: ClienteService,
     private authService: AuthService,
     private carritoService: CarritoService
-  ) {}
+  ) {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] ?? '';
+  }
 
   checkPasswords(): void {
     if (this.form.confirmPassword && this.form.password !== this.form.confirmPassword) {
@@ -67,7 +71,7 @@ export class RegisterComponent {
             localStorage.setItem('carritoId', String(carritoId));
             this.carritoService.cargarDesdeBackend();
           }
-          this.router.navigate(['/perfil']);
+          this.router.navigateByUrl(this.returnUrl || '/perfil');
         });
       },
       error: err => {

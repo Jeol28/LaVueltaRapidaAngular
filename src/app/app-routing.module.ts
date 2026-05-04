@@ -17,6 +17,8 @@ import { PagoComponent } from './pago/pago.component';
 import { ResultadoPagoComponent } from './pago/resultado/resultado-pago.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { RecuperarComponent } from './auth/recuperar/recuperar.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
 import { PerfilOperadorComponent } from './perfiles/perfil-operador/perfil-operador.component';
 import { PerfilAdminComponent } from './perfiles/perfil-admin/perfil-admin.component';
@@ -42,6 +44,8 @@ const routes: Routes = [
   { path: 'pago/:pedidoId', component: PagoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'recuperar', component: RecuperarComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'perfil-operador', component: PerfilOperadorComponent },
   { path: 'perfil-admin', component: PerfilAdminComponent },

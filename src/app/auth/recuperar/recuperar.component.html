@@ -1,0 +1,60 @@
+<app-auth-form-card
+  heroTitle="RECUPERAR"
+  heroHighlight="CONTRASEÑA"
+  heroSubtitle="Te enviaremos un enlace para restablecer tu acceso"
+  [cardTitle]="estado === 'enviado' ? 'CORREO ENVIADO' : 'OLVIDÉ MI CONTRASEÑA'"
+  [cardSubtitle]="estado === 'enviado' ? 'Revisa tu bandeja de entrada' : 'Ingresa tu correo registrado'">
+
+  <svg card-icon width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e10600" stroke-width="1.5">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+  </svg>
+
+  <div *ngIf="errorMsg" class="recuperar-error">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    {{ errorMsg }}
+  </div>
+
+  <form *ngIf="estado !== 'enviado'" (ngSubmit)="onSubmit()" class="recuperar-form">
+
+    <app-input-icon-field
+      iconType="email"
+      label="Correo electrónico"
+      id="email"
+      name="email"
+      type="email"
+      placeholder="correo@ejemplo.com"
+      [required]="true"
+      [(value)]="email">
+    </app-input-icon-field>
+
+    <button type="submit" class="btn-recuperar" [disabled]="estado === 'cargando'">
+      {{ estado === 'cargando' ? 'ENVIANDO...' : 'ENVIAR ENLACE' }}
+    </button>
+
+    <div class="recuperar-footer">
+      <p>¿Recordaste tu contraseña? <a routerLink="/login">Inicia sesión aquí</a></p>
+      <p>¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+    </div>
+
+  </form>
+
+  <div *ngIf="estado === 'enviado'" class="recuperar-exito">
+    <div class="exito-icon">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    </div>
+    <p class="exito-msg">
+      Enviamos un enlace de recuperación a <strong>{{ email }}</strong>.
+      Revisa también tu carpeta de spam.
+    </p>
+    <a routerLink="/login" class="btn-recuperar btn-recuperar-outline">VOLVER AL INICIO DE SESIÓN</a>
+  </div>
+
+</app-auth-form-card>

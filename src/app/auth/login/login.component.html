@@ -33,10 +33,10 @@
 
       <app-input-icon-field
         iconType="user"
-        label="Usuario"
+        label="Usuario o correo"
         id="usuario"
         name="usuario"
-        placeholder="Ingresa tu usuario"
+        placeholder="Ingresa tu usuario o correo"
         [required]="true"
         [autofocus]="true"
         [(value)]="usuario">
@@ -56,7 +56,7 @@
       <button type="submit" class="btn-login">INICIAR SESIÓN</button>
 
       <div class="login-footer">
-        <p>¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+        <p>¿No tienes cuenta? <a routerLink="/register" [queryParams]="returnUrl ? { returnUrl: returnUrl } : {}">Regístrate aquí</a></p>
         <p>¿Olvidaste tu contraseña? <a routerLink="/recuperar">Recupérala aquí</a></p>
       </div>
 

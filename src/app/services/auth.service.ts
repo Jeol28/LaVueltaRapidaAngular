@@ -46,4 +46,12 @@ export class AuthService {
       catchError(() => of(null))
     );
   }
+
+  solicitarRecuperacion(email: string): Observable<void> {
+    return this.http.post<void>(`${API_URL}/auth/recuperar-contrasena`, { email });
+  }
+
+  resetContrasena(token: string, nuevaContrasena: string): Observable<void> {
+    return this.http.post<void>(`${API_URL}/auth/reset-contrasena`, { token, nuevaContrasena });
+  }
 }

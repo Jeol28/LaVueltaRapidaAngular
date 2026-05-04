@@ -1,0 +1,21 @@
+<section class="auth-hero">
+  <h1>{{ heroTitle }} <span>{{ heroHighlight }}</span></h1>
+  <p>{{ heroSubtitle }}</p>
+</section>
+
+<main class="auth-container">
+  <div class="auth-card">
+
+    <div class="auth-card-header">
+      <div class="auth-header-accent"></div>
+      <div class="auth-card-icon">
+        <ng-content select="[card-icon]"></ng-content>
+      </div>
+      <h2>{{ cardTitle }}</h2>
+      <p>{{ cardSubtitle }}</p>
+    </div>
+
+    <ng-content></ng-content>
+
+  </div>
+</main>
