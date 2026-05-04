@@ -905,6 +905,18 @@
   .pg-bottombar .pg-badges { display: none; }
 }
 
+/* ── Etiqueta de sección ────────────────────────────────────────────────── */
+
+.pg-section-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #888;
+  margin: 20px 0 12px;
+  padding-left: 10px;
+  border-left: 2px solid #e10600;
+}
+
 /* ── Mercado Pago panel ─────────────────────────────────────────────────── */
 .pg-panel-mp {
   padding: 4px 0;

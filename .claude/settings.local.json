@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm start *)"
+      "Bash(npm start *)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\jorge\\\\LaVueltaRapida\" -Force)",
+      "Bash(Select-Object Name, FullName)"
     ]
   }
 }
