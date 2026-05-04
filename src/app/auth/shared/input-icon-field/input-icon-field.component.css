@@ -4,7 +4,7 @@
 
 .input-icon {
   position: absolute;
-  left: 16px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
@@ -25,7 +25,7 @@
 }
 
 .input-icon-wrapper input {
-  padding: 14px 16px 14px 46px;
+  padding: 14px 16px 14px 38px;
 }
 
 .plain-input {
