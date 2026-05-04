@@ -41,6 +41,10 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
 
   private destruido = false;
   private timerRedireccion: any = null;
+  private pollingTimer: any = null;
+  private pollingIntentos = 0;
+  private readonly POLLING_INTERVALO_MS = 30_000;
+  private readonly POLLING_MAX_INTENTOS = 20; // 10 minutos
 
   constructor(
     private route: ActivatedRoute,
@@ -128,6 +132,7 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destruido = true;
     if (this.timerRedireccion) clearTimeout(this.timerRedireccion);
+    this.detenerPolling();
   }
 
   private mapearEstado(raw: string): ResultadoEstado {
@@ -144,6 +149,42 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
       this.timerRedireccion = setTimeout(() => {
         if (!this.destruido) this.irAMisPedidos();
       }, 5000);
+    } else if (this.estado === 'pendiente') {
+      this.iniciarPolling();
+    }
+  }
+
+  private iniciarPolling(): void {
+    if (this.pollingTimer) return;
+    this.pollingTimer = setInterval(() => {
+      if (this.destruido || this.pollingIntentos >= this.POLLING_MAX_INTENTOS) {
+        this.detenerPolling();
+        return;
+      }
+      this.pollingIntentos++;
+      this.pedidoService.getById(this.pedidoId).subscribe({
+        next: (pedido) => {
+          if (this.destruido) return;
+          const ep = (pedido?.estadoPago || '').toUpperCase();
+          if (ep === 'APROBADO') {
+            this.estado = 'aprobado';
+            if (pedido.totalPagado) this.total = pedido.totalPagado;
+            this.detenerPolling();
+            this.programarRedireccion();
+          } else if (ep === 'RECHAZADO') {
+            this.estado = 'rechazado';
+            this.detenerPolling();
+          }
+        },
+        error: () => {}
+      });
+    }, this.POLLING_INTERVALO_MS);
+  }
+
+  private detenerPolling(): void {
+    if (this.pollingTimer) {
+      clearInterval(this.pollingTimer);
+      this.pollingTimer = null;
     }
   }
 

@@ -904,6 +904,148 @@
   .pg-pedido-id     { font-size: 16px; }
   .pg-bottombar .pg-badges { display: none; }
 }
+@media (max-width: 350px) {
+  .pg-grid          { padding: 8px 6px; gap: 14px; }
+  .pg-resumen,
+  .pg-gateway       { padding: 10px; }
+  .pg-topbar-inner  { padding: 0 10px; gap: 6px; }
+  .pg-brand-name    { font-size: 12px; letter-spacing: 1px; }
+  .pg-brand-mark    { font-size: 14px; }
+
+  /* Resumen */
+  .pg-resumen-header h2 { font-size: 10px; letter-spacing: 1.5px; }
+  .pg-pedido-label  { font-size: 8px; letter-spacing: 2px; }
+  .pg-pedido-id     { font-size: 13px; }
+  .pg-pedido-num    { padding: 8px 10px; }
+  .pg-row           { font-size: 11px; }
+  .pg-total-label   { font-size: 9px; letter-spacing: 1.5px; }
+  .pg-total-value   { font-size: 14px; }
+  .pg-trust         { display: none; }
+  .pg-ref           { display: none; }
+
+  /* Selección de método */
+  .pg-metodo-card   { padding: 8px; gap: 8px; }
+  .pg-metodo-icon   { width: 30px; height: 30px; font-size: 13px; border-radius: 4px; }
+  .pg-metodo-name   { font-size: 10px; letter-spacing: 0.5px; }
+  .pg-metodo-desc   { display: none; }
+  .pg-metodo-arrow  { font-size: 18px; }
+  .pg-section-label { font-size: 8px; letter-spacing: 2px; margin: 14px 0 8px; }
+
+  /* Steps */
+  .pg-steps         { gap: 4px; margin-bottom: 16px; }
+  .pg-step-num      { width: 20px; height: 20px; font-size: 9px; }
+  .pg-step-name     { display: none; }
+
+  /* Panel title */
+  .pg-panel-title   { font-size: 12px; letter-spacing: 1.5px; }
+  .pg-panel-sub     { font-size: 11px; margin-bottom: 14px; }
+
+  /* Formulario de tarjeta */
+  .pg-field span    { font-size: 8px; letter-spacing: 1px; }
+  .pg-field input,
+  .pg-field select  { padding: 9px 10px; font-size: 12px; }
+
+  /* Card preview */
+  .pg-card-preview  { height: 130px; padding: 12px; margin-bottom: 4px; }
+  .pg-card-chip     { width: 30px; height: 22px; margin-bottom: 10px; }
+  .pg-card-num      { font-size: 13px; letter-spacing: 1px; margin-bottom: 10px; }
+  .pg-card-brand    { font-size: 11px; top: 10px; right: 12px; }
+  .pg-card-lbl      { font-size: 7px; letter-spacing: 1px; }
+  .pg-card-val      { font-size: 10px; }
+
+  /* Botones */
+  .pg-btn-pagar,
+  .pg-btn-secundario,
+  .pg-btn-cancelar  { padding: 10px 12px; font-size: 10px; letter-spacing: 1.5px; }
+  .pg-actions       { gap: 8px; margin-top: 14px; }
+
+  /* Footer */
+  .pg-bottom-inner  { padding: 0 10px; font-size: 9px; letter-spacing: 1px; }
+}
+@media (max-width: 250px) {
+  .pg-grid          { padding: 6px 4px; gap: 10px; }
+  .pg-resumen,
+  .pg-gateway       { padding: 8px; border-radius: 4px; }
+  .pg-topbar-inner  { padding: 0 8px; }
+  .pg-brand-name    { font-size: 10px; letter-spacing: 0; }
+  .pg-brand-mark    { font-size: 12px; }
+
+  /* Resumen — ocultar todo lo no esencial */
+  .pg-resumen-header h2 { font-size: 9px; letter-spacing: 1px; }
+  .pg-stripe        { width: 3px; height: 16px; }
+  .pg-pedido-num    { padding: 6px 8px; flex-direction: column; align-items: flex-start; gap: 2px; }
+  .pg-pedido-label  { font-size: 7px; letter-spacing: 1px; }
+  .pg-pedido-id     { font-size: 11px; }
+  .pg-items-list    { max-height: 100px; }
+  .pg-item-name     { font-size: 11px; }
+  .pg-item-qty      { font-size: 11px; }
+  .pg-row           { font-size: 10px; }
+  .pg-total-label   { font-size: 8px; letter-spacing: 1px; }
+  .pg-total-value   { font-size: 12px; }
+  .pg-total-value small { font-size: 9px; }
+  .pg-resumen-divider { margin: 8px 0; }
+  .pg-total-block   { margin-top: 10px; padding-top: 10px; }
+
+  /* Selección de método */
+  .pg-metodos-grid  { gap: 6px; }
+  .pg-metodo-card   { padding: 6px; gap: 6px; border-radius: 4px; }
+  .pg-metodo-icon   { width: 24px; height: 24px; font-size: 11px; border-radius: 3px; }
+  .pg-metodo-name   { font-size: 9px; letter-spacing: 0; }
+  .pg-metodo-arrow  { font-size: 14px; }
+  .pg-section-label { font-size: 7px; letter-spacing: 1px; margin: 10px 0 6px; }
+
+  /* Steps */
+  .pg-steps         { margin-bottom: 12px; }
+  .pg-step-num      { width: 18px; height: 18px; font-size: 8px; }
+  .pg-step-line     { min-width: 12px; }
+
+  /* Panel */
+  .pg-panel-title   { font-size: 10px; letter-spacing: 1px; margin-bottom: 4px; }
+  .pg-panel-sub     { font-size: 10px; margin-bottom: 10px; }
+  .pg-method-header { gap: 8px; margin-bottom: 12px; }
+  .pg-back-btn      { width: 26px; height: 26px; font-size: 14px; }
+
+  /* Formulario de tarjeta */
+  .pg-form          { gap: 8px 10px; }
+  .pg-field span    { font-size: 7px; letter-spacing: 0.5px; }
+  .pg-field input,
+  .pg-field select  { padding: 7px 8px; font-size: 11px; border-radius: 3px; }
+  .pg-form-info     { font-size: 10px; padding: 8px 10px; }
+
+  /* Card preview */
+  .pg-card-preview  { height: 110px; padding: 10px; border-radius: 6px; }
+  .pg-card-chip     { width: 24px; height: 18px; margin-bottom: 8px; border-radius: 3px; }
+  .pg-card-num      { font-size: 11px; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .pg-card-brand    { font-size: 9px; top: 8px; right: 10px; letter-spacing: 1px; }
+  .pg-card-lbl      { font-size: 6px; letter-spacing: 0.5px; }
+  .pg-card-val      { font-size: 9px; }
+  .pg-card-bottom   { gap: 10px; }
+
+  /* Botones */
+  .pg-btn-pagar,
+  .pg-btn-secundario,
+  .pg-btn-cancelar  { padding: 8px 10px; font-size: 9px; letter-spacing: 1px; border-radius: 3px; }
+  .pg-actions       { gap: 6px; margin-top: 10px; }
+
+  /* Footer */
+  .pg-bottombar     { padding: 8px 0; }
+  .pg-bottom-inner  { padding: 0 8px; font-size: 8px; letter-spacing: 0.5px; }
+
+  /* Animación procesando */
+  .pg-pulse-track   { max-width: 180px; height: 48px; }
+  .pg-state-title   { font-size: 13px; letter-spacing: 2px; }
+  .pg-state-sub     { font-size: 11px; }
+
+  /* Recibo */
+  .pg-recibo        { padding: 10px 12px; }
+  .pg-recibo-row    { font-size: 11px; }
+  .pg-recibo-total span:last-child { font-size: 13px; }
+
+  /* Recuperar pago */
+  .pg-mp-recover    { padding: 10px 12px; }
+  .pg-mp-recover span { font-size: 10px; }
+  .pg-mp-recover-link { font-size: 10px; }
+}
 
 /* ── Etiqueta de sección ────────────────────────────────────────────────── */
 

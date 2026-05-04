@@ -168,6 +168,68 @@ export class PerfilComponent implements OnInit {
     return mapa[estado] ?? '';
   }
 
+  getEstadoPagoClass(estadoPago: string | undefined): string {
+    const s = (estadoPago ?? '').toUpperCase();
+    if (s === 'APROBADO') return 'pago-aprobado';
+    if (s === 'EN_PROCESO') return 'pago-en-proceso';
+    if (s === 'RECHAZADO') return 'pago-rechazado';
+    return 'pago-pendiente';
+  }
+
+  getEstadoLabel(estadoPago: string | undefined): string {
+    const s = (estadoPago ?? '').toUpperCase();
+    if (s === 'APROBADO') return 'Pagado';
+    if (s === 'EN_PROCESO') return 'En proceso';
+    if (s === 'RECHAZADO') return 'Rechazado';
+    return 'Pendiente';
+  }
+
+  getEstadoPagoLabel(estadoPago: string | undefined, metodoPago?: string, mpMethod?: string, mpType?: string): string {
+    const s = (estadoPago ?? '').toUpperCase();
+    let estado: string;
+    if (s === 'APROBADO') estado = 'Pagado';
+    else if (s === 'EN_PROCESO') estado = 'En proceso';
+    else if (s === 'RECHAZADO') estado = 'Rechazado';
+    else estado = 'Pendiente';
+    const metodo = this.getMetodoPagoLabel(metodoPago, mpMethod, mpType);
+    return metodo !== '—' ? `${estado} · ${metodo}` : estado;
+  }
+
+  getMetodoPagoLabel(metodoPago?: string, mpMethod?: string, mpType?: string): string {
+    if (metodoPago === 'MP_ONLINE' && mpMethod) {
+      return this.mapMpMethod(mpMethod, mpType);
+    }
+    const mapa: Record<string, string> = {
+      MP_ONLINE: 'Mercado Pago',
+      TARJETA: 'Tarjeta',
+      EFECTIVO: 'Efectivo',
+      DATAFONO: 'Datáfono',
+      NEQUI: 'Nequi',
+      DAVIPLATA: 'Daviplata',
+      TRANSFERENCIA: 'Transferencia',
+      LLAVE: 'Llave en mano'
+    };
+    return metodoPago ? (mapa[metodoPago] ?? metodoPago) : '—';
+  }
+
+  private mapMpMethod(method: string, type?: string): string {
+    const m = method.toLowerCase();
+    const t = (type ?? '').toLowerCase();
+    if (m === 'visa')       return t === 'debit_card' ? 'Visa débito'        : 'Visa crédito';
+    if (m === 'master' || m === 'mastercard') return t === 'debit_card' ? 'Mastercard débito' : 'Mastercard crédito';
+    if (m === 'amex')       return 'American Express';
+    if (m === 'efecty')     return 'Efecty';
+    if (m === 'pse')        return 'PSE';
+    if (m === 'nequi')      return 'Nequi';
+    if (m === 'daviplata')  return 'Daviplata';
+    if (m === 'account_money') return 'Saldo MP';
+    if (t === 'credit_card')   return 'Tarjeta crédito';
+    if (t === 'debit_card')    return 'Tarjeta débito';
+    if (t === 'ticket')        return 'Pago en efectivo';
+    if (t === 'bank_transfer') return 'Transferencia bancaria';
+    return 'Mercado Pago';
+  }
+
   private triggerToastError(): void {
     this.showToastError = true;
     this.hideToastError = false;

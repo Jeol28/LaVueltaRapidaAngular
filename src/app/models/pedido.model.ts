@@ -12,6 +12,7 @@ export interface Pedido {
   lineasPedido: LineaPedido[];
   domiciliario: Domiciliario | null;
   estadoPago?: string;
+  metodoPago?: string;
   mpPaymentId?: string;
   mpPaymentMethod?: string;
   mpPaymentType?: string;

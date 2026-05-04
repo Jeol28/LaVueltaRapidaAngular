@@ -145,6 +145,10 @@
               <span class="pf-pedido-estado" [ngClass]="getEstadoClass(pedido.estado)">
                 {{ pedido.estado }}
               </span>
+              <span class="pf-pago-badge" [ngClass]="getEstadoPagoClass(pedido.estadoPago)">
+                <span class="pago-linea-estado">{{ getEstadoLabel(pedido.estadoPago) }}</span>
+                <span class="pago-linea-metodo">{{ getMetodoPagoLabel(pedido.metodoPago, pedido.mpPaymentMethod, pedido.mpPaymentType) }}</span>
+              </span>
               <span class="pf-pedido-total">COP {{ formatCOP(calcularTotal(pedido)) }}</span>
               <span class="pf-pedido-toggle">
                 {{ pedidoExpandidoId === pedido.id ? '▲' : '▼' }}
@@ -163,6 +167,32 @@
                 <span class="pf-detalle-value">
                   {{ pedido.domiciliario ? pedido.domiciliario.nombre : 'Sin asignar' }}
                 </span>
+              </div>
+            </div>
+
+            <!-- Información de pago -->
+            <div class="pf-pago-info">
+              <div class="pf-pago-info-row">
+                <div>
+                  <span class="pf-detalle-label">Estado de pago</span>
+                  <span class="pf-pago-badge" [ngClass]="getEstadoPagoClass(pedido.estadoPago)">
+                    <span class="pago-linea-estado">{{ getEstadoLabel(pedido.estadoPago) }}</span>
+                    <span class="pago-linea-metodo">{{ getMetodoPagoLabel(pedido.metodoPago, pedido.mpPaymentMethod, pedido.mpPaymentType) }}</span>
+                  </span>
+                </div>
+                <div>
+                  <span class="pf-detalle-label">Método de pago</span>
+                  <span class="pf-detalle-value">{{ getMetodoPagoLabel(pedido.metodoPago, pedido.mpPaymentMethod, pedido.mpPaymentType) }}</span>
+                </div>
+                <div *ngIf="pedido.fechaPago">
+                  <span class="pf-detalle-label">Fecha de pago</span>
+                  <span class="pf-detalle-value">{{ formatFecha(pedido.fechaPago) }}</span>
+                </div>
+              </div>
+              <div *ngIf="pedido.estadoPago === 'PENDIENTE' || pedido.estadoPago === 'EN_PROCESO'"
+                   class="pf-pago-aviso">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                El pago se actualizará automáticamente cuando sea confirmado.
               </div>
             </div>
 

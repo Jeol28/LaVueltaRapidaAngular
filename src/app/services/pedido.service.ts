@@ -48,4 +48,8 @@ export class PedidoService {
   crearDesdeCarrito(carritoId: number): Observable<Pedido> {
     return this.http.post<Pedido>(`${API_URL}/pedido/desde-carrito/${carritoId}`, {});
   }
+
+  confirmarPago(id: number): Observable<Pedido> {
+    return this.http.patch<Pedido>(`${API_URL}/pedido/${id}/confirmar-pago`, {});
+  }
 }

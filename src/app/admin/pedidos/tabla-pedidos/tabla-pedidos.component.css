@@ -123,6 +123,59 @@
 .estado-enviado   { background: rgba(0,122,255,.15);  color: #4a9eff; }
 .estado-entregado { background: rgba(40,167,69,.15);  color: #28a745; }
 
+/* ── Badges de estado de pago ─────────────────────── */
+.pago-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+}
+.pago-badge .pago-linea-estado {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 1.2;
+}
+.pago-badge .pago-linea-metodo {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  opacity: 0.8;
+  line-height: 1.2;
+}
+.pago-aprobado   { background: rgba(40,167,69,.18);  color: #3dcb6c; border: 1px solid rgba(40,167,69,.3); }
+.pago-en-proceso { background: rgba(0,122,255,.15);  color: #4a9eff; border: 1px solid rgba(0,122,255,.3); }
+.pago-rechazado  { background: rgba(225,6,0,.15);    color: #e10600; border: 1px solid rgba(225,6,0,.3); }
+.pago-pendiente  { background: rgba(255,193,7,.12);  color: #d4a800; border: 1px solid rgba(255,193,7,.25); }
+
+/* ── Bloque info de pago en detalle ─────────────── */
+.pago-info {
+  margin: 12px 0 14px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+}
+.pago-info-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.pago-info-row > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.pago-id-mp {
+  font-size: 11px;
+  color: #888;
+  font-family: monospace;
+}
+
 .pedido-total {
   font-family: 'Orbitron', sans-serif;
   font-size: 14px;
@@ -229,7 +282,8 @@
     align-items: flex-start;
     gap: 10px;
   }
-  .pedido-meta { width: 100%; justify-content: space-between; }
+  .pedido-meta   { width: 100%; flex-wrap: wrap; gap: 8px; }
+  .pago-info-row { flex-direction: column; gap: 10px; }
   .pedido-detalle-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
@@ -268,7 +322,6 @@
     padding: 4px 8px;
     letter-spacing: 0.5px;
   }
-
   .pedido-total { font-size: 12px; }
 
   .pedido-detalle { padding: 14px; }

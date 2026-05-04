@@ -14,6 +14,7 @@
             <th>Cliente</th>
             <th>Items</th>
             <th>Estado</th>
+            <th>Pago</th>
             <th>Domiciliario</th>
             <th>Cambiar estado</th>
           </tr>
@@ -47,6 +48,13 @@
               </span>
             </td>
 
+            <td class="pago-cell" data-label="Pago">
+              <span class="pago-badge" [ngClass]="getEstadoPagoClass(pedido.estadoPago)">
+                <span class="pago-linea-estado">{{ getEstadoLabel(pedido.estadoPago) }}</span>
+                <span class="pago-linea-metodo">{{ getMetodoPagoLabel(pedido.metodoPago, pedido.mpPaymentMethod, pedido.mpPaymentType) }}</span>
+              </span>
+            </td>
+
             <td class="domiciliario-cell" data-label="Domiciliario">
               <span *ngIf="pedido.domiciliario; else sinAsignar">
                 {{ pedido.domiciliario.nombre }}
@@ -57,12 +65,20 @@
             </td>
 
             <td class="accion-cell" data-label="Cambiar estado" (click)="$event.stopPropagation()">
-              <select class="estado-select"
-                      [ngModel]="pedido.estado"
-                      [disabled]="pedido.estado === 'ENTREGADO'"
-                      (change)="cambiarEstado(pedido, $any($event.target).value, $any($event.target))">
-                <option *ngFor="let e of getEstadosPermitidos(pedido.estado)" [value]="e">{{ e }}</option>
-              </select>
+              <div class="accion-group">
+                <select class="estado-select"
+                        [ngModel]="pedido.estado"
+                        [disabled]="pedido.estado === 'ENTREGADO'"
+                        (change)="cambiarEstado(pedido, $any($event.target).value, $any($event.target))">
+                  <option *ngFor="let e of getEstadosPermitidos(pedido)" [value]="e">{{ e }}</option>
+                </select>
+                <button *ngIf="puedePagar(pedido)"
+                        class="btn-pagar"
+                        (click)="marcarComoPagado(pedido)"
+                        title="Confirmar pago contra entrega">
+                  Marcar pagado
+                </button>
+              </div>
             </td>
 
           </tr>
@@ -155,6 +171,36 @@
       </ng-template>
     </div>
 
+    <!-- PAGO -->
+    <div class="dp-section">
+      <h3 class="dp-section-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        PAGO
+      </h3>
+      <div class="dp-pago-grid">
+        <div class="dp-pago-item">
+          <span class="dp-meta-label">Estado</span>
+          <span class="pago-badge" [ngClass]="getEstadoPagoClass(pedidoSeleccionado.estadoPago)">
+            <span class="pago-linea-estado">{{ getEstadoLabel(pedidoSeleccionado.estadoPago) }}</span>
+            <span class="pago-linea-metodo">{{ getMetodoPagoLabel(pedidoSeleccionado.metodoPago, pedidoSeleccionado.mpPaymentMethod, pedidoSeleccionado.mpPaymentType) }}</span>
+          </span>
+        </div>
+        <div class="dp-pago-item">
+          <span class="dp-meta-label">Método</span>
+          <span class="dp-meta-value">{{ getMetodoPagoLabel(pedidoSeleccionado.metodoPago, pedidoSeleccionado.mpPaymentMethod, pedidoSeleccionado.mpPaymentType) }}</span>
+        </div>
+        <div class="dp-pago-item" *ngIf="pedidoSeleccionado.fechaPago">
+          <span class="dp-meta-label">Fecha de pago</span>
+          <span class="dp-meta-value">{{ pedidoSeleccionado.fechaPago | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+      </div>
+      <button *ngIf="puedePagar(pedidoSeleccionado)"
+              class="btn-pagar btn-pagar-panel"
+              (click)="marcarComoPagado(pedidoSeleccionado)">
+        Confirmar pago contra entrega
+      </button>
+    </div>
+
     <!-- TOTAL -->
     <div class="dp-total">
       <span class="dp-total-label">TOTAL DEL PEDIDO</span>
@@ -168,7 +214,7 @@
               [ngModel]="pedidoSeleccionado.estado"
               [disabled]="pedidoSeleccionado.estado === 'ENTREGADO'"
               (change)="cambiarEstado(pedidoSeleccionado, $any($event.target).value, $any($event.target))">
-        <option *ngFor="let e of getEstadosPermitidos(pedidoSeleccionado.estado)" [value]="e">{{ e }}</option>
+        <option *ngFor="let e of getEstadosPermitidos(pedidoSeleccionado)" [value]="e">{{ e }}</option>
       </select>
     </div>
 

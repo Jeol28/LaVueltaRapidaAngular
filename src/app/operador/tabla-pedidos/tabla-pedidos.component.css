@@ -111,6 +111,84 @@
 .estado-enviado   { background: rgba(59,130,246,0.15);  color: #3b82f6; border: 1px solid #3b82f6; }
 .estado-entregado { background: rgba(34,197,94,0.15);   color: #22c55e; border: 1px solid #22c55e; }
 
+/* Pago */
+.pago-cell { }
+
+.pago-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+}
+.pago-badge .pago-linea-estado {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 1.2;
+}
+.pago-badge .pago-linea-metodo {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  opacity: 0.8;
+  line-height: 1.2;
+}
+.pago-aprobado   { background: rgba(40,167,69,.18);  color: #3dcb6c; border: 1px solid rgba(40,167,69,.4); }
+.pago-en-proceso { background: rgba(59,130,246,.15); color: #3b82f6; border: 1px solid rgba(59,130,246,.4); }
+.pago-rechazado  { background: rgba(225,6,0,.15);    color: #e10600; border: 1px solid rgba(225,6,0,.4); }
+.pago-pendiente  { background: rgba(245,158,11,.12); color: #d4a800; border: 1px solid rgba(245,158,11,.3); }
+
+.dp-pago-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.dp-pago-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Botón confirmar pago */
+.accion-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.btn-pagar {
+  padding: 5px 12px;
+  font-size: 11px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  background: rgba(40,167,69,.15);
+  color: #3dcb6c;
+  border: 1px solid rgba(40,167,69,.4);
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .2s, color .2s;
+}
+.btn-pagar:hover {
+  background: rgba(40,167,69,.3);
+  color: #5ee88a;
+}
+
+.btn-pagar-panel {
+  margin-top: 12px;
+  width: 100%;
+  padding: 9px 16px;
+  font-size: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
 /* Domiciliario */
 .domiciliario-cell {
   color: #ccc;
@@ -563,4 +641,7 @@
 
   /* Select a ancho completo */
   .estado-select { width: 100%; }
+
+  /* Panel de detalle: grid de pago en columna */
+  .dp-pago-grid { flex-direction: column; gap: 10px; }
 }

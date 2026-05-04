@@ -14,10 +14,43 @@ export class TablaPedidosComponent implements OnInit {
   pedidos: Pedido[] = [];
 
   private readonly SECUENCIA: EstadoPedido[] = ['RECIBIDO', 'COCINANDO', 'ENVIADO', 'ENTREGADO'];
+  private readonly METODOS_CONTRAENTREGA = ['EFECTIVO', 'DATAFONO', 'NEQUI', 'DAVIPLATA', 'TRANSFERENCIA', 'LLAVE'];
 
-  getEstadosPermitidos(actual: EstadoPedido): EstadoPedido[] {
-    const idx = this.SECUENCIA.indexOf(actual);
-    return idx === -1 ? [actual] : this.SECUENCIA.slice(idx, idx + 2);
+  puedePagar(pedido: Pedido): boolean {
+    return pedido.estado === 'ENVIADO' &&
+           this.METODOS_CONTRAENTREGA.includes(pedido.metodoPago ?? '') &&
+           pedido.estadoPago !== 'APROBADO';
+  }
+
+  marcarComoPagado(pedido: Pedido): void {
+    this.pedidoService.confirmarPago(pedido.id).subscribe({
+      next: actualizado => {
+        pedido.estadoPago = actualizado.estadoPago;
+        pedido.fechaPago  = actualizado.fechaPago;
+        pedido.totalPagado = actualizado.totalPagado;
+        if (this.pedidoSeleccionado?.id === pedido.id) {
+          this.pedidoSeleccionado = { ...this.pedidoSeleccionado, ...actualizado };
+        }
+        this.successMsg = `Pedido #${pedido.id} marcado como pagado`;
+        this.triggerSuccess();
+      },
+      error: err => {
+        this.errorMsg =
+          err?.error?.error ?? err?.error?.message ??
+          (typeof err?.error === 'string' ? err.error : null) ??
+          'No se pudo confirmar el pago.';
+        this.triggerError();
+      }
+    });
+  }
+
+  getEstadosPermitidos(pedido: Pedido): EstadoPedido[] {
+    const idx = this.SECUENCIA.indexOf(pedido.estado);
+    const opciones = idx === -1 ? [pedido.estado] : this.SECUENCIA.slice(idx, idx + 2);
+    if (pedido.estadoPago !== 'APROBADO') {
+      return opciones.filter(e => e !== 'ENTREGADO');
+    }
+    return opciones;
   }
 
   pedidoSeleccionado: Pedido | null = null;
@@ -103,7 +136,7 @@ export class TablaPedidosComponent implements OnInit {
 
   private mensajeErrorEstado(err: any, nuevoEstado: EstadoPedido): string {
     const backendMsg: string | undefined =
-      err?.error?.message ?? (typeof err?.error === 'string' ? err.error : undefined);
+      err?.error?.message ?? err?.error?.error ?? (typeof err?.error === 'string' ? err.error : undefined);
 
     if (backendMsg) return backendMsg;
 
@@ -121,6 +154,64 @@ export class TablaPedidosComponent implements OnInit {
       ENTREGADO: 'estado-entregado'
     };
     return mapa[estado] ?? '';
+  }
+
+  getEstadoPagoClass(estadoPago: string | undefined): string {
+    const s = (estadoPago ?? '').toUpperCase();
+    if (s === 'APROBADO') return 'pago-aprobado';
+    if (s === 'EN_PROCESO') return 'pago-en-proceso';
+    if (s === 'RECHAZADO') return 'pago-rechazado';
+    return 'pago-pendiente';
+  }
+
+  getEstadoLabel(estadoPago: string | undefined): string {
+    const s = (estadoPago ?? '').toUpperCase();
+    if (s === 'APROBADO') return 'Pagado';
+    if (s === 'EN_PROCESO') return 'En proceso';
+    if (s === 'RECHAZADO') return 'Rechazado';
+    return 'Pendiente';
+  }
+
+  getEstadoPagoLabel(estadoPago: string | undefined, metodoPago?: string, mpMethod?: string, mpType?: string): string {
+    const s = (estadoPago ?? '').toUpperCase();
+    let estado: string;
+    if (s === 'APROBADO') estado = 'Pagado';
+    else if (s === 'EN_PROCESO') estado = 'En proceso';
+    else if (s === 'RECHAZADO') estado = 'Rechazado';
+    else estado = 'Pendiente';
+    const metodo = this.getMetodoPagoLabel(metodoPago, mpMethod, mpType);
+    return metodo !== '—' ? `${estado} · ${metodo}` : estado;
+  }
+
+  getMetodoPagoLabel(metodoPago?: string, mpMethod?: string, mpType?: string): string {
+    if (metodoPago === 'MP_ONLINE' && mpMethod) {
+      return this.mapMpMethod(mpMethod, mpType);
+    }
+    const mapa: Record<string, string> = {
+      MP_ONLINE: 'Mercado Pago', TARJETA: 'Tarjeta',
+      EFECTIVO: 'Efectivo', DATAFONO: 'Datáfono',
+      NEQUI: 'Nequi', DAVIPLATA: 'Daviplata',
+      TRANSFERENCIA: 'Transferencia', LLAVE: 'Llave en mano'
+    };
+    return metodoPago ? (mapa[metodoPago] ?? metodoPago) : '—';
+  }
+
+  private mapMpMethod(method: string, type?: string): string {
+    const m = method.toLowerCase();
+    const t = (type ?? '').toLowerCase();
+    if (m === 'visa')       return t === 'debit_card' ? 'Visa débito'        : 'Visa crédito';
+    if (m === 'master' || m === 'mastercard') return t === 'debit_card' ? 'Mastercard débito' : 'Mastercard crédito';
+    if (m === 'amex')       return 'American Express';
+    if (m === 'efecty')     return 'Efecty';
+    if (m === 'pse')        return 'PSE';
+    if (m === 'nequi')      return 'Nequi';
+    if (m === 'daviplata')  return 'Daviplata';
+    if (m === 'account_money') return 'Saldo MP';
+    if (t === 'credit_card')   return 'Tarjeta crédito';
+    if (t === 'debit_card')    return 'Tarjeta débito';
+    if (t === 'ticket')        return 'Pago en efectivo';
+    if (t === 'bank_transfer') return 'Transferencia bancaria';
+    return 'Mercado Pago';
   }
 
   private triggerSuccess(): void {
