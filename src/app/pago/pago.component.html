@@ -1,6 +1,6 @@
 <main class="pg-main">
 
-  <!-- Banda superior tipo gateway -->
+  <!-- Topbar -->
   <header class="pg-topbar">
     <div class="pg-topbar-inner">
       <div class="pg-brand">
@@ -18,7 +18,7 @@
     </div>
   </header>
 
-  <!-- Estado de carga -->
+  <!-- Cargando pedido -->
   <div class="pg-loading" *ngIf="cargando">
     <div class="pg-loader-ring"></div>
     <p>Cargando información de tu pedido…</p>
@@ -34,7 +34,7 @@
   <!-- Layout principal -->
   <div class="pg-grid" *ngIf="!cargando && total > 0 && !pedidoNoEncontrado">
 
-    <!-- ─── COLUMNA IZQUIERDA: RESUMEN ──────────────────────────────── -->
+    <!-- ─── RESUMEN DEL PEDIDO ───────────────────────────────────────────── -->
     <aside class="pg-resumen">
       <div class="pg-resumen-header">
         <span class="pg-stripe"></span>
@@ -96,81 +96,327 @@
       </div>
     </aside>
 
-    <!-- ─── COLUMNA DERECHA: GATEWAY ────────────────────────────────── -->
+    <!-- ─── GATEWAY DE PAGO ──────────────────────────────────────────────── -->
     <section class="pg-gateway">
 
-      <div class="pg-panel pg-panel-mp">
+      <!-- Indicador de pasos -->
+      <div class="pg-steps">
+        <div class="pg-step"
+             [class.is-active]="paso === 'seleccion'"
+             [class.is-done]="paso !== 'seleccion'">
+          <span class="pg-step-num">1</span>
+          <span class="pg-step-name">MÉTODO</span>
+        </div>
+        <div class="pg-step-line"></div>
+        <div class="pg-step"
+             [class.is-active]="paso !== 'seleccion'">
+          <span class="pg-step-num">2</span>
+          <span class="pg-step-name">PAGO</span>
+        </div>
+      </div>
+
+      <!-- ═══ PASO 1: Selección de método ═══════════════════════════════════ -->
+      <div *ngIf="paso === 'seleccion'" class="pg-panel">
+
         <div class="pg-mp-header">
           <span class="pg-stripe"></span>
-          <h3 class="pg-panel-title">PAGA TU PEDIDO</h3>
+          <h3 class="pg-panel-title">ELIGE TU MÉTODO DE PAGO</h3>
         </div>
 
-        <p class="pg-panel-sub">
-          Procesamos tu pago de forma segura a través de
-          <strong class="pg-mp-brand">Mercado Pago</strong>, una de las pasarelas más confiables de Colombia.
-        </p>
+        <!-- Sección: Pago online -->
+        <p class="pg-section-label">PAGO ONLINE</p>
+        <div class="pg-metodos-grid">
 
-        <div class="pg-mp-methods">
-          <div class="pg-mp-methods-title">MÉTODOS DISPONIBLES</div>
-          <div class="pg-mp-methods-grid">
-            <span class="pg-mp-chip">💳 Tarjeta crédito</span>
-            <span class="pg-mp-chip">💳 Tarjeta débito</span>
-            <span class="pg-mp-chip">🏦 PSE</span>
-            <span class="pg-mp-chip">🟡 Efecty</span>
-            <span class="pg-mp-chip">💵 Efectivo</span>
-            <span class="pg-mp-chip">📱 Mercado Pago</span>
-          </div>
+          <button class="pg-metodo-card" (click)="pagarConMercadoPago()" [disabled]="redirigiendo">
+            <span class="pg-metodo-icon">MP</span>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">MERCADO PAGO</span>
+              <span class="pg-metodo-desc">PSE, Efecty, billeteras digitales</span>
+            </div>
+            <span class="pg-metodo-arrow" *ngIf="!redirigiendo">›</span>
+            <span *ngIf="redirigiendo" class="pg-btn-spinner"></span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="irAFormularioTarjeta()">
+            <span class="pg-metodo-icon">💳</span>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">TARJETA</span>
+              <span class="pg-metodo-desc">Crédito o débito directo</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
         </div>
 
-        <div class="pg-mp-info">
-          <div class="pg-mp-info-row">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.2">
-              <circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>
-            </svg>
-            <span>Serás redirigido al checkout oficial de Mercado Pago</span>
-          </div>
-          <div class="pg-mp-info-row">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.2">
-              <circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>
-            </svg>
-            <span>Tras completar el pago vuelves automáticamente a esta app</span>
-          </div>
-          <div class="pg-mp-info-row">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.2">
-              <circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>
-            </svg>
-            <span>Tus datos de tarjeta NUNCA pasan por nuestros servidores</span>
-          </div>
+        <!-- Sección: Pago contra entrega -->
+        <p class="pg-section-label" style="margin-top: 28px;">PAGO CONTRA ENTREGA</p>
+        <div class="pg-metodos-grid">
+
+          <button class="pg-metodo-card" (click)="seleccionarPresencial('efectivo')">
+            <span class="pg-metodo-icon">💵</span>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">EFECTIVO</span>
+              <span class="pg-metodo-desc">Al momento de la entrega</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="seleccionarPresencial('datafono')">
+            <span class="pg-metodo-icon">🖥️</span>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">DATÁFONO</span>
+              <span class="pg-metodo-desc">Tarjeta al recibir el pedido</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="seleccionarPresencial('nequi')">
+            <span class="pg-metodo-icon pg-icon-nequi">N</span>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">NEQUI</span>
+              <span class="pg-metodo-desc">Transferencia al recibir</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="seleccionarPresencial('daviplata')">
+            <span class="pg-metodo-icon pg-icon-davi">D</span>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">DAVIPLATA</span>
+              <span class="pg-metodo-desc">Transferencia al recibir</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="seleccionarPresencial('transferencia')">
+            <span class="pg-metodo-icon">🏦</span>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">TRANSFERENCIA</span>
+              <span class="pg-metodo-desc">Al recibir el pedido</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
+          <button class="pg-metodo-card" (click)="seleccionarPresencial('llave')">
+            <span class="pg-metodo-icon">🔑</span>
+            <div class="pg-metodo-info">
+              <span class="pg-metodo-name">LLAVE</span>
+              <span class="pg-metodo-desc">Pago QR al recibir</span>
+            </div>
+            <span class="pg-metodo-arrow">›</span>
+          </button>
+
         </div>
 
         <p class="pg-error" *ngIf="errorPago">{{ errorPago }}</p>
 
-        <div class="pg-actions">
-          <button class="pg-btn-secundario" (click)="cancelar()" [disabled]="redirigiendo">CANCELAR</button>
-          <button class="pg-btn-pagar pg-btn-mp" (click)="pagarConMercadoPago()" [disabled]="redirigiendo">
-            <span *ngIf="!redirigiendo">PAGAR ${{ formatCOP(total) }}</span>
-            <span *ngIf="redirigiendo" class="pg-btn-loading">
-              <span class="pg-btn-spinner"></span> REDIRIGIENDO…
-            </span>
-          </button>
-        </div>
-
-        <p class="pg-mp-note">
-          Modo de pruebas activo. Para simular un pago aprobado usa la tarjeta de prueba
-          <strong>5031 7557 3453 0604</strong>, vencimiento <strong>11/30</strong>, CVV <strong>123</strong>,
-          titular <strong>APRO</strong>.
-        </p>
+        <button class="pg-btn-cancelar" style="margin-top: 18px;" (click)="cancelar()">
+          CANCELAR PEDIDO
+        </button>
 
         <div class="pg-mp-recover">
-          <span>¿Ya pagaste y no fuiste redirigido?</span>
+          <span>¿Ya pagaste con Mercado Pago y no fuiste redirigido?</span>
           <a class="pg-mp-recover-link" (click)="verificarPago()">VERIFICAR ESTADO DE MI PAGO</a>
+        </div>
+
+      </div>
+
+      <!-- ═══ PASO 2: Formulario de tarjeta ═════════════════════════════════ -->
+      <div *ngIf="paso === 'tarjeta'" class="pg-panel">
+
+        <div class="pg-method-header">
+          <button class="pg-back-btn" (click)="volver()" title="Volver">←</button>
+          <h3 class="pg-panel-title">DATOS DE TARJETA</h3>
+        </div>
+
+        <div class="pg-form">
+
+          <!-- Previsualización de tarjeta -->
+          <div class="pg-card-preview" [attr.data-tipo]="cardBrand">
+            <div class="pg-card-chip"></div>
+            <div class="pg-card-brand">{{ cardBrand ? cardBrand.toUpperCase() : 'CARD' }}</div>
+            <div class="pg-card-num">{{ cardNumber || '•••• •••• •••• ••••' }}</div>
+            <div class="pg-card-bottom">
+              <div>
+                <span class="pg-card-lbl">TITULAR</span>
+                <span class="pg-card-val">{{ cardName || 'TU NOMBRE' }}</span>
+              </div>
+              <div>
+                <span class="pg-card-lbl">VENCE</span>
+                <span class="pg-card-val">{{ cardExpiry || 'MM/AA' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Número -->
+          <div class="pg-field pg-field-full">
+            <span>NÚMERO DE TARJETA</span>
+            <input
+              type="text"
+              [(ngModel)]="cardNumber"
+              (input)="onCardNumberInput()"
+              placeholder="0000 0000 0000 0000"
+              maxlength="19"
+              inputmode="numeric"
+              autocomplete="cc-number">
+          </div>
+
+          <!-- Titular -->
+          <div class="pg-field pg-field-full">
+            <span>NOMBRE DEL TITULAR</span>
+            <input
+              type="text"
+              [(ngModel)]="cardName"
+              placeholder="Como aparece en la tarjeta"
+              style="text-transform: uppercase"
+              autocomplete="cc-name">
+          </div>
+
+          <!-- Vencimiento + CVV -->
+          <div class="pg-field">
+            <span>VENCIMIENTO</span>
+            <input
+              type="text"
+              [(ngModel)]="cardExpiry"
+              (input)="onExpiryInput()"
+              placeholder="MM/AA"
+              maxlength="5"
+              inputmode="numeric"
+              autocomplete="cc-exp">
+          </div>
+          <div class="pg-field">
+            <span>CVV</span>
+            <input
+              type="password"
+              [(ngModel)]="cardCvc"
+              placeholder="•••"
+              maxlength="4"
+              inputmode="numeric"
+              autocomplete="cc-csc">
+          </div>
+
+          <!-- Documento -->
+          <div class="pg-field">
+            <span>TIPO DE DOC.</span>
+            <select [(ngModel)]="cardDocType">
+              <option value="CC">CC</option>
+              <option value="CE">CE</option>
+              <option value="NIT">NIT</option>
+              <option value="PP">Pasaporte</option>
+            </select>
+          </div>
+          <div class="pg-field">
+            <span>NÚM. DOCUMENTO</span>
+            <input
+              type="text"
+              [(ngModel)]="cardDocNum"
+              placeholder="Número de identificación"
+              inputmode="numeric">
+          </div>
+
+          <!-- Cuotas -->
+          <div class="pg-field pg-field-full">
+            <span>CUOTAS</span>
+            <select [(ngModel)]="installments">
+              <option [value]="1">1 cuota (sin interés)</option>
+              <option [value]="3">3 cuotas</option>
+              <option [value]="6">6 cuotas</option>
+              <option [value]="12">12 cuotas</option>
+              <option [value]="24">24 cuotas</option>
+              <option [value]="36">36 cuotas</option>
+            </select>
+          </div>
+
+          <p class="pg-form-info">
+            Tus datos se tokenizan con el SDK de Mercado Pago en tu dispositivo. Nunca pasan por nuestros servidores.
+          </p>
+
+          <p class="pg-error" *ngIf="errorPago">{{ errorPago }}</p>
+
+          <div class="pg-actions">
+            <button class="pg-btn-secundario" (click)="volver()">ATRÁS</button>
+            <button class="pg-btn-pagar" (click)="pagarConTarjeta()">
+              PAGAR ${{ formatCOP(total) }}
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ PROCESANDO ════════════════════════════════════════════════════ -->
+      <div *ngIf="paso === 'procesando'" class="pg-panel pg-panel-center">
+        <h3 class="pg-panel-title" style="margin-bottom: 24px;">PROCESANDO PAGO</h3>
+        <div class="pg-pulse-track">
+          <span class="pg-pulse-car">🏎️</span>
+          <span class="pg-pulse-flag">🏁</span>
+        </div>
+        <p class="pg-state-sub">Estamos procesando tu pago de forma segura…</p>
+        <div class="pg-loader-ring pg-state-loader"></div>
+      </div>
+
+      <!-- ═══ ÉXITO ══════════════════════════════════════════════════════════ -->
+      <div *ngIf="paso === 'exito'" class="pg-panel pg-panel-center">
+        <svg class="pg-result-icon" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="38" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="2"/>
+          <path d="M24 40l12 12 20-22" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <h3 class="pg-state-title pg-title-ok">PEDIDO CONFIRMADO</h3>
+        <p class="pg-state-sub">
+          Tu pedido <strong>#{{ pedidoId }}</strong> fue confirmado.<br>
+          Método: <strong>{{ exito?.metodo }}</strong>
+        </p>
+
+        <div class="pg-recibo">
+          <div class="pg-recibo-row">
+            <span>PEDIDO</span>
+            <span>#{{ pedidoId }}</span>
+          </div>
+          <div class="pg-recibo-row">
+            <span>MÉTODO</span>
+            <span>{{ exito?.metodo }}</span>
+          </div>
+          <div class="pg-recibo-row" *ngIf="exito?.detalle">
+            <span>REFERENCIA</span>
+            <span>{{ exito?.detalle }}</span>
+          </div>
+          <div class="pg-recibo-row">
+            <span>REF.</span>
+            <span>{{ refTransaccion }}</span>
+          </div>
+          <div class="pg-recibo-row pg-recibo-total">
+            <span>TOTAL</span>
+            <span>${{ formatCOP(total) }} COP</span>
+          </div>
+        </div>
+
+        <div class="pg-actions pg-actions-center">
+          <button class="pg-btn-pagar" (click)="irAMisPedidos()">VER MIS PEDIDOS</button>
+        </div>
+      </div>
+
+      <!-- ═══ ERROR DE PAGO ══════════════════════════════════════════════════ -->
+      <div *ngIf="paso === 'error-pago'" class="pg-panel pg-panel-center">
+        <svg class="pg-result-icon" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="38" fill="rgba(225,6,0,0.12)" stroke="#e10600" stroke-width="2"/>
+          <path d="M27 27l26 26M53 27L27 53" stroke="#e10600" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+
+        <h3 class="pg-state-title pg-title-err">ERROR EN EL PAGO</h3>
+        <p class="pg-state-sub">{{ errorPago }}</p>
+
+        <div class="pg-actions pg-actions-center" style="gap: 12px; flex-wrap: wrap;">
+          <button class="pg-btn-secundario" (click)="volver()">VOLVER A INTENTAR</button>
+          <button class="pg-btn-cancelar" style="width: auto; padding: 14px 22px;" (click)="verificarPago()">
+            VERIFICAR ESTADO
+          </button>
         </div>
       </div>
 
     </section>
   </div>
 
-  <!-- Banda inferior tipo gateway -->
+  <!-- Barra inferior -->
   <footer class="pg-bottombar">
     <div class="pg-bottom-inner">
       <span>© VUELTAPAY · Procesador autorizado · Powered by Mercado Pago</span>
@@ -179,6 +425,7 @@
         <span class="pg-badge">MASTERCARD</span>
         <span class="pg-badge">AMEX</span>
         <span class="pg-badge">PSE</span>
+        <span class="pg-badge">NEQUI</span>
         <span class="pg-badge">EFECTY</span>
       </div>
     </div>
