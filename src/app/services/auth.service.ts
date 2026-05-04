@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { Carrito } from '../models/carrito.model';
 
-const API_URL = 'http://localhost:8090';
+const API_URL = '/api';
 
 export interface LoginResult {
   username: string;

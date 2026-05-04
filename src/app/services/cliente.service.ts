@@ -5,7 +5,7 @@ import { Cliente } from '../models/cliente.model';
 import { Administrador } from '../models/administrador.model';
 import { Operador } from '../models/operador.model';
 
-const API_URL = 'http://localhost:8090';
+const API_URL = '/api';
 
 @Injectable({ providedIn: 'root' })
 export class ClienteService {

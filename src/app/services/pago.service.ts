@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const API_URL = 'http://localhost:8090';
+const API_URL = '';
 
 export interface PreferenciaMP {
   id: string;
@@ -26,7 +26,7 @@ export interface PreferenciaRequest {
 
 export interface PagoCardRequest {
   token: string;
-  amount: number;
+  transaction_amount: number;
   payment_method_id: string;
   installments: number;
   payer: {

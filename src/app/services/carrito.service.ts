@@ -8,7 +8,7 @@ import { Comida } from '../models/comida.model';
 import { ItemCarrito } from '../models/item-carrito.model';
 import { LineaPedido } from '../models/linea-pedido.model';
 
-const API_URL       = 'http://localhost:8090';
+const API_URL       = '/api';
 const STORAGE_KEY   = 'cv-carrito-items';
 
 @Injectable({ providedIn: 'root' })

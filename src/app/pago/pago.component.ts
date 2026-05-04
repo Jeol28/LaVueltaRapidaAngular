@@ -7,7 +7,7 @@ import { Pedido } from '../models/pedido.model';
 declare const MercadoPago: any;
 
 // Reemplazar con la public key real de Mercado Pago
-const MP_PUBLIC_KEY = 'APP_USR-0e7f0579-e4a4-4e92-b590-c2fd7ac92341';
+const MP_PUBLIC_KEY = 'APP_USR-dbe06744-e92d-4f6b-8ea6-980cd86d9b35';
 
 type Paso = 'seleccion' | 'tarjeta' | 'procesando' | 'exito' | 'error-pago';
 type MetodoPresencial = 'efectivo' | 'datafono' | 'nequi' | 'daviplata' | 'transferencia' | 'llave';
@@ -206,7 +206,7 @@ export class PagoComponent implements OnInit, OnDestroy {
 
       this.pagoService.procesarPagoTarjeta({
         token: cardToken.id,
-        amount: this.total,
+        transaction_amount: this.total,
         payment_method_id: this.cardBrand || 'visa',
         installments: +this.installments,
         payer: {

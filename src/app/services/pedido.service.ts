@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Pedido } from '../models/pedido.model';
 import { EstadoPedido } from '../models/estado-pedido.model';
 
-const API_URL = 'http://localhost:8090';
+const API_URL = '/api';
 
 interface PageResponse<T> {
   content: T[];

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Comida } from '../models/comida.model';
 
-const API_URL = 'http://localhost:8090';
+const API_URL = '/api';
 
 @Injectable({ providedIn: 'root' })
 export class ComidaService {
