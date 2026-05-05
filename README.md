@@ -21,7 +21,7 @@ Nuestra plataforma está construida con una arquitectura robusta para gestionar 
 * **💾 Boxes (Persistencia):** Manejo eficiente de datos mediante **Spring Data JPA**.
 
 ## 🖥️ Landing Page
-[![Visita nuestra web](https://img.shields.io/badge/Landing%20Page-Ver%20Proyecto-red?style=for-the-badge&logo=googlechrome&logoColor=white)](http://localhost:5000)
+[![Visita nuestra web](https://img.shields.io/badge/Landing%20Page-Ver%20Proyecto-red?style=for-the-badge&logo=googlechrome&logoColor=white)](http://localhost:4200)
 
 <p align="center">
   <img src="demo\src\main\resources\static\Images\landingPage.jpeg" alt="Vista previa de la Landing Page" width="600">
@@ -31,84 +31,61 @@ Nuestra plataforma está construida con una arquitectura robusta para gestionar 
 ## 🚀 Stack Tecnológico
 | Tecnología | Uso |
 | :--- | :--- |
-| **Java 17** | Lenguaje Base |
-| **Spring Boot 3** | Framework de Aplicación |
-| **Spring Data JPA** | Acceso a Datos y ORM |
-| **H2 Database** | Motor SQL en Memoria |
-| **Maven** | Gestión de Ciclo de Vida |
+| **Angular 16** | Framework Frontend |
+| **TypeScript 5** | Lenguaje Base |
+| **RxJS** | Programación Reactiva |
+| **Bootstrap** | Estilos y Componentes UI |
+| **npm** | Gestión de Dependencias |
 
 
 
 ## 📂 Arquitectura de Software
-El proyecto sigue el estándar de desarrollo en capas para facilitar el mantenimiento y la escalabilidad:
-- `entitys`: Modelos de datos y tablas de la base de datos.
-- `repository`: Interfaces CRUD para la comunicación con SQL.
-- `service`: Capa de lógica de negocio y reglas del restaurante.
-- `controller`: Endpoints de la API.
-
-
-## 💾 Estructura de Datos (Base de Datos)
-Para que nada falle cuando el semáforo se pone en verde, diseñamos un sistema donde cada pieza encaja perfectamente. Aquí se puede ver cómo se conecta toda la información de nuestro negocio:
-
-<p align="center">
-  <img src="Diagrama de entidad relacion.png" alt="Diagrama de Entidad Relación" width="1000">
-</p>
-
-> **Nota:** Este mapa muestra cómo se conecta todo en nuestra pista: desde los **Clientes** y sus **Carritos**, hasta los **Domiciliarios** que hacen la entrega final. Todo está organizado con identificadores `BIGINT` para que la búsqueda de tus pizzas y sus **Adicionales** sea tan rápida como un cambio de neumáticos en los boxes.
+El proyecto sigue la estructura estándar de Angular con separación por responsabilidades:
+- `src/app/components/`: Componentes de UI (vistas, formularios, tarjetas)
+- `src/app/services/`: Lógica de negocio y comunicación con la API REST
+- `src/app/models/`: Interfaces TypeScript que representan las entidades del dominio
+- `src/app/pages/`: Páginas principales de la aplicación (menú, carrito, perfil, admin)
 
 
 ## ⚙️ Cómo Poner el Motor en Marcha
-Sigue estos pasos para ejecutar el proyecto localmente:
 
-1. **Clonar el Repositorio:**
+### Requisitos previos
+- Node.js 18+
+- npm
+- El backend de Spring Boot corriendo en **http://localhost:8090** (ver [repositorio del backend](https://github.com/tu-usuario/la-vuelta-rapida))
+
+### Pasos
+
+1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tu-usuario/la-vuelta-rapida.git
+   git clone https://github.com/tu-usuario/la-vuelta-rapida-angular.git
+   cd la-vuelta-rapida-angular
+   ```
 
-2. **Importar en tu IDE:**
-   Abre tu IDE favorito (IntelliJ, VS Code o Eclipse) e importa el proyecto como un "Existing Maven Project".
-
-3. **Ejecutar la aplicación:**
-   Puedes correr la clase DemoApplication.java directamente o usar la terminal desde la raíz del proyecto:
+2. **Instalar dependencias:**
    ```bash
-   mvn spring-boot:run
+   npm install
+   ```
 
-4. **Importar en tu IDE:**
-   Puedes auditar las tablas y los datos en tiempo real ingresando a:
-   - ***URL:*** http://localhost:8080/h2-console
-   - ***JDBC URL:*** jdbc:h2:mem:testdb
-   - ***Usuario:*** sa
-   - ***Contraseña:*** (dejar en blanco)
-
-
-
-## 🎨 Frontend (Angular)
-
-1. **Instalar dependencias**
-    - npm install
-      
-2. **Levantar servidor de desarrollo**
-    - ng serve
-      
-3. **Abrir en navegador**
-    - http://localhost:5000/
+3. **Levantar el servidor de desarrollo:**
+   ```bash
+   npm start
+   ```
+   La app queda disponible en **http://localhost:4200**
 
 ## 🧪 Testing
-**Frontend**
 
 1. **Ejecutar pruebas unitarias:**
-    - ng test
-      
-2. **Pruebas end-to-end:**
-    - ng e2e
+   ```bash
+   npm test
+   ```
 
-## 🏗️ Construcción del Proyecto
-**Angular Build**
+## 🏗️ Build de producción
 
-    ng generate component nombre-componente
-
-
-## 🧰 Generación de Componentes
-    ng e2e
+```bash
+npm run build
+```
+El resultado queda en `dist/la-vuelta-rapida/`.
 
 
 Desarrollado con ❤️ para los fanáticos de la velocidad 🏁 y la buena comida 🍕.
