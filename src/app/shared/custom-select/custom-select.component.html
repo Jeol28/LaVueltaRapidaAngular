@@ -1,0 +1,16 @@
+<button type="button" class="cs-trigger" (click)="toggle()" [disabled]="disabled">
+  <span class="cs-label" [class.cs-label--placeholder]="isPlaceholder">{{ selectedLabel }}</span>
+  <svg class="cs-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <path d="M6 9l6 6 6-6"/>
+  </svg>
+</button>
+
+<ul class="cs-dropdown" *ngIf="isOpen">
+  <li *ngFor="let opt of normalizedOptions"
+      class="cs-option"
+      [class.cs-selected]="opt.value == value"
+      (click)="select(opt)">
+    {{ opt.label }}
+  </li>
+</ul>

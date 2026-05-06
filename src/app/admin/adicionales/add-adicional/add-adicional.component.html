@@ -42,7 +42,8 @@
                      [name]="'cat-' + cat.id"
                      [checked]="isCategoriaSelected(cat.id)"
                      (change)="toggleCategoria(cat.id, $any($event.target).checked)">
-              <span>{{ cat.name }}</span>
+              <span class="cb-box"></span>
+              <span class="cb-label">{{ cat.name }}</span>
             </label>
             <p *ngIf="categorias.length === 0" class="cat-empty">No hay categorías disponibles.</p>
           </div>

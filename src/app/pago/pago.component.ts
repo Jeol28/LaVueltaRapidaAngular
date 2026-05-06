@@ -39,9 +39,25 @@ export class PagoComponent implements OnInit, OnDestroy {
   cardName = '';
   cardExpiry = '';
   cardCvc = '';
-  cardDocType = 'CC';
+  cardDocType = '';
   cardDocNum = '';
-  installments = 1;
+  installments: number | null = null;
+
+  readonly docTypeOptions = [
+    { value: 'CC', label: 'CC' },
+    { value: 'CE', label: 'CE' },
+    { value: 'NIT', label: 'NIT' },
+    { value: 'PP', label: 'Pasaporte' }
+  ];
+
+  readonly installmentOptions = [
+    { value: 1,  label: '1 cuota (sin interés)' },
+    { value: 3,  label: '3 cuotas' },
+    { value: 6,  label: '6 cuotas' },
+    { value: 12, label: '12 cuotas' },
+    { value: 24, label: '24 cuotas' },
+    { value: 36, label: '36 cuotas' }
+  ];
   cardBrand = '';
 
   refTransaccion = '';
@@ -208,7 +224,7 @@ export class PagoComponent implements OnInit, OnDestroy {
         token: cardToken.id,
         transaction_amount: this.total,
         payment_method_id: this.cardBrand || 'visa',
-        installments: +this.installments,
+        installments: +this.installments!,
         payer: {
           email: cliente?.email ?? '',
           identification: this.cardDocNum
@@ -328,11 +344,30 @@ export class PagoComponent implements OnInit, OnDestroy {
       this.errorPago = 'CVV inválido.';
       return false;
     }
+    if (!this.cardDocType) {
+      this.errorPago = 'Selecciona el tipo de documento.';
+      return false;
+    }
     if (!this.cardDocNum.trim()) {
       this.errorPago = 'Ingresa tu número de documento.';
       return false;
     }
+    if (!this.installments) {
+      this.errorPago = 'Selecciona el número de cuotas.';
+      return false;
+    }
     return true;
+  }
+
+  get formularioTarjetaCompleto(): boolean {
+    const num = this.cardNumber.replace(/\s/g, '');
+    return num.length >= 13
+      && !!this.cardName.trim()
+      && /^\d{2}\/\d{2}$/.test(this.cardExpiry)
+      && this.cardCvc.length >= 3
+      && !!this.cardDocType
+      && !!this.cardDocNum.trim()
+      && !!this.installments;
   }
 
   private cargarSdkMP(): Promise<void> {

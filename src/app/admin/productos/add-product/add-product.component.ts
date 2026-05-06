@@ -27,6 +27,10 @@ export class AddProductComponent implements OnInit {
   previewUrl: string = '';
   errorMsg: string = '';
 
+  get categoriaOptions(): { value: number, label: string }[] {
+    return this.categorias.map(c => ({ value: c.id, label: c.name }));
+  }
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

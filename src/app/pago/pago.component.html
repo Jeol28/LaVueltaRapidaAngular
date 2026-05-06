@@ -131,7 +131,7 @@
             <span class="pg-metodo-icon">MP</span>
             <div class="pg-metodo-info">
               <span class="pg-metodo-name">MERCADO PAGO</span>
-              <span class="pg-metodo-desc">PSE, Efecty, billeteras digitales</span>
+              <span class="pg-metodo-desc">PSE, Efecty, Bancolombia, Saldo Mercado Pago</span>
             </div>
             <span class="pg-metodo-arrow" *ngIf="!redirigiendo">›</span>
             <span *ngIf="redirigiendo" class="pg-btn-spinner"></span>
@@ -162,7 +162,18 @@
           </button>
 
           <button class="pg-metodo-card" (click)="seleccionarPresencial('datafono')">
-            <span class="pg-metodo-icon">🖥️</span>
+            <span class="pg-metodo-icon pg-icon-datafono">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <rect x="7" y="5" width="10" height="5" rx="1"/>
+                <line x1="7" y1="14" x2="9" y2="14"/>
+                <line x1="11" y1="14" x2="13" y2="14"/>
+                <line x1="15" y1="14" x2="17" y2="14"/>
+                <line x1="7" y1="17" x2="9" y2="17"/>
+                <line x1="11" y1="17" x2="13" y2="17"/>
+                <line x1="15" y1="17" x2="17" y2="17"/>
+              </svg>
+            </span>
             <div class="pg-metodo-info">
               <span class="pg-metodo-name">DATÁFONO</span>
               <span class="pg-metodo-desc">Tarjeta al recibir el pedido</span>
@@ -201,7 +212,7 @@
             <span class="pg-metodo-icon">🔑</span>
             <div class="pg-metodo-info">
               <span class="pg-metodo-name">LLAVE</span>
-              <span class="pg-metodo-desc">Pago QR al recibir</span>
+              <span class="pg-metodo-desc">Por medio de Bre-B</span>
             </div>
             <span class="pg-metodo-arrow">›</span>
           </button>
@@ -294,12 +305,12 @@
           <!-- Documento -->
           <div class="pg-field">
             <span>TIPO DE DOC.</span>
-            <select [(ngModel)]="cardDocType">
-              <option value="CC">CC</option>
-              <option value="CE">CE</option>
-              <option value="NIT">NIT</option>
-              <option value="PP">Pasaporte</option>
-            </select>
+            <app-custom-select
+              [options]="docTypeOptions"
+              [value]="cardDocType"
+              placeholder="Selecciona tipo"
+              (valueChange)="cardDocType = $event">
+            </app-custom-select>
           </div>
           <div class="pg-field">
             <span>NÚM. DOCUMENTO</span>
@@ -313,14 +324,12 @@
           <!-- Cuotas -->
           <div class="pg-field pg-field-full">
             <span>CUOTAS</span>
-            <select [(ngModel)]="installments">
-              <option [value]="1">1 cuota (sin interés)</option>
-              <option [value]="3">3 cuotas</option>
-              <option [value]="6">6 cuotas</option>
-              <option [value]="12">12 cuotas</option>
-              <option [value]="24">24 cuotas</option>
-              <option [value]="36">36 cuotas</option>
-            </select>
+            <app-custom-select
+              [options]="installmentOptions"
+              [value]="installments"
+              placeholder="Selecciona cuotas"
+              (valueChange)="installments = $event">
+            </app-custom-select>
           </div>
 
           <p class="pg-form-info">
@@ -331,7 +340,7 @@
 
           <div class="pg-actions">
             <button class="pg-btn-secundario" (click)="volver()">ATRÁS</button>
-            <button class="pg-btn-pagar" (click)="pagarConTarjeta()">
+            <button class="pg-btn-pagar" (click)="pagarConTarjeta()" [disabled]="!formularioTarjetaCompleto">
               PAGAR ${{ formatCOP(total) }}
             </button>
           </div>

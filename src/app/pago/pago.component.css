@@ -445,6 +445,11 @@
   border-color: rgba(225, 6, 0, 0.5);
   color: #ff2a25;
 }
+.pg-icon-datafono {
+  background: rgba(225, 6, 0, 0.10);
+  border-color: rgba(225, 6, 0, 0.35);
+  color: #facc15;
+}
 .pg-metodo-info {
   display: flex;
   flex-direction: column;
@@ -534,6 +539,14 @@
 .pg-field select {
   font-family: 'Inter', system-ui, sans-serif;
   cursor: pointer;
+}
+.pg-field app-custom-select {
+  --cs-bg:      #0a0a0a;
+  --cs-border:  #2a2a2a;
+  --cs-radius:  4px;
+  --cs-padding: 12px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
 }
 .pg-form-info {
   grid-column: 1 / -1;
@@ -944,6 +957,7 @@
   .pg-field span    { font-size: 8px; letter-spacing: 1px; }
   .pg-field input,
   .pg-field select  { padding: 9px 10px; font-size: 12px; }
+  .pg-field app-custom-select { --cs-padding: 9px 10px; font-size: 12px; }
 
   /* Card preview */
   .pg-card-preview  { height: 130px; padding: 12px; margin-bottom: 4px; }
@@ -1010,6 +1024,7 @@
   .pg-field span    { font-size: 7px; letter-spacing: 0.5px; }
   .pg-field input,
   .pg-field select  { padding: 7px 8px; font-size: 11px; border-radius: 3px; }
+  .pg-field app-custom-select { --cs-padding: 7px 8px; --cs-radius: 3px; font-size: 11px; }
   .pg-form-info     { font-size: 10px; padding: 8px 10px; }
 
   /* Card preview */

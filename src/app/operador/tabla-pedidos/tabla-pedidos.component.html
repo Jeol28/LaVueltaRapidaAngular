@@ -66,12 +66,12 @@
 
             <td class="accion-cell" data-label="Cambiar estado" (click)="$event.stopPropagation()">
               <div class="accion-group">
-                <select class="estado-select"
-                        [ngModel]="pedido.estado"
-                        [disabled]="pedido.estado === 'ENTREGADO'"
-                        (change)="cambiarEstado(pedido, $any($event.target).value, $any($event.target))">
-                  <option *ngFor="let e of getEstadosPermitidos(pedido)" [value]="e">{{ e }}</option>
-                </select>
+                <app-custom-select
+                  [value]="pedido.estado"
+                  [options]="getEstadosPermitidos(pedido)"
+                  [disabled]="pedido.estado === 'ENTREGADO'"
+                  (valueChange)="cambiarEstado(pedido, $event)">
+                </app-custom-select>
                 <button *ngIf="puedePagar(pedido)"
                         class="btn-pagar"
                         (click)="marcarComoPagado(pedido)"
@@ -210,12 +210,12 @@
     <!-- CAMBIAR ESTADO DESDE EL PANEL -->
     <div class="dp-estado-action">
       <label class="dp-estado-label">Cambiar estado</label>
-      <select class="estado-select dp-estado-select"
-              [ngModel]="pedidoSeleccionado.estado"
-              [disabled]="pedidoSeleccionado.estado === 'ENTREGADO'"
-              (change)="cambiarEstado(pedidoSeleccionado, $any($event.target).value, $any($event.target))">
-        <option *ngFor="let e of getEstadosPermitidos(pedidoSeleccionado)" [value]="e">{{ e }}</option>
-      </select>
+      <app-custom-select
+        [value]="pedidoSeleccionado.estado"
+        [options]="getEstadosPermitidos(pedidoSeleccionado)"
+        [disabled]="pedidoSeleccionado.estado === 'ENTREGADO'"
+        (valueChange)="cambiarEstado(pedidoSeleccionado, $event)">
+      </app-custom-select>
     </div>
 
   </div>

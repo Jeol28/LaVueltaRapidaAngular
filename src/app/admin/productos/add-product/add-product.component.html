@@ -44,13 +44,13 @@
         </div>
 
         <div class="form-group">
-          <label for="categoryId">Categoría</label>
-          <select id="categoryId" name="categoryId"
-                  [(ngModel)]="comida.categoryId" required>
-            <option [value]="null" disabled>Selecciona una categoría</option>
-            <option *ngFor="let cat of categorias"
-                    [value]="cat.id">{{ cat.name }}</option>
-          </select>
+          <label>Categoría</label>
+          <app-custom-select
+            [options]="categoriaOptions"
+            [value]="comida.categoryId"
+            placeholder="Selecciona una categoría"
+            (valueChange)="comida.categoryId = $event">
+          </app-custom-select>
         </div>
 
       </div>

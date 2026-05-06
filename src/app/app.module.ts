@@ -103,6 +103,7 @@ import { NhValoresComponent } from './nuestra-historia/nh-valores/nh-valores.com
 import { NhValorCardComponent } from './nuestra-historia/nh-valor-card/nh-valor-card.component';
 import { NhCifrasComponent } from './nuestra-historia/nh-cifras/nh-cifras.component';
 
+import { CustomSelectComponent } from './shared/custom-select/custom-select.component';
 import { F1StandingsComponent } from './f1-standings/main/f1-standings.component';
 import { EventosComponent } from './eventos/eventos/eventos.component';
 import { CarrerasEnVivoComponent } from './carreras-en-vivo/carreras-en-vivo/carreras-en-vivo.component';
@@ -232,6 +233,7 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
     NhValorCardComponent,
     NhCifrasComponent,
 
+    CustomSelectComponent,
     F1StandingsComponent,
     F1HeroComponent,
     EventosComponent,

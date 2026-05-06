@@ -233,6 +233,24 @@
   border-color: #2a2a2a;
 }
 
+.accion-group app-custom-select,
+.dp-estado-action app-custom-select {
+  --cs-bg:          #1a1a1a;
+  --cs-border:      #333;
+  --cs-radius:      6px;
+  --cs-padding:     7px 10px;
+  --cs-color:       #ccc;
+  --cs-placeholder: #666;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  width: 130px;
+}
+
+.dp-estado-action app-custom-select {
+  width: 100%;
+}
+
 /* ══════════════════════════════════════════
    OVERLAY + PANEL DE DETALLE
 ══════════════════════════════════════════ */

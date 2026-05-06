@@ -103,9 +103,7 @@ export class TablaPedidosComponent implements OnInit {
     return value.toLocaleString('es-CO');
   }
 
-  cambiarEstado(pedido: Pedido, nuevoEstado: EstadoPedido, selectEl?: HTMLSelectElement): void {
-    const estadoPrevio = pedido.estado;
-
+  cambiarEstado(pedido: Pedido, nuevoEstado: EstadoPedido): void {
     this.pedidoService.updateEstado(pedido.id, nuevoEstado).subscribe({
       next: actualizado => {
         if (actualizado.estado === 'ENTREGADO') {
@@ -125,9 +123,6 @@ export class TablaPedidosComponent implements OnInit {
         this.triggerSuccess();
       },
       error: err => {
-        if (selectEl) {
-          selectEl.value = estadoPrevio;
-        }
         this.errorMsg = this.mensajeErrorEstado(err, nuevoEstado);
         this.triggerError();
       }

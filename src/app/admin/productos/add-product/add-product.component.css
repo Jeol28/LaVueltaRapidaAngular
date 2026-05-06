@@ -9,6 +9,13 @@
 }
 
 /* Textarea y select (exclusivos de productos) */
+.form-group app-custom-select {
+  --cs-padding:     14px 16px;
+  --cs-placeholder: #444;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+}
+
 .form-group textarea,
 .form-group select {
   background: #1b1b22;
