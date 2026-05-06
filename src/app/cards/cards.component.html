@@ -1,4 +1,4 @@
-<a [routerLink]="['/producto', comida.id]" class="pizza-card">
+<a [routerLink]="['/producto', comida.id]" class="pizza-card" (click)="saveMenuScroll()">
 
   <div class="pizza-card-img-wrapper">
     <img [src]="comida.image"

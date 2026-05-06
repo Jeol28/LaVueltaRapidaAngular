@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { combineLatest } from 'rxjs';
 import { ComidaService } from '../services/comida.service';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../models/categoria.model';
@@ -13,19 +14,32 @@ export class MenuComponent implements OnInit {
 
   categorias: Categoria[] = [];
   comidas: Comida[] = [];
+  loading = true;
 
   constructor(
     private comidaService: ComidaService,
-    private categoriaService: CategoriaService
-  ) {}
+    private categoriaService: CategoriaService,
+    private cdr: ChangeDetectorRef
+  ) {
+    history.scrollRestoration = 'manual';
+  }
 
   ngOnInit(): void {
-    this.categoriaService.getAll().subscribe(categorias => {
+    combineLatest([
+      this.categoriaService.getAll(),
+      this.comidaService.getAll()
+    ]).subscribe(([categorias, comidas]) => {
       this.categorias = categorias;
-    });
-
-    this.comidaService.getAll().subscribe(comidas => {
       this.comidas = comidas.filter(c => c.available);
+
+      const saved = sessionStorage.getItem('menuScrollY');
+      sessionStorage.removeItem('menuScrollY');
+
+      requestAnimationFrame(() => {
+        this.loading = false;
+        this.cdr.detectChanges();
+        if (saved) window.scrollTo({ top: +saved, behavior: 'instant' });
+      });
     });
   }
 

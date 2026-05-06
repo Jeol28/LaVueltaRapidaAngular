@@ -8,5 +8,9 @@ import { Comida } from '../models/comida.model';
 })
 export class CardsComponent {
   @Input()
-  comida!:Comida
+  comida!: Comida;
+
+  saveMenuScroll(): void {
+    sessionStorage.setItem('menuScrollY', window.scrollY.toString());
+  }
 }

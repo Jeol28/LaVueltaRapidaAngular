@@ -1,3 +1,9 @@
+<div class="menu-loading" *ngIf="loading">
+  <div class="menu-spinner"></div>
+</div>
+
+<ng-container *ngIf="!loading">
+
 <app-admin-hero
   titlePrefix="NUESTRO"
   titleHighlight="MENÚ"
@@ -25,3 +31,5 @@
   </section>
 
 </main>
+
+</ng-container>
