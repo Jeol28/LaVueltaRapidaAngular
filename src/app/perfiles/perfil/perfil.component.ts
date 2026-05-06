@@ -23,6 +23,9 @@ export class PerfilComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
+  showPassword: boolean = false;
+  showCurrentPassword: boolean = false;
+
   showToastError: boolean = false;
   hideToastError: boolean = false;
   toastErrorMsg: string = '';

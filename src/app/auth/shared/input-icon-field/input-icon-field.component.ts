@@ -19,6 +19,19 @@ export class InputIconFieldComponent {
   @Input() value: string = '';
   @Output() valueChange = new EventEmitter<string>();
 
+  showPassword: boolean = false;
+
+  get effectiveType(): string {
+    if (this.type === 'password') {
+      return this.showPassword ? 'text' : 'password';
+    }
+    return this.type;
+  }
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+
   onInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.valueChange.emit(input.value);

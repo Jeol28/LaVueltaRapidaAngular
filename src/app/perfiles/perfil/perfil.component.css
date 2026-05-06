@@ -445,6 +445,39 @@
   margin: 8px 0 0;
 }
 
+/* ── Password visibility toggle ── */
+.pf-password-wrapper {
+  position: relative;
+}
+
+.pf-password-wrapper input {
+  padding-right: 42px !important;
+}
+
+.pf-toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.pf-toggle-password:hover svg,
+.pf-toggle-password:focus svg {
+  stroke: #e10600;
+}
+
+.pf-toggle-password:focus {
+  outline: none;
+}
+
 .pf-required {
   color: #e10600;
   font-size: 13px;

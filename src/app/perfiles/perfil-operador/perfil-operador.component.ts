@@ -17,6 +17,9 @@ export class PerfilOperadorComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
+  showPassword: boolean = false;
+  showCurrentPassword: boolean = false;
+
   constructor(
     private router: Router,
     private operadorService: OperadorService

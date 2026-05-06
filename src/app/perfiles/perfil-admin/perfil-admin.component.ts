@@ -17,6 +17,9 @@ export class PerfilAdminComponent implements OnInit {
   successMsg: boolean = false;
   errorMsg: string = '';
 
+  showPassword: boolean = false;
+  showCurrentPassword: boolean = false;
+
   constructor(private router: Router, private adminService: AdminService) {}
 
   ngOnInit(): void {

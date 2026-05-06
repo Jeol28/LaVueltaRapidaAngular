@@ -28,6 +28,35 @@
   padding: 14px 16px 14px 38px;
 }
 
+.input-icon-wrapper input.has-toggle {
+  padding-right: 44px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.toggle-password:hover svg,
+.toggle-password:focus svg {
+  stroke: var(--red);
+}
+
+.toggle-password:focus {
+  outline: none;
+}
+
 .plain-input {
   padding: 14px 16px;
 }
