@@ -63,6 +63,7 @@ export class PagoComponent implements OnInit, OnDestroy {
   refTransaccion = '';
   private destruido = false;
   private mp: any = null;
+  private pagesShowHandler!: (e: PageTransitionEvent) => void;
 
   constructor(
     private route: ActivatedRoute,
@@ -72,6 +73,11 @@ export class PagoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.pagesShowHandler = (e: PageTransitionEvent) => {
+      if (e.persisted) this.redirigiendo = false;
+    };
+    window.addEventListener('pageshow', this.pagesShowHandler);
+
     if (!localStorage.getItem('user')) {
       this.router.navigate(['/login']);
       return;
@@ -114,6 +120,7 @@ export class PagoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destruido = true;
+    window.removeEventListener('pageshow', this.pagesShowHandler);
   }
 
   // ── A) Mercado Pago Checkout Pro ──────────────────────────────────────────
