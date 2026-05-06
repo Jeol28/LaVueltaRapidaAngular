@@ -6,7 +6,7 @@
 **"La Vuelta Rápida"** es una pizzería temática única. Nuestro menú está diseñado como una **"Grilla de Partida"**, donde cada pizza, bebida o postre rinde homenaje a los circuitos, pilotos y elementos icónicos de las carreras más rápidas del mundo.
 ---
 <p align="center">
-  <img src="demo\src\main\resources\static\Images\HeroLogo.png" alt="Logo La Vuelta Rápida" width="500">
+  <img src="src/assets/Images/HeroLogo.png" alt="Logo La Vuelta Rápida" width="500">
 </p>
 
 
@@ -24,7 +24,7 @@ Nuestra plataforma está construida con una arquitectura robusta para gestionar 
 [![Visita nuestra web](https://img.shields.io/badge/Landing%20Page-Ver%20Proyecto-red?style=for-the-badge&logo=googlechrome&logoColor=white)](http://localhost:4200)
 
 <p align="center">
-  <img src="demo\src\main\resources\static\Images\landingPage.jpeg" alt="Vista previa de la Landing Page" width="600">
+  <img src="src/assets/Images/landingPage.jpeg" alt="Vista previa de la Landing Page" width="600">
 </p>
 
 
