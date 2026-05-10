@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { combineLatest } from 'rxjs';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest, Subscription } from 'rxjs';
 import { ComidaService } from '../services/comida.service';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../models/categoria.model';
@@ -10,16 +11,20 @@ import { Comida } from '../models/comida.model';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
 
   categorias: Categoria[] = [];
   comidas: Comida[] = [];
   loading = true;
 
+  private loaded = false;
+  private fragmentSub = Subscription.EMPTY;
+
   constructor(
     private comidaService: ComidaService,
     private categoriaService: CategoriaService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {
     history.scrollRestoration = 'manual';
   }
@@ -34,13 +39,38 @@ export class MenuComponent implements OnInit {
 
       const saved = sessionStorage.getItem('menuScrollY');
       sessionStorage.removeItem('menuScrollY');
+      const fragment = this.route.snapshot.fragment;
 
       requestAnimationFrame(() => {
         this.loading = false;
         this.cdr.detectChanges();
-        if (saved) window.scrollTo({ top: +saved, behavior: 'instant' });
+
+        if (fragment) {
+          this.scrollToFragment(fragment);
+        } else if (saved) {
+          window.scrollTo({ top: +saved, behavior: 'instant' });
+        }
+
+        this.loaded = true;
       });
     });
+
+    this.fragmentSub = this.route.fragment.subscribe(fragment => {
+      if (!this.loaded || !fragment) return;
+      requestAnimationFrame(() => this.scrollToFragment(fragment));
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.fragmentSub.unsubscribe();
+  }
+
+  private scrollToFragment(fragment: string): void {
+    const el = document.getElementById(fragment);
+    if (el) {
+      const headerHeight = document.getElementById('siteHeader')?.offsetHeight ?? 68;
+      window.scrollTo({ top: el.offsetTop - headerHeight - 24, behavior: 'instant' });
+    }
   }
 
   getComidaByCategoria(categoriaId: number): Comida[] {
