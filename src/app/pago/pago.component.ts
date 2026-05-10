@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PedidoService } from '../services/pedido.service';
 import { PagoService } from '../services/pago.service';
@@ -34,14 +34,24 @@ export class PagoComponent implements OnInit, OnDestroy {
   errorPago = '';
   exito: { metodo: string; detalle?: string } | null = null;
 
-  // Formulario de tarjeta
-  cardNumber = '';
+  // Formulario de tarjeta (solo campos no-PCI — número, vencimiento y CVV viven en iframes de MP)
   cardName = '';
-  cardExpiry = '';
-  cardCvc = '';
   cardDocType = '';
   cardDocNum = '';
   installments: number | null = null;
+
+  // Estado de validez de los Secure Fields (actualizados vía eventos del SDK)
+  cardNumberValid = false;
+  expirationDateValid = false;
+  securityCodeValid = false;
+
+  // Instancias de los Secure Fields
+  private mpCardNumberField: any = null;
+  private mpExpirationDateField: any = null;
+  private mpSecurityCodeField: any = null;
+
+  // payment_method_id detectado vía binChange (ej. 'visa', 'master')
+  private detectedPaymentMethodId = '';
 
   readonly docTypeOptions = [
     { value: 'CC', label: 'CC' },
@@ -69,7 +79,8 @@ export class PagoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private pedidoService: PedidoService,
-    private pagoService: PagoService
+    private pagoService: PagoService,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -121,6 +132,7 @@ export class PagoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destruido = true;
     window.removeEventListener('pageshow', this.pagesShowHandler);
+    this.desmontarCamposMP();
   }
 
   // ── A) Mercado Pago Checkout Pro ──────────────────────────────────────────
@@ -183,54 +195,33 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.errorPago = '';
     this.pasoPrevio = 'seleccion';
     this.paso = 'tarjeta';
-  }
-
-  onCardNumberInput(): void {
-    const raw = this.cardNumber.replace(/\D/g, '').slice(0, 16);
-    this.cardNumber = raw.replace(/(.{4})/g, '$1 ').trim();
-    if (/^4/.test(raw)) this.cardBrand = 'visa';
-    else if (/^5[1-5]/.test(raw)) this.cardBrand = 'mastercard';
-    else if (/^3[47]/.test(raw)) this.cardBrand = 'amex';
-    else this.cardBrand = '';
-  }
-
-  onExpiryInput(): void {
-    const raw = this.cardExpiry.replace(/\D/g, '').slice(0, 4);
-    this.cardExpiry = raw.length >= 3 ? raw.slice(0, 2) + '/' + raw.slice(2) : raw;
+    // Esperamos un tick para que Angular renderice los contenedores antes de montar los iframes
+    setTimeout(() => this.initSecureFields(), 0);
   }
 
   async pagarConTarjeta(): Promise<void> {
     if (!this.validarFormularioTarjeta()) return;
     this.errorPago = '';
-    this.pasoPrevio = 'tarjeta';
-    this.paso = 'procesando';
 
     try {
-      await this.cargarSdkMP();
-
-      if (!this.mp) {
-        this.mp = new MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
-      }
-
-      const [mes, anio] = this.cardExpiry.split('/');
-      const cardToken = await this.mp.createCardToken({
-        cardNumber: this.cardNumber.replace(/\s/g, ''),
-        cardholderName: this.cardName,
-        cardExpirationMonth: mes.trim(),
-        cardExpirationYear: '20' + anio.trim(),
-        securityCode: this.cardCvc,
+      // IMPORTANTE: createCardToken debe llamarse mientras los iframes siguen en el DOM
+      const cardToken = await this.mpCardNumberField.createCardToken({
+        cardholderName: this.cardName.trim().toUpperCase(),
         identificationType: this.cardDocType,
-        identificationNumber: this.cardDocNum
+        identificationNumber: this.cardDocNum.trim(),
       });
 
-      console.log('cardToken.id:', cardToken.id);
+      // El token ya fue generado — ahora podemos cambiar el paso y los iframes desaparecen
+      this.pasoPrevio = 'tarjeta';
+      this.paso = 'procesando';
 
+      const pmId: string = cardToken.payment_method_id || this.detectedPaymentMethodId || 'visa';
       const cliente = this.pedido?.cliente;
 
       this.pagoService.procesarPagoTarjeta({
         token: cardToken.id,
         transaction_amount: this.total,
-        payment_method_id: this.cardBrand || 'visa',
+        payment_method_id: pmId,
         installments: +this.installments!,
         payer: {
           email: cliente?.email ?? '',
@@ -262,14 +253,14 @@ export class PagoComponent implements OnInit, OnDestroy {
       });
 
     } catch (err: any) {
-      console.error('MP SDK error:', err);
       let msg = 'Error al generar el token de tarjeta. Verifica los datos e intenta nuevamente.';
       if (Array.isArray(err)) {
-        msg = (err as any[]).map((e) => e.message || e).join(' · ');
+        msg = (err as any[]).map((e: any) => e.message || e.cause || e).join(' · ');
       } else if (err?.message) {
         msg = err.message;
       }
       this.errorPago = msg;
+      this.pasoPrevio = 'tarjeta';
       this.paso = 'error-pago';
     }
   }
@@ -299,8 +290,12 @@ export class PagoComponent implements OnInit, OnDestroy {
   // ── Navegación ────────────────────────────────────────────────────────────
 
   volver(): void {
+    this.desmontarCamposMP();
     this.paso = this.pasoPrevio;
     this.errorPago = '';
+    if (this.paso === 'tarjeta') {
+      setTimeout(() => this.initSecureFields(), 0);
+    }
   }
 
   cancelar(): void {
@@ -334,8 +329,7 @@ export class PagoComponent implements OnInit, OnDestroy {
   }
 
   private validarFormularioTarjeta(): boolean {
-    const num = this.cardNumber.replace(/\s/g, '');
-    if (num.length < 13) {
+    if (!this.cardNumberValid) {
       this.errorPago = 'Número de tarjeta inválido.';
       return false;
     }
@@ -343,11 +337,11 @@ export class PagoComponent implements OnInit, OnDestroy {
       this.errorPago = 'Ingresa el nombre del titular.';
       return false;
     }
-    if (!/^\d{2}\/\d{2}$/.test(this.cardExpiry)) {
-      this.errorPago = 'Fecha de vencimiento inválida. Formato: MM/AA.';
+    if (!this.expirationDateValid) {
+      this.errorPago = 'Fecha de vencimiento inválida.';
       return false;
     }
-    if (this.cardCvc.length < 3) {
+    if (!this.securityCodeValid) {
       this.errorPago = 'CVV inválido.';
       return false;
     }
@@ -367,11 +361,10 @@ export class PagoComponent implements OnInit, OnDestroy {
   }
 
   get formularioTarjetaCompleto(): boolean {
-    const num = this.cardNumber.replace(/\s/g, '');
-    return num.length >= 13
+    return this.cardNumberValid
       && !!this.cardName.trim()
-      && /^\d{2}\/\d{2}$/.test(this.cardExpiry)
-      && this.cardCvc.length >= 3
+      && this.expirationDateValid
+      && this.securityCodeValid
       && !!this.cardDocType
       && !!this.cardDocNum.trim()
       && !!this.installments;
