@@ -542,15 +542,26 @@
 }
 
 /* Contenedores PCI Secure Fields de Mercado Pago */
+.pg-mp-secure-wrap {
+  position: relative;
+  height: 46px;
+}
 .pg-mp-secure {
+  position: absolute;
+  inset: 0;
   background: #0a0a0a;
   border: 1px solid #2a2a2a;
   border-radius: 4px;
   padding: 0 14px;
-  height: 46px;
   display: flex;
   align-items: center;
   transition: border-color .2s, box-shadow .2s;
+  opacity: 0;
+  pointer-events: none;
+}
+.pg-mp-secure.pg-mp-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 .pg-mp-secure iframe {
   width: 100% !important;
@@ -564,6 +575,33 @@
 }
 .pg-mp-secure.pg-mp-invalid {
   border-color: #e10600;
+}
+
+/* Shimmer mientras carga el secure field */
+.pg-mp-shimmer {
+  position: absolute;
+  inset: 0;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.pg-mp-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.04) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: pg-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes pg-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }
 .pg-field select {
   font-family: 'Inter', system-ui, sans-serif;

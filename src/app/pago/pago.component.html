@@ -258,9 +258,13 @@
           <!-- Número (Secure Field MP) -->
           <div class="pg-field pg-field-full">
             <span>NÚMERO DE TARJETA</span>
-            <div id="mpCardNumber" class="pg-mp-secure"
-                 [class.pg-mp-focus]="cardNumberFocus"
-                 [class.pg-mp-invalid]="cardNumberError"></div>
+            <div class="pg-mp-secure-wrap">
+              <div id="mpCardNumber" class="pg-mp-secure"
+                   [class.pg-mp-focus]="cardNumberFocus"
+                   [class.pg-mp-invalid]="cardNumberError"
+                   [class.pg-mp-visible]="secureFieldsReady"></div>
+              <div class="pg-mp-shimmer" *ngIf="!secureFieldsReady"></div>
+            </div>
           </div>
 
           <!-- Titular -->
@@ -279,15 +283,23 @@
           <!-- Vencimiento + CVV (Secure Fields MP) -->
           <div class="pg-field">
             <span>VENCIMIENTO</span>
-            <div id="mpExpirationDate" class="pg-mp-secure"
-                 [class.pg-mp-focus]="cardExpiryFocus"
-                 [class.pg-mp-invalid]="cardExpiryError"></div>
+            <div class="pg-mp-secure-wrap">
+              <div id="mpExpirationDate" class="pg-mp-secure"
+                   [class.pg-mp-focus]="cardExpiryFocus"
+                   [class.pg-mp-invalid]="cardExpiryError"
+                   [class.pg-mp-visible]="secureFieldsReady"></div>
+              <div class="pg-mp-shimmer" *ngIf="!secureFieldsReady"></div>
+            </div>
           </div>
           <div class="pg-field">
             <span>CVV</span>
-            <div id="mpSecurityCode" class="pg-mp-secure"
-                 [class.pg-mp-focus]="cardCvcFocus"
-                 [class.pg-mp-invalid]="cardCvcError"></div>
+            <div class="pg-mp-secure-wrap">
+              <div id="mpSecurityCode" class="pg-mp-secure"
+                   [class.pg-mp-focus]="cardCvcFocus"
+                   [class.pg-mp-invalid]="cardCvcError"
+                   [class.pg-mp-visible]="secureFieldsReady"></div>
+              <div class="pg-mp-shimmer" *ngIf="!secureFieldsReady"></div>
+            </div>
           </div>
 
           <!-- Documento -->

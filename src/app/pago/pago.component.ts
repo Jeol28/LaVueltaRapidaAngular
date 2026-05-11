@@ -85,6 +85,8 @@ export class PagoComponent implements OnInit, OnDestroy {
     return this.esDebito ? [this.allInstallmentOptions[0]] : this.allInstallmentOptions;
   }
 
+  secureFieldsReady = false;
+
   refTransaccion = '';
   private destruido = false;
   private mp: any = null;
@@ -143,6 +145,12 @@ export class PagoComponent implements OnInit, OnDestroy {
         this.errorCarga = 'No pudimos verificar tu pedido. Tu transacción no puede continuar hasta restablecer la conexión.';
       }
     });
+
+    this.cargarSdkMP().then(() => {
+      if (!this.mp) {
+        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
+      }
+    }).catch(() => {});
   }
 
   ngOnDestroy(): void {
@@ -216,16 +224,12 @@ export class PagoComponent implements OnInit, OnDestroy {
 
   irAFormularioTarjeta(): void {
     this.errorPago = '';
+    this.secureFieldsReady = false;
     this.pasoPrevio = 'seleccion';
     this.paso = 'tarjeta';
-    this.cargarSdkMP().then(() => {
-      if (!this.mp) {
-        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
-      }
-      setTimeout(() => this.initSecureFields(), 0);
-    }).catch(() => {
-      this.errorPago = 'No se pudo cargar el SDK de Mercado Pago. Verifica tu conexión.';
-    });
+    // SDK ya precargado en ngOnInit; montar fields en el siguiente tick
+    // para que Angular haya renderizado los contenedores en el DOM.
+    setTimeout(() => this.initSecureFields(), 0);
   }
 
   async pagarConTarjeta(): Promise<void> {
@@ -477,6 +481,11 @@ export class PagoComponent implements OnInit, OnDestroy {
       this.bindFieldEvents(this.mpExpirationDateField, 'cardExpiry');
       this.bindFieldEvents(this.mpSecurityCodeField, 'cardCvc');
 
+      // Mostrar campos cuando el primero esté listo
+      this.mpCardNumberField.on('ready', () => {
+        this.ngZone.run(() => { this.secureFieldsReady = true; });
+      });
+
       this.mpCardNumberField.on('binChange', async (data: any) => {
         const bin = data?.bin;
         this.ngZone.run(async () => {
@@ -552,6 +561,7 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.cardLast4 = '';
     this.cardPaymentMethodId = '';
     this.detectedPaymentMethodId = '';
+    this.secureFieldsReady = false;
   }
 
   private brandFromMethodId(id: string): string {
