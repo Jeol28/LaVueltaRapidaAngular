@@ -453,9 +453,17 @@ export class PagoComponent implements OnInit, OnDestroy {
     });
   }
 
-  private initSecureFields(): void {
+  private initSecureFields(retries = 10): void {
     if (!this.mp || !this.mp.fields) return;
     if (this.mpCardNumberField) return;
+
+    // Esperar a que Angular haya renderizado los contenedores en el DOM
+    if (!document.getElementById('mpCardNumber')) {
+      if (retries > 0) {
+        setTimeout(() => this.initSecureFields(retries - 1), 60);
+      }
+      return;
+    }
 
     const baseStyle = {
       color: '#ffffff',
