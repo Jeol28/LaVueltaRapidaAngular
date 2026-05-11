@@ -1,1 +1,1 @@
-export type EstadoPedido = 'RECIBIDO' | 'COCINANDO' | 'ENVIADO' | 'ENTREGADO';
+export type EstadoPedido = 'RECIBIDO' | 'COCINANDO' | 'ENVIADO' | 'ENTREGADO' | 'CANCELADO';

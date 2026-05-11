@@ -162,21 +162,40 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
         return;
       }
       this.pollingIntentos++;
-      this.pedidoService.getById(this.pedidoId).subscribe({
-        next: (pedido) => {
+      this.pedidoService.sincronizarPagoMP(this.pedidoId).subscribe({
+        next: (pago) => {
           if (this.destruido) return;
-          const ep = (pedido?.estadoPago || '').toUpperCase();
-          if (ep === 'APROBADO') {
+          const s = (pago?.status || '').toLowerCase();
+          const estadoResultado = this.mapearEstado(s);
+          if (estadoResultado === 'aprobado') {
             this.estado = 'aprobado';
-            if (pedido.totalPagado) this.total = pedido.totalPagado;
+            if (pago.transaction_amount) this.total = pago.transaction_amount;
             this.detenerPolling();
             this.programarRedireccion();
-          } else if (ep === 'RECHAZADO') {
+          } else if (estadoResultado === 'rechazado') {
             this.estado = 'rechazado';
             this.detenerPolling();
           }
         },
-        error: () => {}
+        error: () => {
+          // Si sincronizar falla (sin mpPaymentId aún), fallback a leer el pedido
+          this.pedidoService.getById(this.pedidoId).subscribe({
+            next: (pedido) => {
+              if (this.destruido) return;
+              const ep = (pedido?.estadoPago || '').toUpperCase();
+              if (ep === 'APROBADO') {
+                this.estado = 'aprobado';
+                if (pedido.totalPagado) this.total = pedido.totalPagado;
+                this.detenerPolling();
+                this.programarRedireccion();
+              } else if (ep === 'RECHAZADO') {
+                this.estado = 'rechazado';
+                this.detenerPolling();
+              }
+            },
+            error: () => {}
+          });
+        }
       });
     }, this.POLLING_INTERVALO_MS);
   }

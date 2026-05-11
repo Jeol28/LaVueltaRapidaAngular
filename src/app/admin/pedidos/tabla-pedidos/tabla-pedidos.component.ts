@@ -52,7 +52,7 @@ export class TablaPedidosAdminComponent implements OnInit {
   }
 
   get pedidosPasados(): Pedido[] {
-    return this.pedidos.filter(p => p.estado === 'ENTREGADO');
+    return this.pedidos.filter(p => p.estado === 'ENTREGADO' || p.estado === 'CANCELADO');
   }
 
   get pedidosVisibles(): Pedido[] {
@@ -93,7 +93,8 @@ export class TablaPedidosAdminComponent implements OnInit {
       RECIBIDO:  'estado-recibido',
       COCINANDO: 'estado-cocinando',
       ENVIADO:   'estado-enviado',
-      ENTREGADO: 'estado-entregado'
+      ENTREGADO: 'estado-entregado',
+      CANCELADO: 'estado-cancelado'
     };
     return mapa[estado] ?? '';
   }

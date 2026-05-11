@@ -166,7 +166,8 @@ export class PerfilComponent implements OnInit {
       RECIBIDO:  'estado-recibido',
       COCINANDO: 'estado-cocinando',
       ENVIADO:   'estado-enviado',
-      ENTREGADO: 'estado-entregado'
+      ENTREGADO: 'estado-entregado',
+      CANCELADO: 'estado-cancelado'
     };
     return mapa[estado] ?? '';
   }

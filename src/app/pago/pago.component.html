@@ -261,7 +261,8 @@
             <input
               type="text"
               [(ngModel)]="cardNumber"
-              (input)="onCardNumberInput()"
+              (input)="onCardNumberInput($event)"
+              (keydown)="onCardNumberKeydown($event)"
               placeholder="0000 0000 0000 0000"
               maxlength="19"
               inputmode="numeric"
@@ -274,6 +275,8 @@
             <input
               type="text"
               [(ngModel)]="cardName"
+              (keydown)="onCardNameKeydown($event)"
+              (input)="onCardNameInput($event)"
               placeholder="Como aparece en la tarjeta"
               style="text-transform: uppercase"
               autocomplete="cc-name">
@@ -285,7 +288,8 @@
             <input
               type="text"
               [(ngModel)]="cardExpiry"
-              (input)="onExpiryInput()"
+              (input)="onExpiryInput($event)"
+              (keydown)="onExpiryKeydown($event)"
               placeholder="MM/AA"
               maxlength="5"
               inputmode="numeric"
@@ -330,6 +334,9 @@
               placeholder="Selecciona cuotas"
               (valueChange)="installments = $event">
             </app-custom-select>
+            <small *ngIf="esDebito" style="color:#aaa;font-size:11px;margin-top:4px;display:block;">
+              Las tarjetas débito solo permiten pago en 1 cuota.
+            </small>
           </div>
 
           <p class="pg-form-info">

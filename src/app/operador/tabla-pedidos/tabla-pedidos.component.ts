@@ -106,7 +106,7 @@ export class TablaPedidosComponent implements OnInit {
   cambiarEstado(pedido: Pedido, nuevoEstado: EstadoPedido): void {
     this.pedidoService.updateEstado(pedido.id, nuevoEstado).subscribe({
       next: actualizado => {
-        if (actualizado.estado === 'ENTREGADO') {
+        if (actualizado.estado === 'ENTREGADO' || actualizado.estado === 'CANCELADO') {
           this.pedidos = this.pedidos.filter(p => p.id !== pedido.id);
           if (this.pedidoSeleccionado?.id === pedido.id) {
             this.pedidoSeleccionado = null;
@@ -146,7 +146,8 @@ export class TablaPedidosComponent implements OnInit {
       RECIBIDO:  'estado-recibido',
       COCINANDO: 'estado-cocinando',
       ENVIADO:   'estado-enviado',
-      ENTREGADO: 'estado-entregado'
+      ENTREGADO: 'estado-entregado',
+      CANCELADO: 'estado-cancelado'
     };
     return mapa[estado] ?? '';
   }

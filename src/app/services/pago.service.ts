@@ -13,7 +13,15 @@ export interface PreferenciaMP {
 export interface PreferenciaRequest {
   pedidoId: number;
   total: number;
-  items?: Array<{ id: string; title: string; quantity: number; unit_price: number }>;
+  items?: Array<{
+    id: string;
+    title: string;
+    description?: string;
+    category_id?: string;
+    quantity: number;
+    unit_price: number;
+    currency_id?: string;
+  }>;
   origin?: string;
   payer?: {
     name?: string;

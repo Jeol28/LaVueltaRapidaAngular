@@ -34,24 +34,25 @@ export class PagoComponent implements OnInit, OnDestroy {
   errorPago = '';
   exito: { metodo: string; detalle?: string } | null = null;
 
-  // Formulario de tarjeta (solo campos no-PCI — número, vencimiento y CVV viven en iframes de MP)
+  cardNumber = '';
+  cardExpiry = '';
+  cardCvc = '';
   cardName = '';
   cardDocType = '';
   cardDocNum = '';
   installments: number | null = null;
 
-  // Estado de validez de los Secure Fields (actualizados vía eventos del SDK)
   cardNumberValid = false;
   expirationDateValid = false;
   securityCodeValid = false;
 
-  // Instancias de los Secure Fields
   private mpCardNumberField: any = null;
   private mpExpirationDateField: any = null;
   private mpSecurityCodeField: any = null;
 
-  // payment_method_id detectado vía binChange (ej. 'visa', 'master')
   private detectedPaymentMethodId = '';
+  cardPaymentMethodId = '';
+  private binLookupTimer: any = null;
 
   readonly docTypeOptions = [
     { value: 'CC', label: 'CC' },
@@ -60,7 +61,7 @@ export class PagoComponent implements OnInit, OnDestroy {
     { value: 'PP', label: 'Pasaporte' }
   ];
 
-  readonly installmentOptions = [
+  private readonly allInstallmentOptions = [
     { value: 1,  label: '1 cuota (sin interés)' },
     { value: 3,  label: '3 cuotas' },
     { value: 6,  label: '6 cuotas' },
@@ -68,6 +69,16 @@ export class PagoComponent implements OnInit, OnDestroy {
     { value: 24, label: '24 cuotas' },
     { value: 36, label: '36 cuotas' }
   ];
+
+  get esDebito(): boolean {
+    const id = this.cardPaymentMethodId;
+    return id.startsWith('deb') || id === 'maestro' || id === 'prepaid_card';
+  }
+
+  get installmentOptions(): { value: number; label: string }[] {
+    return this.esDebito ? [this.allInstallmentOptions[0]] : this.allInstallmentOptions;
+  }
+
   cardBrand = '';
 
   refTransaccion = '';
@@ -149,8 +160,15 @@ export class PagoComponent implements OnInit, OnDestroy {
       return {
         id: String(lp.comida?.id ?? 'item'),
         title: lp.comida?.name ?? 'Producto',
+        description: lp.comida?.description ?? undefined,
+        category_id: (lp.comida as any)?.category?.name
+          ? (lp.comida as any).category.name.toLowerCase()
+              .normalize('NFD').replace(/[̀-ͯ]/g, '')
+              .replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '')
+          : 'food',
         quantity: lp.cantidad ?? 1,
-        unit_price: (lp.comida?.price ?? 0) + adicionales
+        unit_price: (lp.comida?.price ?? 0) + adicionales,
+        currency_id: 'COP'
       };
     });
 
@@ -195,7 +213,11 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.errorPago = '';
     this.pasoPrevio = 'seleccion';
     this.paso = 'tarjeta';
-    // Esperamos un tick para que Angular renderice los contenedores antes de montar los iframes
+    this.cargarSdkMP().then(() => {
+      if (!this.mp) {
+        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
+      }
+    }).catch(() => {});
     setTimeout(() => this.initSecureFields(), 0);
   }
 
@@ -204,19 +226,35 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.errorPago = '';
 
     try {
-      // IMPORTANTE: createCardToken debe llamarse mientras los iframes siguen en el DOM
-      const cardToken = await this.mpCardNumberField.createCardToken({
-        cardholderName: this.cardName.trim().toUpperCase(),
-        identificationType: this.cardDocType,
-        identificationNumber: this.cardDocNum.trim(),
+      await this.cargarSdkMP();
+      if (!this.mp) {
+        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
+      }
+
+      const [expMonth, expYear] = this.cardExpiry.split('/');
+
+      const cardToken = await this.mp.createCardToken({
+        cardNumber:            this.cardNumber.replace(/\s/g, ''),
+        cardholderName:        this.cardName.trim().toUpperCase(),
+        cardExpirationMonth:   expMonth,
+        cardExpirationYear:    expYear,
+        securityCode:          this.cardCvc.trim(),
+        identificationType:    this.cardDocType,
+        identificationNumber:  this.cardDocNum.trim(),
       });
 
-      // El token ya fue generado — ahora podemos cambiar el paso y los iframes desaparecen
       this.pasoPrevio = 'tarjeta';
       this.paso = 'procesando';
 
-      const pmId: string = cardToken.payment_method_id || this.detectedPaymentMethodId || 'visa';
+      const pmId: string = this.cardPaymentMethodId || cardToken.payment_method_id || this.detectedPaymentMethodId || 'visa';
       const cliente = this.pedido?.cliente;
+      const payerEmail = cliente?.email?.trim() || localStorage.getItem('user') || '';
+
+      if (!payerEmail) {
+        this.errorPago = 'No encontramos un correo asociado a tu cuenta. Actualiza tu perfil e intenta de nuevo.';
+        this.paso = 'error-pago';
+        return;
+      }
 
       this.pagoService.procesarPagoTarjeta({
         token: cardToken.id,
@@ -224,7 +262,7 @@ export class PagoComponent implements OnInit, OnDestroy {
         payment_method_id: pmId,
         installments: +this.installments!,
         payer: {
-          email: cliente?.email ?? '',
+          email: payerEmail,
           identification: this.cardDocNum
             ? { type: this.cardDocType, number: this.cardDocNum }
             : undefined
@@ -237,10 +275,10 @@ export class PagoComponent implements OnInit, OnDestroy {
             this.exito = { metodo: 'Tarjeta', detalle: `ID: ${resp.id}` };
             this.paso = 'exito';
           } else if (resp.status === 'in_process' || resp.status === 'pending') {
-            this.errorPago = 'Tu pago está en revisión. Te notificaremos cuando se confirme.';
+            this.errorPago = 'El pago no pudo confirmarse. Intenta de nuevo o elige otro método de pago.';
             this.paso = 'error-pago';
           } else {
-            this.errorPago = `Pago rechazado: ${resp.status_detail || 'verifica los datos de tu tarjeta'}.`;
+            this.errorPago = this.mensajeRechazo(resp.status_detail);
             this.paso = 'error-pago';
           }
         },
@@ -294,6 +332,7 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.paso = this.pasoPrevio;
     this.errorPago = '';
     if (this.paso === 'tarjeta') {
+      this.pasoPrevio = 'seleccion';
       setTimeout(() => this.initSecureFields(), 0);
     }
   }
@@ -341,7 +380,7 @@ export class PagoComponent implements OnInit, OnDestroy {
       this.errorPago = 'Fecha de vencimiento inválida.';
       return false;
     }
-    if (!this.securityCodeValid) {
+    if (!this.cvvValido) {
       this.errorPago = 'CVV inválido.';
       return false;
     }
@@ -360,11 +399,16 @@ export class PagoComponent implements OnInit, OnDestroy {
     return true;
   }
 
+  get cvvValido(): boolean {
+    const len = this.cardBrand === 'amex' ? 4 : 3;
+    return this.cardCvc.trim().length >= len;
+  }
+
   get formularioTarjetaCompleto(): boolean {
     return this.cardNumberValid
       && !!this.cardName.trim()
       && this.expirationDateValid
-      && this.securityCodeValid
+      && this.cvvValido
       && !!this.cardDocType
       && !!this.cardDocNum.trim()
       && !!this.installments;
@@ -407,4 +451,171 @@ export class PagoComponent implements OnInit, OnDestroy {
       return raw ? +raw : 0;
     } catch { return 0; }
   }
+
+  // ── Formateo de campos de tarjeta ─────────────────────────────────────────
+
+  onCardNumberInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const posSnap = input.selectionStart ?? 0;
+    const rawSnap = input.value;
+
+    // setTimeout garantiza que corremos DESPUÉS de que [(ngModel)] escriba el valor
+    // crudo en el modelo, para que nuestra versión formateada sea la que gane.
+    setTimeout(() => {
+      const digitsBeforeCursor = rawSnap.slice(0, posSnap).replace(/\D/g, '').length;
+      const digits = rawSnap.replace(/\D/g, '').slice(0, 16);
+      const formatted = digits.match(/.{1,4}/g)?.join(' ') ?? digits;
+
+      this.cardNumber = formatted;
+      this.cardBrand = this.detectBrand(digits);
+      this.cardNumberValid = digits.length >= 13;
+
+      if (digits.length >= 6) {
+        clearTimeout(this.binLookupTimer);
+        this.binLookupTimer = setTimeout(async () => {
+          try {
+            if (!this.mp) return;
+            const result = await this.mp.getPaymentMethods({ bin: digits.slice(0, 6) });
+            const method = result?.results?.[0];
+            if (method) {
+              this.cardPaymentMethodId = method.id;
+              this.detectedPaymentMethodId = method.id;
+              if (this.esDebito) this.installments = 1;
+            }
+          } catch {}
+        }, 400);
+      } else {
+        clearTimeout(this.binLookupTimer);
+        this.cardPaymentMethodId = '';
+        this.detectedPaymentMethodId = '';
+      }
+
+      // Segundo tick: Angular ya actualizó el DOM con el valor formateado.
+      setTimeout(() => {
+        if (digitsBeforeCursor === 0) { input.setSelectionRange(0, 0); return; }
+        let count = 0;
+        let newPos = formatted.length;
+        for (let i = 0; i < formatted.length; i++) {
+          if (formatted[i] !== ' ') count++;
+          if (count === digitsBeforeCursor) { newPos = i + 1; break; }
+        }
+        input.setSelectionRange(newPos, newPos);
+      });
+    });
+  }
+
+  onCardNumberKeydown(event: KeyboardEvent): void {
+    const input = event.target as HTMLInputElement;
+    const start = input.selectionStart ?? 0;
+    const end = input.selectionEnd ?? 0;
+
+    if (start === end) {
+      // Sin selección: saltar el separador
+      if (event.key === 'Backspace' && start > 0 && input.value[start - 1] === ' ') {
+        event.preventDefault();
+        input.setSelectionRange(start - 1, start - 1);
+      } else if (event.key === 'Delete' && input.value[start] === ' ') {
+        event.preventDefault();
+        input.setSelectionRange(start + 1, start + 1);
+      }
+    } else if (['Backspace', 'Delete'].includes(event.key)) {
+      // Con selección: ampliar para no dejar la selección solo sobre el espacio
+      const selected = input.value.slice(start, end);
+      if (selected === ' ') {
+        event.preventDefault();
+      }
+    }
+  }
+
+  onExpiryInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const posSnap = input.selectionStart ?? 0;
+    const rawSnap = input.value;
+
+    setTimeout(() => {
+      const digitsBeforeCursor = rawSnap.slice(0, posSnap).replace(/\D/g, '').length;
+      const digits = rawSnap.replace(/\D/g, '').slice(0, 4);
+      const formatted = digits.length >= 2 ? digits.slice(0, 2) + '/' + digits.slice(2) : digits;
+
+      this.cardExpiry = formatted;
+      this.expirationDateValid = digits.length === 4;
+
+      setTimeout(() => {
+        let newPos = digitsBeforeCursor >= 2 ? digitsBeforeCursor + 1 : digitsBeforeCursor;
+        newPos = Math.min(newPos, formatted.length);
+        input.setSelectionRange(newPos, newPos);
+      });
+    });
+  }
+
+  onExpiryKeydown(event: KeyboardEvent): void {
+    const input = event.target as HTMLInputElement;
+    const start = input.selectionStart ?? 0;
+    const end = input.selectionEnd ?? 0;
+
+    if (start === end) {
+      if (event.key === 'Backspace' && start > 0 && input.value[start - 1] === '/') {
+        event.preventDefault();
+        input.setSelectionRange(start - 1, start - 1);
+      } else if (event.key === 'Delete' && input.value[start] === '/') {
+        event.preventDefault();
+        input.setSelectionRange(start + 1, start + 1);
+      }
+    } else if (['Backspace', 'Delete'].includes(event.key)) {
+      const selected = input.value.slice(start, end);
+      if (selected === '/') {
+        event.preventDefault();
+      }
+    }
+  }
+
+  onCardNameKeydown(event: KeyboardEvent): void {
+    if (event.ctrlKey || event.metaKey) return;
+    if (event.key.length > 1) return; // teclas de control: Backspace, Delete, Tab, flechas…
+    if (!/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑàèìòùÀÈÌÒÙ ]$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  onCardNameInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const cleaned = input.value.replace(/[^a-zA-ZáéíóúüñÁÉÍÓÚÜÑàèìòùÀÈÌÒÙ ]/g, '');
+    if (cleaned !== input.value) {
+      const pos = input.selectionStart ?? 0;
+      const removed = input.value.slice(0, pos).replace(/[^a-zA-ZáéíóúüñÁÉÍÓÚÜÑàèìòùÀÈÌÒÙ ]/g, '').length;
+      this.cardName = cleaned;
+      setTimeout(() => input.setSelectionRange(removed, removed));
+    }
+  }
+
+  private mensajeRechazo(code: string): string {
+    const mensajes: Record<string, string> = {
+      cc_rejected_bad_filled_card_number:  'Número de tarjeta incorrecto. Revisa los datos.',
+      cc_rejected_bad_filled_date:         'Fecha de vencimiento incorrecta.',
+      cc_rejected_bad_filled_security_code:'CVV incorrecto.',
+      cc_rejected_bad_filled_other:        'Datos de tarjeta incorrectos.',
+      cc_rejected_blacklist:               'No podemos procesar pagos con esta tarjeta.',
+      cc_rejected_call_for_authorize:      'Debes autorizar este pago desde la app o web de tu banco antes de continuar.',
+      cc_rejected_card_disabled:           'Tu tarjeta está inactiva. Contáctate con tu banco.',
+      cc_rejected_card_error:              'No pudimos procesar tu pago. Intenta de nuevo.',
+      cc_rejected_duplicated_payment:      'Ya realizaste un pago igual recientemente. Espera unos minutos.',
+      cc_rejected_high_risk:               'Tu banco rechazó el pago por seguridad. Intenta con otra tarjeta o autoriza la operación desde tu banco.',
+      cc_rejected_insufficient_amount:     'Fondos insuficientes en la tarjeta.',
+      cc_rejected_invalid_installments:    'Esta tarjeta no acepta el número de cuotas seleccionado.',
+      cc_rejected_max_attempts:            'Superaste el límite de intentos. Intenta mañana.',
+      cc_rejected_other_reason:            'Tu pago no fue procesado. Intenta con otra tarjeta.',
+    };
+    return mensajes[code] ?? `Pago rechazado (${code}). Verifica los datos o intenta con otra tarjeta.`;
+  }
+
+  private detectBrand(digits: string): string {
+    if (/^4/.test(digits)) return 'visa';
+    if (/^(5[1-5]|2[2-7])/.test(digits)) return 'mastercard';
+    if (/^3[47]/.test(digits)) return 'amex';
+    if (/^3(?:0[0-5]|[68])/.test(digits)) return 'diners';
+    return '';
+  }
+
+  private initSecureFields(): void {}
+  private desmontarCamposMP(): void {}
 }

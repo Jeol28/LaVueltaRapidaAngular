@@ -52,4 +52,8 @@ export class PedidoService {
   confirmarPago(id: number): Observable<Pedido> {
     return this.http.patch<Pedido>(`${API_URL}/pedido/${id}/confirmar-pago`, {});
   }
+
+  sincronizarPagoMP(pedidoId: number): Observable<any> {
+    return this.http.post<any>(`${API_URL}/mp/sincronizar/${pedidoId}`, {});
+  }
 }

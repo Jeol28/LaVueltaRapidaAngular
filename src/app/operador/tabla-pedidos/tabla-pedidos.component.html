@@ -69,7 +69,7 @@
                 <app-custom-select
                   [value]="pedido.estado"
                   [options]="getEstadosPermitidos(pedido)"
-                  [disabled]="pedido.estado === 'ENTREGADO'"
+                  [disabled]="pedido.estado === 'ENTREGADO' || pedido.estado === 'CANCELADO'"
                   (valueChange)="cambiarEstado(pedido, $event)">
                 </app-custom-select>
                 <button *ngIf="puedePagar(pedido)"
@@ -213,7 +213,7 @@
       <app-custom-select
         [value]="pedidoSeleccionado.estado"
         [options]="getEstadosPermitidos(pedidoSeleccionado)"
-        [disabled]="pedidoSeleccionado.estado === 'ENTREGADO'"
+        [disabled]="pedidoSeleccionado.estado === 'ENTREGADO' || pedidoSeleccionado.estado === 'CANCELADO'"
         (valueChange)="cambiarEstado(pedidoSeleccionado, $event)">
       </app-custom-select>
     </div>
