@@ -6,7 +6,6 @@ import { Pedido } from '../models/pedido.model';
 
 declare const MercadoPago: any;
 
-// Reemplazar con la public key real de Mercado Pago
 const MP_PUBLIC_KEY = 'APP_USR-dbe06744-e92d-4f6b-8ea6-980cd86d9b35';
 
 type Paso = 'seleccion' | 'tarjeta' | 'procesando' | 'exito' | 'error-pago';
@@ -34,25 +33,32 @@ export class PagoComponent implements OnInit, OnDestroy {
   errorPago = '';
   exito: { metodo: string; detalle?: string } | null = null;
 
-  cardNumber = '';
-  cardExpiry = '';
-  cardCvc = '';
   cardName = '';
   cardDocType = '';
   cardDocNum = '';
   installments: number | null = null;
 
+  cardBrand = '';
+  cardLast4 = '';
+
   cardNumberValid = false;
   expirationDateValid = false;
   securityCodeValid = false;
 
+  cardNumberFocus = false;
+  cardExpiryFocus = false;
+  cardCvcFocus = false;
+
+  cardNumberError = false;
+  cardExpiryError = false;
+  cardCvcError = false;
+
+  cardPaymentMethodId = '';
+  private detectedPaymentMethodId = '';
+
   private mpCardNumberField: any = null;
   private mpExpirationDateField: any = null;
   private mpSecurityCodeField: any = null;
-
-  private detectedPaymentMethodId = '';
-  cardPaymentMethodId = '';
-  private binLookupTimer: any = null;
 
   readonly docTypeOptions = [
     { value: 'CC', label: 'CC' },
@@ -78,8 +84,6 @@ export class PagoComponent implements OnInit, OnDestroy {
   get installmentOptions(): { value: number; label: string }[] {
     return this.esDebito ? [this.allInstallmentOptions[0]] : this.allInstallmentOptions;
   }
-
-  cardBrand = '';
 
   refTransaccion = '';
   private destruido = false;
@@ -207,7 +211,7 @@ export class PagoComponent implements OnInit, OnDestroy {
     });
   }
 
-  // ── B) Tarjeta directa (Checkout API) ────────────────────────────────────
+  // ── B) Tarjeta directa con Secure Fields (PCI Compliance) ────────────────
 
   irAFormularioTarjeta(): void {
     this.errorPago = '';
@@ -217,8 +221,10 @@ export class PagoComponent implements OnInit, OnDestroy {
       if (!this.mp) {
         this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
       }
-    }).catch(() => {});
-    setTimeout(() => this.initSecureFields(), 0);
+      setTimeout(() => this.initSecureFields(), 0);
+    }).catch(() => {
+      this.errorPago = 'No se pudo cargar el SDK de Mercado Pago. Verifica tu conexión.';
+    });
   }
 
   async pagarConTarjeta(): Promise<void> {
@@ -226,24 +232,20 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.errorPago = '';
 
     try {
-      await this.cargarSdkMP();
       if (!this.mp) {
+        await this.cargarSdkMP();
         this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
       }
 
-      const [expMonth, expYearShort] = this.cardExpiry.split('/');
-      const expYear = expYearShort.length === 2 ? '20' + expYearShort : expYearShort;
-
-      const cardToken = await this.mp.createCardToken({
-        cardNumber:            this.cardNumber.replace(/\s/g, ''),
+      // Tokenización vía Secure Fields: MP lee número/vencimiento/CVV
+      // directamente desde sus iframes — nuestra app nunca los toca.
+      const cardToken = await this.mp.fields.createCardToken({
         cardholderName:        this.cardName.trim().toUpperCase(),
-        cardExpirationMonth:   expMonth,
-        cardExpirationYear:    expYear,
-        securityCode:          this.cardCvc.trim(),
         identificationType:    this.cardDocType,
         identificationNumber:  this.cardDocNum.trim(),
       });
 
+      this.cardLast4 = cardToken.last_four_digits || this.cardLast4;
       this.pasoPrevio = 'tarjeta';
       this.paso = 'procesando';
 
@@ -381,7 +383,7 @@ export class PagoComponent implements OnInit, OnDestroy {
       this.errorPago = 'Fecha de vencimiento inválida.';
       return false;
     }
-    if (!this.cvvValido) {
+    if (!this.securityCodeValid) {
       this.errorPago = 'CVV inválido.';
       return false;
     }
@@ -400,16 +402,11 @@ export class PagoComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  get cvvValido(): boolean {
-    const len = this.cardBrand === 'amex' ? 4 : 3;
-    return this.cardCvc.trim().length >= len;
-  }
-
   get formularioTarjetaCompleto(): boolean {
     return this.cardNumberValid
       && !!this.cardName.trim()
       && this.expirationDateValid
-      && this.cvvValido
+      && this.securityCodeValid
       && !!this.cardDocType
       && !!this.cardDocNum.trim()
       && !!this.installments;
@@ -426,153 +423,122 @@ export class PagoComponent implements OnInit, OnDestroy {
     });
   }
 
-  private calcularTotalDePedido(p: Pedido): number {
-    if (!p?.lineasPedido?.length) return 0;
-    return p.lineasPedido.reduce((sum, lp) => {
-      const adicionales = (lp.adicionales ?? []).reduce(
-        (s, a) => s + (a.adicional?.price ?? 0), 0
-      );
-      return sum + ((lp.comida?.price ?? 0) + adicionales) * (lp.cantidad ?? 0);
-    }, 0);
-  }
+  private initSecureFields(): void {
+    if (!this.mp || !this.mp.fields) return;
+    if (this.mpCardNumberField) return;
 
-  private generarReferencia(): string {
-    const t = Date.now().toString(36).toUpperCase();
-    const r = Math.random().toString(36).slice(2, 6).toUpperCase();
-    return `LVR-${t}-${r}`;
-  }
+    const baseStyle = {
+      color: '#ffffff',
+      fontSize: '14px',
+      fontFamily: 'JetBrains Mono, monospace',
+      placeholderColor: '#666666'
+    };
 
-  private guardarTotalLocal(pedidoId: number, total: number): void {
-    try { localStorage.setItem(`lvr-pedido-total-${pedidoId}`, String(total)); } catch {}
-  }
-
-  private leerTotalLocal(pedidoId: number): number {
     try {
-      const raw = localStorage.getItem(`lvr-pedido-total-${pedidoId}`);
-      return raw ? +raw : 0;
-    } catch { return 0; }
-  }
+      this.mpCardNumberField = this.mp.fields
+        .create('cardNumber', { placeholder: '0000 0000 0000 0000', style: baseStyle })
+        .mount('mpCardNumber');
 
-  // ── Formateo de campos de tarjeta ─────────────────────────────────────────
+      this.mpExpirationDateField = this.mp.fields
+        .create('expirationDate', { placeholder: 'MM/AA', style: baseStyle })
+        .mount('mpExpirationDate');
 
-  onCardNumberInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const posSnap = input.selectionStart ?? 0;
-    const rawSnap = input.value;
+      this.mpSecurityCodeField = this.mp.fields
+        .create('securityCode', { placeholder: '•••', style: baseStyle })
+        .mount('mpSecurityCode');
 
-    // setTimeout garantiza que corremos DESPUÉS de que [(ngModel)] escriba el valor
-    // crudo en el modelo, para que nuestra versión formateada sea la que gane.
-    setTimeout(() => {
-      const digitsBeforeCursor = rawSnap.slice(0, posSnap).replace(/\D/g, '').length;
-      const digits = rawSnap.replace(/\D/g, '').slice(0, 16);
-      const formatted = digits.match(/.{1,4}/g)?.join(' ') ?? digits;
+      this.bindFieldEvents(this.mpCardNumberField, 'cardNumber');
+      this.bindFieldEvents(this.mpExpirationDateField, 'cardExpiry');
+      this.bindFieldEvents(this.mpSecurityCodeField, 'cardCvc');
 
-      this.cardNumber = formatted;
-      this.cardBrand = this.detectBrand(digits);
-      this.cardNumberValid = digits.length >= 13;
-
-      if (digits.length >= 6) {
-        clearTimeout(this.binLookupTimer);
-        this.binLookupTimer = setTimeout(async () => {
+      this.mpCardNumberField.on('binChange', async (data: any) => {
+        const bin = data?.bin;
+        this.ngZone.run(async () => {
+          if (!bin || bin.length < 6) {
+            this.cardPaymentMethodId = '';
+            this.detectedPaymentMethodId = '';
+            this.cardBrand = '';
+            return;
+          }
           try {
-            if (!this.mp) return;
-            const result = await this.mp.getPaymentMethods({ bin: digits.slice(0, 6) });
+            const result = await this.mp.getPaymentMethods({ bin });
             const method = result?.results?.[0];
             if (method) {
               this.cardPaymentMethodId = method.id;
               this.detectedPaymentMethodId = method.id;
+              this.cardBrand = this.brandFromMethodId(method.id);
               if (this.esDebito) this.installments = 1;
             }
           } catch {}
-        }, 400);
-      } else {
-        clearTimeout(this.binLookupTimer);
-        this.cardPaymentMethodId = '';
-        this.detectedPaymentMethodId = '';
-      }
-
-      // Segundo tick: Angular ya actualizó el DOM con el valor formateado.
-      setTimeout(() => {
-        if (digitsBeforeCursor === 0) { input.setSelectionRange(0, 0); return; }
-        let count = 0;
-        let newPos = formatted.length;
-        for (let i = 0; i < formatted.length; i++) {
-          if (formatted[i] !== ' ') count++;
-          if (count === digitsBeforeCursor) { newPos = i + 1; break; }
-        }
-        input.setSelectionRange(newPos, newPos);
+        });
       });
-    });
-  }
-
-  onCardNumberKeydown(event: KeyboardEvent): void {
-    const input = event.target as HTMLInputElement;
-    const start = input.selectionStart ?? 0;
-    const end = input.selectionEnd ?? 0;
-
-    if (start === end) {
-      // Sin selección: saltar el separador
-      if (event.key === 'Backspace' && start > 0 && input.value[start - 1] === ' ') {
-        event.preventDefault();
-        input.setSelectionRange(start - 1, start - 1);
-      } else if (event.key === 'Delete' && input.value[start] === ' ') {
-        event.preventDefault();
-        input.setSelectionRange(start + 1, start + 1);
-      }
-    } else if (['Backspace', 'Delete'].includes(event.key)) {
-      // Con selección: ampliar para no dejar la selección solo sobre el espacio
-      const selected = input.value.slice(start, end);
-      if (selected === ' ') {
-        event.preventDefault();
-      }
+    } catch (err) {
+      console.error('Error montando Secure Fields de MP:', err);
     }
   }
 
-  onExpiryInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const posSnap = input.selectionStart ?? 0;
-    const rawSnap = input.value;
+  private bindFieldEvents(field: any, kind: 'cardNumber' | 'cardExpiry' | 'cardCvc'): void {
+    if (!field) return;
 
-    setTimeout(() => {
-      const digitsBeforeCursor = rawSnap.slice(0, posSnap).replace(/\D/g, '').length;
-      const digits = rawSnap.replace(/\D/g, '').slice(0, 4);
-      const formatted = digits.length >= 2 ? digits.slice(0, 2) + '/' + digits.slice(2) : digits;
+    field.on('focus', () => this.ngZone.run(() => {
+      if (kind === 'cardNumber') this.cardNumberFocus = true;
+      if (kind === 'cardExpiry') this.cardExpiryFocus = true;
+      if (kind === 'cardCvc')    this.cardCvcFocus = true;
+    }));
 
-      this.cardExpiry = formatted;
-      this.expirationDateValid = digits.length === 4;
+    field.on('blur', () => this.ngZone.run(() => {
+      if (kind === 'cardNumber') this.cardNumberFocus = false;
+      if (kind === 'cardExpiry') this.cardExpiryFocus = false;
+      if (kind === 'cardCvc')    this.cardCvcFocus = false;
+    }));
 
-      setTimeout(() => {
-        let newPos = digitsBeforeCursor >= 2 ? digitsBeforeCursor + 1 : digitsBeforeCursor;
-        newPos = Math.min(newPos, formatted.length);
-        input.setSelectionRange(newPos, newPos);
-      });
-    });
+    field.on('validityChange', (event: any) => this.ngZone.run(() => {
+      const valid = !event?.errorMessages || event.errorMessages.length === 0;
+      if (kind === 'cardNumber') {
+        this.cardNumberValid = valid;
+        this.cardNumberError = !valid;
+      }
+      if (kind === 'cardExpiry') {
+        this.expirationDateValid = valid;
+        this.cardExpiryError = !valid;
+      }
+      if (kind === 'cardCvc') {
+        this.securityCodeValid = valid;
+        this.cardCvcError = !valid;
+      }
+    }));
   }
 
-  onExpiryKeydown(event: KeyboardEvent): void {
-    const input = event.target as HTMLInputElement;
-    const start = input.selectionStart ?? 0;
-    const end = input.selectionEnd ?? 0;
+  private desmontarCamposMP(): void {
+    try { this.mpCardNumberField?.unmount(); } catch {}
+    try { this.mpExpirationDateField?.unmount(); } catch {}
+    try { this.mpSecurityCodeField?.unmount(); } catch {}
+    this.mpCardNumberField = null;
+    this.mpExpirationDateField = null;
+    this.mpSecurityCodeField = null;
+    this.cardNumberValid = false;
+    this.expirationDateValid = false;
+    this.securityCodeValid = false;
+    this.cardNumberError = false;
+    this.cardExpiryError = false;
+    this.cardCvcError = false;
+    this.cardBrand = '';
+    this.cardLast4 = '';
+    this.cardPaymentMethodId = '';
+    this.detectedPaymentMethodId = '';
+  }
 
-    if (start === end) {
-      if (event.key === 'Backspace' && start > 0 && input.value[start - 1] === '/') {
-        event.preventDefault();
-        input.setSelectionRange(start - 1, start - 1);
-      } else if (event.key === 'Delete' && input.value[start] === '/') {
-        event.preventDefault();
-        input.setSelectionRange(start + 1, start + 1);
-      }
-    } else if (['Backspace', 'Delete'].includes(event.key)) {
-      const selected = input.value.slice(start, end);
-      if (selected === '/') {
-        event.preventDefault();
-      }
-    }
+  private brandFromMethodId(id: string): string {
+    if (id.includes('visa')) return 'visa';
+    if (id.includes('master')) return 'mastercard';
+    if (id.includes('amex')) return 'amex';
+    if (id.includes('diners')) return 'diners';
+    return '';
   }
 
   onCardNameKeydown(event: KeyboardEvent): void {
     if (event.ctrlKey || event.metaKey) return;
-    if (event.key.length > 1) return; // teclas de control: Backspace, Delete, Tab, flechas…
+    if (event.key.length > 1) return;
     if (!/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑàèìòùÀÈÌÒÙ ]$/.test(event.key)) {
       event.preventDefault();
     }
@@ -609,14 +575,30 @@ export class PagoComponent implements OnInit, OnDestroy {
     return mensajes[code] ?? `Pago rechazado (${code}). Verifica los datos o intenta con otra tarjeta.`;
   }
 
-  private detectBrand(digits: string): string {
-    if (/^4/.test(digits)) return 'visa';
-    if (/^(5[1-5]|2[2-7])/.test(digits)) return 'mastercard';
-    if (/^3[47]/.test(digits)) return 'amex';
-    if (/^3(?:0[0-5]|[68])/.test(digits)) return 'diners';
-    return '';
+  private calcularTotalDePedido(p: Pedido): number {
+    if (!p?.lineasPedido?.length) return 0;
+    return p.lineasPedido.reduce((sum, lp) => {
+      const adicionales = (lp.adicionales ?? []).reduce(
+        (s, a) => s + (a.adicional?.price ?? 0), 0
+      );
+      return sum + ((lp.comida?.price ?? 0) + adicionales) * (lp.cantidad ?? 0);
+    }, 0);
   }
 
-  private initSecureFields(): void {}
-  private desmontarCamposMP(): void {}
+  private generarReferencia(): string {
+    const t = Date.now().toString(36).toUpperCase();
+    const r = Math.random().toString(36).slice(2, 6).toUpperCase();
+    return `LVR-${t}-${r}`;
+  }
+
+  private guardarTotalLocal(pedidoId: number, total: number): void {
+    try { localStorage.setItem(`lvr-pedido-total-${pedidoId}`, String(total)); } catch {}
+  }
+
+  private leerTotalLocal(pedidoId: number): number {
+    try {
+      const raw = localStorage.getItem(`lvr-pedido-total-${pedidoId}`);
+      return raw ? +raw : 0;
+    } catch { return 0; }
+  }
 }

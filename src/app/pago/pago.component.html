@@ -242,7 +242,7 @@
           <div class="pg-card-preview" [attr.data-tipo]="cardBrand">
             <div class="pg-card-chip"></div>
             <div class="pg-card-brand">{{ cardBrand ? cardBrand.toUpperCase() : 'CARD' }}</div>
-            <div class="pg-card-num">{{ cardNumber || '•••• •••• •••• ••••' }}</div>
+            <div class="pg-card-num">•••• •••• •••• {{ cardLast4 || '••••' }}</div>
             <div class="pg-card-bottom">
               <div>
                 <span class="pg-card-lbl">TITULAR</span>
@@ -250,23 +250,17 @@
               </div>
               <div>
                 <span class="pg-card-lbl">VENCE</span>
-                <span class="pg-card-val">{{ cardExpiry || 'MM/AA' }}</span>
+                <span class="pg-card-val">MM/AA</span>
               </div>
             </div>
           </div>
 
-          <!-- Número -->
+          <!-- Número (Secure Field MP) -->
           <div class="pg-field pg-field-full">
             <span>NÚMERO DE TARJETA</span>
-            <input
-              type="text"
-              [(ngModel)]="cardNumber"
-              (input)="onCardNumberInput($event)"
-              (keydown)="onCardNumberKeydown($event)"
-              placeholder="0000 0000 0000 0000"
-              maxlength="19"
-              inputmode="numeric"
-              autocomplete="cc-number">
+            <div id="mpCardNumber" class="pg-mp-secure"
+                 [class.pg-mp-focus]="cardNumberFocus"
+                 [class.pg-mp-invalid]="cardNumberError"></div>
           </div>
 
           <!-- Titular -->
@@ -282,28 +276,18 @@
               autocomplete="cc-name">
           </div>
 
-          <!-- Vencimiento + CVV -->
+          <!-- Vencimiento + CVV (Secure Fields MP) -->
           <div class="pg-field">
             <span>VENCIMIENTO</span>
-            <input
-              type="text"
-              [(ngModel)]="cardExpiry"
-              (input)="onExpiryInput($event)"
-              (keydown)="onExpiryKeydown($event)"
-              placeholder="MM/AA"
-              maxlength="5"
-              inputmode="numeric"
-              autocomplete="cc-exp">
+            <div id="mpExpirationDate" class="pg-mp-secure"
+                 [class.pg-mp-focus]="cardExpiryFocus"
+                 [class.pg-mp-invalid]="cardExpiryError"></div>
           </div>
           <div class="pg-field">
             <span>CVV</span>
-            <input
-              type="password"
-              [(ngModel)]="cardCvc"
-              placeholder="•••"
-              maxlength="4"
-              inputmode="numeric"
-              autocomplete="cc-csc">
+            <div id="mpSecurityCode" class="pg-mp-secure"
+                 [class.pg-mp-focus]="cardCvcFocus"
+                 [class.pg-mp-invalid]="cardCvcError"></div>
           </div>
 
           <!-- Documento -->

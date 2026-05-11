@@ -540,6 +540,31 @@
   border-color: #e10600;
   box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.18);
 }
+
+/* Contenedores PCI Secure Fields de Mercado Pago */
+.pg-mp-secure {
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 0 14px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  transition: border-color .2s, box-shadow .2s;
+}
+.pg-mp-secure iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+.pg-mp-secure.pg-mp-focus {
+  border-color: #e10600;
+  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.18);
+}
+.pg-mp-secure.pg-mp-invalid {
+  border-color: #e10600;
+}
 .pg-field select {
   font-family: 'Inter', system-ui, sans-serif;
   cursor: pointer;
