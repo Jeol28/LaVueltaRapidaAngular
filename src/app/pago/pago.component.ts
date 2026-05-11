@@ -6,7 +6,7 @@ import { Pedido } from '../models/pedido.model';
 
 declare const MercadoPago: any;
 
-const MP_PUBLIC_KEY = 'APP_USR-dbe06744-e92d-4f6b-8ea6-980cd86d9b35';
+const MP_PUBLIC_KEY = 'APP_USR-fab38766-e12d-410f-bbf5-b45ae76d48c0';
 
 type Paso = 'seleccion' | 'tarjeta' | 'procesando' | 'exito' | 'error-pago';
 type MetodoPresencial = 'efectivo' | 'datafono' | 'nequi' | 'daviplata' | 'transferencia' | 'llave';
