@@ -59,8 +59,12 @@ export class PagoService {
     return this.http.post<PreferenciaMP>(`${API_URL}/api/mp/preference`, req);
   }
 
-  procesarPagoTarjeta(req: PagoCardRequest): Observable<PagoCardResponse> {
-    return this.http.post<PagoCardResponse>(`${API_URL}/api/mp/payment`, req);
+  procesarPagoTarjeta(req: PagoCardRequest, deviceId?: string): Observable<PagoCardResponse> {
+    const headers: Record<string, string> = {};
+    if (deviceId) {
+      headers['X-meli-session-id'] = deviceId;
+    }
+    return this.http.post<PagoCardResponse>(`${API_URL}/api/mp/payment`, req, { headers });
   }
 
   // Backend debe implementar: PATCH /api/pedido/{id}/pago-presencial con body { metodoPago }

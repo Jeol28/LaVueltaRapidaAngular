@@ -103,6 +103,7 @@ export class PagoComponent implements OnInit, OnDestroy {
       if (e.persisted) this.redirigiendo = false;
     };
     window.addEventListener('pageshow', this.pagesShowHandler);
+    this.actualizarViewSecurity('checkout');
 
     if (!localStorage.getItem('user')) {
       this.router.navigate(['/login']);
@@ -251,10 +252,33 @@ export class PagoComponent implements OnInit, OnDestroy {
 
       const pmId: string = cardToken.payment_method_id || this.cardPaymentMethodId || this.detectedPaymentMethodId;
       const cliente = this.pedido?.cliente;
-      const payerEmail = cliente?.email?.trim() || localStorage.getItem('user') || '';
+      const payerEmail = cliente?.email?.trim() || '';
 
       if (!payerEmail) {
         this.errorPago = 'No encontramos un correo asociado a tu cuenta. Actualiza tu perfil e intenta de nuevo.';
+        this.paso = 'error-pago';
+        return;
+      }
+
+      const deviceId = (window as any).MP_DEVICE_SESSION_ID as string | undefined;
+
+      console.log('[PAGO] Token generado:', {
+        tokenId:           cardToken.id,
+        last4:             cardToken.last_four_digits,
+        payment_method_id: cardToken.payment_method_id,
+        cardPaymentMethodId:     this.cardPaymentMethodId,
+        detectedPaymentMethodId: this.detectedPaymentMethodId,
+        pmId_final:        pmId,
+        payerEmail,
+        installments:      this.installments,
+        deviceId:          deviceId ?? '⚠️ NO DISPONIBLE',
+        pedidoId:          this.pedidoId,
+        total:             this.total,
+      });
+
+      if (!pmId) {
+        console.error('[PAGO] payment_method_id vacío — el pago será rechazado por MP.');
+        this.errorPago = 'No se pudo detectar el tipo de tarjeta. Asegúrate de ingresar el número completo antes de continuar.';
         this.paso = 'error-pago';
         return;
       }
@@ -271,9 +295,10 @@ export class PagoComponent implements OnInit, OnDestroy {
             : undefined
         },
         pedidoId: this.pedidoId
-      }).subscribe({
+      }, deviceId).subscribe({
         next: (resp) => {
           if (this.destruido) return;
+          console.log('[PAGO] Respuesta de MP:', { status: resp.status, status_detail: resp.status_detail, id: resp.id });
           if (resp.status === 'approved') {
             this.exito = { metodo: 'Tarjeta', detalle: `ID: ${resp.id}` };
             this.paso = 'exito';
@@ -287,7 +312,8 @@ export class PagoComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           if (this.destruido) return;
-          const msg = err?.error?.message || err?.error?.detail || 'Error al procesar el pago con tarjeta.';
+          console.error('[PAGO] Error HTTP del backend:', err?.status, err?.error);
+          const msg = err?.error?.error || err?.error?.message || err?.error?.detail || 'Error al procesar el pago con tarjeta.';
           this.errorPago = msg;
           this.paso = 'error-pago';
         }
@@ -583,6 +609,13 @@ export class PagoComponent implements OnInit, OnDestroy {
       );
       return sum + ((lp.comida?.price ?? 0) + adicionales) * (lp.cantidad ?? 0);
     }, 0);
+  }
+
+  private actualizarViewSecurity(view: string): void {
+    const script = document.querySelector('script[src*="security.js"]') as HTMLScriptElement | null;
+    if (script) {
+      script.setAttribute('view', view);
+    }
   }
 
   private generarReferencia(): string {
