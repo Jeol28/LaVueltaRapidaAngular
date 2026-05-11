@@ -231,7 +231,8 @@ export class PagoComponent implements OnInit, OnDestroy {
         this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
       }
 
-      const [expMonth, expYear] = this.cardExpiry.split('/');
+      const [expMonth, expYearShort] = this.cardExpiry.split('/');
+      const expYear = expYearShort.length === 2 ? '20' + expYearShort : expYearShort;
 
       const cardToken = await this.mp.createCardToken({
         cardNumber:            this.cardNumber.replace(/\s/g, ''),
@@ -246,7 +247,7 @@ export class PagoComponent implements OnInit, OnDestroy {
       this.pasoPrevio = 'tarjeta';
       this.paso = 'procesando';
 
-      const pmId: string = this.cardPaymentMethodId || cardToken.payment_method_id || this.detectedPaymentMethodId || 'visa';
+      const pmId: string = cardToken.payment_method_id || this.cardPaymentMethodId || this.detectedPaymentMethodId;
       const cliente = this.pedido?.cliente;
       const payerEmail = cliente?.email?.trim() || localStorage.getItem('user') || '';
 
