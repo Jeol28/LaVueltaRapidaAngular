@@ -504,10 +504,21 @@ export class PagoComponent implements OnInit, OnDestroy {
       this.bindFieldEvents(this.mpExpirationYearField,  'cardYear');
       this.bindFieldEvents(this.mpSecurityCodeField,    'cardCvc');
 
-      // Mostrar campos cuando el primero esté listo
-      this.mpCardNumberField.on('ready', () => {
-        this.ngZone.run(() => { this.secureFieldsReady = true; });
-      });
+      // Mostrar el formulario solo cuando los 4 campos estén listos + margen extra
+      let readyCount = 0;
+      const totalFields = 4;
+      const onFieldReady = () => {
+        readyCount++;
+        if (readyCount >= totalFields) {
+          setTimeout(() => {
+            this.ngZone.run(() => { this.secureFieldsReady = true; });
+          }, 600);
+        }
+      };
+      this.mpCardNumberField.on('ready',      onFieldReady);
+      this.mpExpirationMonthField.on('ready', onFieldReady);
+      this.mpExpirationYearField.on('ready',  onFieldReady);
+      this.mpSecurityCodeField.on('ready',    onFieldReady);
 
       this.mpCardNumberField.on('binChange', async (data: any) => {
         const bin = data?.bin;
