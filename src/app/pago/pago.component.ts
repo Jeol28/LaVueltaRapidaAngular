@@ -156,13 +156,7 @@ export class PagoComponent implements OnInit, OnDestroy {
 
     this.cargarSdkMP().then(() => {
       if (!this.mp) {
-        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, {
-          locale: 'es-CO',
-          customFonts: [
-            { src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security-disc.woff2', fontFamily: 'text-security-disc' },
-            { src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security-disc.woff',  fontFamily: 'text-security-disc' }
-          ]
-        });
+        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
       }
     }).catch(() => {});
   }
@@ -253,13 +247,7 @@ export class PagoComponent implements OnInit, OnDestroy {
     try {
       if (!this.mp) {
         await this.cargarSdkMP();
-        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, {
-          locale: 'es-CO',
-          customFonts: [
-            { src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security-disc.woff2', fontFamily: 'text-security-disc' },
-            { src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security-disc.woff',  fontFamily: 'text-security-disc' }
-          ]
-        });
+        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
       }
 
       // Tokenización vía Secure Fields: MP lee número/vencimiento/CVV
@@ -509,11 +497,14 @@ export class PagoComponent implements OnInit, OnDestroy {
 
       const cvcStyle = {
         ...baseStyle,
-        fontFamily: 'text-security-disc, monospace',
-        '-webkit-text-security': 'disc'
+        fontFamily: 'text-security-disc, monospace'
       } as any;
       this.mpSecurityCodeField = this.mp.fields
-        .create('securityCode', { placeholder: '•••', style: cvcStyle })
+        .create('securityCode', {
+          placeholder: '***',
+          style: cvcStyle,
+          customFonts: [{ src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security.css' }]
+        })
         .mount('mpSecurityCode');
 
       this.bindFieldEvents(this.mpCardNumberField,      'cardNumber');
