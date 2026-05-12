@@ -49,6 +49,8 @@ export class MenuComponent implements OnInit, OnDestroy {
           this.scrollToFragment(fragment);
         } else if (saved) {
           window.scrollTo({ top: +saved, behavior: 'instant' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
         this.loaded = true;
