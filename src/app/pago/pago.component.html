@@ -236,7 +236,14 @@
           <h3 class="pg-panel-title">DATOS DE TARJETA</h3>
         </div>
 
-        <div class="pg-form">
+        <!-- Loader mientras montan los Secure Fields -->
+        <div class="pg-tarjeta-loader" *ngIf="!secureFieldsReady">
+          <div class="pg-loader-ring"></div>
+          <p class="pg-tarjeta-loader-txt">CARGANDO FORMULARIO SEGURO</p>
+          <p class="pg-tarjeta-loader-sub">Inicializando entorno PCI · Mercado Pago</p>
+        </div>
+
+        <div class="pg-form" [class.pg-form-ready]="secureFieldsReady">
 
           <!-- Previsualización de tarjeta -->
           <div class="pg-card-preview" [attr.data-tipo]="cardBrand">
@@ -261,9 +268,7 @@
             <div class="pg-mp-secure-wrap">
               <div id="mpCardNumber" class="pg-mp-secure"
                    [class.pg-mp-focus]="cardNumberFocus"
-                   [class.pg-mp-invalid]="cardNumberError"
-                   [class.pg-mp-visible]="secureFieldsReady"></div>
-              <div class="pg-mp-shimmer" *ngIf="!secureFieldsReady"></div>
+                   [class.pg-mp-invalid]="cardNumberError"></div>
             </div>
           </div>
 
@@ -286,9 +291,7 @@
             <div class="pg-mp-secure-wrap">
               <div id="mpExpirationDate" class="pg-mp-secure"
                    [class.pg-mp-focus]="cardExpiryFocus"
-                   [class.pg-mp-invalid]="cardExpiryError"
-                   [class.pg-mp-visible]="secureFieldsReady"></div>
-              <div class="pg-mp-shimmer" *ngIf="!secureFieldsReady"></div>
+                   [class.pg-mp-invalid]="cardExpiryError"></div>
             </div>
           </div>
           <div class="pg-field">
@@ -296,9 +299,7 @@
             <div class="pg-mp-secure-wrap">
               <div id="mpSecurityCode" class="pg-mp-secure"
                    [class.pg-mp-focus]="cardCvcFocus"
-                   [class.pg-mp-invalid]="cardCvcError"
-                   [class.pg-mp-visible]="secureFieldsReady"></div>
-              <div class="pg-mp-shimmer" *ngIf="!secureFieldsReady"></div>
+                   [class.pg-mp-invalid]="cardCvcError"></div>
             </div>
           </div>
 

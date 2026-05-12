@@ -541,10 +541,44 @@
   box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.18);
 }
 
+/* Formulario de tarjeta — oculto hasta que los Secure Fields estén listos */
+.pg-form {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.pg-form.pg-form-ready {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Loader de pantalla completa mientras monta el formulario seguro */
+.pg-tarjeta-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 48px 24px;
+}
+.pg-tarjeta-loader-txt {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #fff;
+  margin: 0;
+}
+.pg-tarjeta-loader-sub {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
 /* Contenedores PCI Secure Fields de Mercado Pago */
 .pg-mp-secure-wrap {
-  position: relative;
   height: 46px;
+  position: relative;
 }
 .pg-mp-secure {
   position: absolute;
@@ -556,12 +590,6 @@
   display: flex;
   align-items: center;
   transition: border-color .2s, box-shadow .2s;
-  opacity: 0;
-  pointer-events: none;
-}
-.pg-mp-secure.pg-mp-visible {
-  opacity: 1;
-  pointer-events: auto;
 }
 .pg-mp-secure iframe {
   width: 100% !important;
@@ -575,33 +603,6 @@
 }
 .pg-mp-secure.pg-mp-invalid {
   border-color: #e10600;
-}
-
-/* Shimmer mientras carga el secure field */
-.pg-mp-shimmer {
-  position: absolute;
-  inset: 0;
-  background: #0a0a0a;
-  border: 1px solid #2a2a2a;
-  border-radius: 4px;
-  overflow: hidden;
-}
-.pg-mp-shimmer::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,255,255,0.04) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: pg-shimmer 1.4s ease-in-out infinite;
-}
-@keyframes pg-shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position:  200% 0; }
 }
 .pg-field select {
   font-family: 'Inter', system-ui, sans-serif;
