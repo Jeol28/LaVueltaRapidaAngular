@@ -42,7 +42,7 @@
 
     <!-- NO LOGUEADO -->
     <div *ngIf="!user" class="header-btns">
-        <a (click)="login()" class="btn btn-outline" style="cursor:pointer">INICIAR SESIÓN</a>
+        <a (click)="login()" class="btn btn-outline" id="loginBtn" style="cursor:pointer">INICIAR SESIÓN</a>
         <a routerLink="/register" class="btn">REGISTRARSE</a>
     </div>
 
@@ -136,7 +136,7 @@
         </div>
 
         <!-- Logout -->
-        <a (click)="logout()" class="btn btn-logout">
+        <a (click)="logout()" class="btn btn-logout" id="cerrarSesionBtn">
         CERRAR SESIÓN
         </a>
 
