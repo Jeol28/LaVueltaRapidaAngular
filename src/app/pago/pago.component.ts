@@ -495,8 +495,9 @@ export class PagoComponent implements OnInit, OnDestroy {
         .create('expirationYear', { placeholder: 'AA', style: baseStyle })
         .mount('mpExpirationYear');
 
+      const cvcStyle = { ...baseStyle, '-webkit-text-security': 'disc' } as any;
       this.mpSecurityCodeField = this.mp.fields
-        .create('securityCode', { placeholder: '•••', style: baseStyle })
+        .create('securityCode', { placeholder: '•••', style: cvcStyle })
         .mount('mpSecurityCode');
 
       this.bindFieldEvents(this.mpCardNumberField,      'cardNumber');
