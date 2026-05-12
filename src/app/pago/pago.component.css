@@ -575,6 +575,23 @@
   margin: 0;
 }
 
+/* Layout mes / año lado a lado */
+.pg-expiry-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pg-expiry-wrap .pg-mp-secure-wrap {
+  flex: 1;
+}
+.pg-expiry-sep {
+  color: #555;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
 /* Contenedores PCI Secure Fields de Mercado Pago */
 .pg-mp-secure-wrap {
   height: 46px;

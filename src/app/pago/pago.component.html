@@ -285,13 +285,21 @@
               autocomplete="cc-name">
           </div>
 
-          <!-- Vencimiento + CVV (Secure Fields MP) -->
+          <!-- Vencimiento (mes + año separados) + CVV -->
           <div class="pg-field">
             <span>VENCIMIENTO</span>
-            <div class="pg-mp-secure-wrap">
-              <div id="mpExpirationDate" class="pg-mp-secure"
-                   [class.pg-mp-focus]="cardExpiryFocus"
-                   [class.pg-mp-invalid]="cardExpiryError"></div>
+            <div class="pg-expiry-wrap">
+              <div class="pg-mp-secure-wrap">
+                <div id="mpExpirationMonth" class="pg-mp-secure"
+                     [class.pg-mp-focus]="cardMonthFocus"
+                     [class.pg-mp-invalid]="cardMonthError"></div>
+              </div>
+              <span class="pg-expiry-sep">/</span>
+              <div class="pg-mp-secure-wrap">
+                <div id="mpExpirationYear" class="pg-mp-secure"
+                     [class.pg-mp-focus]="cardYearFocus"
+                     [class.pg-mp-invalid]="cardYearError"></div>
+              </div>
             </div>
           </div>
           <div class="pg-field">

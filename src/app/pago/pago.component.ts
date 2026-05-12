@@ -42,22 +42,30 @@ export class PagoComponent implements OnInit, OnDestroy {
   cardLast4 = '';
 
   cardNumberValid = false;
-  expirationDateValid = false;
+  expirationMonthValid = false;
+  expirationYearValid = false;
   securityCodeValid = false;
 
+  get expirationDateValid(): boolean {
+    return this.expirationMonthValid && this.expirationYearValid;
+  }
+
   cardNumberFocus = false;
-  cardExpiryFocus = false;
+  cardMonthFocus = false;
+  cardYearFocus = false;
   cardCvcFocus = false;
 
   cardNumberError = false;
-  cardExpiryError = false;
+  cardMonthError = false;
+  cardYearError = false;
   cardCvcError = false;
 
   cardPaymentMethodId = '';
   private detectedPaymentMethodId = '';
 
   private mpCardNumberField: any = null;
-  private mpExpirationDateField: any = null;
+  private mpExpirationMonthField: any = null;
+  private mpExpirationYearField: any = null;
   private mpSecurityCodeField: any = null;
 
   readonly docTypeOptions = [
@@ -458,7 +466,9 @@ export class PagoComponent implements OnInit, OnDestroy {
     if (this.mpCardNumberField) return;
 
     // Esperar a que Angular haya renderizado los contenedores en el DOM
-    if (!document.getElementById('mpCardNumber')) {
+    if (!document.getElementById('mpCardNumber') ||
+        !document.getElementById('mpExpirationMonth') ||
+        !document.getElementById('mpExpirationYear')) {
       if (retries > 0) {
         setTimeout(() => this.initSecureFields(retries - 1), 60);
       }
@@ -477,17 +487,22 @@ export class PagoComponent implements OnInit, OnDestroy {
         .create('cardNumber', { placeholder: '0000 0000 0000 0000', style: baseStyle })
         .mount('mpCardNumber');
 
-      this.mpExpirationDateField = this.mp.fields
-        .create('expirationDate', { placeholder: 'MM/AA', style: baseStyle })
-        .mount('mpExpirationDate');
+      this.mpExpirationMonthField = this.mp.fields
+        .create('expirationMonth', { placeholder: 'MM', style: baseStyle })
+        .mount('mpExpirationMonth');
+
+      this.mpExpirationYearField = this.mp.fields
+        .create('expirationYear', { placeholder: 'AA', style: baseStyle })
+        .mount('mpExpirationYear');
 
       this.mpSecurityCodeField = this.mp.fields
         .create('securityCode', { placeholder: '•••', style: baseStyle })
         .mount('mpSecurityCode');
 
-      this.bindFieldEvents(this.mpCardNumberField, 'cardNumber');
-      this.bindFieldEvents(this.mpExpirationDateField, 'cardExpiry');
-      this.bindFieldEvents(this.mpSecurityCodeField, 'cardCvc');
+      this.bindFieldEvents(this.mpCardNumberField,      'cardNumber');
+      this.bindFieldEvents(this.mpExpirationMonthField, 'cardMonth');
+      this.bindFieldEvents(this.mpExpirationYearField,  'cardYear');
+      this.bindFieldEvents(this.mpSecurityCodeField,    'cardCvc');
 
       // Mostrar campos cuando el primero esté listo
       this.mpCardNumberField.on('ready', () => {
@@ -520,50 +535,48 @@ export class PagoComponent implements OnInit, OnDestroy {
     }
   }
 
-  private bindFieldEvents(field: any, kind: 'cardNumber' | 'cardExpiry' | 'cardCvc'): void {
+  private bindFieldEvents(field: any, kind: 'cardNumber' | 'cardMonth' | 'cardYear' | 'cardCvc'): void {
     if (!field) return;
 
     field.on('focus', () => this.ngZone.run(() => {
       if (kind === 'cardNumber') this.cardNumberFocus = true;
-      if (kind === 'cardExpiry') this.cardExpiryFocus = true;
-      if (kind === 'cardCvc')    this.cardCvcFocus = true;
+      if (kind === 'cardMonth')  this.cardMonthFocus  = true;
+      if (kind === 'cardYear')   this.cardYearFocus   = true;
+      if (kind === 'cardCvc')    this.cardCvcFocus    = true;
     }));
 
     field.on('blur', () => this.ngZone.run(() => {
       if (kind === 'cardNumber') this.cardNumberFocus = false;
-      if (kind === 'cardExpiry') this.cardExpiryFocus = false;
-      if (kind === 'cardCvc')    this.cardCvcFocus = false;
+      if (kind === 'cardMonth')  this.cardMonthFocus  = false;
+      if (kind === 'cardYear')   this.cardYearFocus   = false;
+      if (kind === 'cardCvc')    this.cardCvcFocus    = false;
     }));
 
     field.on('validityChange', (event: any) => this.ngZone.run(() => {
       const valid = !event?.errorMessages || event.errorMessages.length === 0;
-      if (kind === 'cardNumber') {
-        this.cardNumberValid = valid;
-        this.cardNumberError = !valid;
-      }
-      if (kind === 'cardExpiry') {
-        this.expirationDateValid = valid;
-        this.cardExpiryError = !valid;
-      }
-      if (kind === 'cardCvc') {
-        this.securityCodeValid = valid;
-        this.cardCvcError = !valid;
-      }
+      if (kind === 'cardNumber') { this.cardNumberValid      = valid; this.cardNumberError = !valid; }
+      if (kind === 'cardMonth')  { this.expirationMonthValid = valid; this.cardMonthError  = !valid; }
+      if (kind === 'cardYear')   { this.expirationYearValid  = valid; this.cardYearError   = !valid; }
+      if (kind === 'cardCvc')    { this.securityCodeValid    = valid; this.cardCvcError    = !valid; }
     }));
   }
 
   private desmontarCamposMP(): void {
     try { this.mpCardNumberField?.unmount(); } catch {}
-    try { this.mpExpirationDateField?.unmount(); } catch {}
+    try { this.mpExpirationMonthField?.unmount(); } catch {}
+    try { this.mpExpirationYearField?.unmount(); } catch {}
     try { this.mpSecurityCodeField?.unmount(); } catch {}
     this.mpCardNumberField = null;
-    this.mpExpirationDateField = null;
+    this.mpExpirationMonthField = null;
+    this.mpExpirationYearField = null;
     this.mpSecurityCodeField = null;
     this.cardNumberValid = false;
-    this.expirationDateValid = false;
+    this.expirationMonthValid = false;
+    this.expirationYearValid = false;
     this.securityCodeValid = false;
     this.cardNumberError = false;
-    this.cardExpiryError = false;
+    this.cardMonthError = false;
+    this.cardYearError = false;
     this.cardCvcError = false;
     this.cardBrand = '';
     this.cardLast4 = '';
