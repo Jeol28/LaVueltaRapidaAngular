@@ -156,7 +156,13 @@ export class PagoComponent implements OnInit, OnDestroy {
 
     this.cargarSdkMP().then(() => {
       if (!this.mp) {
-        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
+        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, {
+          locale: 'es-CO',
+          customFonts: [
+            { src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security-disc.woff2', fontFamily: 'text-security-disc' },
+            { src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security-disc.woff',  fontFamily: 'text-security-disc' }
+          ]
+        });
       }
     }).catch(() => {});
   }
@@ -247,7 +253,13 @@ export class PagoComponent implements OnInit, OnDestroy {
     try {
       if (!this.mp) {
         await this.cargarSdkMP();
-        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CO' });
+        this.mp = new (window as any).MercadoPago(MP_PUBLIC_KEY, {
+          locale: 'es-CO',
+          customFonts: [
+            { src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security-disc.woff2', fontFamily: 'text-security-disc' },
+            { src: 'https://cdn.jsdelivr.net/npm/text-security/dist/text-security-disc.woff',  fontFamily: 'text-security-disc' }
+          ]
+        });
       }
 
       // Tokenización vía Secure Fields: MP lee número/vencimiento/CVV
@@ -500,12 +512,8 @@ export class PagoComponent implements OnInit, OnDestroy {
         fontFamily: 'text-security-disc, monospace',
         '-webkit-text-security': 'disc'
       } as any;
-      const cvcFonts = [
-        { src: 'https://cdn.jsdelivr.net/gh/noppa/text-security@master/dist/text-security-disc.woff2' },
-        { src: 'https://cdn.jsdelivr.net/gh/noppa/text-security@master/dist/text-security-disc.woff' }
-      ];
       this.mpSecurityCodeField = this.mp.fields
-        .create('securityCode', { placeholder: '•••', style: cvcStyle, customFonts: cvcFonts })
+        .create('securityCode', { placeholder: '•••', style: cvcStyle })
         .mount('mpSecurityCode');
 
       this.bindFieldEvents(this.mpCardNumberField,      'cardNumber');
