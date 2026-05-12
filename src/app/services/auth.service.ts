@@ -47,6 +47,15 @@ export class AuthService {
     );
   }
 
+  verify(username: string, role: string): Observable<boolean> {
+    return this.http
+      .get(`${API_URL}/auth/verify`, { params: { username, role }, observe: 'response' })
+      .pipe(
+        map(res => res.status === 200),
+        catchError(() => of(false))
+      );
+  }
+
   solicitarRecuperacion(email: string): Observable<void> {
     return this.http.post<void>(`${API_URL}/auth/recuperar-contrasena`, { email });
   }
