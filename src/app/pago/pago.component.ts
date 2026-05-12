@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PedidoService } from '../services/pedido.service';
 import { PagoService } from '../services/pago.service';
+import { CarritoService } from '../services/carrito.service';
 import { Pedido } from '../models/pedido.model';
 
 declare const MercadoPago: any;
@@ -105,6 +106,7 @@ export class PagoComponent implements OnInit, OnDestroy {
     private router: Router,
     private pedidoService: PedidoService,
     private pagoService: PagoService,
+    private carritoService: CarritoService,
     private ngZone: NgZone
   ) {}
 
@@ -312,6 +314,7 @@ export class PagoComponent implements OnInit, OnDestroy {
           if (this.destruido) return;
           console.log('[PAGO] Respuesta de MP:', { status: resp.status, status_detail: resp.status_detail, id: resp.id });
           if (resp.status === 'approved') {
+            this.carritoService.limpiarTrasCheckout();
             this.exito = { metodo: 'Tarjeta', detalle: `ID: ${resp.id}` };
             this.paso = 'exito';
           } else if (resp.status === 'in_process' || resp.status === 'pending') {
@@ -354,6 +357,7 @@ export class PagoComponent implements OnInit, OnDestroy {
     this.pagoService.confirmarPresencial(this.pedidoId, metodo).subscribe({
       next: () => {
         if (this.destruido) return;
+        this.carritoService.limpiarTrasCheckout();
         this.exito = { metodo: this.labelPresencial(metodo) };
         this.paso = 'exito';
       },

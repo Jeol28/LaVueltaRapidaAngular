@@ -158,6 +158,11 @@ export class CarritoService {
     this.guardarEnStorage(this.items);
   }
 
+  limpiarTrasCheckout(): void {
+    this.emitir([]);
+    localStorage.removeItem(STORAGE_KEY);
+  }
+
   private limpiarLocal(): void {
     this.emitir([]);
     localStorage.removeItem(STORAGE_KEY);

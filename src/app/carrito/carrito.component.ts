@@ -61,7 +61,6 @@ export class CarritoComponent implements OnInit, OnDestroy {
     this.pedidoService.crearDesdeCarrito(+carritoId).subscribe({
       next: (pedido) => {
         this.cargando = false;
-        this.carritoService.vaciar();
         this.router.navigate(['/pago', pedido.id], {
           state: { total: totalPedido }
         });

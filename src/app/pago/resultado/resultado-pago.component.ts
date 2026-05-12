@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PedidoService } from '../../services/pedido.service';
+import { CarritoService } from '../../services/carrito.service';
 
 type ResultadoEstado = 'cargando' | 'aprobado' | 'pendiente' | 'rechazado' | 'desconocido';
 
@@ -50,7 +51,8 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private carritoService: CarritoService
   ) {}
 
   ngOnInit(): void {
@@ -146,6 +148,7 @@ export class ResultadoPagoComponent implements OnInit, OnDestroy {
 
   private programarRedireccion(): void {
     if (this.estado === 'aprobado') {
+      this.carritoService.limpiarTrasCheckout();
       this.timerRedireccion = setTimeout(() => {
         if (!this.destruido) this.irAMisPedidos();
       }, 5000);
