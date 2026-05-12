@@ -495,9 +495,17 @@ export class PagoComponent implements OnInit, OnDestroy {
         .create('expirationYear', { placeholder: 'AA', style: baseStyle })
         .mount('mpExpirationYear');
 
-      const cvcStyle = { ...baseStyle, '-webkit-text-security': 'disc' } as any;
+      const cvcStyle = {
+        ...baseStyle,
+        fontFamily: 'text-security-disc, monospace',
+        '-webkit-text-security': 'disc'
+      } as any;
+      const cvcFonts = [
+        { src: 'https://cdn.jsdelivr.net/gh/noppa/text-security@master/dist/text-security-disc.woff2' },
+        { src: 'https://cdn.jsdelivr.net/gh/noppa/text-security@master/dist/text-security-disc.woff' }
+      ];
       this.mpSecurityCodeField = this.mp.fields
-        .create('securityCode', { placeholder: '•••', style: cvcStyle })
+        .create('securityCode', { placeholder: '•••', style: cvcStyle, customFonts: cvcFonts })
         .mount('mpSecurityCode');
 
       this.bindFieldEvents(this.mpCardNumberField,      'cardNumber');
