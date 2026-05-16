@@ -7,6 +7,7 @@ import { Carrito } from '../models/carrito.model';
 const API_URL = '/api';
 
 export interface LoginResult {
+  token: string;
   username: string;
   role: 'admin' | 'operador' | 'cliente';
   clienteId?: number;
@@ -14,6 +15,7 @@ export interface LoginResult {
 }
 
 interface LoginResponse {
+  token: string;
   username: string;
   role: 'admin' | 'operador' | 'cliente';
   clienteId?: number;

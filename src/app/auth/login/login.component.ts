@@ -27,7 +27,8 @@ export class LoginComponent {
     this.loginError = false;
 
     this.authService.login(this.usuario, this.contrasena).subscribe({
-      next: ({ username, role, clienteId, carritoId }) => {
+      next: ({ token, username, role, clienteId, carritoId }) => {
+        localStorage.setItem('token', token);
         localStorage.setItem('user', username);
         localStorage.setItem('role', role);
 
