@@ -53,21 +53,16 @@ export class PerfilComponent implements OnInit {
     const pedidoParam = this.route.snapshot.queryParamMap.get('pedido');
     this.expandirPedidoId = pedidoParam ? +pedidoParam : null;
 
-    const username = localStorage.getItem('user');
     const role = localStorage.getItem('role');
 
-    if (!username || role !== 'cliente') {
+    if (!localStorage.getItem('user') || role !== 'cliente') {
       this.router.navigate(['/login']);
       return;
     }
 
-    this.clienteService.findByUsername(username).subscribe({
+    this.clienteService.getMe().subscribe({
       next: cliente => {
-        this.cliente = cliente ?? null;
-        if (!this.cliente) {
-          this.router.navigate(['/']);
-          return;
-        }
+        this.cliente = cliente;
         this.cargarPedidos();
       },
       error: () => {

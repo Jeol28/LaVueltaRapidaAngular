@@ -26,20 +26,16 @@ export class PerfilOperadorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const username = localStorage.getItem('user');
     const role = localStorage.getItem('role');
 
-    if (!username || role !== 'operador') {
+    if (!localStorage.getItem('user') || role !== 'operador') {
       this.router.navigate(['/login']);
       return;
     }
 
-    this.operadorService.getAll().subscribe({
-      next: operadores => {
-        this.operador = operadores.find(o => o.usuario === username) ?? null;
-        if (!this.operador) {
-          this.router.navigate(['/']);
-        }
+    this.operadorService.getMe().subscribe({
+      next: operador => {
+        this.operador = operador;
       },
       error: () => {
         this.router.navigate(['/']);

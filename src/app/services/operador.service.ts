@@ -14,6 +14,10 @@ export class OperadorService {
     return this.http.get<Operador[]>(`${API_URL}/operadores`);
   }
 
+  getMe(): Observable<Operador> {
+    return this.http.get<Operador>(`${API_URL}/operadores/me`);
+  }
+
   getById(id: number): Observable<Operador> {
     return this.http.get<Operador>(`${API_URL}/operadores/${id}`);
   }

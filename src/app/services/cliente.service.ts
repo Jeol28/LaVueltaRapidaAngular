@@ -16,6 +16,10 @@ export class ClienteService {
     return this.http.get<Cliente[]>(`${API_URL}/clientes`);
   }
 
+  getMe(): Observable<Cliente> {
+    return this.http.get<Cliente>(`${API_URL}/clientes/me`);
+  }
+
   findByUsername(username: string): Observable<Cliente | undefined> {
     return this.getAll().pipe(
       map(clientes => clientes.find(c => c.username === username))
