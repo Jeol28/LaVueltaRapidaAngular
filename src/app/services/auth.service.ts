@@ -14,6 +14,17 @@ export interface LoginResult {
   carritoId?: number;
 }
 
+export interface MeResponse {
+  id: number;
+  role: 'cliente' | 'admin' | 'operador';
+  username: string;
+  name?: string;
+  apellido?: string;
+  email?: string;
+  direccion?: string;
+  telefono?: string;
+}
+
 interface LoginResponse {
   token: string;
   username: string;
@@ -56,6 +67,10 @@ export class AuthService {
         map(res => res.status === 200),
         catchError(() => of(false))
       );
+  }
+
+  getMe(): Observable<MeResponse> {
+    return this.http.get<MeResponse>(`${API_URL}/auth/me`);
   }
 
   solicitarRecuperacion(email: string): Observable<void> {

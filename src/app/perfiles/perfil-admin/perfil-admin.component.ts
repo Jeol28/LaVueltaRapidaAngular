@@ -23,20 +23,16 @@ export class PerfilAdminComponent implements OnInit {
   constructor(private router: Router, private adminService: AdminService) {}
 
   ngOnInit(): void {
-    const username = localStorage.getItem('user');
     const role = localStorage.getItem('role');
 
-    if (!username || role !== 'admin') {
+    if (!localStorage.getItem('user') || role !== 'admin') {
       this.router.navigate(['/login']);
       return;
     }
 
-    this.adminService.findByUsuario(username).subscribe({
+    this.adminService.getMe().subscribe({
       next: admin => {
-        this.admin = admin ?? null;
-        if (!this.admin) {
-          this.router.navigate(['/']);
-        }
+        this.admin = admin;
       },
       error: () => {
         this.router.navigate(['/']);

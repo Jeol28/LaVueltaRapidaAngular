@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Operador } from '../models/operador.model';
+import { AuthService } from './auth.service';
 
 const API_URL = '/api';
 
 @Injectable({ providedIn: 'root' })
 export class OperadorService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getAll(): Observable<Operador[]> {
     return this.http.get<Operador[]>(`${API_URL}/operadores`);
   }
 
   getMe(): Observable<Operador> {
-    return this.http.get<Operador>(`${API_URL}/operadores/me`);
+    return this.authService.getMe().pipe(
+      map(r => ({ id: r.id, nombre: r.name ?? '', usuario: r.username }))
+    );
   }
 
   getById(id: number): Observable<Operador> {

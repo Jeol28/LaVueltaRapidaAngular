@@ -4,16 +4,23 @@ import { forkJoin, map, Observable } from 'rxjs';
 import { Administrador } from '../models/administrador.model';
 import { Cliente } from '../models/cliente.model';
 import { Operador } from '../models/operador.model';
+import { AuthService } from './auth.service';
 
 const API_URL = '/api';
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getAll(): Observable<Administrador[]> {
     return this.http.get<Administrador[]>(`${API_URL}/administradores`);
+  }
+
+  getMe(): Observable<Administrador> {
+    return this.authService.getMe().pipe(
+      map(r => ({ id: r.id, usuario: r.username }))
+    );
   }
 
   findByUsuario(usuario: string): Observable<Administrador | undefined> {
