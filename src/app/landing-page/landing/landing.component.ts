@@ -12,9 +12,11 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
-    if (!token) return;
+    const user  = localStorage.getItem('user');
+    const role  = localStorage.getItem('role');
 
-    const role = localStorage.getItem('role');
+    if (!token || !user || !role) return;
+
     if (role === 'admin') {
       this.router.navigate(['/admin/comidas']);
     } else if (role === 'operador') {

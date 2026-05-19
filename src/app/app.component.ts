@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
       this.authService.verify(username, role).subscribe(exists => {
         if (!exists) {
           localStorage.clear();
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         }
       });
     }

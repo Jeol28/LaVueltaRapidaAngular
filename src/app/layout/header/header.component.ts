@@ -84,6 +84,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('role');
     localStorage.removeItem('clienteId');

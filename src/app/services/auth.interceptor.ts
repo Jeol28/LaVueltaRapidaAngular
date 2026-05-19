@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
           ['token', 'user', 'role', 'clienteId', 'carritoId'].forEach(k =>
             localStorage.removeItem(k)
           );
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         }
         return throwError(() => error);
       })

@@ -48,6 +48,12 @@ export class CarritoService {
       return;
     }
 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.restaurarDesdeStorage();
+      return;
+    }
+
     this.http.get<Carrito>(`${API_URL}/carrito/${carritoId}`).subscribe({
       next: (carrito) => {
         const items = carrito.lineasPedido.map(lp => this.lineaToItem(lp));
