@@ -51,8 +51,6 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
 import { PerfilInfoRowComponent } from './perfiles/shared/perfil-info-row/perfil-info-row.component';
-import { PerfilOperadorComponent } from './perfiles/perfil-operador/perfil-operador.component';
-import { PerfilAdminComponent } from './perfiles/perfil-admin/perfil-admin.component';
 import { OperadorInicioComponent } from './operador/operador-inicio/operador-inicio.component';
 import { OperadorHeroComponent } from './operador/shared/operador-hero/operador-hero.component';
 import { TablaPedidosComponent } from './operador/tabla-pedidos/tabla-pedidos.component';
@@ -181,8 +179,6 @@ import { F1VideosComponent } from './f1-standings/f1-videos/f1-videos.component'
 
     PerfilComponent,
     PerfilInfoRowComponent,
-    PerfilOperadorComponent,
-    PerfilAdminComponent,
     OperadorInicioComponent,
     OperadorHeroComponent,
     TablaPedidosComponent,

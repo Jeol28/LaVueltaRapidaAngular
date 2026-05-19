@@ -1,13 +1,18 @@
 <!-- ══════════ HERO ══════════ -->
 <section class="pf-page-hero">
   <div class="pf-hero-inner">
-    <p class="pf-hero-label">ÁREA DEL PILOTO</p>
+    <p class="pf-hero-label">
+      {{ meData?.role === 'admin' ? 'PANEL ADMINISTRATIVO' :
+         meData?.role === 'operador' ? 'ÁREA DEL OPERADOR' : 'ÁREA DEL PILOTO' }}
+    </p>
     <h1 class="pf-hero-title">MI <span>PERFIL</span></h1>
-    <p class="pf-hero-sub">Gestiona tu información y preferencias</p>
+    <p class="pf-hero-sub">
+      {{ meData?.role === 'admin' ? 'Gestiona tus credenciales de acceso' : 'Gestiona tu información y preferencias' }}
+    </p>
   </div>
 </section>
 
-<section class="pf-section" *ngIf="cliente">
+<section class="pf-section" *ngIf="meData">
 
   <!-- MENSAJE ÉXITO -->
   <div *ngIf="successMsg" class="pf-success-banner">
@@ -45,43 +50,77 @@
         </div>
       </div>
 
-      <!-- NOMBRE Y BADGE -->
-      <h2 class="pf-full-name">{{ cliente.name }} {{ cliente.apellido }}</h2>
-      <div class="pf-username-tag">
-        <span class="pf-at">@</span><span>{{ cliente.username }}</span>
-      </div>
-      <div class="pf-pilot-badge">
-        PILOTO &nbsp;<span>#{{ cliente.id }}</span>
-      </div>
+      <!-- NOMBRE Y BADGE (dinámico por rol) -->
+      <ng-container *ngIf="meData.role === 'cliente'">
+        <h2 class="pf-full-name">{{ meData.name }} {{ meData.apellido }}</h2>
+        <div class="pf-username-tag"><span class="pf-at">@</span><span>{{ meData.username }}</span></div>
+        <div class="pf-pilot-badge">PILOTO &nbsp;<span>#{{ meData.id }}</span></div>
+      </ng-container>
+
+      <ng-container *ngIf="meData.role === 'admin'">
+        <h2 class="pf-full-name">{{ meData.username }}</h2>
+        <div class="pf-username-tag"><span class="pf-at">@</span><span>{{ meData.username }}</span></div>
+        <div class="pf-pilot-badge">ADMINISTRADOR &nbsp;<span>#{{ meData.id }}</span></div>
+      </ng-container>
+
+      <ng-container *ngIf="meData.role === 'operador'">
+        <h2 class="pf-full-name">{{ meData.name }}</h2>
+        <div class="pf-username-tag"><span class="pf-at">@</span><span>{{ meData.username }}</span></div>
+        <div class="pf-pilot-badge">OPERADOR &nbsp;<span>#{{ meData.id }}</span></div>
+      </ng-container>
 
       <hr class="pf-card-divider">
 
-      <!-- INFO ROWS -->
+      <!-- INFO ROWS según rol -->
       <ul class="pf-info-list">
 
-        <app-perfil-info-row label="Nombre completo" [value]="cliente.name + ' ' + cliente.apellido">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </app-perfil-info-row>
+        <!-- Cliente -->
+        <ng-container *ngIf="meData.role === 'cliente'">
+          <app-perfil-info-row label="Nombre completo" [value]="meData.name + ' ' + meData.apellido">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Email" [value]="meData.email ?? ''">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Teléfono" [value]="meData.telefono ?? ''">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.9 19.9 0 0 1 3.09 4.18 2 2 0 0 1 5.09 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 17z"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Dirección" [value]="meData.direccion ?? ''">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Usuario" [value]="'@' + meData.username">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Contraseña" value="••••••••">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </app-perfil-info-row>
+        </ng-container>
 
-        <app-perfil-info-row label="Email" [value]="cliente.email">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
-        </app-perfil-info-row>
+        <!-- Admin -->
+        <ng-container *ngIf="meData.role === 'admin'">
+          <app-perfil-info-row label="Usuario" [value]="'@' + meData.username">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Contraseña" value="••••••••">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Rol" value="Administrador del sistema">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+          </app-perfil-info-row>
+        </ng-container>
 
-        <app-perfil-info-row label="Teléfono" [value]="cliente.telefono">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.9 19.9 0 0 1 3.09 4.18 2 2 0 0 1 5.09 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 17z"/></svg>
-        </app-perfil-info-row>
-
-        <app-perfil-info-row label="Dirección" [value]="cliente.direccion">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </app-perfil-info-row>
-
-        <app-perfil-info-row label="Usuario" [value]="'@' + cliente.username">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </app-perfil-info-row>
-
-        <app-perfil-info-row label="Contraseña" value="••••••••">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </app-perfil-info-row>
+        <!-- Operador -->
+        <ng-container *ngIf="meData.role === 'operador'">
+          <app-perfil-info-row label="Nombre completo" [value]="meData.name ?? ''">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Usuario" [value]="'@' + meData.username">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </app-perfil-info-row>
+          <app-perfil-info-row label="Contraseña" value="••••••••">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </app-perfil-info-row>
+        </ng-container>
 
       </ul>
 
@@ -89,9 +128,9 @@
       <div class="pf-actions">
         <button (click)="enterEditMode()" class="pf-btn pf-btn-primary">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          Editar perfil
+          {{ meData.role === 'admin' ? 'Editar credenciales' : 'Editar perfil' }}
         </button>
-        <button (click)="deleteAccount()" class="pf-btn pf-btn-danger">
+        <button *ngIf="meData.role === 'cliente'" (click)="deleteAccount()" class="pf-btn pf-btn-danger">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
           Eliminar cuenta
         </button>
@@ -100,8 +139,8 @@
     </div>
   </div>
 
-  <!-- ══════ MIS PEDIDOS ══════ -->
-  <div *ngIf="!editMode" id="mis-pedidos" class="pf-wrapper pf-pedidos-wrapper">
+  <!-- ══════ MIS PEDIDOS (solo cliente) ══════ -->
+  <div *ngIf="!editMode && meData.role === 'cliente'" id="mis-pedidos" class="pf-wrapper pf-pedidos-wrapper">
     <div class="pf-pedidos-card">
       <div class="pf-card-stripe"></div>
 
@@ -111,13 +150,11 @@
       </div>
 
       <div class="pf-tabs">
-        <button class="pf-tab" [class.active]="pedidosTab === 'activos'"
-                (click)="cambiarTab('activos')">
+        <button class="pf-tab" [class.active]="pedidosTab === 'activos'" (click)="cambiarTab('activos')">
           Activos
           <span class="pf-tab-count">{{ pedidosActivos.length }}</span>
         </button>
-        <button class="pf-tab" [class.active]="pedidosTab === 'pasados'"
-                (click)="cambiarTab('pasados')">
+        <button class="pf-tab" [class.active]="pedidosTab === 'pasados'" (click)="cambiarTab('pasados')">
           Historial
           <span class="pf-tab-count">{{ pedidosPasados.length }}</span>
         </button>
@@ -126,8 +163,7 @@
       <div *ngIf="cargandoPedidos" class="pf-pedidos-empty">Cargando pedidos…</div>
       <div *ngIf="pedidosError" class="pf-error-banner">{{ pedidosError }}</div>
 
-      <div *ngIf="!cargandoPedidos && !pedidosError && pedidosVisibles.length === 0"
-           class="pf-pedidos-empty">
+      <div *ngIf="!cargandoPedidos && !pedidosError && pedidosVisibles.length === 0" class="pf-pedidos-empty">
         {{ pedidosTab === 'activos'
             ? 'No tienes pedidos activos en este momento.'
             : 'Aún no tienes pedidos entregados en tu historial.' }}
@@ -142,17 +178,13 @@
               <span class="pf-pedido-fecha">{{ formatFecha(pedido.fechaCreacion) }}</span>
             </div>
             <div class="pf-pedido-meta">
-              <span class="pf-pedido-estado" [ngClass]="getEstadoClass(pedido.estado)">
-                {{ pedido.estado }}
-              </span>
+              <span class="pf-pedido-estado" [ngClass]="getEstadoClass(pedido.estado)">{{ pedido.estado }}</span>
               <span class="pf-pago-badge" [ngClass]="getEstadoPagoClass(pedido.estadoPago)">
                 <span class="pago-linea-estado">{{ getEstadoLabel(pedido.estadoPago) }}</span>
                 <span class="pago-linea-metodo">{{ getMetodoPagoLabel(pedido.metodoPago, pedido.mpPaymentMethod, pedido.mpPaymentType) }}</span>
               </span>
               <span class="pf-pedido-total">COP {{ formatCOP(calcularTotal(pedido)) }}</span>
-              <span class="pf-pedido-toggle">
-                {{ pedidoExpandidoId === pedido.id ? '▲' : '▼' }}
-              </span>
+              <span class="pf-pedido-toggle">{{ pedidoExpandidoId === pedido.id ? '▲' : '▼' }}</span>
             </div>
           </button>
 
@@ -164,13 +196,10 @@
               </div>
               <div>
                 <span class="pf-detalle-label">Domiciliario</span>
-                <span class="pf-detalle-value">
-                  {{ pedido.domiciliario ? pedido.domiciliario.nombre : 'Sin asignar' }}
-                </span>
+                <span class="pf-detalle-value">{{ pedido.domiciliario ? pedido.domiciliario.nombre : 'Sin asignar' }}</span>
               </div>
             </div>
 
-            <!-- Información de pago -->
             <div class="pf-pago-info">
               <div class="pf-pago-info-row">
                 <div>
@@ -189,8 +218,7 @@
                   <span class="pf-detalle-value">{{ formatFecha(pedido.fechaPago) }}</span>
                 </div>
               </div>
-              <div *ngIf="pedido.estadoPago === 'PENDIENTE' || pedido.estadoPago === 'EN_PROCESO'"
-                   class="pf-pago-aviso">
+              <div *ngIf="pedido.estadoPago === 'PENDIENTE' || pedido.estadoPago === 'EN_PROCESO'" class="pf-pago-aviso">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 El pago se actualizará automáticamente cuando sea confirmado.
               </div>
@@ -204,9 +232,7 @@
                   <span class="pf-linea-subtotal">COP {{ formatCOP(calcularSubtotalLinea(linea)) }}</span>
                 </div>
                 <ul *ngIf="linea.adicionales?.length" class="pf-linea-adicionales">
-                  <li *ngFor="let lpa of linea.adicionales">
-                    + {{ lpa.adicional.name }} ({{ formatCOP(lpa.adicional.price) }})
-                  </li>
+                  <li *ngFor="let lpa of linea.adicionales">+ {{ lpa.adicional.name }} ({{ formatCOP(lpa.adicional.price) }})</li>
                 </ul>
               </li>
             </ul>
@@ -233,7 +259,7 @@
           <span>{{ initial }}</span>
         </div>
         <div>
-          <h2 class="pf-edit-title">Editar perfil</h2>
+          <h2 class="pf-edit-title">{{ meData.role === 'admin' ? 'Editar credenciales' : 'Editar perfil' }}</h2>
           <p class="pf-edit-sub">Modifica tus datos y guarda los cambios</p>
         </div>
       </div>
@@ -244,50 +270,83 @@
 
         <div class="pf-form-grid">
 
-          <div class="pf-field">
-            <label>Nombre</label>
-            <input type="text" [(ngModel)]="editForm.name" name="name" required placeholder="Tu nombre">
-          </div>
-
-          <div class="pf-field">
-            <label>Apellido</label>
-            <input type="text" [(ngModel)]="editForm.apellido" name="apellido" required placeholder="Tu apellido">
-          </div>
-
-          <div class="pf-field">
-            <label>Email</label>
-            <input type="email" [(ngModel)]="editForm.email" name="email" required placeholder="correo@ejemplo.com">
-          </div>
-
-          <div class="pf-field">
-            <label>Usuario</label>
-            <input type="text" [(ngModel)]="editForm.username" name="username" required placeholder="Ej: carlos_f1">
-          </div>
-
-          <div class="pf-field">
-            <label>Dirección</label>
-            <input type="text" [(ngModel)]="editForm.direccion" name="direccion" placeholder="Tu dirección de entrega">
-          </div>
-
-          <div class="pf-field">
-            <label>Teléfono</label>
-            <input type="text" [(ngModel)]="editForm.telefono" name="telefono" placeholder="+57 000 000 0000">
-          </div>
-
-          <div class="pf-field pf-field-full">
-            <label>Contraseña</label>
-            <div class="pf-password-wrapper">
-              <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="editForm.password" name="password" placeholder="Tu contraseña">
-              <button type="button" class="pf-toggle-password" (click)="showPassword = !showPassword" [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
-                <svg *ngIf="!showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-                </svg>
-                <svg *ngIf="showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>
-                </svg>
-              </button>
+          <!-- Campos cliente -->
+          <ng-container *ngIf="meData.role === 'cliente'">
+            <div class="pf-field">
+              <label>Nombre</label>
+              <input type="text" [(ngModel)]="editForm.name" name="name" required placeholder="Tu nombre">
             </div>
-          </div>
+            <div class="pf-field">
+              <label>Apellido</label>
+              <input type="text" [(ngModel)]="editForm.apellido" name="apellido" required placeholder="Tu apellido">
+            </div>
+            <div class="pf-field">
+              <label>Email</label>
+              <input type="email" [(ngModel)]="editForm.email" name="email" required placeholder="correo@ejemplo.com">
+            </div>
+            <div class="pf-field">
+              <label>Usuario</label>
+              <input type="text" [(ngModel)]="editForm.username" name="username" required placeholder="Ej: carlos_f1">
+            </div>
+            <div class="pf-field">
+              <label>Dirección</label>
+              <input type="text" [(ngModel)]="editForm.direccion" name="direccion" placeholder="Tu dirección de entrega">
+            </div>
+            <div class="pf-field">
+              <label>Teléfono</label>
+              <input type="text" [(ngModel)]="editForm.telefono" name="telefono" placeholder="+57 000 000 0000">
+            </div>
+            <div class="pf-field pf-field-full">
+              <label>Contraseña</label>
+              <div class="pf-password-wrapper">
+                <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="editForm.password" name="password" placeholder="Tu contraseña">
+                <button type="button" class="pf-toggle-password" (click)="showPassword = !showPassword" [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+                  <svg *ngIf="!showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg *ngIf="showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Campos admin -->
+          <ng-container *ngIf="meData.role === 'admin'">
+            <div class="pf-field pf-field-full">
+              <label>Usuario</label>
+              <input type="text" [(ngModel)]="editForm.usuario" name="usuario" required placeholder="Nombre de usuario">
+            </div>
+            <div class="pf-field pf-field-full">
+              <label>Contraseña</label>
+              <div class="pf-password-wrapper">
+                <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="editForm.contrasena" name="contrasena" placeholder="Tu contraseña">
+                <button type="button" class="pf-toggle-password" (click)="showPassword = !showPassword" [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+                  <svg *ngIf="!showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg *ngIf="showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Campos operador -->
+          <ng-container *ngIf="meData.role === 'operador'">
+            <div class="pf-field pf-field-full">
+              <label>Nombre completo</label>
+              <input type="text" [(ngModel)]="editForm.nombre" name="nombre" required placeholder="Tu nombre completo">
+            </div>
+            <div class="pf-field">
+              <label>Usuario</label>
+              <input type="text" [(ngModel)]="editForm.usuario" name="usuario" required placeholder="Ej: operador_01">
+            </div>
+            <div class="pf-field">
+              <label>Contraseña</label>
+              <div class="pf-password-wrapper">
+                <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="editForm.contrasena" name="contrasena" placeholder="Tu contraseña">
+                <button type="button" class="pf-toggle-password" (click)="showPassword = !showPassword" [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+                  <svg *ngIf="!showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg *ngIf="showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+          </ng-container>
 
         </div>
 
@@ -299,21 +358,15 @@
           <div class="pf-password-wrapper">
             <input [type]="showCurrentPassword ? 'text' : 'password'" [(ngModel)]="currentPassword" name="currentPassword" required placeholder="Ingresa tu contraseña para confirmar">
             <button type="button" class="pf-toggle-password" (click)="showCurrentPassword = !showCurrentPassword" [attr.aria-label]="showCurrentPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
-              <svg *ngIf="!showCurrentPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-              </svg>
-              <svg *ngIf="showCurrentPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>
-              </svg>
+              <svg *ngIf="!showCurrentPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg *ngIf="showCurrentPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
             </button>
           </div>
           <p class="pf-confirm-hint">Requerida para guardar cualquier cambio</p>
         </div>
 
         <div class="pf-actions">
-          <button type="button" (click)="cancelEdit()" class="pf-btn pf-btn-ghost">
-            Cancelar
-          </button>
+          <button type="button" (click)="cancelEdit()" class="pf-btn pf-btn-ghost">Cancelar</button>
           <button type="submit" [disabled]="editFormRef.invalid" class="pf-btn pf-btn-primary">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             Confirmar cambios

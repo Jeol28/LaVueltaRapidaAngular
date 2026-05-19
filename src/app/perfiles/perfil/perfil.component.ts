@@ -1,13 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Cliente } from '../../models/cliente.model';
+import { Administrador } from '../../models/administrador.model';
+import { Operador } from '../../models/operador.model';
 import { Pedido } from '../../models/pedido.model';
 import { LineaPedido } from '../../models/linea-pedido.model';
 import { EstadoPedido } from '../../models/estado-pedido.model';
+import { AuthService, MeResponse } from '../../services/auth.service';
 import { ClienteService } from '../../services/cliente.service';
+import { AdminService } from '../../services/admin.service';
+import { OperadorService } from '../../services/operador.service';
 import { PedidoService } from '../../services/pedido.service';
 
 type PedidosTab = 'activos' | 'pasados';
+
+interface EditFormData {
+  name?: string; apellido?: string; email?: string; username?: string;
+  password?: string; direccion?: string; telefono?: string;
+  usuario?: string; contrasena?: string; nombre?: string;
+}
 
 @Component({
   selector: 'app-perfil',
@@ -16,35 +27,37 @@ type PedidosTab = 'activos' | 'pasados';
 })
 export class PerfilComponent implements OnInit {
 
-  cliente: Cliente | null = null;
-  editMode: boolean = false;
-  editForm: Partial<Cliente> = {};
-  currentPassword: string = '';
-  successMsg: boolean = false;
-  errorMsg: string = '';
+  meData: MeResponse | null = null;
+  editMode = false;
+  editForm: EditFormData = {};
+  currentPassword = '';
+  successMsg = false;
+  errorMsg = '';
 
-  showPassword: boolean = false;
-  showCurrentPassword: boolean = false;
+  showPassword = false;
+  showCurrentPassword = false;
 
-  showToastError: boolean = false;
-  hideToastError: boolean = false;
-  toastErrorMsg: string = '';
+  showToastError = false;
+  hideToastError = false;
+  toastErrorMsg = '';
 
   pedidos: Pedido[] = [];
   pedidosTab: PedidosTab = 'activos';
   pedidoExpandidoId: number | null = null;
-  cargandoPedidos: boolean = false;
-  pedidosError: string = '';
+  cargandoPedidos = false;
+  pedidosError = '';
 
   private readonly estadosActivos: EstadoPedido[] = ['RECIBIDO', 'COCINANDO', 'ENVIADO'];
-
   private scrollToPedidos = false;
   private expandirPedidoId: number | null = null;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private clienteService: ClienteService,
+    private adminService: AdminService,
+    private operadorService: OperadorService,
     private pedidoService: PedidoService
   ) {}
 
@@ -53,43 +66,38 @@ export class PerfilComponent implements OnInit {
     const pedidoParam = this.route.snapshot.queryParamMap.get('pedido');
     this.expandirPedidoId = pedidoParam ? +pedidoParam : null;
 
-    const role = localStorage.getItem('role');
-
-    if (!localStorage.getItem('user') || role !== 'cliente') {
+    if (!localStorage.getItem('user') || !localStorage.getItem('role')) {
       this.router.navigate(['/login']);
       return;
     }
 
-    this.clienteService.getMe().subscribe({
-      next: cliente => {
-        this.cliente = cliente;
-        this.cargarPedidos();
+    this.authService.getMe().subscribe({
+      next: data => {
+        this.meData = data;
+        if (data.role === 'cliente') this.cargarPedidos();
       },
-      error: () => {
-        this.router.navigate(['/']);
-      }
+      error: () => this.router.navigate(['/'])
     });
   }
 
   get initial(): string {
-    return this.cliente?.name?.charAt(0).toUpperCase() ?? '?';
+    if (!this.meData) return '?';
+    const src = this.meData.name || this.meData.username;
+    return src?.charAt(0).toUpperCase() ?? '?';
   }
 
-  // ── Pedidos ──────────────────────────────────────────────────────────────
+  // ── Pedidos (solo cliente) ────────────────────────────────────────────────
   cargarPedidos(): void {
-    if (!this.cliente) return;
+    if (!this.meData) return;
     this.cargandoPedidos = true;
     this.pedidosError = '';
-
-    this.pedidoService.getByCliente(this.cliente.id).subscribe({
+    this.pedidoService.getByCliente(this.meData.id).subscribe({
       next: pedidos => {
         this.pedidos = pedidos.sort(
           (a, b) => this.parseFecha(b.fechaCreacion) - this.parseFecha(a.fechaCreacion)
         );
         this.cargandoPedidos = false;
-        if (this.expandirPedidoId) {
-          this.pedidoExpandidoId = this.expandirPedidoId;
-        }
+        if (this.expandirPedidoId) this.pedidoExpandidoId = this.expandirPedidoId;
         if (this.scrollToPedidos) {
           setTimeout(() => {
             document.getElementById('mis-pedidos')?.scrollIntoView({ behavior: 'smooth' });
@@ -103,22 +111,10 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  cambiarTab(tab: PedidosTab): void {
-    this.pedidosTab = tab;
-    this.pedidoExpandidoId = null;
-  }
-
-  get pedidosActivos(): Pedido[] {
-    return this.pedidos.filter(p => this.estadosActivos.includes(p.estado));
-  }
-
-  get pedidosPasados(): Pedido[] {
-    return this.pedidos.filter(p => p.estado === 'ENTREGADO');
-  }
-
-  get pedidosVisibles(): Pedido[] {
-    return this.pedidosTab === 'activos' ? this.pedidosActivos : this.pedidosPasados;
-  }
+  cambiarTab(tab: PedidosTab): void { this.pedidosTab = tab; this.pedidoExpandidoId = null; }
+  get pedidosActivos(): Pedido[] { return this.pedidos.filter(p => this.estadosActivos.includes(p.estado)); }
+  get pedidosPasados(): Pedido[] { return this.pedidos.filter(p => p.estado === 'ENTREGADO'); }
+  get pedidosVisibles(): Pedido[] { return this.pedidosTab === 'activos' ? this.pedidosActivos : this.pedidosPasados; }
 
   toggleDetalle(pedido: Pedido): void {
     this.pedidoExpandidoId = this.pedidoExpandidoId === pedido.id ? null : pedido.id;
@@ -141,28 +137,20 @@ export class PerfilComponent implements OnInit {
     return pedido.lineasPedido.reduce((sum, linea) => sum + this.calcularSubtotalLinea(linea), 0);
   }
 
-  formatCOP(value: number): string {
-    return value.toLocaleString('es-CO');
-  }
+  formatCOP(value: number): string { return value.toLocaleString('es-CO'); }
 
   formatFecha(fecha: string | null | undefined): string {
     if (!fecha) return '—';
     const ms = this.parseFecha(fecha);
     if (!ms) return fecha;
     const d = new Date(ms);
-    return d.toLocaleString('es-CO', {
-      day: '2-digit', month: '2-digit', year: 'numeric',
-      hour: '2-digit', minute: '2-digit'
-    });
+    return d.toLocaleString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
   }
 
   getEstadoClass(estado: EstadoPedido): string {
     const mapa: Record<EstadoPedido, string> = {
-      RECIBIDO:  'estado-recibido',
-      COCINANDO: 'estado-cocinando',
-      ENVIADO:   'estado-enviado',
-      ENTREGADO: 'estado-entregado',
-      CANCELADO: 'estado-cancelado'
+      RECIBIDO: 'estado-recibido', COCINANDO: 'estado-cocinando',
+      ENVIADO: 'estado-enviado', ENTREGADO: 'estado-entregado', CANCELADO: 'estado-cancelado'
     };
     return mapa[estado] ?? '';
   }
@@ -195,18 +183,11 @@ export class PerfilComponent implements OnInit {
   }
 
   getMetodoPagoLabel(metodoPago?: string, mpMethod?: string, mpType?: string): string {
-    if (metodoPago === 'MP_ONLINE' && mpMethod) {
-      return this.mapMpMethod(mpMethod, mpType);
-    }
+    if (metodoPago === 'MP_ONLINE' && mpMethod) return this.mapMpMethod(mpMethod, mpType);
     const mapa: Record<string, string> = {
-      MP_ONLINE: 'Mercado Pago',
-      TARJETA: 'Tarjeta',
-      EFECTIVO: 'Efectivo',
-      DATAFONO: 'Datáfono',
-      NEQUI: 'Nequi',
-      DAVIPLATA: 'Daviplata',
-      TRANSFERENCIA: 'Transferencia',
-      LLAVE: 'Llave en mano'
+      MP_ONLINE: 'Mercado Pago', TARJETA: 'Tarjeta', EFECTIVO: 'Efectivo',
+      DATAFONO: 'Datáfono', NEQUI: 'Nequi', DAVIPLATA: 'Daviplata',
+      TRANSFERENCIA: 'Transferencia', LLAVE: 'Llave en mano'
     };
     return metodoPago ? (mapa[metodoPago] ?? metodoPago) : '—';
   }
@@ -214,17 +195,17 @@ export class PerfilComponent implements OnInit {
   private mapMpMethod(method: string, type?: string): string {
     const m = method.toLowerCase();
     const t = (type ?? '').toLowerCase();
-    if (m === 'visa')       return t === 'debit_card' ? 'Visa débito'        : 'Visa crédito';
+    if (m === 'visa') return t === 'debit_card' ? 'Visa débito' : 'Visa crédito';
     if (m === 'master' || m === 'mastercard') return t === 'debit_card' ? 'Mastercard débito' : 'Mastercard crédito';
-    if (m === 'amex')       return 'American Express';
-    if (m === 'efecty')     return 'Efecty';
-    if (m === 'pse')        return 'PSE';
-    if (m === 'nequi')      return 'Nequi';
-    if (m === 'daviplata')  return 'Daviplata';
+    if (m === 'amex') return 'American Express';
+    if (m === 'efecty') return 'Efecty';
+    if (m === 'pse') return 'PSE';
+    if (m === 'nequi') return 'Nequi';
+    if (m === 'daviplata') return 'Daviplata';
     if (m === 'account_money') return 'Saldo MP';
-    if (t === 'credit_card')   return 'Tarjeta crédito';
-    if (t === 'debit_card')    return 'Tarjeta débito';
-    if (t === 'ticket')        return 'Pago en efectivo';
+    if (t === 'credit_card') return 'Tarjeta crédito';
+    if (t === 'debit_card') return 'Tarjeta débito';
+    if (t === 'ticket') return 'Pago en efectivo';
     if (t === 'bank_transfer') return 'Transferencia bancaria';
     return 'Mercado Pago';
   }
@@ -232,7 +213,7 @@ export class PerfilComponent implements OnInit {
   private triggerToastError(): void {
     this.showToastError = true;
     this.hideToastError = false;
-    setTimeout(() => { this.hideToastError = true; },  3500);
+    setTimeout(() => { this.hideToastError = true; }, 3500);
     setTimeout(() => { this.showToastError = false; }, 4200);
   }
 
@@ -242,10 +223,17 @@ export class PerfilComponent implements OnInit {
     return isNaN(t) ? 0 : t;
   }
 
-  // ── Edición de perfil ───────────────────────────────────────────────────
+  // ── Edición ────────────────────────────────────────────────────────────────
   enterEditMode(): void {
-    if (!this.cliente) return;
-    this.editForm = { ...this.cliente };
+    if (!this.meData) return;
+    const r = this.meData;
+    if (r.role === 'cliente') {
+      this.editForm = { name: r.name, apellido: r.apellido, email: r.email, username: r.username, direccion: r.direccion, telefono: r.telefono };
+    } else if (r.role === 'admin') {
+      this.editForm = { usuario: r.username };
+    } else {
+      this.editForm = { nombre: r.name, usuario: r.username };
+    }
     this.currentPassword = '';
     this.editMode = true;
     this.successMsg = false;
@@ -258,49 +246,89 @@ export class PerfilComponent implements OnInit {
     this.errorMsg = '';
   }
 
-  saveChanges(): void {
-    if (!this.cliente) return;
+  private onSaveSuccess(newUsername: string): void {
+    this.meData!.username = newUsername;
+    localStorage.setItem('user', newUsername);
+    window.dispatchEvent(new CustomEvent('userChanged'));
+    this.editMode = false;
+    this.currentPassword = '';
+    this.successMsg = true;
+    this.errorMsg = '';
+    setTimeout(() => { this.successMsg = false; }, 4000);
+  }
 
+  private onSaveError(err: any): void {
+    this.errorMsg = err?.error?.message
+      ?? err?.error?.error
+      ?? (typeof err?.error === 'string' ? err.error : null)
+      ?? 'No se pudieron guardar los cambios. Intenta de nuevo.';
+  }
+
+  saveChanges(): void {
+    if (!this.meData) return;
     if (!this.currentPassword) {
       this.errorMsg = 'Debes ingresar tu contraseña actual.';
       return;
     }
 
-    const payload: Partial<Cliente> = { ...this.editForm };
-    if (!payload.password) {
-      delete payload.password;
+    const role = this.meData.role;
+
+    if (role === 'cliente') {
+      const payload: Partial<Cliente> = {
+        name: this.editForm.name,
+        apellido: this.editForm.apellido,
+        email: this.editForm.email,
+        username: this.editForm.username,
+        direccion: this.editForm.direccion,
+        telefono: this.editForm.telefono,
+        currentPassword: this.currentPassword
+      };
+      if (this.editForm.password) payload.password = this.editForm.password;
+      this.clienteService.update(this.meData.id, payload).subscribe({
+        next: updated => {
+          if (this.meData) {
+            this.meData.name = updated.name;
+            this.meData.apellido = updated.apellido;
+            this.meData.email = updated.email;
+            this.meData.direccion = updated.direccion;
+            this.meData.telefono = updated.telefono;
+          }
+          this.onSaveSuccess(updated.username);
+        },
+        error: err => this.onSaveError(err)
+      });
+    } else if (role === 'admin') {
+      const payload: Partial<Administrador> = {
+        usuario: this.editForm.usuario,
+        currentPassword: this.currentPassword
+      };
+      if (this.editForm.contrasena) payload.contrasena = this.editForm.contrasena;
+      this.adminService.update(this.meData.id, payload).subscribe({
+        next: (updated: Administrador) => this.onSaveSuccess(updated.usuario),
+        error: (err: any) => this.onSaveError(err)
+      });
+    } else {
+      const payload: Partial<Operador> = {
+        nombre: this.editForm.nombre,
+        usuario: this.editForm.usuario,
+        currentPassword: this.currentPassword
+      };
+      if (this.editForm.contrasena) payload.contrasena = this.editForm.contrasena;
+      this.operadorService.update(this.meData.id, payload).subscribe({
+        next: (updated: Operador) => {
+          if (this.meData) this.meData.name = updated.nombre;
+          this.onSaveSuccess(updated.usuario);
+        },
+        error: (err: any) => this.onSaveError(err)
+      });
     }
-    payload.currentPassword = this.currentPassword;
-
-    this.clienteService.update(this.cliente!.id, payload).subscribe({
-      next: updated => {
-        this.cliente = updated;
-        localStorage.setItem('user', this.cliente.username);
-        window.dispatchEvent(new CustomEvent('userChanged'));
-
-        this.editMode = false;
-        this.currentPassword = '';
-        this.successMsg = true;
-        this.errorMsg = '';
-
-        setTimeout(() => { this.successMsg = false; }, 4000);
-      },
-      error: err => {
-        this.errorMsg = err?.error?.message
-          ?? err?.error?.error
-          ?? (typeof err?.error === 'string' ? err.error : null)
-          ?? 'No se pudieron guardar los cambios. Intenta de nuevo.';
-      }
-    });
   }
 
   deleteAccount(): void {
-    const confirmed = window.confirm(
-      '¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.'
-    );
-    if (!confirmed || !this.cliente) return;
-
-    this.clienteService.delete(this.cliente.id).subscribe({
+    if (this.meData?.role !== 'cliente') return;
+    const confirmed = window.confirm('¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.');
+    if (!confirmed) return;
+    this.clienteService.delete(this.meData.id).subscribe({
       next: () => {
         localStorage.removeItem('user');
         localStorage.removeItem('role');

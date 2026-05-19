@@ -53,7 +53,7 @@
     <div *ngIf="user" class="header-user">
 
         <!-- Nombre -->
-        <a [routerLink]="isAdmin ? '/perfil-admin' : isOperador ? '/perfil-operador' : '/perfil'" class="user-name-link">
+        <a routerLink="/perfil" class="user-name-link">
           <span>{{ user | uppercase }}</span>
         </a>
 
@@ -193,7 +193,7 @@
         <div *ngIf="user" class="mobile-user">
 
           <div class="mobile-user-top">
-            <a [routerLink]="isAdmin ? '/perfil-admin' : isOperador ? '/perfil-operador' : '/perfil'"
+            <a routerLink="/perfil"
                class="user-name-link mobile-user-name">
               <span>{{ user | uppercase }}</span>
             </a>
