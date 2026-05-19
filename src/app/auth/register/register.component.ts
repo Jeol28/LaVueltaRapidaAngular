@@ -61,17 +61,20 @@ export class RegisterComponent {
       telefono: this.form.telefono,
       direccion: this.form.direccion
     }).subscribe({
-      next: nuevo => {
-        localStorage.setItem('user', nuevo.username);
-        localStorage.setItem('role', 'cliente');
-        localStorage.setItem('clienteId', String(nuevo.id));
-
-        this.authService.fetchCarritoId(nuevo.id).subscribe(carritoId => {
-          if (carritoId != null) {
-            localStorage.setItem('carritoId', String(carritoId));
-            this.carritoService.cargarDesdeBackend();
-          }
-          this.router.navigateByUrl(this.returnUrl || '/perfil');
+      next: () => {
+        this.authService.login(this.form.username, this.form.password).subscribe({
+          next: ({ token, username, role, clienteId, carritoId }) => {
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', username);
+            localStorage.setItem('role', role);
+            if (clienteId != null) localStorage.setItem('clienteId', String(clienteId));
+            if (carritoId != null) {
+              localStorage.setItem('carritoId', String(carritoId));
+              this.carritoService.cargarDesdeBackend();
+            }
+            this.router.navigateByUrl(this.returnUrl || '/perfil');
+          },
+          error: () => this.router.navigateByUrl(this.returnUrl || '/login')
         });
       },
       error: err => {

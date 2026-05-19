@@ -20,7 +20,11 @@ export class AppComponent implements OnInit {
       this.authService.verify(username, role).subscribe(exists => {
         if (!exists) {
           localStorage.clear();
-          this.router.navigate(['/']);
+          const path = this.router.url.split('?')[0];
+          const authPaths = ['/login', '/register', '/recuperar', '/reset-password'];
+          if (!authPaths.includes(path)) {
+            this.router.navigate(['/']);
+          }
         }
       });
     }

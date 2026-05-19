@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
+        if (error.status === 401 && !req.url.includes('/auth/login')) {
           ['token', 'user', 'role', 'clienteId', 'carritoId'].forEach(k =>
             localStorage.removeItem(k)
           );
